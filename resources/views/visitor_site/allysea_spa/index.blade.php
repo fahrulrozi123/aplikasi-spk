@@ -1,0 +1,391 @@
+@extends('templates/visitor_template')
+@section('content')
+
+<script>
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka) {
+        var number_string = angka.replace(/[^0-9]*/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return rupiah;
+    }
+</script>
+
+{{-- image slide header --}}
+<div class="row ipad-slideimg">
+    <div class="slider-custom" id="slider1">
+        <!-- Slides -->
+        <div style="background-image:url('/images/spa/massage-spa-lg.jpg'); opacity:0.5;"></div>
+        <div style="background-image:url('/images/spa/spa-room.jpg'); opacity:0.5;"></div>
+        <!-- The Arrows -->
+        <i class="left" class="arrows" style="z-index:2; position:absolute;">
+            <svg viewBox="0 0 100 100">
+                <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z"></path>
+            </svg>
+        </i>
+        <i class="right" class="arrows" style="z-index:2; position:absolute;">
+            <svg viewBox="0 0 100 100">
+                <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z"
+                    transform="translate(100, 100) rotate(180) ">
+                </path>
+            </svg>
+        </i>
+    </div>
+</div>
+
+{{-- container description --}}
+<div class="row bg-secondary">
+    <div class="container">
+        <br>
+        <center>
+            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR
+                <span class="gold">THERAPY, SAUNA & VOLCANIC</span> BATH</p>
+        </center>
+        <center>
+            <p class="description-mw-dark">
+                Receive nature best medicine with Mount Ciremai Volcanic Sulfur Bath<br>
+                known as Hydrotherapy.
+            </p>
+        </center>
+    </div>
+</div>
+
+{{-- item album gallery --}}
+<div class="row">
+    <div class="container">
+        <br><br>
+        <div class="gallery-env">
+            <div class="">
+                {{-- PUT DATA IN HIDDEN FOR TRANSFER TO JS --}}
+                <input id="spas" type="hidden" value='@json($spas)'>
+                <?php $no = 0; $row = 0;?>
+                @foreach($spas as $spa)<?php $no++; $row++;?>
+                @if($row == 1)
+                <div class="row">
+                @endif
+                <div class="col-sm-6 col-md-4">
+                    <article class="album">
+                        <header>
+                            <?php $i = 0;$total = count($spa['photos']);?>
+                            @foreach($spa['photos'] as $photo)<?php $i++;?>
+                            <div class="mySlides1 id_{{$no}}">
+                                <div class="numbertext">{{$i}} / {{$total}}</div>
+                                <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
+                                    style="height:270px;">
+                            </div>
+                            @endforeach
+                            <div class="bbaris-rec">
+                                @php $i = 0; $total = count($spa['photos']);
+                                if($total == 1)
+                                {
+                                $class = "hidden";
+                                }else{
+                                $class="";
+                                }@endphp
+                                @foreach($spa['photos'] as $photo)@php $i++;@endphp
+                                @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
+                                    <img class="demo1 id_{{$no}}"
+                                        src="{{asset('/user/'.$spa['photos'][$i-1]->product_photo_path)}}"
+                                        style="width:100%!important; height:45px!important;"
+                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Allysea a Spa">
+                                    @if($i == 3)
+                                    <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
+                                        style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
+                                            See All</b></a>
+                                    <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
+                                        style="width:100%; margin-top:-45px;">
+                                    @endif
+                            </div>
+                            @endif
+                            @endforeach
+                </div>
+                </header>
+                <section class="album-info shadow" style="height: 19rem;">
+                    <h4><b class="line-clamp-1"> {{ $spa->product_name }}</b></h4>
+                    @if(strlen($spa->product_detail) > 100)
+                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
+                            {{substr($spa->product_detail, 0, 100)."..."}}
+                    </h5>
+                        <a href="/visitor/details?from=allysea_spa&key={{$spa->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                    @else
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$spa->product_detail}}</h5>
+                    @endif
+
+                    @if($spa->sales_inquiry == "0")
+                    <p class="price">
+                        <script>
+                            document.write("Rp " + formatRupiah("{{$spa->product_price}}"));
+                        </script><span class="pax"> / Pax</span>
+                    </p>
+                    <br>
+                    <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-horison-gold" style="font-weight:bold;" value="Book Now" />
+                    </form>
+                    @else
+                    <br><br><br><br>
+                    <a href="/visitor/inquiry?from=spa" class="btn btn-horison-gold"><b>Reserve Now</b></a>
+                    @endif
+                </section>
+                </article>
+            </div>
+            @if($row == 3 || $no == count($spas))
+            </div>
+            @php
+                $row = 0;
+            @endphp
+            @endif
+            @endforeach
+        </div>
+    </div>
+</div>
+</div>
+@include('visitor_site.modal_product')
+
+{{-- script untuk image slide header --}}
+<script>
+    (function ($) {
+        "use strict";
+        $.fn.sliderResponsive = function (settings) {
+
+            var set = $.extend({
+                slidePause: 5000,
+                fadeSpeed: 800,
+                autoPlay: "on",
+                showArrows: "off",
+                hideDots: "off",
+                hoverZoom: "on",
+                titleBarTop: "off"
+            },
+                settings
+            );
+
+            var $slider = $(this);
+            var size = $slider.find("> div").length; //number of slides
+            var position = 0; // current position of carousal
+            var sliderIntervalID; // used to clear autoplay
+
+            // Add a Dot for each slide
+            $slider.append("<ul></ul>");
+            $slider.find("> div").each(function () {
+                $slider.find("> ul").append('<li></li>');
+            });
+
+            // Put .show on the first Slide
+            $slider.find("div:first-of-type").addClass("show");
+
+            // Put .showLi on the first dot
+            $slider.find("li:first-of-type").addClass("showli")
+
+            //fadeout all items except .show
+            $slider.find("> div").not(".show").fadeOut();
+
+            // If Autoplay is set to 'on' than start it
+            if (set.autoPlay === "on") {
+                startSlider();
+            }
+
+            // If showarrows is set to 'on' then don't hide them
+            if (set.showArrows === "on") {
+                $slider.addClass('showArrows');
+            }
+
+            // If hideDots is set to 'on' then hide them
+            if (set.hideDots === "on") {
+                $slider.addClass('hideDots');
+            }
+
+            // If hoverZoom is set to 'off' then stop it
+            if (set.hoverZoom === "off") {
+                $slider.addClass('hoverZoomOff');
+            }
+
+            // If titleBarTop is set to 'on' then move it up
+            if (set.titleBarTop === "on") {
+                $slider.addClass('titleBarTop');
+            }
+
+            // function to start auto play
+            function startSlider() {
+                sliderIntervalID = setInterval(function () {
+                    nextSlide();
+                }, set.slidePause);
+            }
+
+            // on mouseover stop the autoplay
+            $slider.mouseover(function () {
+                if (set.autoPlay === "on") {
+                    clearInterval(sliderIntervalID);
+                }
+            });
+
+            // on mouseout starts the autoplay
+            $slider.mouseout(function () {
+                if (set.autoPlay === "on") {
+                    startSlider();
+                }
+            });
+
+            //on right arrow click
+            $slider.find("> .right").click(nextSlide)
+
+            //on left arrow click
+            $slider.find("> .left").click(prevSlide);
+
+            // Go to next slide
+            function nextSlide() {
+                position = $slider.find(".show").index() + 1;
+                if (position > size - 1) position = 0;
+                changeCarousel(position);
+            }
+
+            // Go to previous slide
+            function prevSlide() {
+                position = $slider.find(".show").index() - 1;
+                if (position < 0) position = size - 1;
+                changeCarousel(position);
+            }
+
+            //when user clicks slider button
+            $slider.find(" > ul > li").click(function () {
+                position = $(this).index();
+                changeCarousel($(this).index());
+            });
+
+            //this changes the image and button selection
+            function changeCarousel() {
+                $slider.find(".show").removeClass("show").fadeOut();
+                $slider
+                    .find("> div")
+                    .eq(position)
+                    .fadeIn(set.fadeSpeed)
+                    .addClass("show");
+                // The Dots
+                $slider.find("> ul").find(".showli").removeClass("showli");
+                $slider.find("> ul > li").eq(position).addClass("showli");
+            }
+
+            return $slider;
+        };
+    })(jQuery);
+
+    //////////////////////////////////////////////
+    // Activate each slider - change options
+    //////////////////////////////////////////////
+    $(document).ready(function () {
+
+        $("#slider1").sliderResponsive({
+            // Using default everything
+            // slidePause: 5000,
+            // fadeSpeed: 800,
+            // autoPlay: "on",
+            // showArrows: "off",
+            // hideDots: "off",
+            // hoverZoom: "on",
+            // titleBarTop: "off"
+        });
+
+        $("#slider2").sliderResponsive({
+            fadeSpeed: 300,
+            autoPlay: "off",
+            showArrows: "on",
+            hideDots: "on"
+        });
+
+        $("#slider3").sliderResponsive({
+            hoverZoom: "off",
+            hideDots: "on"
+        });
+
+    });
+
+</script>
+
+
+{{-- script untuk image slide album --}}
+<script>
+    var slideIndex = 1;
+    var spas = JSON.parse($('#spas').val());
+
+    for (let n = 1; n <= spas.length; n++) {
+        if (spas[n - 1]['photos'].length > 0) {
+            showSlides(n, 1);
+        }
+    }
+
+    function currentSlide(id, n) {
+        showSlides(id, slideIndex = n);
+    }
+
+    function showSlides(id, n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides1 id_" + String(id));
+        var dots = document.getElementsByClassName("demo1 id_" + String(id));
+
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+
+    }
+
+    var slideIndex3 = 1;
+    var path = "{{asset('/user/')}}";
+    var first = true;
+    function seeAll(id) {
+        var spa = spas[id - 1];
+        var slider_for = "";
+        var slider_nav = "";
+
+        $('#modal_title').text(spa.product_name);
+
+
+        spa['photos'].forEach(function (data, index) {
+            index++;
+            slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
+            slider_nav += '<div class="sub-seeall">'+
+                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
+                              '</div>';
+
+
+        });
+
+        $('#seeAllModal').modal('show');
+
+        $('.slider-for').empty();
+        $('.slider-nav').empty();
+
+        $('.slider-for').append(slider_for);
+        $('.slider-nav').append(slider_nav);
+        if(first){
+            first = false;
+        }else{
+            $('.slider-for').slick('unslick');
+            $('.slider-nav').slick('unslick');
+        }
+        do_slider();
+
+    }
+
+</script>
+
+
+@endsection

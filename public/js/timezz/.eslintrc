@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "linebreak-style": 0
+  },
+  "globals": {
+    "window": true,
+    "document": true
+  }
+}

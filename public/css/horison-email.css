@@ -1,0 +1,94 @@
+.horison-dark {
+    color: #333333;
+}
+.title {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    color: #333333;
+    font-weight: bold;
+}
+.title-2 {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    color: #333333;
+    font-weight: bold;
+}
+.fz-13 {
+    font-size: 13px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.ml-20 {
+    margin-left: 20px;
+}
+.mr-20 {
+    margin-right: 20px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.mt-35 {
+    margin-top: 35px;
+}
+.mb-12 {
+    margin-bottom: 12px;
+}
+.mb-15 {
+    margin-bottom: 15px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.box-payment-details {
+    border: solid 1px #BFBFBF;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+/* Garis patah-patah */
+.hr-email {
+    border-top: 1px dashed #373E4A !important;
+}
+.hr-email-solid {
+    border-top: 2px solid #BFBFBF;
+}
+
+/* Garis warna Gold */
+.hr-gold {
+    border-top: 5px solid #D4B580;
+}
+
+/* Header atas */
+.header-gold {
+    line-height: unset;
+    background-color: #D4B580;
+    padding: 10px;
+    color: #333333;
+}
+
+/* Warna font dark-visitor */
+.dark-v {
+    color: #333333;
+    line-height: normal;
+}
+
+.f-13 {
+    font-size: 13px;
+}
+
+.custom-email {
+    border-top: 1px solid #C1C1C1 !important;
+    margin-top: 0px;
+    margin-bottom: 7px;
+}
+
+.box-price {
+    border: 2px solid #D4B580;
+    margin: 15px;
+    padding: 20px;
+}
