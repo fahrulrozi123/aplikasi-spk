@@ -196,6 +196,30 @@
 
 				</a>
             </li>
+
+            <li>
+				<a  href="#">
+                    <i class="fa fa-fw fas fa-cog"></i>
+                    <span class="title">Setting</span>
+
+				</a>
+				<ul>
+					<li>
+						<a href="/main_page/setting">
+                            <i class="fa fa-fw fas fa-cog"></i>
+                            <span class="title">Setting</span>
+						</a>
+                    </li>
+                    <li>
+						<a href="/main_page/page_setting">
+                            <i class="fa fa-fw fa-file"></i>
+                            <span class="title">Page Setting</span>
+						</a>
+                    </li>
+                </ul>
+            </li>
+
+
             <li>
 				<a href="/main_page/setting">
                     <i class="fa fa-fw fas fa-cog"></i>

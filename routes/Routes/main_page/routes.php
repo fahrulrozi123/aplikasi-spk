@@ -81,5 +81,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::post('/', ['as' => 'setting.store', 'uses' => 'Admin\SettingController@store']);
     });
 
+    //Page Setting
+    Route::group(['prefix' => 'main_page/page_setting'], function() {
+        Route::get('/', ['as' => 'page_setting.index', 'uses' => 'Admin\PageSettingController@index']);
+        Route::post('/', ['as' => 'page_setting.store', 'uses' => 'Admin\PageSettingController@store']);
+    });
+
 
 });
