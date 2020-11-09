@@ -9,14 +9,14 @@
     @endphp
 @endif
 
-    <ol class="breadcrumb bc-3">
+    {{-- <ol class="breadcrumb bc-3">
         <li>
             <a href="/main_page/setting">Setting</a>
         </li>
         <li class="active">
             <strong>Setting</strong>
         </li>
-    </ol>
+    </ol> --}}
 
     <form enctype="multipart/form-data" method="POST" action="{{route('setting.store')}}">
         <input type="hidden" name="id" value="{{$id}}">
@@ -49,7 +49,7 @@
 
                                     <div class="container">
                                         <label for="logo" class="col-sm-2 control-label">Logo Company<br><small class="text-muted"></small></label>
-                                        <div class="col-sm-5" style="margin-top:20px;">
+                                        <div class="col-sm-5">
                                             <h6><i>Choose a picture from your computer</i></h6>
                                             <div class="fileinput fileinput-new" data-provides="fileinput"><input type="hidden">
                                                 <div class="fileinput-new shadow img-responsive" data-trigger="fileinput" style="cursor:pointer; max-width: 350px;">

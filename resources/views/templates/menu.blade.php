@@ -220,12 +220,12 @@
             </li>
 
 
-            <li>
+            {{-- <li>
 				<a href="/main_page/setting">
                     <i class="fa fa-fw fas fa-cog"></i>
                     <span class="title">Setting</span>
 				</a>
-			</li>
+			</li> --}}
 			@endif
 			{{-- </div> --}}
 			{{-- LOGOUT --}}

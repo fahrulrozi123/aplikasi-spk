@@ -11,4 +11,9 @@ class PageSetting extends Model
     protected $fillable = [
         'page_name', 'page_description', 'page_code'
     ];
+
+    public function photo()
+    {
+        return $this->hasMany('App\Models\Setting\PagePhoto', 'page_id', 'id');
+    }
 }
