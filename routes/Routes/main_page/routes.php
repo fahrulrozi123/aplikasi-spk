@@ -84,6 +84,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     //Page Setting
     Route::group(['prefix' => 'main_page/page_setting'], function() {
         Route::get('/', ['as' => 'page_setting.index', 'uses' => 'Admin\PageSettingController@index']);
+        Route::get('/edit/{id}', ['as' => 'page_setting.edit', 'uses' => 'Admin\PageSettingController@edit']);
         Route::post('/', ['as' => 'page_setting.store', 'uses' => 'Admin\PageSettingController@store']);
     });
 
