@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use File;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-// use App\Models\Setting\PagePhoto;
 use App\Models\Setting\Setting;
+use App\Models\Setting\PagePhoto;
 use App\Models\Setting\PageSetting;
 use App\Http\Controllers\Controller;
 
@@ -27,22 +29,16 @@ class PageSettingController extends Controller
     public function edit($id)
     {
         $setting = Setting::first();
-        $pagesetting = PageSetting::findOrFail($id);
+        $pagesetting = PageSetting::where('id', $id)->with('photo')->first();
 
         return view('main_page.page_setting.edit', get_defined_vars());
     }
 
     public function store(Request $request)
     {
-        // dd($request['id']);
-        // dd($request->all());
-        // $setting = Setting::first();
+        dd($request->all());
         $id = $request['id'];
-        // $id = Crypt::decryptString($requestid);
-        // $pagesetting = PageSetting::where('id', $id)->first();
-
-        // $user = PageSetting::findOrFail($id);
-
+        $temp_photo = PagePhoto::where('page_id', $id)->get();
 
         $this->validate($request, [
             'page_name' => 'required',
@@ -55,17 +51,56 @@ class PageSettingController extends Controller
         ]);
 
         //UPLOAD FOTO
-        // if($request->file('img')){
-        //     // File::delete($this->path . '/'. $setting->logo);
-        //     $file = $request->file('img');
-        //     //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
-        //     $this->fileName = 'logo' . '.' . $file->getClientOriginalExtension();
-        //     //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
-        //     $file->move($this->path,$this->fileName);
-        //     Setting::where('id', $id)->update([
-        //         'logo'            => $this->fileName
-        //     ]);
+        // if ($request->file('img')) {
+        //     $data = array();
+        //     $temp = array();
+        //     foreach ($request->file('img') as $file) {
+        //         //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+        //         $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        //         //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+        //         if ($file->move($this->path, $this->fileName)) {
+        //             $temp = array('page_id' => $id, 'photo_path' => $this->fileName);
+        //             array_push($data, $temp);
+        //         }
+        //     }
+        //     PagePhoto::insert($data);
         // }
+
+        if ($request['oldImg']) {
+            foreach ($temp_photo as $img) {
+                $check = false;
+                foreach ($request['oldImg'] as $oldImg) {
+                    if ($oldImg == $img->photo_path) {
+                        $check = true;
+                        break;
+                    }
+                }
+                if (!$check) {
+                    if (file_exists($this->path . '/' . $img->photo_path)) {
+                        File::delete($this->path . '/' . $img->photo_path);
+                    }
+                }
+            }
+        }
+
+        if ($request['oldImg']) {
+            $data = array();
+            $temp = array();
+            $no = 0;
+            foreach ($request['oldImg'] as $img) {
+                if ($img == "new") {
+                    $file = $request->file('img')[$no];
+                    $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                    $file->move($this->path, $this->fileName);
+                    $no++;
+                } else {
+                    $this->fileName = $img;
+                }
+                $temp = array('page_id' => $id, 'photo_path' => $this->fileName);
+                array_push($data, $temp);
+            }
+            PagePhoto::insert($data);
+        }
 
         PageSetting::where('id', $id)->update([
             'page_name'        => $request['page_name'],

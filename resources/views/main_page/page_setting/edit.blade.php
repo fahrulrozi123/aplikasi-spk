@@ -37,30 +37,28 @@
                         </div><br>
                         <div class="container">
                             <label for="logo" class="col-sm-2 control-label">Image<br><small class="text-muted"></small></label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-10">
                                 <h6><i>Choose a picture from your computer</i></h6>
-                                <div class="fileinput fileinput-new" data-provides="fileinput"><input type="hidden">
-                                    <div class="fileinput-new shadow img-responsive" data-trigger="fileinput" style="cursor:pointer; max-width: 350px;">
-                                        {{-- @if($logo != null)
-                                            <img src="{{asset('/images/logo/'.$logo)}}" alt="{{ $pagesetting->page_name }}">
-                                        @else
-                                            <img src="{{asset('images/dashboard/insert-here.png')}}" alt="Insert Here">
-                                        @endif --}}
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists img-responsive shadow" style="max-width: 350px;"></div>
-                                    <div class="text-center" style="margin-top:20px;">
-                                        <span class="btn btn-horison-gold btn-file shadow">
-                                            <span class="fileinput-new">
-                                                <i class="glyphicon glyphicon-circle-arrow-up"></i> Browse Files</span>
-                                            <span class="fileinput-exists">Change</span>
-                                            <input type="file" id="img" name="img" accept="image/*" class="validateImage" onchange="fileValidation();">
-                                        </span>
-                                        <a href="#" class="btn btn-orange fileinput-exists shadow" data-dismiss="fileinput">Remove</a>
-                                    </div>
+                                <p class="mt">Upload room photos, the first uploaded photos will be treated as <strong>Main Photos</strong></p>
+                                <fieldset class="form-group">
+                                    <a class="btn btn-horison-gold shadow" href="javascript:void(0)" onclick="$('#pro-image').click()">
+                                    <i class="glyphicon glyphicon-circle-arrow-up"></i> Browse Image</a>
+                                    <input type="file" id="pro-image" name="img[]" style="display: none;" class="form-control validateImage" accept="image/*" onchange="fileValidation();" multiple>
+                                </fieldset>
+                                <div class="preview-images-zone">
+                                    @if(isset($pagesetting))
+                                        @php $n = 0; @endphp
+                                            @foreach($pagesetting['photo'] as $data_photo)@php $n++; @endphp
+                                                <div class="preview-image preview-show-{{$n}}">
+                                                    <input type="hidden" style="width:auto" name="oldImg[]" value="{{$data_photo->photo_path}}">
+                                                    <div class="image-cancel" data-no="{{$n}}">x</div>
+                                                    <div class="image-zone">
+                                                        <img id="pro-img-{{$n}}" src="{{asset('/user/'.$data_photo->photo_path)}}">
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                    @endif
                                 </div>
-                                @error('img')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div><br>
                     </div>
@@ -76,4 +74,66 @@
             </div>
         </div>
     </form>
+
+    <script>
+        $(document).ready(function () {
+
+            document.getElementById('pro-image').addEventListener('change', readImage, false);
+
+            $(".preview-images-zone").sortable();
+
+            $(document).on('click', '.image-cancel', function () {
+                let no = $(this).data('no');
+                $(".preview-image.preview-show-" + no).remove();
+            });
+        });
+
+        @if(isset($pagesetting['photo']))
+            var num = {{ count($pagesetting['photo']) }} + 1;
+            var start = {{ count($pagesetting['photo']) }} + 1;
+        @else
+            var num = 0;
+            var start = 0;
+        @endif
+
+        function delete_image() {
+            for (let i = start; i < num; i++) {
+                $(".preview-image.preview-show-" + i).remove();
+            }
+        }
+
+        function readImage() {
+        if (window.File && window.FileList && window.FileReader) {
+            delete_image();
+            var files = event.target.files; //FileList object
+
+            var output = $(".preview-images-zone");
+
+            for (let i = 0; i < files.length; i++) {
+                var file = files[i];
+
+                if (!file.type.match('image')) continue;
+
+                var picReader = new FileReader();
+
+                picReader.addEventListener('load', function (event) {
+                    var picFile = event.target;
+                    var html = '<div class="preview-image preview-show-' + num + '">' +
+                        '<input type="hidden" name="oldImg[]" value="new">' +
+                        '<div class="image-cancel" data-no="' + num + '">x</div>' +
+                        '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result +
+                        '"></div>' +
+                        '</div>';
+                    output.append(html);
+                    num = num + 1;
+                });
+
+                picReader.readAsDataURL(file);
+            }
+        } else {
+            console.log('Browser not support');
+        }
+    }
+
+    </script>
 @endsection
