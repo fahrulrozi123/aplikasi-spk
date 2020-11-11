@@ -36,9 +36,9 @@ class PageSettingController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
         $id = $request['id'];
         $temp_photo = PagePhoto::where('page_id', $id)->get();
+        PagePhoto::where('page_id', $id)->forceDelete();
 
         $this->validate($request, [
             'page_name' => 'required',
@@ -49,22 +49,6 @@ class PageSettingController extends Controller
             'page_description.required'  => 'Page Description field is required.',
             // 'so_instagram.required'  => 'Instagram Address field is required.'
         ]);
-
-        //UPLOAD FOTO
-        // if ($request->file('img')) {
-        //     $data = array();
-        //     $temp = array();
-        //     foreach ($request->file('img') as $file) {
-        //         //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
-        //         $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-        //         //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
-        //         if ($file->move($this->path, $this->fileName)) {
-        //             $temp = array('page_id' => $id, 'photo_path' => $this->fileName);
-        //             array_push($data, $temp);
-        //         }
-        //     }
-        //     PagePhoto::insert($data);
-        // }
 
         if ($request['oldImg']) {
             foreach ($temp_photo as $img) {
