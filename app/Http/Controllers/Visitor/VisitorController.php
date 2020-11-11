@@ -21,6 +21,7 @@ use App\Models\Visitor\Banner;
 use App\Models\Visitor\News;
 use App\Models\Admin\User;
 use App\Models\Setting\Setting;
+use App\Models\Setting\PageSetting;
 
 use Carbon\Carbon;
 use DB;
@@ -80,6 +81,14 @@ class VisitorController extends Controller
         foreach ($newss as $key => $value) {
             $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
         }
+
+        $spas = PageSetting::where('page_code', "Spa")->with('photo')->get();
+        $functionrooms = PageSetting::where('page_code', "Function")->with('photo')->get();
+        $mices = PageSetting::where('page_code', "Mice")->with('photo')->get();
+        $recreations = PageSetting::where('page_code', "Recreation")->with('photo')->get();
+
+        // dd($spas);
+
         return view('visitor_site.landing_page.index', get_defined_vars());
     }
 

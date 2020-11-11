@@ -53,46 +53,52 @@
 
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 align-landing">
                 {{-- atas --}}
-                <a>
-                    <img src="{{asset('/images/landing-page/massage-spa-sm.jpg')}}" class="news-second shadow" />
-                </a>
-                <p class="description-lp-white-2">
-                    Relax your body and soul after a long day activity with traditional
-                    massage handled by our professional masseur, sauna and volcanic bath
-                </p>
-                <a href="visitor/allysea_spa" class="btn btn-horison-visitor"><b>Explore Allysea A Spa</b></a>
-                <br><br><br>
+                @foreach ($spas as $spa)
+                    @foreach($spa->photo->take(1) as $photo)
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $spa->page_name }}" /></a>
+                    @endforeach
+                    <p class="description-lp-white-2">
+                        {{ $spa->page_description }}
+                    </p>
+                    <a href="visitor/allysea_spa" class="btn btn-horison-visitor"><b>Explore {{ $spa->page_name }}</b></a>
+                    <br><br><br>
+                @endforeach
+
                 {{-- bawah --}}
-                <a>
-                    <img src="{{asset('/images/landing-page/meet-room-sm.jpg')}}" class="news-second shadow" />
-                </a>
-                <p class="description-lp-white-2">
-                    9 Elegant Minimalist Meetings Rooms that ideal for your ideas. Conference,
-                    seminar, exhibiiton and other activities fully equip to accomodate your needs.
-                </p>
-                <a href="visitor/function_room" class="btn btn-horison-visitor"><b>Explore Function Room</b></a>
+                @foreach ($functionrooms as $functionroom)
+                    @foreach($functionroom->photo->take(1) as $photo)
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $functionroom->page_name }}" /></a>
+                    @endforeach
+                    <p class="description-lp-white-2">
+                        {{ $functionroom->page_description }}
+                    </p>
+                    <a href="visitor/function_room" class="btn btn-horison-visitor"><b>Explore {{ $functionroom->page_name }}</b></a>
+                @endforeach
             </div>
 
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 align-landing" style="margin-top:35px;">
                 {{-- atas --}}
-                <a>
-                    <img src="{{asset('/images/landing-page/wedding-ring-sm.jpg')}}" class="news-second shadow" />
-                </a>
-                <p class="description-lp-white-3">
-                    Take it slow or take it fast with your soulmate.
-                    Focus on your happiness and let us handle the rest.
-                </p>
-                <a href="visitor/mice_wedding" class="btn btn-horison-visitor"><b>Explore MICE & Wedding</b></a>
-                <br><br><br>
+                @foreach ($mices as $mice)
+                    @foreach($mice->photo->take(1) as $photo)
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $mice->page_name }}" /></a>
+                    @endforeach
+                    <p class="description-lp-white-3">
+                        {{ $mice->page_description }}
+                    </p>
+                    <a href="visitor/mice_wedding" class="btn btn-horison-visitor"><b>Explore {{ $mice->page_name }}</b></a>
+                    <br><br><br>
+                @endforeach
+
                 {{-- bawah --}}
-                <a>
-                    <img src="{{asset('/images/landing-page/team-build-sm.jpg')}}" class="news-second shadow" />
-                </a>
-                <p class="description-lp-white-3">
-                    Outdoor activites to achieve a better means of Team Building,
-                    contribute yourself in a long run, as and individual and as a Team.
-                </p>
-                <a href="visitor/recreation" class="btn btn-horison-visitor"><b>Explore Recreational</b></a>
+                @foreach ($recreations as $recreation)
+                    @foreach($recreation->photo->take(1) as $photo)
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $recreation->page_name }}" /></a>
+                    @endforeach
+                    <p class="description-lp-white-3">
+                        {{ $recreation->page_description }}
+                    </p>
+                    <a href="visitor/recreation" class="btn btn-horison-visitor"><b>Explore {{ $recreation->page_name }}</b></a>
+                @endforeach
             </div>
         </div>
     </div>
