@@ -87,8 +87,6 @@ class VisitorController extends Controller
         $mices = PageSetting::where('page_code', "Mice")->with('photo')->get();
         $recreations = PageSetting::where('page_code', "Recreation")->with('photo')->get();
 
-        // dd($spas);
-
         return view('visitor_site.landing_page.index', get_defined_vars());
     }
 
@@ -103,6 +101,8 @@ class VisitorController extends Controller
 
         $setting = $this->setting();
         $rooms = Type::orderBy('id', 'DESC')->with('amenities')->with('photo')->get();
+        $pagesettings = PageSetting::where('page_code', "Room")->with('photo')->get();
+
         return view('visitor_site.rooms.index', get_defined_vars());
     }
 
@@ -915,6 +915,8 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $recreations = Product::where('category', '1')->orderBy('id', 'DESC')->with('photos')->get();
+        $pagesettings = PageSetting::where('page_code', "Recreation")->with('photo')->get();
+
         return view('visitor_site.recreation.index', get_defined_vars());
     }
 
@@ -923,6 +925,8 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $spas = Product::where('category', '2')->orderBy('id', 'DESC')->with('photos')->get();
+        $pagesettings = PageSetting::where('page_code', "Spa")->with('photo')->get();
+
         return view('visitor_site.allysea_spa.index', get_defined_vars());
 
     }
@@ -932,6 +936,8 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $mices = Product::where('category', '3')->orWhere('category', '4')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
+        $pagesettings = PageSetting::where('page_code', "Mice")->with('photo')->get();
+
         return view('visitor_site.mice_wedding.index', get_defined_vars());
     }
 
@@ -948,8 +954,7 @@ class VisitorController extends Controller
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('func_name')->get();
         $mices = Product::where('category', '3')->orWhere('category', '4')->orderBy('category')->orderBy('category', 'DESC')->with('photos')->get();
-
-        // dd($function_rooms);
+        $pagesettings = PageSetting::where('page_code', "Function")->with('photo')->get();
         return view('visitor_site.function_room.index', get_defined_vars());
     }
 
@@ -1033,6 +1038,8 @@ class VisitorController extends Controller
         foreach ($newss as $key => $value) {
             $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
         }
+        $pagesettings = PageSetting::where('page_code', "Newsletter")->with('photo')->get();
+
         return view('visitor_site.newsletter.index', get_defined_vars());
 
     }

@@ -23,9 +23,11 @@
 <div class="row ipad-slideimg">
     <div class="slider-custom" id="slider1">
         <!-- Slides -->
-        <div style="background-image:url('/images/mice-wedding/wedding-ring-lg.jpg'); opacity:0.5;"></div>
-        <div style="background-image:url('/images/mice-wedding/wedding-outdoor.jpg'); opacity:0.5;"></div>
-        <div style="background-image:url('/images/mice-wedding/wedding-celebration.jpg'); opacity:0.5;"></div>
+        @foreach ($pagesettings as $pagesetting)
+            @foreach($pagesetting->photo->take(2) as $photo)
+                <div style="background-image:url('{{ asset('/user/'.$photo->photo_path) }}'); opacity:0.5;"></div>
+            @endforeach
+        @endforeach
         <!-- The Arrows -->
         <i class="left" class="arrows" style="z-index:2; position:absolute;">
             <svg viewBox="0 0 100 100">

@@ -12,7 +12,11 @@
             </p>
         </div>
         <div class="col-md-8">
-            <img class="" src="{{asset('/images/newsletter/tirta-sanita-view.png')}}" style="width:100%;" />
+            @foreach ($pagesettings as $pagesetting)
+                @foreach($pagesetting->photo->take(1) as $photo)
+                    <img class="" src="{{ asset('/user/'.$photo->photo_path) }}" style="width:100%;" alt="{{ $pagesetting->page_name }}" />
+                @endforeach
+            @endforeach
         </div>
     </div>
 </div>

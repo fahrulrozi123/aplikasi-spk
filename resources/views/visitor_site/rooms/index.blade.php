@@ -43,10 +43,12 @@
             <button class="btnssl" onclick="plusDivs(-1)">❮ </button>
             <button class="btnssr" onclick="plusDivs(1)"> ❯</button>
             <ul>
-                <li><img src="{{asset('/images/rooms/hotel-rooms.jpg')}}" alt="Hotel Rooms" /></li>
-                <li><img src="{{asset('/images/rooms/business-accomodations.jpg')}}" alt="Business Accomodations" /></li>
-                <li><img src="{{asset('/images/rooms/hotel-rooms.jpg')}}" alt="Hotel Rooms" /></li>
-                <li><img src="{{asset('/images/rooms/business-accomodations.jpg')}}" alt="BusinessA ccomodations" /></li>
+                @foreach ($pagesettings as $pagesetting)
+                    @foreach($pagesetting->photo->take(2) as $photo)
+                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" /></li>
+                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" /></li>
+                    @endforeach
+                @endforeach
             </ul>
         </div>
     </div>
