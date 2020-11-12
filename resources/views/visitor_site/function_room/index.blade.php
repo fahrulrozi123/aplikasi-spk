@@ -33,31 +33,26 @@
     </div>
 
     <div class="col-md-6">
-        <div class="mySlides2 id_1">
-            <div class="numbertext">1 / 3</div>
-            <img src="{{asset('/images/function-room/meet-room-lg.jpg')}}" class="uwaw2 height-fr">
-        </div>
-
-        <div class="mySlides2 id_1">
-            <div class="numbertext">2 / 3</div>
-            <img src="{{asset('/images/function-room/meeting-room.jpg')}}" class="uwaw2 height-fr">
-        </div>
-
-        <div class="mySlides2 id_1">
-            <div class="numbertext">3 / 3</div>
-            <img src="{{asset('/images/function-room/ball-room.jpeg')}}" class="uwaw2 height-fr">
-        </div>
-
+        <?php $no = 0;?>
+        @foreach($pagesettings as $pagesetting)<?php $no++ ;?>
+        <?php $i = 0;?>
+            @foreach($pagesetting->photo as $photo)<?php $i++;?>
+            <div class="mySlides2 id_{{$no}}">
+                <div class="numbertext">{{$i}} / 3</div>
+                <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" alt="{{ $pagesetting->page_name }}">
+            </div>
+            @endforeach
+        @endforeach
         <div class="bbaris3">
-            <div class="column">
-                <img class="demo2 cursor id_1 height2-fr" src="{{asset('/images/function-room/meet-room-lg.jpg')}}" style="width:100%" onclick="currentSlide2(1,1)" alt="Function Room">
-            </div>
-            <div class="column">
-                <img class="demo2 cursor id_1 height2-fr" src="{{asset('/images/function-room/meeting-room.jpg')}}" style="width:100%" onclick="currentSlide2(1,2)" alt="Function Room">
-            </div>
-            <div class="column">
-                <img class="demo2 cursor id_1 height2-fr" src="{{asset('/images/function-room/ball-room.jpeg')}}" style="width:100%" onclick="currentSlide2(1,3)" alt="Function Room">
-            </div>
+            <?php $no = 0;?>
+            @foreach($pagesettings as $pagesetting)<?php $no++ ;?>
+            <?php $i = 0;?>
+                @foreach($pagesetting->photo->take(3) as $photo)<?php $i++;?>
+                    <div class="column">
+                        <img class="demo2 cursor id_{{$no}} height2-fr" src="{{asset('/user/'.$photo->photo_path)}}" onclick="currentSlide2({{$no}}, {{$i}})" alt="{{ $photo->page_name }}">
+                    </div>
+                @endforeach
+            @endforeach
         </div>
     </div>
 </div>
