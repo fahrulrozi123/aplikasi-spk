@@ -5,6 +5,19 @@ namespace App\Http\Controllers\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Mail\ReservationEmail;
+use App\Mail\CustomerEmail;
+use App\Models\Inquiry\Inquiry;
+use App\Models\Payment\Payment;
+use App\Models\Product\Rsvp as ProductRsvp;
+use App\Models\Room\Rsvp as RoomRsvp;
+use App\Models\Setting\Setting;
+
+use Carbon\Carbon;
+use DB;
+use Illuminate\Support\Facades\Mail;
+use PDF;
+
 class NotificationController extends Controller
 {
     public function payment_check()

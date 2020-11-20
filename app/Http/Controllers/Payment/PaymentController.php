@@ -5,44 +5,19 @@ namespace App\Http\Controllers\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Mail\ReservationEmail;
-use App\Mail\CustomerEmail;
-use App\Models\Allotment\Allotment;
 use App\Models\Customer\Customer;
-
-// MODELS USED
-use App\Models\FunctionRoom\FunctionRoom;
 use App\Models\Inquiry\Inquiry;
-use App\Models\Inquiry\OtherRequest;
-use App\Models\Payment\Payment;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
-use App\Models\Visitor\Banner;
-use App\Models\Visitor\News;
-use App\Models\Admin\User;
 use App\Models\Setting\Setting;
-use App\Models\Setting\PageSetting;
 
 use Carbon\Carbon;
 use DB;
-// END MODELS USED
-
-use Illuminate\Support\Facades\Crypt;
-
-//validator
-use Illuminate\Support\Facades\Hash;
-//Input Sanitizer
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use PDF;
 use Session;
 use \Waavi\Sanitizer\Sanitizer;
-
-use App\Notifications\PushDemo;
-use Notification;
 
 class PaymentController extends Controller
 {
