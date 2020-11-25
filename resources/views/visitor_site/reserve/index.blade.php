@@ -427,7 +427,8 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <article class="album">
-                                                    <section class="album-info-inq shadow" style="border: 1px solid var(--primary-font-color);">
+                                                    <section class="album-info-inq shadow">
+
                                                         <div id="form_payment">
                                                             <form id="formReserve" class="panel minimal-custom minimal-gray"
                                                                 style="display: none" action="">
@@ -435,23 +436,67 @@
 
                                                                 <ul class="nav nav-tabs bordered">
                                                                     <!-- available classes "bordered", "right-aligned" -->
-                                                                    <li class="active">
-                                                                        <a href="#credit" data-toggle="tab" style="background-color:#333; border:1px solid #333;">
-                                                                            <span ><i
-                                                                                    class="fa fa-credit-card" style="color:#D4B580;"></i></span>
-                                                                            <span class="hidden-xs" style="color:#D4B580;">Credit Card</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li style="background-color: white">
-                                                                        <a href="#bank" data-toggle="tab">
+                                                                    <li>
+                                                                        <a href="#bank" data-toggle="tab" style="background-color: white">
                                                                             <span><i class="fa fa-archive"></i></span>
                                                                             <span class="hidden-xs">Bank Transfer</span>
                                                                         </a>
                                                                     </li>
+
+                                                                    <li>
+                                                                        <a href="#credit" data-toggle="tab" style="background-color: white">
+                                                                            <span><i class="fa fa-credit-card""></i></span>
+                                                                            <span class="hidden-xs"">Credit Card</span>
+                                                                        </a>
+                                                                    </li>
+
                                                                 </ul>
 
                                                                 <div class="tab-content credittab" >
-                                                                    <div class="tab-pane active tab-horison-credit" id="credit" >
+                                                                    <div class="tab-pane tab-horison-bank" id="bank">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        class="control-label"
+                                                                                        for="full_name"
+                                                                                        style="font-size:12px; font-weight:bold;">Choose Bank</label>
+                                                                                    <select name="" id="" class="form-control">
+                                                                                        <option value="Mandiri">Mandiri</option>
+                                                                                        <option value="BNI">BNI</option>
+                                                                                        <option value="BCA">BCA</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <ul class="form-group">
+                                                                                    <li>Confirm OTP to
+                                                                                        make Payment</li>
+                                                                                    <li>Complete
+                                                                                        payment within 30 minutes</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row pdrl-20">
+                                                                            <div class="col-md-6">
+                                                                                <p style="text-align:left;">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
+                                                                            </div>
+
+                                                                            <div class="col-md-6" align="right">
+                                                                                <ul class="pager wizard">
+                                                                                    <li class="next">
+                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                        </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="tab-pane tab-horison-credit" id="credit" >
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
@@ -530,70 +575,19 @@
                                                                             <div class="col-md-6" >
                                                                                 <p style="color:#D4B580">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
                                                                             </div>
-                                                                            <<div class="col-md-6" align="right">
-                                                                                <ul class="pager wizard">
-                                                                                    <li class="next">
-                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        </div>
-
-                                                                    </div>
-
-
-                                                                    <div class="tab-pane tab-horison-bank" id="bank">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Choose Bank</label>
-                                                                                    <select name="" id="" class="form-control">
-                                                                                        <option value="Mandiri">Mandiri</option>
-                                                                                        <option value="BNI">BNI</option>
-                                                                                        <option value="BCA">BCA</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <ul class="form-group">
-                                                                                    <li>Confirm OTP to
-                                                                                        make Payment</li>
-                                                                                    <li>Complete
-                                                                                        payment within 30 minutes</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row pdrl-20">
-                                                                            <div class="col-md-6">
-                                                                                <p style="text-align:left;">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
-                                                                            </div>
-
                                                                             <div class="col-md-6" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="next">
                                                                                         <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
+                                                                            </div>
                                                                         </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="panel-footer mtm-20">
-                                                                    <div class="row mt-0">
-                                                                        <p class="pl-30"> We’ll send your payment details to
-                                                                            customer@mail.com</p>
                                                                     </div>
                                                                 </div>
                                                             </form>
                                                         </div>
+
                                                     </section>
                                                 </article>
                                             </div>
@@ -960,12 +954,61 @@
                 </form>
             </div>
         </div>
+
+        <footer>
+            <div class="row footer-bg-color margin-footer">
+                <div class="container" style="height:185px;">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="tirtasanitaresort" style="margin-top:55px;" />
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
+                        <div class=row>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <p>
+                                        <a href="{{ $setting->so_instagram }}" class="fa fa-instagram visitor-footer-icon" target="_blank"></a>
+                                    </p>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <p>
+                                        <a href="{{ $setting->so_facebook }}" class="fa fa-facebook visitor-footer-icon" target="_blank"></a>
+                                    </p>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <p><a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon" target="_blank"></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer d-flex-column">
+                        <div class="d-flex f-align-end">
+                            <p style="font-weight: normal;">
+                                {{ $setting->address }}
+                            </p>
+                            <span style="margin-top:10px; margin-left: 10px; font-size:18px"><i
+                                    class="entypo-location"></i></span>
+                        </div>
+                        <div class="d-flex f-align-end">
+                            <p style="font-weight: normal;">
+                                {{ $setting->phone }}<br>
+                                {{ $setting->wa_number }}
+                            </p>
+                            <span style="margin-top:7px; margin-left: 10px; font-size:18px"><i
+                                    class="entypo-phone"></i></span>
+                        </div>
+                        <div class="d-flex f-align-end">
+                            <p style="font-weight: normal;">
+                                {{ $setting->email }}
+                            </p>
+                            <span style="margin-top:0px; margin-left: 10px; font-size:18px"><i
+                                    class="entypo-mail"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
     </div>
-
-
-
-
-
 
     <link rel="stylesheet" href="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
     <script src="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>

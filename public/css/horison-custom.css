@@ -3520,8 +3520,9 @@ margin-bottom: 0px;
 
 .tab-horison-credit{
     padding: 25px;
-    /* background-color: var(--secondary-font-color); */
+    background-color: var(--tertiary-font-color);
     margin: -10px -16px -10px -16px;
+    border: 1px solid #BDBDBD;
 }
 
 .tab-horison-bank{
