@@ -47,7 +47,7 @@
     <script src="{{ asset('js/numeral/numeral.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 
-    <!-- International Phone Mask -->
+     <!-- International Phone Mask -->
     <link rel="stylesheet" href="{{ asset('css/intl-phone/intlTelInput.css') }}">
     <script src="{{ asset('js/intl-phone/intlTelInput.js') }}"></script>
     <script src="{{ asset('js/timezz/dist/timezz.js') }}"></script>
@@ -117,9 +117,9 @@
                     {{-- END HEADER --}}
 
                     <div class="container" style="margin-top: 30px;">
-
                         <div class="tab-content mt-35">
                             <div class="tab-pane" id="tab2-1">
+
                                 <div class="col-md-8">
                                     <div class="gallery-env">
                                         <div class="row">
@@ -419,51 +419,35 @@
                                     {{-- end bills --}}
                                 </div>
                             </div>
-
-                            <div class="tab-pane" id="tab2-2">
+                            {{-- <div class="tab-pane" id="tab2-2"> --}}
+                            <div class="tab-pane">
                                 <div class="col-md-8">
                                     <!-- form reserve -->
                                     <div class="gallery-env">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <article class="album">
-                                                    <section class="album-info-inq shadow" style="border: 1px solid var(--primary-font-color);">
+                                                    <section class="album-info-inq shadow"
+                                                        style="border: 1px solid var(--primary-font-color);">
                                                         <div id="form_payment">
-                                                            <form id="formReserve" class="panel minimal-custom minimal-gray"
-                                                                style="display: none" action="">
-                                                                {{csrf_field()}}
 
-                                                                <ul class="nav nav-tabs bordered">
-                                                                    <!-- available classes "bordered", "right-aligned" -->
-                                                                    <li class="active">
-                                                                        <a href="#credit" data-toggle="tab" style="background-color:#333; border:1px solid #333;">
-                                                                            <span ><i
-                                                                                    class="fa fa-credit-card" style="color:#D4B580;"></i></span>
-                                                                            <span class="hidden-xs" style="color:#D4B580;">Credit Card</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li style="background-color: white">
-                                                                        <a href="#bank" data-toggle="tab">
-                                                                            <span><i class="fa fa-archive"></i></span>
-                                                                            <span class="hidden-xs">Bank Transfer</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-
-                                                                <div class="tab-content credittab" >
-                                                                    <div class="tab-pane active tab-horison-credit" id="credit" >
+                                                                <div class="tab-content credittab">
+                                                                    <div class="tab-pane active tab-horison-credit"
+                                                                        id="credit">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
                                                                                     <label
-                                                                                        class="control-label text-horison"
+                                                                                        class="control-label text-horison card-type"
                                                                                         for="full_name"
                                                                                         style="font-size:12px; font-weight:bold;">Credit
                                                                                         Card</label>
-                                                                                    <select name="" id="" class="form-control">
-                                                                                        <option value="Mandiri">Mandiri</option>
-                                                                                        <option value="BNI">BNI</option>
-                                                                                        <option value="BCA">BCA</option>
+                                                                                    <select id="credit_card"
+                                                                                        class="form-control">
+                                                                                        <option value="mandiri">Mandiri
+                                                                                        </option>
+                                                                                        <option value="bni">BNI</option>
+                                                                                        <option value="bca">BCA</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -476,12 +460,9 @@
                                                                                         for="full_name"
                                                                                         style="font-size:12px; font-weight:bold;">Card
                                                                                         Number</label>
-                                                                                    <input class="form-control" type="text"
-                                                                                        class="form-control visitor-input"
-                                                                                        required
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="3 Digit Kode CVV">
+
+                                                                                        <input class="card-number" value="4811 1111 1111 1114" size="23" type="text" autocomplete="off" />
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -489,223 +470,224 @@
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label
-                                                                                        class="control-label text-horison"
+                                                                                        class="control-label text-horison card-expiry"
                                                                                         for="full_name"
                                                                                         style="font-size:12px; font-weight:bold;">Expiry
                                                                                         Date</label>
-                                                                                    <input class="form-control" type="date"
-                                                                                        class="form-control visitor-input"
-
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="Ex : 13216547216514651">
+                                                                                        <input class="card-expiry-month" value="12" placeholder="MM" size="2" type="text" />
+                                                                                        <span> / </span>
+                                                                                        <input class="card-expiry-year" value="2020" placeholder="YYYY" size="4" type="text" />
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
                                                                                     <label
-                                                                                        class="control-label text-horison"
+                                                                                        class="control-label text-horison "
                                                                                         for="full_name"
                                                                                         style="font-size:12px; font-weight:bold;">CVV
                                                                                         Code</label>
-                                                                                    <input class="form-control"
-                                                                                        type="number" maxlength="3"
-                                                                                        class="form-control visitor-input"
-
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="Ex : 13216547216514651"><br>
+                                                                                        <input class="card-cvv" value="123" size="4" type="password" autocomplete="off" />
+                                                                                        <br>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
-                                                                                <ul class="form-group">
-                                                                                    <li class="text-horison">Confirm OTP to
-                                                                                        make Payment</li>
-                                                                                    <li class="text-horison">Complete
-                                                                                        payment within 30 minutes</li>
-                                                                                </ul>
+                                                                            <ul class="form-group">
+                                                                                <label>Save credit card</label>
+                                                                                <input type="checkbox" name="save_cc" value="true">
+                                                                                <p>
+                                                                                    <label>3D Secure</label>
+                                                                                    <input type="checkbox" name="secure" value="true" checked>
+                                                                                </p>
+                                                                                <li class="text-horison">Confirm OTP to
+                                                                                    make Payment</li>
+                                                                                <li class="text-horison">Complete
+                                                                                    payment within 30 minutes</li>
+                                                                            </ul>
                                                                         </div>
                                                                         <div class="row">
-                                                                            <div class="col-md-6" >
-                                                                                <p style="color:#D4B580">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
-                                                                            </div>
-                                                                            <<div class="col-md-6" align="right">
-                                                                                <ul class="pager wizard">
-                                                                                    <li class="next">
-                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        </div>
-
-                                                                    </div>
-
-
-                                                                    <div class="tab-pane tab-horison-bank" id="bank">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Choose Bank</label>
-                                                                                    <select name="" id="" class="form-control">
-                                                                                        <option value="Mandiri">Mandiri</option>
-                                                                                        <option value="BNI">BNI</option>
-                                                                                        <option value="BCA">BCA</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <ul class="form-group">
-                                                                                    <li>Confirm OTP to
-                                                                                        make Payment</li>
-                                                                                    <li>Complete
-                                                                                        payment within 30 minutes</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row pdrl-20">
                                                                             <div class="col-md-6">
-                                                                                <p style="text-align:left;">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
+                                                                                <p style="color:var(--primary-font-color)">By proceeding, I
+                                                                                    agree to Horison Terms of Use and
+                                                                                    Privacy Policy</p>
                                                                             </div>
-
                                                                             <div class="col-md-6" align="right">
                                                                                 <ul class="pager wizard">
-                                                                                    <li class="next">
-                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        <a class="btn btn-payment submit-credit"
+                                                                                            href="javascript:;" >CONFIRM PAYMENT</a>
+                                                                                    <li class="next" id="tab_credit">
+
                                                                                     </li>
                                                                                 </ul>
                                                                         </div>
-
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane tab-horison-bank" id="bank">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label" for="full_name"
+                                                                                    style="font-size:12px; font-weight:bold;">Choose
+                                                                                    Bank</label>
+                                                                                <select id="bank_card" class="form-control">
+                                                                                    <option value="echannel">Mandiri</option>
+                                                                                    <option value="bni_va">BNI</option>
+                                                                                    <option value="bca_va">BCA</option>
+                                                                                    <option value="permata_va">Permata</option>
+                                                                                    <option value="other_va">Other Bank</option>
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <ul class="form-group">
+                                                                                <li>Confirm OTP to
+                                                                                    make Payment</li>
+                                                                                <li>Complete
+                                                                                    payment within 30 minutes</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
 
-                                                                <div class="panel-footer mtm-20">
-                                                                    <div class="row mt-0">
-                                                                        <p class="pl-30"> We’ll send your payment details to
-                                                                            customer@mail.com</p>
+                                                                    <div class="row pdrl-20">
+                                                                        <div class="col-md-6">
+                                                                            <p style="text-align:left;">By proceeding, I
+                                                                                agree to Horison Terms of Use and Privacy
+                                                                                Policy</p>
+                                                                        </div>
+
+                                                                        <div class="col-md-6" align="right">
+                                                                            <ul class="pager wizard">
+                                                                                <a class="btn btn-payment"
+                                                                                        href="javascript:;" onclick="confirm(this, 'bank');">CONFIRM PAYMENT</a>
+                                                                                <li class="next" id="tab_bank" >
+
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            <div class="panel-footer pf-footer">
+                                                                <div class="row mt-0">
+                                                                    <p class="pl-30"> We’ll send your payment details to
+                                                                        customer@mail.com</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </section>
-                                                </article>
                                             </div>
+                                            </section>
+                                            </article>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                {{-- bills dikanan --}}
+                                <div class="gallery-env">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <article class="album" style="">
+                                                <section class="album-info-inq shadow">
 
-                                <div class="col-md-4">
-                                    {{-- bills dikanan --}}
-                                    <div class="gallery-env">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <article class="album" style="">
-                                                    <section class="album-info-inq shadow">
+                                                    {{-- MAIN FORM --}}
+                                                    <h4><b>Reservation Details</b></h4>
 
-                                                        {{-- MAIN FORM --}}
-                                                        <h4><b>Reservation Details</b></h4>
-
-                                                        <div class="row indent-reserve">
-                                                            @if($data->type == "Room")
-                                                            <div class="col-md-12 indext-reserve-margin">
-                                                                <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp;
-                                                                    {{$data->reserveDate}}</span>
-                                                            </div>
-                                                            <div class="col-md-12 indext-reserve-margin">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp;
-                                                                    {{$data->roomNameDetails}}</span>
-                                                            </div>
-                                                            <div class="col-md-12 indext-reserve-margin">
-                                                                <i class="fa fa-users"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp;
-                                                                    {{$data->totalGuest}}</span>
-                                                            </div>
-                                                            @else
-                                                            <div class="col-md-12 indext-reserve-margin">
-                                                                <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" class="product_date">&nbsp; {{$data->reserveDate}}</span>
-                                                            </div>
-                                                            <div class="col-md-12 indext-reserve-margin">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->productName}}</span>
-                                                            </div>
-                                                            @endif
+                                                    <div class="row">
+                                                        @if($data->type == "Room")
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-calendar-o"></i>
+                                                            <label style="font-weight:normal" for="">&nbsp;
+                                                                {{$data->reserveDate}}</label>
                                                         </div>
-                                                    </section>
-                                                </article>
-                                            </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                            <label style="font-weight:normal" for="">&nbsp;
+                                                                {{$data->roomName}}</label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-users"></i>
+                                                            <label style="font-weight:normal" for="">&nbsp;
+                                                                {{$data->totalGuest}}</label>
+                                                        </div>
+                                                        @else
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-calendar-o"></i>
+                                                            <label style="font-weight:normal"  class="product_date">&nbsp; {{$data->reserveDate}}</label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                        <label style="font-weight:normal" for="">&nbsp; {{$data->productName}}</label>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </section>
+                                            </article>
                                         </div>
                                     </div>
-                                    <div class="gallery-env">
-                                        <div class="row">
+                                </div>
+                                <div class="gallery-env">
+                                    <div class="row">
 
-                                            <div class="col-sm-12">
-                                                <article class="album" style="">
+                                        <div class="col-sm-12">
+                                            <article class="album" style="">
 
-                                                    <section class="album-info-inq shadow">
+                                                <section class="album-info-inq shadow">
 
-                                                        {{-- MAIN FORM --}}
-                                                        <h4><b>Price Details</b></h4>
+                                                    {{-- MAIN FORM --}}
+                                                    <h4><b>Price Details</b></h4>
 
-                                                        <div style="display: flex; flex-wrap: wrap;">
-                                                            @if($data->type == "Room")
-                                                            <div style="width: 65%; text-align: justify;">
-                                                                <p style="font-size:14px; color:black;">
-                                                                    {{$data->roomDetail}}</p>
-                                                            </div>
-                                                            <div style="margin-left: auto;">
-                                                                <p style="font-size: 14px;">
-                                                                    <strong>
-                                                                        <script>
-                                                                            document.write("Rp "+formatRupiah("{{$data->roomPrice}}"));
-                                                                        </script>
-                                                                    </strong>
-                                                                </p>
-                                                            </div>
-                                                            @if($data->extrabedTotal > 0)
-                                                            <div>
-                                                                <p style="font-size:14px; color:black;">Additional Extra Bed
-                                                                </p>
-                                                            </div>
-                                                            <div style="margin-left: auto;">
-                                                                <p style="font-size:14px">
-                                                                    <strong>
-                                                                        <script>
-                                                                            document.write("Rp "+formatRupiah("{{$data->extrabedPrice}}"));
-                                                                        </script>
-                                                                    </strong>
-                                                                </p>
-                                                            </div>
-                                                            @endif
-                                                            @else
-                                                            <div style="width: 65%; text-align: justify;">
-                                                                <p class="product_details" style="font-size:14px; color:black;">
-                                                                    0 x {{$data->productName}}</p>
-                                                            </div>
-                                                            <div style="margin-left: auto;">
-                                                                <p class="product_price" style="font-weight: bolder; font-size:14px">
-                                                                    <strong>Rp 0</strong>
-                                                                </p>
-                                                            </div>
-                                                            @endif
+                                                    <div class="row">
+                                                        @if($data->type == "Room")
+                                                        <div class="col-md-7">
+                                                            <p style="font-size:14px; color:black;">{{$data->roomDetail}}
+                                                            </p>
                                                         </div>
-                                                        <hr>
-                                                        <div class="" style="display: flex">
-                                                            <div class="">
-                                                                <p style="font-weight: bolder; font-size:18px">Total</p>
-                                                            </div>
-                                                            <div class="" style="margin-left: auto; ">
-                                                                @if($data->type == "Room")
-                                                                    <p style="font-size: 20px">
+                                                        <div class="col-md-5">
+                                                            <p style="font-size:14px text-align:right;">
+                                                                <strong>
+                                                                    <script>
+                                                                        document.write("Rp "+formatRupiah("{{$data->roomPrice}}"));
+                                                                    </script>
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                        @if($data->extrabedTotal > 0)
+                                                        <div class="col-md-7">
+                                                            <p style="font-size:14px; color:black;">Additional Extra Bed
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <p style="font-size:14px text-align:right;">
+                                                                <strong>
+                                                                    <script>
+                                                                        document.write("Rp "+formatRupiah("{{$data->extrabedPrice}}"));
+                                                                    </script>
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                        @endif
+                                                        @else
+                                                        <div class="col-md-7">
+                                                            <p class="product_details" style="font-size:14px; color:black;">
+                                                                0 x {{$data->productName}}</p>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                        <p class="product_price" style="font-size:14px text-align:right; font-weight: bolder;">
+                                                            <strong>Rp 0</strong>
+                                                        </p>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            <p style="font-weight: bolder; font-size:18px">Total</p>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            @if($data->type == "Room")
+                                                                    <p style="font-weight: bolder; font-size:18px text-align:right;">
                                                                         <strong>
                                                                             <script>
                                                                                 document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
@@ -713,90 +695,90 @@
                                                                         </strong>
                                                                     </p>
                                                                 @elseif($data->type == "Product")
-                                                                    <p class="product_total" style="font-weight: bolder; font-size:20px;">
-                                                                        <strong>Rp 0</strong>
+                                                                    <p class="product_total" style="font-weight: bolder; font-size:18px text-align:right;"><strong> Rp  </strong>
                                                                     </p>
-                                                                @endif
-                                                            </div>
+                                                            @endif
                                                         </div>
-                                                    </section>
-                                                </article>
-                                            </div>
+                                                    </div>
+                                                </section>
+                                            </article>
                                         </div>
                                     </div>
-                                    {{-- end bills --}}
                                 </div>
+                                {{-- end bills --}}
+
                             </div>
+                        </div>
 
-                            <div class="tab-pane" id="tab2-3">
-                                <div class="col-md-8">
-                                    <div class="gallery-env">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <article class="album" style="">
-                                                    <section class="album-info-inq shadow"
-                                                        style="border-bottom:none;">
-                                                        {{-- MAIN FORM --}}
-                                                        <br>
-                                                        <h4></h4>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for=""><strong>Your Booking <b class="booking_id">231315498448</b> has been
-                                                                            placed!</strong></label>
-                                                                    <ul>
-                                                                        <li>You will receive your booking details at
-                                                                            <b class="customer_email">noreply1@tripasysfo.com</b></li>
-                                                                        <li>You will receive your Voucher after you have made
-                                                                            your payment</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">13 January 2020 13:20</b></li>
-                                                                        <li>You will receive a confirmation email as soon this
-                                                                            transaction has been approved</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
+                        <div class="tab-pane" id="tab2-3">
+
+                            <div class="col-md-8">
+                                <div class="gallery-env">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <article class="album" style="">
+                                                <section class="album-info-inq shadow"
+                                                    style="border-bottom:none;">
+                                                    {{-- MAIN FORM --}}
+                                                    <br>
+                                                    <h4></h4>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <div class="col-md-6 mb-10">
-                                                                    <div>
-                                                                        <label for="">Customer Service Email</label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <i class="entypo-mail"></i>
-                                                                        <span style="font-weight:normal" for="">&nbsp;
-                                                                            {{ $setting->email }}</span>
-                                                                    </div>
+                                                                <label for=""><strong>Your Booking <b class="booking_id">231315498448</b> has been
+                                                                        placed!</strong></label>
+                                                                <ul>
+                                                                    <li>You will receive your booking details at
+                                                                        <b class="customer_email">noreply1@tripasysfo.com</b></li>
+                                                                    <li>You will receive your Voucher after you have made
+                                                                        your payment</li>
+                                                                    <li id="transaction_due">Please finish this transaction before <b class="transaction_due">13 January 2020 13:20</b></li>
+                                                                    <li>You will receive a confirmation email as soon this
+                                                                        transaction has been approved</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-md-6 mb-10">
+                                                                <div>
+                                                                    <label for="">Customer Service Email</label>
                                                                 </div>
-                                                                <div class="col-md-6 col-xs-12">
-                                                                    <div>
-                                                                        <label for="">Customer Service</label>
-                                                                    </div>
-                                                                    <div>
-                                                                        <i class="fa fa-phone"></i>
-                                                                        <span style="font-weight:normal" for="">&nbsp; {{ $setting->phone }}</span>
-                                                                    </div>
+                                                                <div>
+                                                                    <i class="entypo-mail"></i>
+                                                                    <span style="font-weight:normal" for="">&nbsp;
+                                                                        {{ $setting->email }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-xs-12">
+                                                                <div>
+                                                                    <label for="">Customer Service</label>
+                                                                </div>
+                                                                <div>
+                                                                    <i class="fa fa-phone"></i>
+                                                                    <span style="font-weight:normal" for="">&nbsp; {{ $setting->phone }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </section>
+                                                    </div>
+                                                </section>
 
-                                                </article>
-                                                <div class="panel-footer footer-payment">
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-6" align="right">
-                                                                <a href="/">
-                                                                    <p
-                                                                        style="padding: 10px;font-size: 12px!important; font-weight: 600;">
-                                                                        Back To Home</p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another
-                                                                    Rooms</a>
-                                                            </div>
+                                            </article>
+                                            <div class="panel-footer footer-payment">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-6" align="right">
+                                                            <a href="/">
+                                                                <p
+                                                                    style="padding: 10px;font-size: 12px!important; font-weight: 600;">
+                                                                    Back To Home</p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another
+                                                                Rooms</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -804,157 +786,156 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-4">
-                                    {{-- bills dikanan --}}
-                                    <div class="gallery-env">
-                                        <div class="row">
+                            <div class="col-md-4">
+                                {{-- bills dikanan --}}
+                                <div class="gallery-env">
+                                    <div class="row">
 
-                                            <div class="col-sm-12">
-                                                <article class="album" style="">
+                                        <div class="col-sm-12">
+                                            <article class="album" style="">
 
-                                                    <section class="album-info-inq shadow">
+                                                <section class="album-info-inq shadow">
 
-                                                        <div class="row" style="margin-top:-30px;">
-                                                            <div class="col-md-12">
-                                                                <p><strong>Booking ID</strong></p>
-                                                            </div>
-                                                            <div class="col-md-12 mt-10">
-                                                                <label class="booking_id" for="">231315498448</label>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <p><strong>Reserve By</strong></p>
-                                                            </div>
-                                                            <div class="col-md-12 mt-10">
-                                                                <label class="customer_name" for="">Norma Steward</label>
-                                                            </div>
+                                                    <div class="row" style="margin-top:-30px;">
+                                                        <div class="col-md-12">
+                                                            <p><strong>Booking ID</strong></p>
                                                         </div>
-                                                        <hr><br>
-                                                        {{-- MAIN FORM --}}
-                                                        <h4><b>Booking Details</b></h4>
-
-                                                        <div class="row">
-                                                            @if($data->type == "Room")
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->roomName}}</span>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-users"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp;
-                                                                    {{$data->totalGuest}}</span>
-                                                            </div>
-                                                            @elseif($data->type == "Product")
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->productName}}</span>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <i class="fa fa-users"></i>
-                                                                <span class="amount_pax" style="font-weight:normal" for="">&nbsp;
-                                                                    Pax</span>
-                                                            </div>
-                                                            @endif
+                                                        <div class="col-md-12 mt-10">
+                                                            <label class="booking_id" for="">231315498448</label>
                                                         </div>
+                                                        <div class="col-md-12">
+                                                            <p><strong>Reserve By</strong></p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-10">
+                                                            <label class="customer_name" for="">Norma Steward</label>
+                                                        </div>
+                                                    </div>
+                                                    <hr><br>
+                                                    {{-- MAIN FORM --}}
+                                                    <h4><b>Booking Details</b></h4>
+
+                                                    <div class="row">
+                                                        @if($data->type == "Room")
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-calendar-o"></i>
+                                                            <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                            <span style="font-weight:normal" for="">&nbsp; {{$data->roomName}}</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-users"></i>
+                                                            <span style="font-weight:normal" for="">&nbsp;
+                                                                {{$data->totalGuest}}</span>
+                                                        </div>
+                                                        @elseif($data->type == "Product")
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-calendar-o"></i>
+                                                            <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-shopping-cart"></i>
+                                                            <span style="font-weight:normal" for="">&nbsp; {{$data->productName}}</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-users"></i>
+                                                            <span class="amount_pax" style="font-weight:normal" for="">&nbsp;
+                                                                Pax</span>
+                                                        </div>
+                                                        @endif
+                                                    </div>
 
 
-                                                    </section>
+                                                </section>
 
-                                                </article>
-
-                                            </div>
+                                            </article>
 
                                         </div>
-                                    </div>
-                                    <div class="gallery-env">
-                                        <div class="row">
 
-                                            <div class="col-sm-12">
-                                                <article class="album" style="">
-
-                                                    <section class="album-info-inq shadow">
-                                                        {{-- MAIN FORM --}}
-                                                        <h4><b>Price Details</b></h4>
-                                                        <div style="display: flex; flex-wrap: wrap;">
-                                                            @if($data->type == "Room")
-                                                            <div class="col-md-7">
-                                                                <p style="font-size:14px; color:black;">{{$data->roomDetail}}
-                                                                </p>
-                                                            </div>
-                                                            <div style="margin-left: auto;">
-                                                                <p style="font-size:14px">
-                                                                    <strong>
-                                                                        <script>
-                                                                            document.write("Rp "+formatRupiah("{{$data->roomPrice}}"));
-                                                                        </script>
-                                                                    </strong>
-                                                                </p>
-                                                            </div>
-                                                            @if($data->extrabedTotal > 0)
-                                                            <div class="col-md-7">
-                                                                <p style="font-size:14px; color:black;">Additional Extra Bed
-                                                                </p>
-                                                            </div>
-                                                            <div style="margin-left: auto;">
-                                                                <p style="font-size:14px">
-                                                                    <strong>
-                                                                        <script>
-                                                                            document.write("Rp "+formatRupiah("{{$data->extrabedPrice}}"));
-                                                                        </script>
-                                                                    </strong>
-                                                                </p>
-                                                            </div>
-                                                            @endif
-                                                            @else
-                                                            <div class="col-md-7">
-                                                                <p class="product_details" style="font-size:14px; color:black;">
-                                                                    0 x {{$data->productName}}</p>
-                                                            </div>
-                                                            <div class="col-md-5">
-                                                            <p class="product_price" style="font-size:14px; font-weight: bolder;">
-                                                                <strong>Rp 0</strong>
-                                                            </p>
-                                                            </div>
-                                                            @endif
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row" style="display: flex">
-                                                            <div class="col-md-7">
-                                                                <p style="margin-left: 10px; font-weight: bolder; font-size:18px">Total</p>
-                                                            </div>
-                                                            <div class="col-md-5" style="margin-left: auto; padding-left: 55px; min-width: 200px;">
-                                                            @if($data->type == "Room")
-                                                                <p style="font-weight: bolder; font-size:18px;">
-                                                                    <strong style="font-weight: bolder;">
-                                                                        <script>
-                                                                            document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
-                                                                        </script>
-                                                                    </strong>
-                                                                </p>
-                                                            @elseif($data->type == "Product")
-                                                                <p class="product_total" style="font-weight: bolder; font-size:18px;"><strong></strong>
-                                                                </p>
-                                                            @endif
-                                                            </div>
-                                                        </div>
-                                                    </section>
-                                                </article>
-                                            </div>
-                                        </div>
                                     </div>
-                                    {{-- end bills --}}
                                 </div>
+                                <div class="gallery-env">
+                                    <div class="row">
+
+                                        <div class="col-sm-12">
+                                            <article class="album" style="">
+
+                                                <section class="album-info-inq shadow">
+                                                    {{-- MAIN FORM --}}
+                                                    <h4><b>Price Details</b></h4>
+                                                    <div style="display: flex; flex-wrap: wrap;">
+                                                        @if($data->type == "Room")
+                                                        <div class="col-md-7">
+                                                            <p style="font-size:14px; color:black;">{{$data->roomDetail}}
+                                                            </p>
+                                                        </div>
+                                                        <div style="margin-left: auto;">
+                                                            <p style="font-size:14px">
+                                                                <strong>
+                                                                    <script>
+                                                                        document.write("Rp "+formatRupiah("{{$data->roomPrice}}"));
+                                                                    </script>
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                        @if($data->extrabedTotal > 0)
+                                                        <div class="col-md-7">
+                                                            <p style="font-size:14px; color:black;">Additional Extra Bed
+                                                            </p>
+                                                        </div>
+                                                        <div style="margin-left: auto;">
+                                                            <p style="font-size:14px">
+                                                                <strong>
+                                                                    <script>
+                                                                        document.write("Rp "+formatRupiah("{{$data->extrabedPrice}}"));
+                                                                    </script>
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                        @endif
+                                                        @else
+                                                        <div class="col-md-7">
+                                                            <p class="product_details" style="font-size:14px; color:black;">
+                                                                0 x {{$data->productName}}</p>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                        <p class="product_price" style="font-size:14px; font-weight: bolder;">
+                                                            <strong>Rp 0</strong>
+                                                        </p>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row" style="display: flex">
+                                                        <div class="col-md-7">
+                                                            <p style="margin-left: 10px; font-weight: bolder; font-size:18px">Total</p>
+                                                        </div>
+                                                        <div class="col-md-5" style="margin-left: auto; padding-left: 55px; min-width: 200px;">
+                                                        @if($data->type == "Room")
+                                                            <p style="font-weight: bolder; font-size:18px;">
+                                                                <strong style="font-weight: bolder;">
+                                                                    <script>
+                                                                        document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
+                                                                    </script>
+                                                                </strong>
+                                                            </p>
+                                                        @elseif($data->type == "Product")
+                                                            <p class="product_total" style="font-weight: bolder; font-size:18px;"><strong></strong>
+                                                            </p>
+                                                        @endif
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- end bills --}}
                             </div>
                         </div>
-
                     </div>
 
                 </form>
@@ -964,6 +945,58 @@
 
 
 
+    <footer>
+        <div class="row footer-bg-color margin-footer">
+            <div class="container" style="height:185px;">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
+                    <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="tirtasanitaresort" style="margin-top:55px;" />
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
+                    <div class=row>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <p>
+                                    <a href="{{ $setting->so_instagram }}" class="fa fa-instagram visitor-footer-icon" target="_blank"></a>
+                                </p>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <p>
+                                    <a href="{{ $setting->so_facebook }}" class="fa fa-facebook visitor-footer-icon" target="_blank"></a>
+                                </p>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <p><a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon" target="_blank"></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer d-flex-column">
+                    <div class="d-flex f-align-end">
+                        <p style="font-weight: normal;">
+                            {{ $setting->address }}
+                        </p>
+                        <span style="margin-top:10px; margin-left: 10px; font-size:18px"><i
+                                class="entypo-location"></i></span>
+                    </div>
+                    <div class="d-flex f-align-end">
+                        <p style="font-weight: normal;">
+                            {{ $setting->phone }}<br>
+                            {{ $setting->wa_number }}
+                        </p>
+                        <span style="margin-top:7px; margin-left: 10px; font-size:18px"><i
+                                class="entypo-phone"></i></span>
+                    </div>
+                    <div class="d-flex f-align-end">
+                        <p style="font-weight: normal;">
+                            {{ $setting->email }}
+                        </p>
+                        <span style="margin-top:0px; margin-left: 10px; font-size:18px"><i
+                                class="entypo-mail"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 
@@ -1189,7 +1222,7 @@
             utilsScript: "{{ asset('js/intl-phone/utils.js') }}", // just for formatting/placeholders etc
         });
 
-                var data;
+        var data;
         function confirm(e, type) {
             var customer_name = $('#full_name').val();
             var id_card = $('#id_card').val();
@@ -1289,11 +1322,11 @@
                     $('#toogle_1').addClass('completed');
                     $('#toogle_'+data.tab).append(html);
                     $('#btn_tab'+data.tab).click();
-                    // $("html, body").animate({
-                    //     scrollTop: 0
-                    // }, "slow");
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "slow");
 
-                    // openBank(data.snapToken);
+                    openBank(data.snapToken);
 
                 }
             }
@@ -1301,6 +1334,129 @@
 
         }
 
+        function openBank(snapToken) {
+            if("{{$data->type}}" == "Room"){
+                var url = "{{ route('visitor.reserve_room') }}";
+            }else if("{{$data->type}}" == "Product"){
+                var url = "{{ route('visitor.reserve_product') }}";
+            }
+            window.onbeforeunload = '';
+
+            var forms = document.getElementsByClassName('form-control');
+            for (let i = 0; i < forms.length; i++) {
+                const element = forms[i];
+                if(element.id == "phone_number"){
+                    $('#phone_number').css({
+                        'cursor' :'not-allowed'
+                    });
+                    $('#phone_number').attr('readonly',"");
+                    $('#phone_number').attr('aria-disabled',"true");
+                }else if(element.id == "datePickerReserveForm"){
+                    product_picker.destroy();
+                    element.setAttribute("readonly", "");
+                    element.setAttribute("aria-disabled", "true");
+                    element.setAttribute("style", "cursor:not-allowed");
+                }else if(element.id == "time_form"){
+                    $('#time_form').css({
+                        'cursor' :'not-allowed'
+                    });
+                }else{
+                    element.setAttribute("readonly", "");
+                    element.setAttribute("aria-disabled", "true");
+                    element.setAttribute("style", "cursor:not-allowed");
+                }
+
+            }
+
+            snap.pay(snapToken, {
+                // Optional
+                onSuccess: function(result){
+
+                forgetIt(url);
+                //   console.log("SUCCESS \n"+JSON.stringify(result, null, 2));
+                    $('.booking_id').text(result.order_id);
+                    $('#transaction_due').hide();
+                    var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
+                    var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
+                    var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
+
+                    $('#toogle_1').empty();
+                    $('#toogle_1').addClass('completed');
+                    $('#toogle_1').append(html1);
+                    $('#toogle_2').empty();
+                    $('#toogle_2').addClass('completed');
+                    $('#toogle_2').append(html2);
+                    $('#toogle_3').empty();
+                    $('#toogle_3').append(html3);
+
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "fast");
+
+                    $('#btn_tab3').click();
+                    $('#timer_text').text("Finished");
+                    timezz.destroy();
+
+                },
+                // Optional
+                onPending: function(result){
+                    forgetIt(url);
+
+                // console.log("PENDING \n"+JSON.stringify(result, null, 2));
+                    $('.booking_id').text(result.order_id);
+                    $('.transaction_due').text(moment(result.transaction_time).add(1, 'hours').format("LLLL"));
+                    var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
+                    var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
+                    var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
+
+                    $('#toogle_1').empty();
+                    $('#toogle_1').append(html1);
+                    $('#toogle_2').empty();
+                    $('#toogle_2').append(html2);
+                    $('#toogle_3').empty();
+                    $('#toogle_3').append(html3);
+
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "fast");
+
+                    $('#btn_tab3').click();
+
+                    $('#timer_text').text("Finished");
+                    timezz.destroy();
+
+
+                },
+                // Optional
+                onError: function(result){
+                    if(result.status_code == 406){
+                        forgetIt(url);
+                        window.location.href = '/';
+                    }
+                }
+            });
+        }
+        function forgetIt(url) {
+            $.ajax({
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "forget_snap": "true"
+                    },
+                    url: url,
+                    success: function (data) {
+                        if( data.status === 422 ) {
+                            Swal.fire(
+                                'Sorry',
+                                data.msg,
+                                'warning'
+                            );
+                        }else if(data.status === 200){
+
+                        }
+                    }
+                });
+            }
     </script>
 
 </body>
