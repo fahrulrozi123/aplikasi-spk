@@ -12,33 +12,18 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
 use App\Models\Setting\Setting;
+use App\Payment;
+use App\PaymentStatus;
 
 use Carbon\Carbon;
 use DB;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use \Waavi\Sanitizer\Sanitizer;
 
 class PaymentController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = config('midtrans.midtrans.isProduction');
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = config('midtrans.midtrans.isSanitized');
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = config('midtrans.midtrans.is3ds');
-    }
-
     // data profile setting
     public function setting()
     {
@@ -260,20 +245,9 @@ class PaymentController extends Controller
     public function reserve_room(Request $request)
     {
         $input = $request->all();
-        if (isset($request['forget_snap'])) {
-            Session::forget('roomSnapToken');
-            Session::forget('room_booking_id');
-            return response()->json(["status" => 200, "msg" => "Success"]);
-
-        }
-
         $booking_id = $input['booking_id'];
-        $validate_booking_id = Session::get('room_booking_id');
-
         $rsvp = RoomRSvp::where('booking_id', $input['booking_id'])->first();
-
         $data = json_decode($input['data'], true);
-
         $id_type = ['Identity Card', 'Driver License', 'Passport'];
 
         if ($data['type'] == "customer") {
@@ -307,11 +281,6 @@ class PaymentController extends Controller
             if (!in_array($data['cust_id_type'], $id_type)) {
                 return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
             }
-
-            // if (Session::get('roomSnapToken') != null) {
-            //     $snapToken = Session::get('roomSnapToken');
-            //     return response()->json(["status" => 200, "href" => "tab2-2", "tab" => "2", "text" => "Payment Information", "snapToken" => $snapToken]);
-            // }
 
             $filters = [
                 'cust_name' => 'trim|escape|capitalize',
@@ -352,26 +321,8 @@ class PaymentController extends Controller
 
             $getRoom = Type::where('id', $rsvp->room_id)->first();
 
-            // check room reservation_id empty or not
-            $checkRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-            $valueCheckRsvpId = $checkRsvpId->reservation_id;
-
-            if ($valueCheckRsvpId == "") {
-                $rsvpId = rand($min = 1, $max = 99999);
-                $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-
-                while ($reservationId == false) {
-                    $rsvpId = rand($min = 1, $max = 99999);
-                    $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-                }
-            } else {
-                $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-                $reservationId = $dataRsvpId->reservation_id;
-            }
-
             RoomRsvp::where('booking_id', $booking_id)->update([
                 'customer_id' => $customer_id,
-                "reservation_id" => $reservationId,
                 'rsvp_cust_name' => $sanitizer['cust_name'],
                 'rsvp_cust_phone' => $sanitizer['cust_phone'],
                 'rsvp_cust_idtype' => $sanitizer['cust_id_type'],
@@ -380,77 +331,9 @@ class PaymentController extends Controller
                 'rsvp_special_request' => $sanitizer['additional_request'],
             ]);
 
-            $order_id = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+            // dd($rsvp);
 
-            // Required
-            $transaction_details = array(
-                'order_id' => $order_id->reservation_id,
-                'gross_amount' => $data['total_price'], // no decimal allowed for creditcard
-            );
-            // Optional
-            $item1_details = array(
-                'id' => '1',
-                'price' => $data['total_room_price'],
-                'quantity' => 1,
-                'name' => $data['total_rooms'] . "x " . $data['room_name'] . " x " . $data['total_days'] . " day(s)",
-            );
-
-            // Optional
-            $item2_details = array(
-                'id' => '2',
-                'price' => $data['total_extrabed_price'],
-                'quantity' => 1,
-                'name' => $data['total_extrabed'] . "x " ."Additional Extra Bed". " x " . $data['total_days'] . " day(s)",
-            );
-
-            // Optional
-            if ($data['total_extrabed_price'] == NULL) {
-                $item_details = array($item1_details);
-            } else {
-                $item_details = array($item1_details, $item2_details);
-            }
-
-
-            //for checking first_name last_name
-            $full_name = $this->split_name($sanitizer['cust_name']);
-
-            // Optional
-            $customer_details = array(
-                'first_name' => $full_name[0],
-                'last_name' => $full_name[1],
-                'email' => $sanitizer['cust_email'],
-                'phone' => $sanitizer['cust_phone'],
-                'billing_address' => '',
-                'shipping_address' => '',
-            );
-
-            $enable_payments = ["credit_card", "mandiri_clickpay", "cimb_clicks",
-                "bca_klikbca", "bca_klikpay", "bri_epay", "echannel", "permata_va",
-                "bca_va", "bni_va", "other_va", "danamon_online"];
-
-            $expiry = array(
-                "start_time" => Carbon::parse(Carbon::now())->isoFormat("YYYY-MM-DD HH:mm:ss Z"),
-                "unit" => "hour",
-                "duration" => 1,
-            );
-            $bca_klikpay = array(
-                "description" => "Horison ".$order_id->reservation_id
-            );
-            // Fill transaction details
-            $transaction = array(
-                'transaction_details' => $transaction_details,
-                'customer_details' => $customer_details,
-                'item_details' => $item_details,
-                'enabled_payments' => $enable_payments,
-                "custom_field1" => "ROOMS",
-                "expiry" => $expiry,
-                "bca_klikpay" => $bca_klikpay,
-            );
-
-            $snapToken = \Midtrans\Snap::getSnapToken($transaction);
-            Session::put('roomSnapToken', $snapToken);
-
-            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "tab" => "2", "text" => "Payment Information", "snapToken" => $snapToken]);
+            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], $input['booking_id'], "tab" => "2", "text" => "Payment Information"]);
 
         } else {
             return response()->json(["status" => 422, "msg" => "Something went wrong"]);

@@ -14,7 +14,7 @@ Route::post('/visitor/room_reservation/', ['as' => 'visitor.room_reservation', '
 Route::get('/get_product', ['as' => 'visitor.get_product', 'uses' => 'Payment\ReserveController@get_product']);
 Route::post('/visitor/product_reservation/', ['as' => 'visitor.product_reservation', 'uses' => 'Payment\ReserveController@product_reservation']);
 
-Route::get('/payment', 'Payment\PaymentController@faspay')->name('payment');
+Route::get('/payment-channel', 'Payment\ReserveController@paymentChannel')->name('payment.channel');
 Route::get('/signature', 'Payment\PaymentController@generateSignature');
 
 //TEMPLATE EMAIL//

@@ -43,6 +43,7 @@ use \Waavi\Sanitizer\Sanitizer;
 
 use App\Notifications\PushDemo;
 use Notification;
+use GuzzleHttp\Client;
 
 class ReserveController extends Controller
 {
@@ -452,10 +453,34 @@ class ReserveController extends Controller
         return view('visitor_site.reservation.index', get_defined_vars());
     }
 
+    public function paymentChannel()
+    {
+        $merchant_id		= 33519;
+        $merchant_password 	= 'p@ssw0rd';
+
+        $submerchant_id		= $merchant_id."0001";
+        $merchant_user		= "bot".$merchant_id;
+
+        $signature = sha1(md5($merchant_user.$merchant_password));
+
+        $client = new Client();
+
+        $response = $client->post('https://dev.faspay.co.id/cvr/100001/10', [
+            'json' => [
+                'request'     => 'Request List of Payment Gateway',
+                'merchant_id' => $merchant_id,
+                'merchant'    => 'STORE',
+                'signature'   => $signature
+            ]
+        ]);
+
+        return $response->getBody()->getContents();
+    }
+
     public function room_reservation(Request $request)
     {
         // dd($request->all());
-        Session::forget('roomSnapToken');
+        // Session::forget('roomSnapToken');
 
         $data = $request['reserve_data'];
         $data = json_decode($data);
@@ -485,6 +510,10 @@ class ReserveController extends Controller
         }
 
         $setting = $this->setting();
+
+        $paymentChannels = $this->paymentChannel();
+        $listPaymentChannels = json_decode($paymentChannels, true);
+
         return view('visitor_site.reserve.index', get_defined_vars());
 
     }

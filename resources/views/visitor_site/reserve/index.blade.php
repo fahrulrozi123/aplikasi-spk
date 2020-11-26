@@ -278,7 +278,7 @@
                                                                 <ul class="pager wizard">
 
                                                                 <li id="tab_customer">
-                                                                    <a class="btn" style="float:right;background-color: inherit; color:var(--primary-font-color); border-color: var(--primary-font-color);"
+                                                                    <a class="btn btn-horison-payment" style="float:right;"
                                                                         href="javascript:;" onclick="confirm(this, 'customer')">CHOOSE PAYMENT METHOD <i class="entypo-right-open"></i></a>
                                                                 </li>
                                                             </ul>
@@ -443,12 +443,12 @@
                                                                         </a>
                                                                     </li>
 
-                                                                    <li>
+                                                                    {{-- <li>
                                                                         <a href="#credit" data-toggle="tab" style="background-color: white">
                                                                             <span><i class="fa fa-credit-card""></i></span>
                                                                             <span class="hidden-xs"">Credit Card</span>
                                                                         </a>
-                                                                    </li>
+                                                                    </li> --}}
 
                                                                 </ul>
 
@@ -457,14 +457,11 @@
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Choose Bank</label>
-                                                                                    <select name="" id="" class="form-control">
-                                                                                        <option value="Mandiri">Mandiri</option>
-                                                                                        <option value="BNI">BNI</option>
-                                                                                        <option value="BCA">BCA</option>
+                                                                                    <label class="control-label" for="payment-channel" style="font-size:12px; font-weight:bold;">Choose Bank</label>
+                                                                                    <select id="payment-channel" name="payment-channel" class="form-control visitor-input">
+                                                                                        @foreach ($listPaymentChannels['payment_channel'] as $listPaymentChannel)
+                                                                                            <option value="{{ $listPaymentChannel['pg_code'] }}">{{ $listPaymentChannel['pg_name'] }}</option>
+                                                                                        @endforeach
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -481,14 +478,14 @@
                                                                         </div>
 
                                                                         <div class="row pdrl-20">
-                                                                            <div class="col-md-6">
+                                                                            <div class="col-md-12">
                                                                                 <p style="text-align:left;">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
                                                                             </div>
 
-                                                                            <div class="col-md-6" align="right">
+                                                                            <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
-                                                                                    <li class="next">
-                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                    <li class="" style="float:right;">
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                         </div>
@@ -496,7 +493,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="tab-pane tab-horison-credit" id="credit" >
+                                                                    {{-- <div class="tab-pane tab-horison-credit" id="credit" >
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
@@ -583,7 +580,7 @@
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> --}}
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -1232,7 +1229,7 @@
             utilsScript: "{{ asset('js/intl-phone/utils.js') }}", // just for formatting/placeholders etc
         });
 
-                var data;
+        var data;
         function confirm(e, type) {
             var customer_name = $('#full_name').val();
             var id_card = $('#id_card').val();

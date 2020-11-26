@@ -1660,6 +1660,24 @@ fieldset[disabled] .btn-horison.focus {
     border-radius: 2px;
 }
 
+/* Button Checkout */
+.btn-horison-payment {
+    color: var(--primary-font-color) !important;
+    background-color: inherit !important;
+    border-color: var(--primary-font-color) !important;
+}
+/* .btn-horison-payment:focus,
+.btn-horison-payment.focus {
+    color: var(--tertiary-font-color) !important;
+    background-color:var(--primary-font-color) !important;
+    border-color:var(--primary-font-color) !important;
+} */
+.btn-horison-payment:hover {
+    color: var(--tertiary-font-color) !important;
+    background-color: var(--primary-font-color) !important;
+    border-color: var(--primary-font-color) !important;
+}
+
 /* Button Delete */
 .btn-delete{
     color: #EB5757;
