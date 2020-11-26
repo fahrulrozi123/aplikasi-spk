@@ -78,9 +78,9 @@
             $(".lds-dual-ring-admin").fadeOut("slow");;
         });
     </script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.12/featherlight.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-    {{-- <script id="midtrans-script" type="text/javascript" src="https://api.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox" data-client-key="VT-client-0N5ngRfFPbOhBa7k"></script> --}}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.12/featherlight.min.js"></script>
 </head>
 
@@ -113,7 +113,6 @@
                             <a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>3</span>Booking Confirmed!</a>
                         </li>
                     </ul>
-
                     {{-- END HEADER --}}
 
                     <div class="container" style="margin-top: 30px;">
@@ -139,12 +138,8 @@
                                                         <div class="row">
                                                             <div class="col-xs-12 col-md-12">
                                                                 <div class="form-group">
-                                                                    <label class="control-label" for="full_name"
-                                                                        style="font-size:12px; font-weight:normal;">Full
-                                                                        Name</label>
-                                                                    <input class="form-control visitor-input" type="text"
-                                                                        id="full_name" value="" focus="true"
-                                                                        placeholder="Please Type Your Full Name" maxlength="50"><br>
+                                                                    <label class="control-label" for="full_name" style="font-size:12px; font-weight:normal;">Full Name</label>
+                                                                    <input class="form-control visitor-input" type="text" id="full_name" value="" focus="true" placeholder="Please Type Your Full Name" maxlength="50"><br>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1120,14 +1115,17 @@
                 window.location.href = '/';
             },
         });
+
         window.onbeforeunload = function() { return "Your work will be lost."; };
 
         $('.numberValidation').keyup(function () {
             this.value = this.value.replace(/[^0-9\.]/g, '');
         });
+
         $('.alphanumericValidation').keyup(function () {
             this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
         });
+
         function for_other(e) {
             if(e.checked == true){
                 $('#otherBookForm').fadeIn('slow');
@@ -1135,6 +1133,7 @@
                 $('#otherBookForm').fadeOut('slow');
             }
         }
+
         function resetPax() {
             $('.inputPax').val(1);
             var price = {{$data->productPrice}} * 1;
@@ -1144,6 +1143,7 @@
             $('.product_price').text("Rp "+formatRupiah(price));
             $('.product_total').text("Rp "+formatRupiah(total));
         }
+
         var product_picker;
         if("{{$data->type}}" == "Product"){
 
@@ -1171,6 +1171,7 @@
                     $('.product_date').html("&nbsp;"+date+" / "+time);
                 }
             });
+
             product_picker.setDate(new Date("{{$data->reserveDate}}"));
 
             resetPax();
@@ -1189,13 +1190,9 @@
 
             var price = {{$data->productPrice}} * this.value;
             var total = price;
-
-
-
                 $('.product_details').text(formatRupiah(this.value)+" x "+"{{$data->productName}}");
                 $('.product_price').text("Rp "+formatRupiah(price));
                 $('.product_total').text("Rp "+formatRupiah(total));
-
                 $('.amount_pax').html("&nbsp;"+formatRupiah(this.value)+" Pax");
             });
         }
@@ -1212,8 +1209,8 @@
             $('.product_date').html("&nbsp;"+date+" / "+time);
         });
 
-
         var input_number = document.querySelector("#phone_number");
+
         var iti = window.intlTelInput(input_number, {
             customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
                 return "e.g. " + selectedCountryPlaceholder;
@@ -1237,7 +1234,6 @@
             var email = $('#email').val();
             var additional_request = $('#additional_request').val();
 
-
             if (iti.isValidNumber()) {
                 var phone_number = iti.getNumber();
             } else {
@@ -1248,6 +1244,7 @@
                 );
                 return false;
             }
+
             var guest = $('#guest_name').val();
 
             if(type == 'customer'){
@@ -1273,7 +1270,7 @@
                         total_extrabed_price : {{$data->extrabedPrice}},
                         total_price : {{$data->totalPrice}}
                     }
-                }else if("{{$data->type}}" == "Product"){
+                } else if("{{$data->type}}" == "Product") {
                     var pax = $('.inputPax').val();
                     var date_reserve = moment(product_picker.getDate()).format("DD MMMM YYYY");
 
@@ -1294,7 +1291,6 @@
                         time_reserve : time_reserve,
                         product_name   : "{{$data->productName}}",
                         amount_pax : pax,
-
                     }
                 }
 
@@ -1318,23 +1314,15 @@
                         data.msg,
                         'warning'
                     );
-                }else if(data.status === 200){
-
+                }else if(data.status === 200) {
                     var html ='<a href="#'+data.href+'" id="btn_tab'+data.tab+'" data-toggle="tab"><span>'+data.tab+'</span>'+data.text+'</a>';
                     $('.customer_name').text(data.customer_name);
                     $('.customer_email').text(data.customer_email);
-
 
                     $('#toogle_'+data.tab).empty();
                     $('#toogle_1').addClass('completed');
                     $('#toogle_'+data.tab).append(html);
                     $('#btn_tab'+data.tab).click();
-                    // $("html, body").animate({
-                    //     scrollTop: 0
-                    // }, "slow");
-
-                    // openBank(data.snapToken);
-
                 }
             }
         });
