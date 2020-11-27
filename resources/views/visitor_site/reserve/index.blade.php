@@ -480,7 +480,7 @@
                                                                             <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:right;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                            <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                         </div>
@@ -1328,6 +1328,29 @@
         });
 
         }
+
+        function confirmPayment(e, type) {
+            var paymentChannel = ($('#payment-channel').val());
+
+            if("{{$data->type}}" == "Room"){
+                var url = "{{ route('visitor.room_checkout') }}";
+            }
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "booking_id": "{{$data->booking_id}}",
+                    "payment_channel": paymentChannel,
+                    "total_price" : "{{$data->totalPrice}}"
+                },
+                url: url,
+            });
+
+        }
+
+
+
 
     </script>
 

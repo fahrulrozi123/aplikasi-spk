@@ -340,6 +340,64 @@ class PaymentController extends Controller
         }
     }
 
+    public function room_checkout(Request $request)
+    {
+        // dd($request->all());
+        $input           = $request->all();
+        $booking_id      = $input['booking_id'];
+        $payment_channel = $input['payment_channel'];
+        $bill_total      = $input['total_price'];
+
+        $rsvp            = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+
+        // dd($payment_channel);
+
+        $merchant_id	   = 33519;
+        $merchant_password = 'p@ssw0rd';
+        $merchant_user	   = 'bot'.$merchant_id;
+
+        $bill_no	       = $rsvp->booking_id;
+        $request           = 'Room Reservation of '.$bill_no;
+        $cust_name         = $rsvp->rsvp_cust_name;
+        $bill_date         = $rsvp->create_at;
+        $bill_expired      = $rsvp->expired_at;
+        $bill_desc         = 'Room Reservation of '.$bill_no;
+
+        $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
+
+        $client = new Client();
+
+        $response = $client->post('https://dev.faspay.co.id/cvr/300011/10', [
+            'json' => [
+                'request'          => $request,
+                'merchant_id'      => $merchant_id,
+                'bill_no'          => $bill_no,
+
+                'bill_date'        => $bill_date,
+                'bill_expired'     => $bill_expired,
+                'bill_desc'        => $bill_desc,
+                'bill_currency'    => 'IDR',
+                'bill_total'       => $bill_total,
+
+                // 'cust_no'       => '500505',
+                'cust_name'        => $cust_name,
+                'payment_channel'  => $payment_channel,
+                'terminal'         => '10',
+                'email'            => 'operation@faspay.co.id',
+                'pay_type'         => '1',
+                'item'             => [
+                    'product'      => 'Invoice No. inv-985/2017-03/1234567891',
+                    'qty'          => '1',
+                    'amount'       => '1000000'
+                ],
+                'reserve1'         => 'ROOMS',
+                'signature'        => $signature
+            ]
+        ]);
+
+        return $response->getBody()->getContents();
+    }
+
     public function reserve_product(Request $request)
     {
         $input = $request->all();
