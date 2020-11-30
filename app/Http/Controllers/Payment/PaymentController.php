@@ -12,8 +12,7 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
 use App\Models\Setting\Setting;
-use App\Payment;
-use App\PaymentStatus;
+use App\Models\Payment\Payment;
 
 use Carbon\Carbon;
 use DB;
@@ -346,7 +345,7 @@ class PaymentController extends Controller
         $input           = $request->all();
         $booking_id      = $input['booking_id'];
         $payment_channel = $input['payment_channel'];
-        $bill_total      = $input['total_price'];
+        $bill_total      = $input['total_price'].'00';
 
         $rsvp            = RoomRSvp::where('booking_id', $input['booking_id'])->first();
 
@@ -358,6 +357,9 @@ class PaymentController extends Controller
 
         $bill_no	       = $rsvp->booking_id;
         $request           = 'Room Reservation of '.$bill_no;
+
+        // dd($request);
+
         $cust_name         = $rsvp->rsvp_cust_name;
         $bill_date         = $rsvp->create_at;
         $bill_expired      = $rsvp->expired_at;
@@ -395,7 +397,36 @@ class PaymentController extends Controller
             ]
         ]);
 
-        return $response->getBody()->getContents();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        // dd($data);
+
+        Payment::create([
+            'transaction_id'     => $data['trx_id'],
+            'merchant_id'        => $data['merchant_id'],
+            'rsvp_id'            => $data['bill_no'],
+            'from_table'         => 'ROOMS',
+            'gross_amount'       => $rsvp->rsvp_grand_total,
+            'currency'           => 'IDR',
+            'transaction_status' => 'pending',
+            'transaction_time'   => $bill_date,
+            'settlement_time'    => $bill_expired,
+            'fraud_status'       => $data['response_desc'],
+            'payment_type'       => $input['payment_channel'],
+            // 'approval_code'      => $approval_code,
+            'status_code'        => $data['response_code'],
+            'status_message'     => $data['response'],
+            'signature_key'      => $signature,
+        ]);
+
+        RoomRsvp::where('booking_id', $booking_id)->update([
+            'rsvp_payment'       => $input['payment_channel']
+        ]);
+
+        // return $response->getBody()->getContents();
+
+        return response()->json(["status" => 200, "href" => "tab2-3"]);
+
     }
 
     public function reserve_product(Request $request)

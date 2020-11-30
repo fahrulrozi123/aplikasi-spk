@@ -12,10 +12,10 @@ class Payment extends Model
   protected $keyType = 'string';
   public $timestamps = false;
   protected $fillable = ['transaction_id','merchant_id','rsvp_id',
-                        'gross_amount','currency','transaction_status',
-                        'transaction_time','settlement_time','fraud_status',
-                        'payment_type','approval_code','status_code',
-                        'status_message','signature_key'];
+                        'from_table','gross_amount','currency',
+                        'transaction_status','transaction_time','settlement_time',
+                        'fraud_status','payment_type','approval_code',
+                        'status_code','status_message','signature_key'];
 
 
 }

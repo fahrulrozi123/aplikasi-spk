@@ -1307,6 +1307,7 @@
             },
             url: url,
             success: function (data) {
+                // console.log(data);
                 if( data.status === 422 ) {
 
                     Swal.fire(
@@ -1336,6 +1337,8 @@
                 var url = "{{ route('visitor.room_checkout') }}";
             }
 
+            data = JSON.stringify(data);
+
             $.ajax({
                 type: "POST",
                 data: {
@@ -1345,6 +1348,42 @@
                     "total_price" : "{{$data->totalPrice}}"
                 },
                 url: url,
+
+                success: function (data) {
+
+                    console.log(data);
+                if( data.status === 422 ) {
+
+                    Swal.fire(
+                        'Sorry',
+                        data.msg,
+                        'warning'
+                    );
+                }else if(data.status === 200) {
+                    // $$('.booking_id').text(result.order_id);
+                    // $('#transaction_due').hide();
+                    var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
+                    var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
+                    var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
+
+                    $('#toogle_1').empty();
+                    $('#toogle_1').addClass('completed');
+                    $('#toogle_1').append(html1);
+                    $('#toogle_2').empty();
+                    $('#toogle_2').addClass('completed');
+                    $('#toogle_2').append(html2);
+                    $('#toogle_3').empty();
+                    $('#toogle_3').append(html3);
+
+                    $("html, body").animate({
+                        scrollTop: 0
+                    }, "fast");
+
+                    $('#btn_tab3').click();
+                    $('#timer_text').text("Finished");
+                    timezz.destroy();
+                }
+            }
             });
 
         }
