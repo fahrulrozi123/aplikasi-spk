@@ -1342,10 +1342,13 @@
             $.ajax({
                 type: "POST",
                 data: {
-                    "_token": "{{ csrf_token() }}",
-                    "booking_id": "{{$data->booking_id}}",
+                    "_token"         : "{{ csrf_token() }}",
+                    "booking_id"     : "{{ $data->booking_id }}",
                     "payment_channel": paymentChannel,
-                    "total_price" : "{{$data->totalPrice}}"
+                    "room_name"      : "{{ $data->roomName }}",
+                    "total_rooms"    : "{{ $data->totalRooms }}",
+                    "total_days"     : "{{ $data->totalDays }}",
+                    "total_price"    : "{{ $data->totalPrice }}"
                 },
                 url: url,
 

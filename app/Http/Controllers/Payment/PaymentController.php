@@ -342,29 +342,24 @@ class PaymentController extends Controller
     public function room_checkout(Request $request)
     {
         // dd($request->all());
-        $input           = $request->all();
-        $booking_id      = $input['booking_id'];
-        $payment_channel = $input['payment_channel'];
-        $bill_total      = $input['total_price'].'00';
+        $input             = $request->all();
+        $booking_id        = $input['booking_id'];
+        $payment_channel   = $input['payment_channel'];
+        $bill_total        = $input['total_price'].'00';
+        $rsvp              = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+        $email             = Customer::where('id', $rsvp->customer_id)->first();
 
-        $rsvp            = RoomRSvp::where('booking_id', $input['booking_id'])->first();
-
-        // dd($payment_channel);
-
+        // user
         $merchant_id	   = 33519;
         $merchant_password = 'p@ssw0rd';
         $merchant_user	   = 'bot'.$merchant_id;
 
         $bill_no	       = $rsvp->booking_id;
         $request           = 'Room Reservation of '.$bill_no;
-
-        // dd($request);
-
         $cust_name         = $rsvp->rsvp_cust_name;
         $bill_date         = $rsvp->create_at;
         $bill_expired      = $rsvp->expired_at;
         $bill_desc         = 'Room Reservation of '.$bill_no;
-
         $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
@@ -385,12 +380,12 @@ class PaymentController extends Controller
                 'cust_name'        => $cust_name,
                 'payment_channel'  => $payment_channel,
                 'terminal'         => '10',
-                'email'            => 'operation@faspay.co.id',
+                'email'            => $email->cust_email,
                 'pay_type'         => '1',
                 'item'             => [
-                    'product'      => 'Invoice No. inv-985/2017-03/1234567891',
-                    'qty'          => '1',
-                    'amount'       => '1000000'
+                    'product'      => $input['total_rooms'] . "x " . $input['room_name'] . "x " . $input['total_days'] . " day(s)",
+                    'qty'          => $input['total_rooms'],
+                    'amount'       => $bill_total
                 ],
                 'reserve1'         => 'ROOMS',
                 'signature'        => $signature
