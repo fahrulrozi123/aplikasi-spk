@@ -243,10 +243,14 @@ class PaymentController extends Controller
 
     public function reserve_room(Request $request)
     {
+        // dd($request->all());
         $input = $request->all();
         $booking_id = $input['booking_id'];
         $rsvp = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $data = json_decode($input['data'], true);
+
+        // dd($data);
+
         $id_type = ['Identity Card', 'Driver License', 'Passport'];
 
         if ($data['type'] == "customer") {
@@ -259,24 +263,25 @@ class PaymentController extends Controller
                 'guest_name' => 'string',
                 'additional_request' => 'string',
             ],
-                [
-                    'cust_name.required' => 'Full Name field is required',
-                    'cust_name.string' => 'Full Name field only can contain letter not number',
-                    'guest_name.string' => 'Guest Name field only can contain letter not number',
-                    'cust_name.max' => 'Full Name field max only 50 character',
-                    'cust_email.required' => 'Email field is required',
-                    'cust_email.email' => 'Email field only can fill with Email',
-                    'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
-                    'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
-                    'cust_id_type.required' => 'Identification Card field is required',
-                    'cust_id_num.required' => 'Identification Number field is required',
-                    'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
-                    'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
-                ]);
+            [
+                'cust_name.required' => 'Full Name field is required',
+                'cust_name.string' => 'Full Name field only can contain letter not number',
+                'guest_name.string' => 'Guest Name field only can contain letter not number',
+                'cust_name.max' => 'Full Name field max only 50 character',
+                'cust_email.required' => 'Email field is required',
+                'cust_email.email' => 'Email field only can fill with Email',
+                'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
+                'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
+                'cust_id_type.required' => 'Identification Card field is required',
+                'cust_id_num.required' => 'Identification Number field is required',
+                'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
+                'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
+            ]);
 
             if ($validator->fails()) {
                 return response()->json(["status" => 422, "msg" => $validator->messages()->first()]);
             }
+
             if (!in_array($data['cust_id_type'], $id_type)) {
                 return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
             }
@@ -343,11 +348,21 @@ class PaymentController extends Controller
     {
         // dd($request->all());
         $input             = $request->all();
+        $data              = $input['data'];
+
+        // $input['data']             = $request->all();
+
         $booking_id        = $input['booking_id'];
         $payment_channel   = $input['payment_channel'];
-        $bill_total        = $input['total_price'].'00';
+        $bill_total        = $data['total_price'].'00';
+
+        // dd($data);
+        // dd($bill_total);
+
         $rsvp              = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $email             = Customer::where('id', $rsvp->customer_id)->first();
+
+        dd(rsvp);
 
         // user
         $merchant_id	   = 33519;
@@ -383,8 +398,8 @@ class PaymentController extends Controller
                 'email'            => $email->cust_email,
                 'pay_type'         => '1',
                 'item'             => [
-                    'product'      => $input['total_rooms'] . "x " . $input['room_name'] . "x " . $input['total_days'] . " day(s)",
-                    'qty'          => $input['total_rooms'],
+                    'product'      => $data['total_rooms'] . "x " . $data['room_name'] . "x " . $data['total_days'] . " day(s)",
+                    'qty'          => $data['total_rooms'],
                     'amount'       => $bill_total
                 ],
                 'reserve1'         => 'ROOMS',
@@ -421,26 +436,12 @@ class PaymentController extends Controller
         // return $response->getBody()->getContents();
 
         return response()->json(["status" => 200, "href" => "tab2-3"]);
-
     }
 
     public function reserve_product(Request $request)
     {
         $input = $request->all();
-
-        if (isset($request['forget_snap'])) {
-            Session::forget('productSnapToken');
-            Session::forget('product_booking_id');
-            return response()->json(["status" => 200, "msg" => "Success"]);
-
-        }
         $booking_id = $input['booking_id'];
-        $validate_booking_id = Session::get('product_booking_id');
-
-        // if (!ProductRsvp::where('booking_id', $input['booking_id'])->exists() || $booking_id != $validate_booking_id) {
-        //     return response()->json(["status" => 422, "msg" => "Booking Id not found"]);
-        // }
-
         $rsvp = ProductRsvp::where('booking_id', $input['booking_id'])->first();
 
         $data = json_decode($input['data'], true);
@@ -461,46 +462,41 @@ class PaymentController extends Controller
             'date_reserve' => 'required|after_or_equal:today',
             'time_reserve' => 'required|date_format:Y-m-d H:i|after:1 hours',
             'additional_request' => 'string',
-
         ],
-            [
-                'cust_name.required' => 'Full Name field is required',
-                'cust_name.string' => 'Full Name field only can contain letter not number',
-                'guest_name.string' => 'Guest Name field only can contain string',
-                'cust_name.max' => 'Full Name field max only 50 character',
-                'cust_email.required' => 'Email field is required',
-                'cust_email.email' => 'Email field only can fill with Email',
-                'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
-                'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
-                'cust_id_type.required' => 'Identification Card field is required',
-                'cust_id_num.required' => 'Identification Number field is required',
-                'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
-                'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
-                'product_id.required' => 'Product is required',
-                'product_id.exists' => 'Product is not found',
-                'amount_pax.required' => 'Amount Pax field is required',
-                'amount_pax.numeric' => 'Amount Pax field is only can contain numeric',
-                'amount_pax.min' => 'Amount Pax field minimal 1 Pax',
-                'amount_pax.max' => 'Amount Pax field maximal 4 Pax',
-                'date_reserve.required' => 'Product Reservation Date field is required',
-                'date_reserve.after_or_equal' => 'Product Reservation Date field date cannot less than today',
-                'time_reserve.after' => 'Product Reservation Time at least 1 hour from now',
-            ]);
+        [
+            'cust_name.required' => 'Full Name field is required',
+            'cust_name.string' => 'Full Name field only can contain letter not number',
+            'guest_name.string' => 'Guest Name field only can contain string',
+            'cust_name.max' => 'Full Name field max only 50 character',
+            'cust_email.required' => 'Email field is required',
+            'cust_email.email' => 'Email field only can fill with Email',
+            'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
+            'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
+            'cust_id_type.required' => 'Identification Card field is required',
+            'cust_id_num.required' => 'Identification Number field is required',
+            'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
+            'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
+            'product_id.required' => 'Product is required',
+            'product_id.exists' => 'Product is not found',
+            'amount_pax.required' => 'Amount Pax field is required',
+            'amount_pax.numeric' => 'Amount Pax field is only can contain numeric',
+            'amount_pax.min' => 'Amount Pax field minimal 1 Pax',
+            'amount_pax.max' => 'Amount Pax field maximal 4 Pax',
+            'date_reserve.required' => 'Product Reservation Date field is required',
+            'date_reserve.after_or_equal' => 'Product Reservation Date field date cannot less than today',
+            'time_reserve.after' => 'Product Reservation Time at least 1 hour from now',
+        ]);
 
         if ($validator->fails()) {
             return response()->json(["status" => 422, "msg" => $validator->messages()->first()]);
         }
+
         if (!in_array($data['cust_id_type'], $id_type)) {
             return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
         }
 
         $data['time_reserve'] = Carbon::parse($data['time_reserve'])->isoFormat('h:mm A');
         if ($data['type'] == "customer") {
-
-            // if (Session::get('productSnapToken') != null) {
-            //     $snapToken = Session::get('productSnapToken');
-            //     return response()->json(["status" => 200, "href" => "tab2-2", "tab" => "2", "text" => "Payment Information", "snapToken" => $snapToken]);
-            // }
 
             $filters = [
                 'cust_name' => 'trim|escape|capitalize',
@@ -534,23 +530,6 @@ class PaymentController extends Controller
 
             $grandTotal = $rsvp_total_amount + $rsvp_tax + $rsvp_service;
 
-            // check product reservation_id empty or not
-            $checkRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-            $valueCheckRsvpId = $checkRsvpId->reservation_id;
-
-            if ($valueCheckRsvpId == "") {
-                $rsvp_id = rand($min = 1, $max = 99999);
-                $reservation_id = $this->generate_product_id($rsvp_id, $sanitizer['date_reserve'], $productData->product_name, $productData->sales_inquiry);
-
-                while ($reservation_id == false) {
-                    $rsvp_id = rand($min = 1, $max = 99999);
-                    $reservation_id = $this->generate_product_id($rsvp_id, $sanitizer['date_reserve'], $productData->product_name, $productData->sales_inquiry);
-                }
-            } else {
-                $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-                $reservation_id = $dataRsvpId->reservation_id;
-            }
-
             $cust_email = $sanitizer['cust_email'];
 
             if (Customer::where('cust_email', $cust_email)->exists()) {
@@ -574,7 +553,7 @@ class PaymentController extends Controller
             }
 
             ProductRsvp::where('booking_id', $booking_id)->update([
-                'reservation_id' => $reservation_id,
+                // 'reservation_id' => $reservation_id,
                 'customer_id' => $customer_id,
                 'rsvp_date_reserve' => $sanitizer['date_reserve'],
                 'rsvp_arrive_time' => $data['time_reserve'],
@@ -592,68 +571,99 @@ class PaymentController extends Controller
                 'rsvp_grand_total' => $grandTotal,
             ]);
 
-            $order_id = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-
-            // Required
-            $transaction_details = array(
-                'order_id' => $order_id->reservation_id,
-                'gross_amount' => $grandTotal, // no decimal allowed for creditcard
-            );
-
-            // Optional
-            $item1_details = array(
-                'id' => '1',
-                'price' => $grandTotal,
-                'quantity' => 1,
-                'name' => $rsvp_amount_pax . " Pax " . $productData->product_name,
-            );
-
-            // Optional
-            $item_details = array($item1_details);
-            $full_name = $this->split_name($sanitizer['cust_name']);
-
-            // Optional
-            $customer_details = array(
-                'first_name' => $full_name[0],
-                'last_name' => $full_name[1],
-                'email' => $sanitizer['cust_email'],
-                'phone' => $sanitizer['cust_phone'],
-                'billing_address' => '',
-                'shipping_address' => '',
-            );
-
-            $enable_payments = ["credit_card", "mandiri_clickpay", "cimb_clicks",
-                "bca_klikbca", "bca_klikpay", "bri_epay", "echannel", "permata_va",
-                "bca_va", "bni_va", "other_va", "danamon_online"];
-
-            $expiry = array(
-                "start_time" => Carbon::parse(Carbon::now())->isoFormat("YYYY-MM-DD HH:mm:ss Z"),
-                "unit" => "hour",
-                "duration" => 1,
-            );
-
-            // Fill transaction details
-            $transaction = array(
-                'transaction_details' => $transaction_details,
-                'customer_details' => $customer_details,
-                'item_details' => $item_details,
-                'enabled_payments' => $enable_payments,
-                "custom_field1" => "PRODUCTS",
-                "expiry" => $expiry,
-
-            );
-
-            $snapToken = \Midtrans\Snap::getSnapToken($transaction);
-
-            Session::put('productSnapToken', $snapToken);
-
-            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "tab" => "2", "text" => "Payment Information", "snapToken" => $snapToken]);
+            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "tab" => "2", "text" => "Payment Information"]);
 
         } elseif ($data['type'] == "credit" || $data['type'] == "bank") {
 
             return response()->json(["status" => 200, "msg" => $data['type'], "transaction" => $transaction]);
 
         }
+    }
+
+    public function product_checkout(Request $request)
+    {
+        // dd($request->all());
+        $input             = $request->all();
+        $data              = $input['data'];
+
+        $booking_id        = $input['booking_id'];
+        $payment_channel   = $input['payment_channel'];
+        $bill_total        = $data['total_price'].'00';
+        $rsvp              = ProductRSvp::where('booking_id', $input['booking_id'])->first();
+        $email             = Customer::where('id', $rsvp->customer_id)->first();
+
+        // user
+        $merchant_id	   = 33519;
+        $merchant_password = 'p@ssw0rd';
+        $merchant_user	   = 'bot'.$merchant_id;
+
+        $bill_no	       = $rsvp->booking_id;
+        $request           = 'Room Reservation of '.$bill_no;
+        $cust_name         = $rsvp->rsvp_cust_name;
+        $bill_date         = $rsvp->create_at;
+        $bill_expired      = $rsvp->expired_at;
+        $bill_desc         = 'Room Reservation of '.$bill_no;
+        $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
+
+        $client = new Client();
+
+        $response = $client->post('https://dev.faspay.co.id/cvr/300011/10', [
+            'json' => [
+                'request'          => $request,
+                'merchant_id'      => $merchant_id,
+                'bill_no'          => $bill_no,
+
+                'bill_date'        => $bill_date,
+                'bill_expired'     => $bill_expired,
+                'bill_desc'        => $bill_desc,
+                'bill_currency'    => 'IDR',
+                'bill_total'       => $bill_total,
+
+                // 'cust_no'       => '500505',
+                'cust_name'        => $cust_name,
+                'payment_channel'  => $payment_channel,
+                'terminal'         => '10',
+                'email'            => $email->cust_email,
+                'pay_type'         => '1',
+                'item'             => [
+                    'product'      => $data['amount_pax'] . "x " . $data['product_name'],
+                    'qty'          => $data['amount_pax'],
+                    'amount'       => $bill_total
+                ],
+                'reserve1'         => 'ROOMS',
+                'signature'        => $signature
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        // dd($data);
+
+        Payment::create([
+            'transaction_id'     => $data['trx_id'],
+            'merchant_id'        => $data['merchant_id'],
+            'rsvp_id'            => $data['bill_no'],
+            'from_table'         => 'PRODUCTS',
+            'gross_amount'       => $rsvp->rsvp_grand_total,
+            'currency'           => 'IDR',
+            'transaction_status' => 'pending',
+            'transaction_time'   => $bill_date,
+            'settlement_time'    => $bill_expired,
+            'fraud_status'       => $data['response_desc'],
+            'payment_type'       => $input['payment_channel'],
+            // 'approval_code'      => $approval_code,
+            'status_code'        => $data['response_code'],
+            'status_message'     => $data['response'],
+            'signature_key'      => $signature,
+        ]);
+
+        RoomRsvp::where('booking_id', $booking_id)->update([
+            'rsvp_payment'       => $input['payment_channel']
+        ]);
+
+        // return $response->getBody()->getContents();
+
+        return response()->json(["status" => 200, "href" => "tab2-3"]);
     }
 
     // uses regex that accepts any word character or hyphen in last name

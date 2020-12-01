@@ -1068,8 +1068,6 @@
     <script src="{{ asset('js/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('js/neon-charts.js') }}"></script>
 
-    <script src="{{ config('midtrans.midtrans.isProduction') == true ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('midtrans.midtrans.clientKey') }}"></script>
-
     {{-- input type number only --}}
     <script>
 
@@ -1335,9 +1333,31 @@
 
             if("{{$data->type}}" == "Room"){
                 var url = "{{ route('visitor.room_checkout') }}";
+
+                data = {
+                    room_name  : "{{ $data->roomName }}",
+                    total_rooms: "{{ $data->totalRooms }}",
+                    total_days : "{{ $data->totalDays }}",
+                    total_price: "{{ $data->totalPrice }}"
+                }
+
+            } else if("{{$data->type}}" == "Product") {
+                var url = "{{ route('visitor.product_checkout') }}";
+
+                var pax = $('.inputPax').val();
+
+                var price = {{$data->productPrice}} * pax;
+
+                data = {
+                    product_name: "{{ $data->productName }}",
+                    amount_pax  : pax,
+                    total_price : price
+                }
             }
 
-            data = JSON.stringify(data);
+            // data = JSON.stringify(data);
+
+            // console.log(data);
 
             $.ajax({
                 type: "POST",
@@ -1345,18 +1365,14 @@
                     "_token"         : "{{ csrf_token() }}",
                     "booking_id"     : "{{ $data->booking_id }}",
                     "payment_channel": paymentChannel,
-                    "room_name"      : "{{ $data->roomName }}",
-                    "total_rooms"    : "{{ $data->totalRooms }}",
-                    "total_days"     : "{{ $data->totalDays }}",
-                    "total_price"    : "{{ $data->totalPrice }}"
+                    "data": data
+
                 },
                 url: url,
 
                 success: function (data) {
-
-                    console.log(data);
+                    // console.log(data);
                 if( data.status === 422 ) {
-
                     Swal.fire(
                         'Sorry',
                         data.msg,

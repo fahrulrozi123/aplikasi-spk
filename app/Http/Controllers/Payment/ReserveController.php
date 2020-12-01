@@ -533,7 +533,7 @@ class ReserveController extends Controller
 
     public function product_reservation(Request $request)
     {
-        Session::forget('productSnapToken');
+        // Session::forget('productSnapToken');
         $id = $request['product_list'];
         $date = $request['date_product'];
         $date = Carbon::parse($date)->format('d F Y');
@@ -573,6 +573,10 @@ class ReserveController extends Controller
         }
 
         $setting = $this->setting();
+
+        $paymentChannels = $this->paymentChannel();
+        $listPaymentChannels = json_decode($paymentChannels, true);
+
         return view('visitor_site.reserve.index', get_defined_vars());
     }
 

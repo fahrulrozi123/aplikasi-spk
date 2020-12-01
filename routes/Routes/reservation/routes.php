@@ -16,6 +16,8 @@ Route::post('/visitor/product_reservation/', ['as' => 'visitor.product_reservati
 
 Route::get('/payment-channel', 'Payment\ReserveController@paymentChannel')->name('payment.channel');
 Route::post('/checkout-room', ['as' => 'visitor.room_checkout', 'uses' => 'Payment\PaymentController@room_checkout']);
+Route::post('/checkout-product', ['as' => 'visitor.product_checkout', 'uses' => 'Payment\PaymentController@product_checkout']);
+
 Route::get('/signature', 'Payment\PaymentController@generateSignature');
 
 //TEMPLATE EMAIL//
