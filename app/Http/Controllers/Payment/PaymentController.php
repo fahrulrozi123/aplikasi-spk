@@ -20,6 +20,9 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Validator;
 use Session;
 use \Waavi\Sanitizer\Sanitizer;
+use App\Mail\CheckoutEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 class PaymentController extends Controller
 {
@@ -248,9 +251,6 @@ class PaymentController extends Controller
         $booking_id = $input['booking_id'];
         $rsvp = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $data = json_decode($input['data'], true);
-
-        // dd($data);
-
         $id_type = ['Identity Card', 'Driver License', 'Passport'];
 
         if ($data['type'] == "customer") {
@@ -349,15 +349,9 @@ class PaymentController extends Controller
         // dd($request->all());
         $input             = $request->all();
         $data              = $input['data'];
-
-        // $input['data']             = $request->all();
-
         $booking_id        = $input['booking_id'];
         $payment_channel   = $input['payment_channel'];
         $bill_total        = $data['total_price'].'00';
-
-        // dd($data);
-        // dd($bill_total);
 
         $rsvp              = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $email             = Customer::where('id', $rsvp->customer_id)->first();
@@ -430,6 +424,13 @@ class PaymentController extends Controller
         RoomRsvp::where('booking_id', $booking_id)->update([
             'rsvp_payment'       => $input['payment_channel']
         ]);
+
+        // Email Checkout Confirmation
+        $setting = Setting::first();
+        $data    = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+        $data->subject = 'Booking - '.$data->booking_id;
+
+        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
 
         // return $response->getBody()->getContents();
 
@@ -660,6 +661,13 @@ class PaymentController extends Controller
         ]);
 
         // return $response->getBody()->getContents();
+
+        // Email Checkout Confirmation
+        $setting = Setting::first();
+        $data    = ProductRSvp::where('booking_id', $input['booking_id'])->first();
+        $data->subject = 'Booking - '.$data->booking_id;
+
+        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
 
         return response()->json(["status" => 200, "href" => "tab2-3"]);
     }

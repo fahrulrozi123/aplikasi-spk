@@ -467,7 +467,7 @@
                                                                                     <li>Confirm OTP to
                                                                                         make Payment</li>
                                                                                     <li>Complete
-                                                                                        payment within 30 minutes</li>
+                                                                                        payment within 20 minutes</li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -1315,6 +1315,8 @@
                         'warning'
                     );
                 }else if(data.status === 200) {
+                    $('#toogle_1 > a').css('cursor','not-allowed');
+                    $('#toogle_1 > a').removeAttr('href');
                     var html ='<a href="#'+data.href+'" id="btn_tab'+data.tab+'" data-toggle="tab"><span>'+data.tab+'</span>'+data.text+'</a>';
                     $('.customer_name').text(data.customer_name);
                     $('.customer_email').text(data.customer_email);
