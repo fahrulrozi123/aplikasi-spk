@@ -728,14 +728,15 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    <label for=""><strong>Your Booking <b class="booking_id">231315498448</b> has been
-                                                                            placed!</strong></label>
+                                                                    <label for="">
+                                                                        <strong>Your Booking <b class="booking_id">{{ $data->booking_id }}</b> has been placed!</strong>
+                                                                    </label>
                                                                     <ul>
                                                                         <li>You will receive your booking details at
                                                                             <b class="customer_email">noreply1@tripasysfo.com</b></li>
                                                                         <li>You will receive your Voucher after you have made
                                                                             your payment</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">13 January 2020 13:20</b></li>
+                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($data->expired_at)->format('j F Y h:i')}}</b></li>
                                                                         <li>You will receive a confirmation email as soon this
                                                                             transaction has been approved</li>
                                                                     </ul>
@@ -806,7 +807,7 @@
                                                                 <p><strong>Booking ID</strong></p>
                                                             </div>
                                                             <div class="col-md-12 mt-10">
-                                                                <label class="booking_id" for="">231315498448</label>
+                                                                <label class="booking_id" for="">{{ $data->booking_id }}</label>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <p><strong>Reserve By</strong></p>
@@ -1379,8 +1380,6 @@
                         'warning'
                     );
                 }else if(data.status === 200) {
-                    // $$('.booking_id').text(result.order_id);
-                    // $('#transaction_due').hide();
                     var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
                     var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
                     var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
@@ -1406,10 +1405,6 @@
             });
 
         }
-
-
-
-
     </script>
 
 </body>

@@ -362,8 +362,6 @@ class PaymentController extends Controller
         $rsvp              = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $email             = Customer::where('id', $rsvp->customer_id)->first();
 
-        dd(rsvp);
-
         // user
         $merchant_id	   = 33519;
         $merchant_password = 'p@ssw0rd';
