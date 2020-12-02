@@ -5,5 +5,4 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/payment-success', 'Payment\NotificationController@payment_success');
     Route::get('/payment-unfinish', 'Payment\NotificationController@payment_unfinish');
     Route::get('/payment-error', 'Payment\NotificationController@payment_error');
-
 });

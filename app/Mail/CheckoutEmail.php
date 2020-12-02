@@ -32,7 +32,7 @@ class CheckoutEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@tirtasanitaresort.com', 'Horison Tirta Sanita')
+        return $this->from('noreply@tripasysfo.com', 'Horison Tirta Sanita')
                     ->subject($this->data->subject)
                     ->view('templates/template_checkout')
                     ->with('data', $this->data)
