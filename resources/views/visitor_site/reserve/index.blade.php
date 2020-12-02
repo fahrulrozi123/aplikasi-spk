@@ -438,12 +438,12 @@
                                                                         </a>
                                                                     </li>
 
-                                                                    {{-- <li>
+                                                                    <li>
                                                                         <a href="#credit" data-toggle="tab" style="background-color: white">
                                                                             <span><i class="fa fa-credit-card""></i></span>
                                                                             <span class="hidden-xs"">Credit Card</span>
                                                                         </a>
-                                                                    </li> --}}
+                                                                    </li>
 
                                                                 </ul>
 
@@ -480,102 +480,27 @@
                                                                             <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:right;">
-                                            <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
-                                                                        </div>
-
+                                                                            </div>
                                                                         </div>
                                                                     </div>
 
-                                                                    {{-- <div class="tab-pane tab-horison-credit" id="credit" >
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label text-horison"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Credit
-                                                                                        Card</label>
-                                                                                    <select name="" id="" class="form-control">
-                                                                                        <option value="Mandiri">Mandiri</option>
-                                                                                        <option value="BNI">BNI</option>
-                                                                                        <option value="BCA">BCA</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label text-horison"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Card
-                                                                                        Number</label>
-                                                                                    <input class="form-control" type="text"
-                                                                                        class="form-control visitor-input"
-                                                                                        required
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="3 Digit Kode CVV">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label text-horison"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">Expiry
-                                                                                        Date</label>
-                                                                                    <input class="form-control" type="date"
-                                                                                        class="form-control visitor-input"
+                                                                    <div class="tab-pane tab-horison-credit" id="credit">
 
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="Ex : 13216547216514651">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group">
-                                                                                    <label
-                                                                                        class="control-label text-horison"
-                                                                                        for="full_name"
-                                                                                        style="font-size:12px; font-weight:bold;">CVV
-                                                                                        Code</label>
-                                                                                    <input class="form-control"
-                                                                                        type="number" maxlength="3"
-                                                                                        class="form-control visitor-input"
-
-                                                                                         id=""
-                                                                                        name="" value=""
-                                                                                        placeholder="Ex : 13216547216514651"><br>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
                                                                         <div class="row">
-                                                                                <ul class="form-group">
-                                                                                    <li class="text-horison">Confirm OTP to
-                                                                                        make Payment</li>
-                                                                                    <li class="text-horison">Complete
-                                                                                        payment within 30 minutes</li>
-                                                                                </ul>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-md-6" >
-                                                                                <p style="color:#D4B580">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
-                                                                            </div>
-                                                                            <div class="col-md-6" align="right">
+                                                                            <div class="col-md-12" align="left">
                                                                                 <ul class="pager wizard">
-                                                                                    <li class="next">
-                                                                                        <a class="btn" style="background-color:#D4B580; color:white" href="#">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                    <li class="" style="float:left;">
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-                                                                    </div> --}}
+
+
+                                                                    </div>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -1375,37 +1300,55 @@
 
                 success: function (data) {
                     // console.log(data);
-                if( data.status === 422 ) {
-                    Swal.fire(
-                        'Sorry',
-                        data.msg,
-                        'warning'
-                    );
-                }else if(data.status === 200) {
-                    var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
-                    var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
-                    var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
+                    if( data.status === 422 ) {
+                        Swal.fire(
+                            'Sorry',
+                            data.msg,
+                            'warning'
+                        );
+                    }  else if(data.status === 200) {
+                        var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
+                        var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
+                        var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';
 
-                    $('#toogle_1').empty();
-                    $('#toogle_1').addClass('completed');
-                    $('#toogle_1').append(html1);
-                    $('#toogle_2').empty();
-                    $('#toogle_2').addClass('completed');
-                    $('#toogle_2').append(html2);
-                    $('#toogle_3').empty();
-                    $('#toogle_3').append(html3);
+                        $('#toogle_1').empty();
+                        $('#toogle_1').addClass('completed');
+                        $('#toogle_1').append(html1);
+                        $('#toogle_2').empty();
+                        $('#toogle_2').addClass('completed');
+                        $('#toogle_2').append(html2);
+                        $('#toogle_3').empty();
+                        $('#toogle_3').append(html3);
 
-                    $("html, body").animate({
-                        scrollTop: 0
-                    }, "fast");
+                        $("html, body").animate({
+                            scrollTop: 0
+                        }, "fast");
 
-                    $('#btn_tab3').click();
-                    $('#timer_text').text("Finished");
-                    timezz.destroy();
+                        $('#btn_tab3').click();
+                        $('#timer_text').text("Finished");
+                        timezz.destroy();
+                    }
                 }
-            }
             });
+        }
 
+        function confirmPaymentCredit(e, type) {
+            var paymentChannel = ($('#payment-channel').val());
+
+            if("{{$data->type}}" == "Room"){
+                var url = "{{ route('visitor.credit') }}";
+            }
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "booking_id": "{{$data->booking_id}}",
+                    "payment_channel": paymentChannel,
+                    "total_price" : "{{$data->totalPrice}}"
+                },
+                url: url,
+            });
         }
     </script>
 

@@ -672,30 +672,103 @@ class PaymentController extends Controller
         return response()->json(["status" => 200, "href" => "tab2-3"]);
     }
 
-    // uses regex that accepts any word character or hyphen in last name
-    public function split_name($name)
+    public function credit(Request $request)
     {
-        $name = trim($name);
-        $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
-        $first_name = trim(preg_replace('#' . $last_name . '#', '', $name));
-        return array($first_name, $last_name);
+        $merchant_id = "tes_auto";
+        $password    = "abcde";
+        $tranid      = date("YmdGis");
+        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##5000.00##'.'0'.'##');
+
+        // dd($signaturecc);
+
+        $client = new Client();
+
+        $client->request('POST', 'https://fpgdev.faspay.co.id/payment', [
+            'form_params' => [
+                'TRANSACTIONTYPE'			    => '1',
+                'RESPONSE_TYPE'			        => '2',
+                'LANG' 					        => '',
+                'MERCHANTID'              	    => $merchant_id,  //*   // MERCHANT ID
+                'PAYMENT_METHOD'			    => '1', //*
+                'TXN_PASSWORD' 			        => $password, //Transaction password  ajgbi
+                'MERCHANT_TRANID'			    => $tranid,   //*
+                'CURRENCYCODE'				    => 'IDR', //*
+                'AMOUNT'					    => '5000.00', //*
+                'CUSTNAME'					    => 'tes faspay', //*
+                'CUSTEMAIL'				        => 'account@faspay.co.id', //*
+                'RETURN_URL'              	    => 'http : //localhost/merchant_return_page.php', //*
+                'SIGNATURE' 			 	    => $signaturecc, //*
+                'BILLING_ADDRESS'				=> 'bekasi',
+                'BILLING_ADDRESS_CITY'			=> 'bekasi',
+                'BILLING_ADDRESS_REGION'		=> 'bekasi',
+                'BILLING_ADDRESS_STATE'			=> 'bekasi pusat6',
+                'BILLING_ADDRESS_POSCODE'		=> '10712',
+                'BILLING_ADDRESS_COUNTRY_CODE'	=> 'ID',
+                'RECEIVER_NAME_FOR_SHIPPING'	=> 'ega',
+                'SHIPPING_ADDRESS' 				=> 'bekasi air enam',
+                'SHIPPING_ADDRESS_CITY' 		=> 'bekasi tengah',
+                'SHIPPING_ADDRESS_REGION'		=> 'bekasi tengah',
+                'SHIPPING_ADDRESS_STATE'		=> 'bekasi tengah',
+                'SHIPPING_ADDRESS_POSCODE'		=> 'bekasi tengah',
+                'SHIPPING_ADDRESS_COUNTRY_CODE' => 'bekasi tengah',
+                'SHIPPINGCOST'					=> '0.00',
+                'PHONE_NO' 						=> '43654657687',
+                'MREF1'							=> 'tes',
+                'MREF2' 						=> 'testing',
+                'MREF3'							=> 'Tas;2;3000000',
+                'MREF4'							=> '',
+                'MREF5'							=> '',
+                'MREF6'							=> '',
+                'MREF7'							=> '',
+                'MREF8'							=> '',
+                'MREF9'							=> '',
+                'MREF10'						=> '',
+                'MPARAM1' 						=> '',// direct, isi dengan direct
+                'MPARAM2' 						=> '',
+                'CUSTOMER_REF'	 				=> '',
+                'FRISK1'						=> '',
+                'FRISK2'						=> '',
+                'DOMICILE_ADDRESS'				=> '',
+                'DOMICILE_ADDRESS_CITY'			=> '',
+                'DOMICILE_ADDRESS_REGION'		=> '',
+                'DOMICILE_ADDRESS_STATE'		=> '',
+                'DOMICILE_ADDRESS_POSCODE' 		=> '',
+                'DOMICILE_ADDRESS_COUNTRY_CODE' => '',
+                'DOMICILE_PHONE_NO'	 			=> '',
+                'handshake_url'					=> '',
+                'handshake_param'			    => '',
+                'style_merchant_name'           => 'black',
+                'style_order_summary'           => 'black',
+                'style_order_no'                => 'black',
+                'style_order_desc'              => 'black',
+                'style_amount'                  => 'black',
+                'style_background_left'         => '#fff',
+                'style_button_cancel'           => 'grey',
+                'style_font_cancel'             => 'red',
+                //harus url yg lgsg ke gambar
+                'style_image_url'               => 'https: //tirtasanitaresort.com/user/1599209847_5f520177f30bd.jpg',
+            ],
+        ]);
+
+        // dd($response);
+
+        // return $response->getBody()->getContents();
     }
 
-    public function faspay()
+    public function xpress(Request $request)
     {
-        $merchant_id		= 50006;
+        $merchant_id		= 33519;
 		$merchant_user		= "bot".$merchant_id;
 
 		$merchant_name		= "Test"; // akan di provide oleh faspay per merchant
-		$merchant_password 	= "9JmwOu2R";
-		//$klikpay_code		= "UATYUK";
-		//$clear_key			= "KlikPayYukTraDev";
-		//$server				= "Development";
+        $merchant_password 	= 'p@ssw0rd';
+        $bill_no	= date('YmdGis');
+        $bill_total = 300000;
 
-		$bill_no	= date('YmdGis');
-		//$bill_total	= 1450000;
+        $signature	= $this->generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total);
+        // die(var_dump($signature, $bill_total));
 
-		$products = array(
+        $products = array(
             array(
                 'product'   => 'Bunga',
                 'qty'       => 1,
@@ -708,21 +781,10 @@ class PaymentController extends Controller
             )
         );
 
-        $bill_total = 5000000;
-		// foreach($products as $rprod => $fprod){
-        //     $bill_total	+= ($fprod["amount"] * $fprod["qty"]);
-        // }
-		//foreach($products as $rprod => $fprod){ $bill_total += ($fprod["amount"] * $fprod["qty"]); }
-        //$data = serialize($products);
-		// $signature	=sha1(md5(($merchant_user.$merchant_password.$bill_no.$bill_total)));
-		$signature	= $this->generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total);
-		// dd($signature, $bill_total);
+        $client = new Client();
 
-		$data = serialize($products);
-		$encoded = htmlentities($data);
-
-		$post = array(
-			"merchant_id"				=> $merchant_id,
+        $response =  $client->request('GET', 'https://dev.faspay.co.id/xpress/payment', [
+            "merchant_id"				=> $merchant_id,
 			"merchant_name"				=> $merchant_name,
 			"order_id" 			    	=> $bill_no,
 			"order_reff"				=> $bill_no,
@@ -749,42 +811,23 @@ class PaymentController extends Controller
 			"shippingCity"				=> 'Jakarta Pusat',
 			"shippingRegion"			=> 'DKI JAKARTA',
 			"shippingPostCode"			=> '10710',
-			//"user_id"					=> 'tes_auto',
-			//assword"					=> 'abcde',
-			//"klik_pay_code"				=> $klikpay_code,
-			//"clear_key"					=> $clear_key,
-			//"server"					=> $server,
-			//"mixed"						=> 'False',
-			//id_full"					=> 'tes_auto',
-			//"mid_tiga_bulan"			=> '100003',
-			//"mid_enam_bulan"			=> '100006',
-			//"mid_duabelas_bulan"		=> '100012',
-			//"mid_duaempat_bulan"		=> '100024',
-			//"cicilan_tiga_bulan"		=> 'True',
-			//"cicilan_enam_bulan"		=> 'True',
-		//	"cicilan_duabelas_bulan"	=> 'True',
-	    //	"cicilan_duaempat_bulan"	=> 'True',
-			"products"					=> $encoded,
+			"products"					=> $products,
 			"return_url"            => 'https://google.com',
 
 			"term_condition"			=> 1,
 			"signature"					=> $signature,
+        ]);
 
-			);
-			$string = '<form method="post" name="form" action="https://dev.faspay.co.id/xpress/payment"><br>';
+        return $response->getBody()->getContents();
+    }
 
-		//$string = '<form method="post" name="form" action="https://xpress.faspay.co.id/v3/payment"><br>';
-		// $string = '<form method="post" name="form" action="https://xpress-uat.faspay.co.id/payment"><br>';
-		if ($post != null) {
-			foreach ($post as $name=>$value) {
-				$string .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
-			}
-		}
-		$string .= '</form>';
-		$string .= '<script> document.form.submit();</script>';
-
-		echo $string;
-		exit;
+    // uses regex that accepts any word character or hyphen in last name
+    public function split_name($name)
+    {
+        $name = trim($name);
+        $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+        $first_name = trim(preg_replace('#' . $last_name . '#', '', $name));
+        return array($first_name, $last_name);
     }
 
     public function generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total)
