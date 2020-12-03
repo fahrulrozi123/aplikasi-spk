@@ -13,11 +13,12 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
 use App\Models\Setting\Setting;
+use App\Models\Admin\User;
 
-use Carbon\Carbon;
 use DB;
-use Illuminate\Support\Facades\Mail;
 use PDF;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
@@ -50,25 +51,28 @@ class NotificationController extends Controller
 
     public function payment_notification(Request $request)
     {
-        $request             = $request['request'];
-        $transaction_id      = $request['trx_id'];
-        $merchant_id         = $request['merchant_id'];
-        $merchant            = $request['merchant'];
-        $booking_id          = $request['bill_no'];
-        $payment_reff        = $request['payment_reff'];
-        $payment_date        = $request['payment_date'];
-        $payment_status_code = $request['payment_status_code'];
-        $payment_status_desc = $request['payment_status_desc'];
-        $bill_total          = $request['bill_total'];
+        // dd($request->all());
+        // $request             = $request['request'] ?: null;
+        $transaction_id      = $request['trx_id'] ?: null;
+        $merchant_id         = $request['merchant_id'] ?: null;
+        $merchant            = $request['merchant'] ?: null;
+        $booking_id          = $request['bill_no'] ?: null;
+        $payment_reff        = $request['payment_reff'] ?: null;
+        $payment_date        = $request['payment_date'] ?: null;
+        $payment_status_code = $request['payment_status_code'] ?: null;
+        $payment_status_desc = $request['payment_status_desc'] ?: null;
+        $bill_total          = $request['bill_total'] ?: null;
         $payment_total       = $request['payment_total'];
-        $payment_channel_uid = $request['payment_channel_uid'];
-        $payment_channel     = $request['payment_channel'];
-        $signature           = $request['signature'];
-        $from                = $request['reserve1'];
+        $payment_channel_uid = $request['payment_channel_uid'] ?: null;
+        $payment_channel     = $request['payment_channel'] ?: null;
+        $signature           = $request['signature'] ?: null;
+        // dd($signature);
 
-        $signature_key       = Payment::where('booking_id', $booking_id)->first();
+        $from                = $request['reserve1'] ?: null;
 
-        if ($signature !== $signature_key) {
+        $valid_signature_key = Payment::where('booking_id', $booking_id)->first();
+
+        if ($signature !== $valid_signature_key->signature_key) {
             return response()->json(["status" => 401, "message" => "Something went wrong"]);
             return redirect()->route('index')->with('warning', 'Something went wrong');
         }
@@ -79,10 +83,10 @@ class NotificationController extends Controller
             'booking_id'         => $booking_id,
             'merchant_id'        => $merchant_id,
             'transaction_status' => 'settlement',
-            'status_code'        => payment_status_code,
+            'status_code'        => $payment_status_code,
             'payment_type'       => $payment_channel,
-            'status_message'     => $payment_status_desc ,
-            'signature_key'      => $signature_key,
+            'status_message'     => $payment_status_desc,
+            'signature_key'      => $signature,
         ];
 
         if (Payment::where('booking_id', $booking_id)->exists()) {
@@ -91,7 +95,7 @@ class NotificationController extends Controller
             Payment::insert($data);
         }
 
-        if (payment_status_code == "2") {
+        if ($payment_status_code == "2") {
             if ($from == "ROOMS") {
 
                 // generated rsvp_id room
@@ -113,6 +117,9 @@ class NotificationController extends Controller
                     "reservation_id" => $reservationId,
                 ]);
 
+                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                $this->resendEmail($from, $rsvp_id->booking_id);
+
             } else if ($from == "PRODUCTS") {
 
                 $products = Product::where('booking_id', $booking_id)->first();
@@ -133,8 +140,11 @@ class NotificationController extends Controller
                     'rsvp_status'  => "Payment received",
                     "reservation_id" => $reservationId,
                 ]);
+
+                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                $this->resendEmail($from, $rsvp_id->booking_id);
             }
-            // $this->resendEmail($from, $rsvp_id);
+
         }
 
         $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
@@ -152,8 +162,6 @@ class NotificationController extends Controller
         ];
 
         return response()->json($data);
-
-
     }
 
     public function payment_success(Request $request)
@@ -451,7 +459,7 @@ class NotificationController extends Controller
     {
 
         if ($from == "ROOMS") {
-            $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
+            $query = DB::select('select * from room_reservation where booking_id = ?', [$id]);
             $data = $query[0];
 
             $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
@@ -526,7 +534,7 @@ class NotificationController extends Controller
             return 0;
         }
 
-        $query = DB::select('select * from payment where rsvp_id = ?', [$id]);
+        $query = DB::select('select * from payment where booking_id = ?', [$id]);
         $data->payment = $query[0];
 
         $data->payment->transaction_time = Carbon::parse($data->payment->transaction_time)->isoFormat('LLLL');

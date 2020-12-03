@@ -11,3 +11,5 @@ Route::get('/push','Payment\TestingController@push')->name('push');
 
 //store a push subscriber.
 Route::post('/push','Payment\TestingController@storeNotification');
+
+Route::get('/test-payment','Payment\TestingController@paymentNotification')->name('test.payment');
