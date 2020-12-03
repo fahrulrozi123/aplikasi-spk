@@ -49,45 +49,63 @@ class NotificationController extends Controller
 
     public function payment_notification(Request $request)
     {
-        $request             = $request['request'];
-        $transaction_id      = $request['trx_id'];
-        $merchant_id         = $request['merchant_id'];
-        $merchant            = $request['merchant'];
-        $booking_id          = $request['bill_no'];
-        $payment_reff        = $request['payment_reff'];
-        $payment_date        = $request['payment_date'];
-        $payment_status_code = $request['payment_status_code'];
-        $payment_status_desc = $request['payment_status_desc'];
-        $bill_total          = $request['bill_total'];
-        $payment_total       = $request['payment_total'];
-        $payment_channel_uid = $request['payment_channel_uid'];
-        $payment_channel     = $request['payment_channel'];
-        $signature           = $request['signature'];
+        // $request             = $request['request'];
+        // $transaction_id      = $request['trx_id'];
+        // $merchant_id         = $request['merchant_id'];
+        // $merchant            = $request['merchant'];
+        // $booking_id          = $request['bill_no'];
+        // $payment_reff        = $request['payment_reff'];
+        // $payment_date        = $request['payment_date'];
+        // $payment_status_code = $request['payment_status_code'];
+        // $payment_status_desc = $request['payment_status_desc'];
+        // $bill_total          = $request['bill_total'];
+        // $payment_total       = $request['payment_total'];
+        // $payment_channel_uid = $request['payment_channel_uid'];
+        // $payment_channel     = $request['payment_channel'];
+        // $signature           = $request['signature'];
 
-        $signature_key       = Payment::where('booking_id', $booking_id)->first();
+        // $signature_key       = Payment::where('booking_id', $booking_id)->first();
 
-        if ($signature !== $signature_key) {
-            return response()->json(["status" => 401, "message" => "Something went wrong"]);
-            return redirect()->route('index')->with('warning', 'Something went wrong');
-        }
+        // if ($signature !== $signature_key) {
+        //     return response()->json(["status" => 401, "message" => "Something went wrong"]);
+        //     return redirect()->route('index')->with('warning', 'Something went wrong');
+        // }
 
-        $data =
-            [
-            'transaction_id'     => $transaction_id,
-            'booking_id'         => $booking_id,
-            'merchant_id'        => $merchant_id,
-            'transaction_status' => 'settlement',
-            'status_code'        => payment_status_code,
-            'payment_type'       => $payment_channel,
-            'status_message'     => $payment_status_desc ,
-            'signature_key'      => $signature_key,
+        // $data =
+        //     [
+        //     'transaction_id'     => $transaction_id,
+        //     'booking_id'         => $booking_id,
+        //     'merchant_id'        => $merchant_id,
+        //     'transaction_status' => 'settlement',
+        //     'status_code'        => payment_status_code,
+        //     'payment_type'       => $payment_channel,
+        //     'status_message'     => $payment_status_desc ,
+        //     'signature_key'      => $signature_key,
+        // ];
+
+        // if (Payment::where('booking_id', $booking_id)->exists()) {
+        //     Payment::where('booking_id', $booking_id)->update($data);
+        // } else {
+        //     Payment::insert($data);
+        // }
+
+        $date_now = Carbon::now()->format('Y-m-d H:i:s');
+        $merchant_id	   = "33519";
+
+        // dd($merchant_id);
+
+        $data = [
+            "response"      => "Payment Notification",
+            "trx_id"        => "3351980200000448",
+            "merchant_id"   => $merchant_id,
+            "merchant"      => "Tripasysfo Development",
+            "bill_no"       => "27eaeda83f9b4b66",
+            "response_code" => "00",
+            "response_desc" => "Sukses",
+            "response_date" => $date_now
         ];
 
-        if (Payment::where('booking_id', $booking_id)->exists()) {
-            Payment::where('booking_id', $booking_id)->update($data);
-        } else {
-            Payment::insert($data);
-        }
+        return response()->json($data);
 
 
     }
