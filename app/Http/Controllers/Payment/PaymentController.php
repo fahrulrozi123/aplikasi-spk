@@ -353,19 +353,19 @@ class PaymentController extends Controller
         $payment_channel   = $input['payment_channel'];
         $bill_total        = $data['total_price'].'00';
 
-        $rsvp              = RoomRSvp::where('booking_id', $input['booking_id'])->first();
-        $email             = Customer::where('id', $rsvp->customer_id)->first();
+        $booking           = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+        $email             = Customer::where('id', $booking->customer_id)->first();
 
         // user
         $merchant_id	   = 33519;
         $merchant_password = 'p@ssw0rd';
         $merchant_user	   = 'bot'.$merchant_id;
 
-        $bill_no	       = $rsvp->booking_id;
+        $bill_no	       = $booking->booking_id;
         $request           = 'Room Reservation of '.$bill_no;
-        $cust_name         = $rsvp->rsvp_cust_name;
-        $bill_date         = $rsvp->create_at;
-        $bill_expired      = $rsvp->expired_at;
+        $cust_name         = $booking->rsvp_cust_name;
+        $bill_date         = $booking->create_at;
+        $bill_expired      = $booking->expired_at;
         $bill_desc         = 'Room Reservation of '.$bill_no;
         $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
@@ -399,16 +399,18 @@ class PaymentController extends Controller
             ]
         ]);
 
+        // return $response->getBody()->getContents();
+
         $data = json_decode($response->getBody()->getContents(), true);
 
         // dd($data);
 
         Payment::create([
             'transaction_id'     => $data['trx_id'],
+            'booking_id'         => $data['bill_no'],
             'merchant_id'        => $data['merchant_id'],
-            'rsvp_id'            => $data['bill_no'],
             'from_table'         => 'ROOMS',
-            'gross_amount'       => $rsvp->rsvp_grand_total,
+            'gross_amount'       => $booking->rsvp_grand_total,
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
@@ -422,7 +424,7 @@ class PaymentController extends Controller
         ]);
 
         RoomRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $input['payment_channel']
+            'rsvp_payment'       => $payment_channel
         ]);
 
         // Email Checkout Confirmation
@@ -431,8 +433,6 @@ class PaymentController extends Controller
         $data->subject = 'Booking - '.$data->booking_id;
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
-
-        // return $response->getBody()->getContents();
 
         return response()->json(["status" => 200, "href" => "tab2-3"]);
     }
@@ -588,20 +588,20 @@ class PaymentController extends Controller
         $booking_id        = $input['booking_id'];
         $payment_channel   = $input['payment_channel'];
         $bill_total        = $data['total_price'].'00';
-        $rsvp              = ProductRSvp::where('booking_id', $input['booking_id'])->first();
-        $email             = Customer::where('id', $rsvp->customer_id)->first();
+        $booking           = ProductRSvp::where('booking_id', $input['booking_id'])->first();
+        $email             = Customer::where('id', $booking->customer_id)->first();
 
         // user
         $merchant_id	   = 33519;
         $merchant_password = 'p@ssw0rd';
         $merchant_user	   = 'bot'.$merchant_id;
 
-        $bill_no	       = $rsvp->booking_id;
-        $request           = 'Room Reservation of '.$bill_no;
-        $cust_name         = $rsvp->rsvp_cust_name;
-        $bill_date         = $rsvp->create_at;
-        $bill_expired      = $rsvp->expired_at;
-        $bill_desc         = 'Room Reservation of '.$bill_no;
+        $bill_no	       = $booking->booking_id;
+        $request           = 'Product Reservation of '.$bill_no;
+        $cust_name         = $booking->rsvp_cust_name;
+        $bill_date         = $booking->create_at;
+        $bill_expired      = $booking->expired_at;
+        $bill_desc         = 'Product Reservation of '.$bill_no;
         $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
@@ -629,10 +629,12 @@ class PaymentController extends Controller
                     'qty'          => $data['amount_pax'],
                     'amount'       => $bill_total
                 ],
-                'reserve1'         => 'ROOMS',
+                'reserve1'         => 'PRODUCTS',
                 'signature'        => $signature
             ]
         ]);
+
+        // return $response->getBody()->getContents();
 
         $data = json_decode($response->getBody()->getContents(), true);
 
@@ -641,9 +643,9 @@ class PaymentController extends Controller
         Payment::create([
             'transaction_id'     => $data['trx_id'],
             'merchant_id'        => $data['merchant_id'],
-            'rsvp_id'            => $data['bill_no'],
+            'booking_id'         => $data['bill_no'],
             'from_table'         => 'PRODUCTS',
-            'gross_amount'       => $rsvp->rsvp_grand_total,
+            'gross_amount'       => $booking->rsvp_grand_total,
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
@@ -656,11 +658,9 @@ class PaymentController extends Controller
             'signature_key'      => $signature,
         ]);
 
-        RoomRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $input['payment_channel']
+        ProductRsvp::where('booking_id', $booking_id)->update([
+            'rsvp_payment'       => $payment_channel
         ]);
-
-        // return $response->getBody()->getContents();
 
         // Email Checkout Confirmation
         $setting = Setting::first();

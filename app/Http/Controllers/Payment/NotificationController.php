@@ -22,173 +22,73 @@ class NotificationController extends Controller
 {
     public function payment_check()
     {
-        // Required
-        $transaction_details = array(
-            'order_id' => rand(),
-            'gross_amount' => 94000, // no decimal allowed for creditcard
-        );
-        // Optional
-        $item1_details = array(
-            'id' => 'a1',
-            'price' => 2500000,
-            'quantity' => 3,
-            'name' => "Recreational - 1 Day Adventure",
-        );
+        $merchant_id		= 33519;
+        $merchant_password 	= 'p@ssw0rd';
 
-        // Optional
-        $item2_details = array(
-            'id' => 'a2',
-            'price' => 3000000,
-            'quantity' => 5,
-            'name' => "Spa - Aromatherapy",
-        );
+        $submerchant_id		= $merchant_id."0001";
+        $merchant_user		= "bot".$merchant_id;
 
-        // Optional
-        $item_details = array($item1_details, $item2_details);
+        $bill_no            = '6a092c9872118120';
 
-        $full_name = $this->split_name("Muhammad Farhan");
-        // Optional
-        $customer_details = array(
-            'first_name' => $full_name[0],
-            'last_name' => $full_name[1],
-            'email' => "farhan.ryukudo@gmail.com",
-            'phone' => "081122334455",
-            'billing_address' => '',
-            'shipping_address' => '',
-        );
+        $signature = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
-        // Fill transaction details
-        $transaction = array(
-            'transaction_details' => $transaction_details,
-            'customer_details' => $customer_details,
-            'item_details' => $item_details,
-        );
+        $client = new Client();
 
-        $snapToken = \Midtrans\Snap::getSnapToken($transaction);
+        $response = $client->post('https://dev.faspay.co.id/cvr/100004/10', [
+            'json' => [
+                'request'     => 'Pengecekan Status Pembayaran',
+                'trx_id'      => '3351980200000455',
+                'merchant_id' => $merchant_id,
+                'bill_no'     => $bill_no,
+                'signature'   => $signature
+            ]
+        ]);
 
-        return redirect()->route('index');
-        // return view('visitor_site.payment.index', get_defined_vars());
+        return $response->getBody()->getContents();
     }
 
     public function payment_notification(Request $request)
     {
-        $orderId = $request['order_id'];
-        $statusCode = $request['status_code'];
-        $grossAmount = $request['gross_amount'];
-        $serverKey = config('midtrans.midtrans.serverKey');
-        $input = $orderId.$statusCode.$grossAmount.$serverKey;
-        $signature = openssl_digest($input, 'sha512');
-        $signatureKey = $request['signature_key'];
+        $request             = $request['request'];
+        $transaction_id      = $request['trx_id'];
+        $merchant_id         = $request['merchant_id'];
+        $merchant            = $request['merchant'];
+        $booking_id          = $request['bill_no'];
+        $payment_reff        = $request['payment_reff'];
+        $payment_date        = $request['payment_date'];
+        $payment_status_code = $request['payment_status_code'];
+        $payment_status_desc = $request['payment_status_desc'];
+        $bill_total          = $request['bill_total'];
+        $payment_total       = $request['payment_total'];
+        $payment_channel_uid = $request['payment_channel_uid'];
+        $payment_channel     = $request['payment_channel'];
+        $signature           = $request['signature'];
 
-        if ($signatureKey !== $signature) {
+        $signature_key       = Payment::where('booking_id', $booking_id)->first();
+
+        if ($signature !== $signature_key) {
             return response()->json(["status" => 401, "message" => "Something went wrong"]);
             return redirect()->route('index')->with('warning', 'Something went wrong');
         }
 
-        $transaction_id = $request['transaction_id'] ?: null;
-        $merchant_id = $request['merchant_id'] ?: null;
-        $rsvp_id = $request['order_id'] ?: null;
-        $gross_amount = $request['gross_amount'] ?: null;
-        $currency = $request['currency'] ?: null;
-        $transaction_status = $request['transaction_status'] ?: null;
-        $transaction_time = $request['transaction_time'] ?: null;
-        $settlement_time = $request['settlement_time'] ?: null;
-        $fraud_status = $request['fraud_status'] ?: null;
-        $payment_type = $request['payment_type'] ?: null;
-        $approval_code = $request['approval_code'] ?: null;
-        $status_code = $request['status_code'] ?: null;
-        $status_message = $request['status_message'] ?: null;
-        $signature_key = $request['signature_key'] ?: null;
-        $from = $request['custom_field1'] ?: null;
-
         $data =
             [
-            'transaction_id' => $transaction_id,
-            'merchant_id' => $merchant_id,
-            'rsvp_id' => $rsvp_id,
-            'from_table' => $from,
-            'gross_amount' => $gross_amount,
-            'currency' => $currency,
-            'transaction_status' => $transaction_status,
-            'transaction_time' => $transaction_time,
-            'settlement_time' => $settlement_time,
-            'fraud_status' => $fraud_status,
-            'payment_type' => $payment_type,
-            'approval_code' => $approval_code,
-            'status_code' => $status_code,
-            'status_message' => $status_message,
-            'signature_key' => $signature_key,
+            'transaction_id'     => $transaction_id,
+            'booking_id'         => $booking_id,
+            'merchant_id'        => $merchant_id,
+            'transaction_status' => 'settlement',
+            'status_code'        => payment_status_code,
+            'payment_type'       => $payment_channel,
+            'status_message'     => $payment_status_desc ,
+            'signature_key'      => $signature_key,
         ];
 
-        switch ($payment_type) {
-            case 'credit_card':
-                $payment = "Credit Card";
-                break;
-            case 'bank_transfer':
-                $payment = "Bank Transfer";
-                break;
-            case 'bca_klikpay':
-                $payment = "Bca KlikPay";
-                break;
-            case 'cimb_clicks':
-                $payment = "CIMB Clicks";
-                break;
-            case 'danamon_online':
-                $payment = "Danamon Online Banking";
-                break;
-            case 'echannel':
-                $payment = "Mandiri Bill Payment";
-                break;
-
-            default:
-                # code...
-                break;
-        }
-
-        if (Payment::where('rsvp_id', $rsvp_id)->exists()) {
-            Payment::where('rsvp_id', $rsvp_id)->update($data);
+        if (Payment::where('booking_id', $booking_id)->exists()) {
+            Payment::where('booking_id', $booking_id)->update($data);
         } else {
             Payment::insert($data);
         }
-        if ($status_code == 200) {
-            if ($from == "ROOMS") {
 
-                RoomRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Payment received",
-                ]);
-            } else if ($from == "PRODUCTS") {
-                ProductRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Payment received",
-                ]);
-            }
-            $this->resendEmail($from, $rsvp_id);
-        } else if ($status_code == 201) {
-            if ($from == "ROOMS") {
-                RoomRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Waiting for payment",
-                ]);
-            } else if ($from == "PRODUCTS") {
-                ProductRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Waiting for payment",
-                ]);
-            }
-        } else if ($status_code == 202 && $transaction_status == "expire") {
-            if ($from == "ROOMS") {
-                RoomRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Failed",
-                ]);
-            } else if ($from == "PRODUCTS") {
-                ProductRsvp::where('reservation_id', $rsvp_id)->update([
-                    'rsvp_payment' => $payment,
-                    'rsvp_status' => "Failed",
-                ]);
-            }
-        }
 
     }
 
