@@ -11,6 +11,7 @@ use App\Models\Inquiry\Inquiry;
 use App\Models\Payment\Payment;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
+use App\Models\Room\Type;
 use App\Models\Setting\Setting;
 
 use Carbon\Carbon;
@@ -49,57 +50,102 @@ class NotificationController extends Controller
 
     public function payment_notification(Request $request)
     {
-        // $request             = $request['request'];
-        // $transaction_id      = $request['trx_id'];
-        // $merchant_id         = $request['merchant_id'];
-        // $merchant            = $request['merchant'];
-        // $booking_id          = $request['bill_no'];
-        // $payment_reff        = $request['payment_reff'];
-        // $payment_date        = $request['payment_date'];
-        // $payment_status_code = $request['payment_status_code'];
-        // $payment_status_desc = $request['payment_status_desc'];
-        // $bill_total          = $request['bill_total'];
-        // $payment_total       = $request['payment_total'];
-        // $payment_channel_uid = $request['payment_channel_uid'];
-        // $payment_channel     = $request['payment_channel'];
-        // $signature           = $request['signature'];
+        $request             = $request['request'];
+        $transaction_id      = $request['trx_id'];
+        $merchant_id         = $request['merchant_id'];
+        $merchant            = $request['merchant'];
+        $booking_id          = $request['bill_no'];
+        $payment_reff        = $request['payment_reff'];
+        $payment_date        = $request['payment_date'];
+        $payment_status_code = $request['payment_status_code'];
+        $payment_status_desc = $request['payment_status_desc'];
+        $bill_total          = $request['bill_total'];
+        $payment_total       = $request['payment_total'];
+        $payment_channel_uid = $request['payment_channel_uid'];
+        $payment_channel     = $request['payment_channel'];
+        $signature           = $request['signature'];
+        $from                = $request['reserve1'];
 
-        // $signature_key       = Payment::where('booking_id', $booking_id)->first();
+        $signature_key       = Payment::where('booking_id', $booking_id)->first();
 
-        // if ($signature !== $signature_key) {
-        //     return response()->json(["status" => 401, "message" => "Something went wrong"]);
-        //     return redirect()->route('index')->with('warning', 'Something went wrong');
-        // }
+        if ($signature !== $signature_key) {
+            return response()->json(["status" => 401, "message" => "Something went wrong"]);
+            return redirect()->route('index')->with('warning', 'Something went wrong');
+        }
 
-        // $data =
-        //     [
-        //     'transaction_id'     => $transaction_id,
-        //     'booking_id'         => $booking_id,
-        //     'merchant_id'        => $merchant_id,
-        //     'transaction_status' => 'settlement',
-        //     'status_code'        => payment_status_code,
-        //     'payment_type'       => $payment_channel,
-        //     'status_message'     => $payment_status_desc ,
-        //     'signature_key'      => $signature_key,
-        // ];
+        $data =
+            [
+            'transaction_id'     => $transaction_id,
+            'booking_id'         => $booking_id,
+            'merchant_id'        => $merchant_id,
+            'transaction_status' => 'settlement',
+            'status_code'        => payment_status_code,
+            'payment_type'       => $payment_channel,
+            'status_message'     => $payment_status_desc ,
+            'signature_key'      => $signature_key,
+        ];
 
-        // if (Payment::where('booking_id', $booking_id)->exists()) {
-        //     Payment::where('booking_id', $booking_id)->update($data);
-        // } else {
-        //     Payment::insert($data);
-        // }
+        if (Payment::where('booking_id', $booking_id)->exists()) {
+            Payment::where('booking_id', $booking_id)->update($data);
+        } else {
+            Payment::insert($data);
+        }
 
-        $date_now = Carbon::now()->format('Y-m-d H:i:s');
-        $merchant_id	   = "33519";
+        if (payment_status_code == "2") {
+            if ($from == "ROOMS") {
 
-        // dd($merchant_id);
+                // generated rsvp_id room
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->orderBy('rsvp_date_reserve', 'ASC')->first();
+                $checkIn = $rsvp->rsvp_date_reserve;
 
-        $data = [
+                $getRoom = Type::where('id', $rsvp->room_id)->first();
+
+                $rsvpId = rand($min = 1, $max = 99999);
+                $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+                while ($reservationId == false) {
+                    $rsvpId = rand($min = 1, $max = 99999);
+                    $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+                }
+
+                RoomRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_payment' => $payment_channel,
+                    'rsvp_status'  => "Payment received",
+                    "reservation_id" => $reservationId,
+                ]);
+
+            } else if ($from == "PRODUCTS") {
+
+                $products = Product::where('booking_id', $booking_id)->first();
+
+                $productData = Product::where('id', $products->product_id)->first();
+
+                // generated rsvp_id products
+                $rsvp_id = rand($min = 1, $max = 99999);
+                $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+                while ($reservation_id == false) {
+                    $rsvp_id = rand($min = 1, $max = 99999);
+                    $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+                }
+
+                ProductRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_payment' => $payment_channel,
+                    'rsvp_status'  => "Payment received",
+                    "reservation_id" => $reservationId,
+                ]);
+            }
+            // $this->resendEmail($from, $rsvp_id);
+        }
+
+        $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
+        $merchant_id        =  "33519";
+
+        $data               =  [
             "response"      => "Payment Notification",
-            "trx_id"        => "3351980200000448",
+            "trx_id"        => $transaction_id,
             "merchant_id"   => $merchant_id,
             "merchant"      => "Tripasysfo Development",
-            "bill_no"       => "27eaeda83f9b4b66",
+            "bill_no"       => $booking_id,
             "response_code" => "00",
             "response_desc" => "Sukses",
             "response_date" => $date_now
@@ -187,6 +233,218 @@ class NotificationController extends Controller
     public function payment_error()
     {
         return $this->payment_check();
+    }
+
+    public function generate_room_id($id, $date, $roomName)
+    {
+        $generateId = '';
+        switch ($id) {
+            case $id < 10:
+                $generateId .= "0000" . $id;
+                break;
+            case $id < 100:
+                $generateId .= "000" . $id;
+                break;
+            case $id < 1000:
+                $generateId .= "00" . $id;
+            case $id < 10000:
+                $generateId .= "0" . $id;
+                break;
+
+            default:
+                $generateId .= $id;
+                break;
+        }
+        $generateId .= "RSVRM";
+        switch ($roomName) {
+            case 'Deluxe Business':
+                $generateId .= "1";
+                break;
+            case 'Deluxe Recreational':
+                $generateId .= "2";
+                break;
+            case 'Deluxe Mountain':
+                $generateId .= "3";
+                break;
+            case 'Anindita Suite':
+                $generateId .= "4";
+                break;
+            case 'Arinandra Suite':
+                $generateId .= "5";
+                break;
+            case 'Amanda Suite':
+                $generateId .= "6";
+                break;
+            case 'Audi Cottage':
+                $generateId .= "7";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        switch (Carbon::parse($date)->format('m')) {
+            case '1':
+                $generateId .= "I";
+                break;
+            case '2':
+                $generateId .= "II";
+                break;
+            case '3':
+                $generateId .= "III";
+                break;
+            case '4':
+                $generateId .= "IV";
+                break;
+            case '5':
+                $generateId .= "V";
+                break;
+            case '6':
+                $generateId .= "VI";
+                break;
+            case '7':
+                $generateId .= "VII";
+                break;
+            case '8':
+                $generateId .= "VIII";
+                break;
+            case '9':
+                $generateId .= "IX";
+                break;
+            case '10':
+                $generateId .= "X";
+                break;
+            case '11':
+                $generateId .= "XI";
+                break;
+            case '12':
+                $generateId .= "XII";
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $generateId .= Carbon::parse($date)->format('Y');
+        $cek = RoomRsvp::where('reservation_id', $generateId)->first();
+        if (isset($cek) > 0) {
+            return false;
+        } else {
+            return $generateId;
+        }
+    }
+
+    public function generate_product_id($id, $date, $productName, $inquiry)
+    {
+        $generateId = "";
+        switch ($id) {
+            case $id < 10:
+                $generateId .= "0000" . $id;
+                break;
+            case $id < 100:
+                $generateId .= "000" . $id;
+                break;
+            case $id < 1000:
+                $generateId .= "00" . $id;
+                break;
+            case $id < 10000:
+                $generateId .= "0" . $id;
+                break;
+
+            default:
+                $generateId .= $id;
+                break;
+        }
+        if ($inquiry == 0) {
+            $generateId .= "RSVPD";
+        } else {
+            $generateId .= "INQPD";
+        }
+        switch ($productName) {
+            case '1 Day Trip':
+                $generateId .= "REC1";
+                break;
+            case 'Aromatherapy':
+                $generateId .= "ALS2";
+                break;
+            case 'Massage':
+                $generateId .= "ALS2";
+                break;
+            case 'Residential Package':
+                $generateId .= "MIC1";
+                break;
+            case 'Non Residential Package':
+                $generateId .= "MIC2";
+                break;
+            case 'Premium Wedding Package':
+                $generateId .= "WED1";
+                break;
+            case 'Silver Wedding Package':
+                $generateId .= "WED2";
+                break;
+            case 'Wedding Information':
+                $generateId .= "WED3";
+                break;
+            case 'General Inquiry':
+                $generateId .= "GEN1";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        switch (Carbon::parse($date)->format('m')) {
+            case '1':
+                $generateId .= "I";
+                break;
+            case '2':
+                $generateId .= "II";
+                break;
+            case '3':
+                $generateId .= "III";
+                break;
+            case '4':
+                $generateId .= "IV";
+                break;
+            case '5':
+                $generateId .= "V";
+                break;
+            case '6':
+                $generateId .= "VI";
+                break;
+            case '7':
+                $generateId .= "VII";
+                break;
+            case '8':
+                $generateId .= "VIII";
+                break;
+            case '9':
+                $generateId .= "IX";
+                break;
+            case '10':
+                $generateId .= "X";
+                break;
+            case '11':
+                $generateId .= "XI";
+                break;
+            case '12':
+                $generateId .= "XII";
+                break;
+            default:
+                # code...
+                break;
+        }
+        $generateId .= Carbon::parse($date)->format('Y');
+        if ($inquiry == 0) {
+            $cek = ProductRsvp::where('reservation_id', $generateId)->first();
+        } else {
+            $cek = Inquiry::where('reservation_id', $generateId)->first();
+        }
+        if (isset($cek)) {
+            return false;
+        } else {
+            return $generateId;
+        }
     }
 
     public function resendEmail($from, $id)
