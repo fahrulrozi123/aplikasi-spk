@@ -132,7 +132,7 @@ class ReservationController extends Controller
 
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
-        $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.reservation_id = payment.rsvp_id
+        $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.reservation_id = payment.booking_id
         WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received'";
 
         $reservations = DB::select(DB::raw($query));
@@ -147,7 +147,7 @@ class ReservationController extends Controller
         //   $reservation = RoomRsvp::orderBy('id')->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('room')->get();
         //   return $reservation;
 
-        $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.reservation_id = payment.rsvp_id
+        $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.reservation_id = payment.booking_id
                     where reservation_id <> '' or customer_id not in (null, '') ;";
 
         $reservations = DB::select(DB::raw($query));
@@ -512,7 +512,7 @@ class ReservationController extends Controller
             }
         }
 
-        $query = DB::select('select * from payment where rsvp_id = ?', [$id]);
+        $query = DB::select('select * from payment where booking_id = ?', [$id]);
         $data->payment = $query[0];
 
         $data->payment->transaction_time = Carbon::parse($data->payment->transaction_time)->isoFormat('LLLL');
