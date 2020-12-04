@@ -191,15 +191,13 @@ class TestingController extends Controller
     public function paymentNotification()
     {
         // select booking_id room or products
-        $booking_id = "f656c910265dd7f3";
+        $booking_id = "92967837b59e5738";
 
         // rooms
         // $data = RoomRsvp::where('booking_id', $booking_id)->first();
-        // $reserve1 = "ROOMS";
 
         // products
         $data = ProductRsvp::where('booking_id', $booking_id)->first();
-        $reserve1 = "PRODUCTS";
 
         $payment = Payment::where('booking_id', $booking_id)->first();
 

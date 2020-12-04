@@ -28,9 +28,6 @@
     <label for="payment_status_desc">payment_status_desc:</label><br>
     <input type="text" id="payment_status_desc" name="payment_status_desc" value="{{ $payment_status_desc }}"><br><br>
 
-    <label for="reserve1">reserve1:</label><br>
-    <input type="text" id="reserve1" name="reserve1" value="{{ $reserve1 }}"><br><br>
-
     <input type="submit" value="Submit">
 </form>
 

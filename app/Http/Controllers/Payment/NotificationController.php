@@ -51,7 +51,6 @@ class NotificationController extends Controller
     public function payment_notification(Request $request)
     {
         // dd($request->all());
-        // $request             = $request['request'] ?: null;
         $transaction_id      = $request['trx_id'] ?: null;
         $merchant_id         = $request['merchant_id'] ?: null;
         $merchant            = $request['merchant'] ?: null;
@@ -65,16 +64,15 @@ class NotificationController extends Controller
         $payment_channel_uid = $request['payment_channel_uid'] ?: null;
         $payment_channel     = $request['payment_channel'] ?: null;
         $signature           = $request['signature'] ?: null;
-        // dd($signature);
 
-        $from                = $request['reserve1'] ?: null;
+        $data_payment        = Payment::where('booking_id', $booking_id)->first();
+        $valid_signature_key = $data_payment->signature_key;
+        $from                = $data_payment->from_table;
 
-        $valid_signature_key = Payment::where('booking_id', $booking_id)->first();
-
-        if ($signature !== $valid_signature_key->signature_key) {
-            return response()->json(["status" => 401, "message" => "Something went wrong"]);
-            return redirect()->route('index')->with('warning', 'Something went wrong');
-        }
+        // if ($signature !== $valid_signature_key) {
+        //     return response()->json(["status" => 401, "message" => "Something went wrong"]);
+        //     return redirect()->route('index')->with('warning', 'Something went wrong');
+        // }
 
         $data =
             [
@@ -94,7 +92,7 @@ class NotificationController extends Controller
             Payment::insert($data);
         }
 
-        if ($payment_status_code == "2") {
+        // if ($payment_status_code == "2") {
             if ($from == "ROOMS") {
 
                 // generated rsvp_id room
@@ -145,8 +143,7 @@ class NotificationController extends Controller
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
                 $this->resendEmail($from, $rsvp_id->booking_id);
             }
-
-        }
+        // }
 
         $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
         $merchant_id        =  "33519";
