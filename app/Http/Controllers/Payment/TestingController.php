@@ -190,9 +190,17 @@ class TestingController extends Controller
 
     public function paymentNotification()
     {
-        $booking_id = "435d2b7b93d381fe";
+        // select booking_id room or products
+        $booking_id = "f656c910265dd7f3";
 
-        $data = RoomRsvp::where('booking_id', $booking_id)->first();
+        // rooms
+        // $data = RoomRsvp::where('booking_id', $booking_id)->first();
+        // $reserve1 = "ROOMS";
+
+        // products
+        $data = ProductRsvp::where('booking_id', $booking_id)->first();
+        $reserve1 = "PRODUCTS";
+
         $payment = Payment::where('booking_id', $booking_id)->first();
 
         $transaction_id = $payment->transaction_id;
@@ -200,13 +208,11 @@ class TestingController extends Controller
         $payment_status_code = 2;
         $payment_status_desc = "Payment Sukses";
         $payment_channel = "Mandiri Virtual Account";
-        $reserve1 = "ROOMS";
+
         $signature = $payment->signature_key;
 
         // signature_fail
-        // $signature = "40f0c967a94683207831ca3661ae7d6fa8aa0eec1f1e2f69c5806bab06165115120f448948a513a1134fa15c35a94307b7c";
-
-        // dd($transaction_id);
+        // $signature = "40f0c967a94683207831ca3661ae7d6fa8aa0eec1f1e2f69c5806bab0616511";
 
         return view('layouts.testing_payment', get_defined_vars());
     }

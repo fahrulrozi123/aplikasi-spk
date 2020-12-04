@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Room\Type;
 use App\Mail\ReservationEmail;
 use App\Mail\CustomerEmail;
 use App\Models\Inquiry\Inquiry;
 use App\Models\Payment\Payment;
+use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
-use App\Models\Room\Type;
 use App\Models\Setting\Setting;
 use App\Models\Admin\User;
 
@@ -97,7 +98,7 @@ class NotificationController extends Controller
             if ($from == "ROOMS") {
 
                 // generated rsvp_id room
-                $rsvp = RoomRsvp::where('booking_id', $booking_id)->orderBy('rsvp_date_reserve', 'ASC')->first();
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
                 $checkIn = $rsvp->rsvp_date_reserve;
 
                 $getRoom = Type::where('id', $rsvp->room_id)->first();
@@ -120,9 +121,11 @@ class NotificationController extends Controller
 
             } else if ($from == "PRODUCTS") {
 
-                $products = Product::where('booking_id', $booking_id)->first();
+                // generated rsvp_id products
+                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+                $productsId = $rsvp->product_id;
 
-                $productData = Product::where('id', $products->product_id)->first();
+                $productData = Product::where('id', $productsId)->first();
 
                 // generated rsvp_id products
                 $rsvp_id = rand($min = 1, $max = 99999);
@@ -136,7 +139,7 @@ class NotificationController extends Controller
                 ProductRsvp::where('booking_id', $booking_id)->update([
                     'rsvp_payment' => $payment_channel,
                     'rsvp_status'  => "Payment received",
-                    "reservation_id" => $reservationId,
+                    "reservation_id" =>  $reservation_id,
                 ]);
 
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
@@ -455,7 +458,6 @@ class NotificationController extends Controller
 
     public function resendEmail($from, $id)
     {
-
         if ($from == "ROOMS") {
             $query = DB::select('select * from room_reservation where booking_id = ?', [$id]);
             $data = $query[0];
@@ -483,7 +485,9 @@ class NotificationController extends Controller
             $data->date = "(Check In) ".$data->rsvp_checkin.", (Check Out) ".$data->rsvp_checkout;
 
         } elseif ($from == "PRODUCTS") {
-            $data = ProductRsvp::where('reservation_id', $id)->with('product')->with('customer')->first();
+
+            $data = ProductRsvp::where('booking_id', $id)->with('product')->with('customer')->first();
+
             $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('dddd, DD MMMM YYYY');
             $data = ProductRsvp::getInclusivePrice($data);
             $to = $data['customer']->cust_email;
@@ -509,27 +513,6 @@ class NotificationController extends Controller
             //FOR MARKETING
             $data->date = $data->rsvp_date_reserve;
 
-        }else if($from == "INQUIRY"){
-            $setting = Setting::first();
-            $data = Inquiry::where('reservation_id', $id)->first();
-            $data->from = $from;
-            $data->date = Carbon::parse($data->inq_event_start)->isoFormat('dddd, DD MMMM YYYY');
-            $data->cust_name = $data->inq_cust_name;
-            $data->rsvp_type = "Inquiry";
-            $data->subject = 'Inquiry - '.$data->reservation_id;
-            $customer = $data->customer->cust_email;
-
-            $to = User::whereNull('deleted_at')->whereIn('level', [0, 1])->pluck('email')->toArray();
-            // Mail::to($to[0])->cc($to)->send(new ReservationEmail($data));
-
-            // EMAIL FOR MARKETING/ADMIN
-            foreach ($to as $key => $value) {
-                Mail::to($value)->send(new ReservationEmail($data, $setting));
-            }
-
-            // EMAIL FOR CUSTOMER
-            Mail::to($customer)->send(new CustomerEmail($data, $setting));
-            return 0;
         }
 
         $query = DB::select('select * from payment where booking_id = ?', [$id]);
@@ -560,6 +543,7 @@ class NotificationController extends Controller
                 # code...
                 break;
         }
+
         $setting = Setting::first();
         $data->from = $from;
         $data->voucher_attachment = $this->template_voucher($data, $setting);
@@ -578,8 +562,6 @@ class NotificationController extends Controller
         foreach ($to as $key => $value) {
             Mail::to($value)->send(new ReservationEmail($data, $setting));
         }
-
-        // return 'Resend Email for reservation ' . $request['reservation_id'] . ' success';
     }
 
     public function template_email()
