@@ -210,4 +210,9 @@ class TestingController extends Controller
 
         return view('layouts.testing_payment', get_defined_vars());
     }
+
+    public function checkPayment()
+    {
+        return view('layouts.payment_check', get_defined_vars());
+    }
 }

@@ -18,21 +18,19 @@ use App\Models\Admin\User;
 use DB;
 use PDF;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
-    public function payment_check()
+    public function payment_check(Request $request)
     {
-        $merchant_id		= 33519;
-        $merchant_password 	= 'p@ssw0rd';
-
-        $submerchant_id		= $merchant_id."0001";
-        $merchant_user		= "bot".$merchant_id;
-
-        $bill_no            = '6a092c9872118120';
-
-        $signature = sha1(md5($merchant_user.$merchant_password.$bill_no));
+        $merchant_id	   = 33519;
+        $merchant_password = 'p@ssw0rd';
+        $submerchant_id	   = $merchant_id."0001";
+        $merchant_user	   = "bot".$merchant_id;
+        $bill_no           = $request['bill_no'];
+        $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
 
