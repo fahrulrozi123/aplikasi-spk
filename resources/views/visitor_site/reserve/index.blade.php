@@ -115,7 +115,7 @@
                     </ul>
                     {{-- END HEADER --}}
 
-                    <div class="container" style="margin-top: 30px;">
+                    <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
 
                         <div class="tab-content mt-35">
                             <div class="tab-pane" id="tab2-1">
@@ -671,14 +671,14 @@
                                                         <hr>
                                                         <div class="row" style="margin-top:30px">
                                                             <div class="col-md-12">
-                                                                <label for=""><strong>Transfer to:</strong></label><br><br>
+                                                                <label><strong>Transfer to:</strong></label><br><br>
                                                                 <div class="form-group" style="padding:20px; border:1px solid #BDBDBD;">
                                                                     <div class="row">
                                                                         <div class="col-md-4">
                                                                             <p>Account Number</p>
                                                                         </div>
                                                                         <div class="col-md-8">
-                                                                            <p class="transaction_id" style="color:black"><strong>379xxxxxxxxx</strong></p>
+                                                                            <p class="transaction_id" style="color:black; font-weight: bold !important;"><strong>379xxxxxxxxx</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -686,7 +686,7 @@
                                                                             <p>Payment Method</p>
                                                                         </div>
                                                                         <div class="col-md-8" align="left">
-                                                                            <p class="payment_type" style="color:black" for=""><strong>BCA Virtual Account</strong></p>
+                                                                            <p class="payment_type" style="color:black; font-weight: bold !important;"><strong>BCA Virtual Account</strong></p>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -695,13 +695,21 @@
                                                                             <p>Transfer Amount</p>
                                                                         </div>
                                                                         <div class="col-md-8" align="left">
-                                                                            <p style="color:black" for="">
-                                                                                <strong>
-                                                                                    <script>
-                                                                                        document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
-                                                                                    </script>
-                                                                                </strong>
-                                                                            </p>
+                                                                            @if($data->type == "Room")
+                                                                                <p style="color:black">
+                                                                                    <strong>
+                                                                                        <script>
+                                                                                            document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
+                                                                                        </script>
+                                                                                    </strong>
+                                                                                </p>
+                                                                            @elseif($data->type == "Product")
+                                                                                <p class="product_total" style="color:black; font-weight: bolder;">
+                                                                                    <strong>Rp 0</strong>
+                                                                                </p>
+                                                                            @endif
+
+
                                                                         </div>
                                                                     </div>
 
@@ -1344,6 +1352,12 @@
                             'warning'
                         );
                     }  else if(data.status === 200) {
+                        // console.log(data);
+
+                        $('.transaction_id').text(data.transaction_id);
+                        $('.payment_type').text(data.payment_type);
+                        $('.product_total').text("Rp "+formatRupiah(data.product_total));
+
                         var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
                         var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';
                         var html3 ='<a href="#tab2-3" id="btn_tab3" data-toggle="tab"><span>3</span>Booking Confirmed!</a>';

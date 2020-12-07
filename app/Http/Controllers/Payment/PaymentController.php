@@ -162,7 +162,7 @@ class PaymentController extends Controller
 
             // dd($rsvp);
 
-            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], $input['booking_id'], "tab" => "2", "text" => "Payment Information"]);
+            return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "booking_id" => $input['booking_id'], "tab" => "2", "text" => "Payment Information"]);
 
         } else {
             return response()->json(["status" => 422, "msg" => "Something went wrong"]);
@@ -233,9 +233,8 @@ class PaymentController extends Controller
 
         // return $response->getBody()->getContents();
 
-        $data = json_decode($response->getBody()->getContents(), true);
-
-        // dd($data);
+        $data           = json_decode($response->getBody()->getContents(), true);
+        $transaction_id = $data['trx_id'];
 
         Payment::create([
             'transaction_id'     => $data['trx_id'],
@@ -266,7 +265,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
 
-        return response()->json(["status" => 200, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "href" => "tab2-3"]);
     }
 
     public function reserve_product(Request $request)
@@ -475,9 +474,9 @@ class PaymentController extends Controller
 
         // return $response->getBody()->getContents();
 
-        $data = json_decode($response->getBody()->getContents(), true);
-
-        // dd($data);
+        $data           = json_decode($response->getBody()->getContents(), true);
+        $transaction_id = $data['trx_id'];
+        $product_total  = $booking->rsvp_grand_total;
 
         Payment::create([
             'transaction_id'     => $data['trx_id'],
@@ -508,7 +507,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
 
-        return response()->json(["status" => 200, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "product_total" => $product_total, "payment_type" => $result, "href" => "tab2-3"]);
     }
 
     public function credit(Request $request)
