@@ -18,3 +18,5 @@ Route::post('/status-payment','Payment\NotificationController@payment_check')->n
 
 // test payment
 Route::get('/test-payment','Payment\TestingController@paymentNotification')->name('test.payment');
+
+Route::get('/one-list-payment','Payment\PaymentController@listPaymentChannel');

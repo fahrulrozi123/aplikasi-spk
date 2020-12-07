@@ -32,6 +32,43 @@ class PaymentController extends Controller
         return Setting::first();
     }
 
+    public function paymentChannelPayment()
+    {
+        $merchant_id		= 33519;
+        $merchant_password 	= 'p@ssw0rd';
+
+        $submerchant_id		= $merchant_id."0001";
+        $merchant_user		= "bot".$merchant_id;
+
+        $signature = sha1(md5($merchant_user.$merchant_password));
+
+        $client = new Client();
+
+        $response = $client->post('https://dev.faspay.co.id/cvr/100001/10', [
+            'json' => [
+                'request'     => 'Request List of Payment Gateway',
+                'merchant_id' => $merchant_id,
+                'merchant'    => 'STORE',
+                'signature'   => $signature
+            ]
+        ]);
+
+        return $response->getBody()->getContents();
+    }
+
+    public function listPaymentChannel()
+    {
+        $paymentChannels = $this->paymentChannelPayment();
+        $listPaymentChannels = json_decode($paymentChannels, true);
+
+        $name_payment = '818';
+        $key = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
+        $result = $listPaymentChannels['payment_channel'][$key]['pg_name'];
+
+        dd($result);
+    }
+
+
     public function reserve_room(Request $request)
     {
         // dd($request->all());
@@ -135,27 +172,34 @@ class PaymentController extends Controller
     public function room_checkout(Request $request)
     {
         // dd($request->all());
-        $input             = $request->all();
-        $data              = $input['data'];
-        $booking_id        = $input['booking_id'];
-        $payment_channel   = $input['payment_channel'];
-        $bill_total        = $data['total_price'].'00';
+        $input               = $request->all();
+        $data                = $input['data'];
+        $booking_id          = $input['booking_id'];
+        $payment_channel     = $input['payment_channel'];
+        $bill_total          = $data['total_price'].'00';
 
-        $booking           = RoomRSvp::where('booking_id', $input['booking_id'])->first();
-        $email             = Customer::where('id', $booking->customer_id)->first();
+        $booking             = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+        $email               = Customer::where('id', $booking->customer_id)->first();
 
         // user
-        $merchant_id	   = 33519;
-        $merchant_password = 'p@ssw0rd';
-        $merchant_user	   = 'bot'.$merchant_id;
+        $merchant_id	     = 33519;
+        $merchant_password   = 'p@ssw0rd';
+        $merchant_user	     = 'bot'.$merchant_id;
 
-        $bill_no	       = $booking->booking_id;
-        $request           = 'Room Reservation of '.$bill_no;
-        $cust_name         = $booking->rsvp_cust_name;
-        $bill_date         = $booking->create_at;
-        $bill_expired      = $booking->expired_at;
-        $bill_desc         = 'Room Reservation of '.$bill_no;
-        $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
+        // search payment channel
+        $paymentChannels     = $this->paymentChannelPayment();
+        $listPaymentChannels = json_decode($paymentChannels, true);
+        $name_payment        = $payment_channel;
+        $key                 = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
+        $result              = $listPaymentChannels['payment_channel'][$key]['pg_name'];
+
+        $bill_no	         = $booking->booking_id;
+        $request             = 'Room Reservation of '.$bill_no;
+        $cust_name           = $booking->rsvp_cust_name;
+        $bill_date           = $booking->create_at;
+        $bill_expired        = $booking->expired_at;
+        $bill_desc           = 'Room Reservation of '.$bill_no;
+        $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
 
@@ -204,7 +248,7 @@ class PaymentController extends Controller
             'transaction_time'   => $bill_date,
             'settlement_time'    => $bill_expired,
             'fraud_status'       => $data['response_desc'],
-            'payment_type'       => $input['payment_channel'],
+            'payment_type'       => $result,
             // 'approval_code'      => $approval_code,
             'status_code'        => $data['response_code'],
             'status_message'     => $data['response'],
@@ -212,7 +256,7 @@ class PaymentController extends Controller
         ]);
 
         RoomRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $payment_channel
+            'rsvp_payment'       => $result
         ]);
 
         // Email Checkout Confirmation
@@ -370,27 +414,34 @@ class PaymentController extends Controller
     public function product_checkout(Request $request)
     {
         // dd($request->all());
-        $input             = $request->all();
-        $data              = $input['data'];
+        $input               = $request->all();
+        $data                = $input['data'];
 
-        $booking_id        = $input['booking_id'];
-        $payment_channel   = $input['payment_channel'];
-        $bill_total        = $data['total_price'].'00';
-        $booking           = ProductRSvp::where('booking_id', $input['booking_id'])->first();
-        $email             = Customer::where('id', $booking->customer_id)->first();
+        $booking_id          = $input['booking_id'];
+        $payment_channel     = $input['payment_channel'];
+        $bill_total          = $data['total_price'].'00';
+        $booking             = ProductRSvp::where('booking_id', $input['booking_id'])->first();
+        $email               = Customer   ::where('id', $booking->customer_id)->first();
 
         // user
-        $merchant_id	   = 33519;
-        $merchant_password = 'p@ssw0rd';
-        $merchant_user	   = 'bot'.$merchant_id;
+        $merchant_id	     = 33519;
+        $merchant_password   = 'p@ssw0rd';
+        $merchant_user	     = 'bot'.$merchant_id;
 
-        $bill_no	       = $booking->booking_id;
-        $request           = 'Product Reservation of '.$bill_no;
-        $cust_name         = $booking->rsvp_cust_name;
-        $bill_date         = $booking->create_at;
-        $bill_expired      = $booking->expired_at;
-        $bill_desc         = 'Product Reservation of '.$bill_no;
-        $signature	       = sha1(md5($merchant_user.$merchant_password.$bill_no));
+        // search payment channel
+        $paymentChannels     = $this->paymentChannelPayment();
+        $listPaymentChannels = json_decode($paymentChannels, true);
+        $name_payment        = $payment_channel;
+        $key                 = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
+        $result              = $listPaymentChannels['payment_channel'][$key]['pg_name'];
+
+        $bill_no	         = $booking->booking_id;
+        $request             = 'Product Reservation of '.$bill_no;
+        $cust_name           = $booking->rsvp_cust_name;
+        $bill_date           = $booking->create_at;
+        $bill_expired        = $booking->expired_at;
+        $bill_desc           = 'Product Reservation of '.$bill_no;
+        $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
 
@@ -439,7 +490,7 @@ class PaymentController extends Controller
             'transaction_time'   => $bill_date,
             'settlement_time'    => $bill_expired,
             'fraud_status'       => $data['response_desc'],
-            'payment_type'       => $input['payment_channel'],
+            'payment_type'       => $result,
             // 'approval_code'      => $approval_code,
             'status_code'        => $data['response_code'],
             'status_message'     => $data['response'],
@@ -447,7 +498,7 @@ class PaymentController extends Controller
         ]);
 
         ProductRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $payment_channel
+            'rsvp_payment'       => $result
         ]);
 
         // Email Checkout Confirmation

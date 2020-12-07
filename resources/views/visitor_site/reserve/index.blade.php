@@ -669,6 +669,46 @@
                                                             </div>
                                                         </div>
                                                         <hr>
+                                                        <div class="row" style="margin-top:30px">
+                                                            <div class="col-md-12">
+                                                                <label for=""><strong>Transfer to:</strong></label><br><br>
+                                                                <div class="form-group" style="padding:20px; border:1px solid #BDBDBD;">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <p>Account Number</p>
+                                                                        </div>
+                                                                        <div class="col-md-8">
+                                                                            <p class="transaction_id" style="color:black"><strong>379xxxxxxxxx</strong></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <p>Payment Method</p>
+                                                                        </div>
+                                                                        <div class="col-md-8" align="left">
+                                                                            <p class="payment_type" style="color:black" for=""><strong>BCA Virtual Account</strong></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row" style="margin-top:-20px;">
+                                                                        <div class="col-md-4">
+                                                                            <p>Transfer Amount</p>
+                                                                        </div>
+                                                                        <div class="col-md-8" align="left">
+                                                                            <p style="color:black" for="">
+                                                                                <strong>
+                                                                                    <script>
+                                                                                        document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
+                                                                                    </script>
+                                                                                </strong>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
                                                         <div class="row">
                                                             <div class="form-group">
                                                                 <div class="col-md-6 mb-10">
@@ -698,16 +738,13 @@
                                                 <div class="panel-footer footer-payment">
                                                     <div class="form-group">
                                                         <div class="row">
-                                                            <div class="col-md-6" align="right">
+                                                            <div class="col-md-8" align="right">
                                                                 <a href="/">
-                                                                    <p
-                                                                        style="padding: 10px;font-size: 12px!important; font-weight: 600;">
-                                                                        Back To Home</p>
+                                                                    <p style="padding: 10px;font-size: 12px!important; font-weight: 600;"> Back To Home</p>
                                                                 </a>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another
-                                                                    Rooms</a>
+                                                            <div class="col-md-4" align="right">
+                                                                <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another Rooms</a>
                                                             </div>
                                                         </div>
                                                     </div>
