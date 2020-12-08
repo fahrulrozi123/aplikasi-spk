@@ -512,85 +512,133 @@ class PaymentController extends Controller
 
     public function credit(Request $request)
     {
+        $data        = $request['reserve_data'];
+        $data        = json_decode($data);
+
+        $data_amount = $data->amount;
+        $booking_id  = $data->booking_id;
+        $amount      = number_format( (float) $data_amount, 2, '.', '');
+        $from        = $data->from;
+
+        // insert payment
         $merchant_id = "tes_auto";
         $password    = "abcde";
-        $tranid      = date("YmdGis");
-        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##5000.00##'.'0'.'##');
+        $tranid      = $booking_id;
 
-        // dd($signaturecc);
+        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
 
-        $client = new Client();
+        if ($from == "ROOMS") {
+            $booking      = RoomRSvp   ::where('booking_id', $booking_id)->first();
+            $bill_date    = $booking->create_at;
+            $bill_expired = $booking->expired_at;
+        } else {
+            $booking      = ProductRSvp::where('booking_id', $booking_id)->first();
+            $bill_date    = $booking->create_at;
+            $bill_expired = $booking->expired_at;
+        }
 
-        $client->request('POST', 'https://fpgdev.faspay.co.id/payment', [
-            'form_params' => [
-                'TRANSACTIONTYPE'			    => '1',
-                'RESPONSE_TYPE'			        => '2',
-                'LANG' 					        => '',
-                'MERCHANTID'              	    => $merchant_id,  //*   // MERCHANT ID
-                'PAYMENT_METHOD'			    => '1', //*
-                'TXN_PASSWORD' 			        => $password, //Transaction password  ajgbi
-                'MERCHANT_TRANID'			    => $tranid,   //*
-                'CURRENCYCODE'				    => 'IDR', //*
-                'AMOUNT'					    => '5000.00', //*
-                'CUSTNAME'					    => 'tes faspay', //*
-                'CUSTEMAIL'				        => 'account@faspay.co.id', //*
-                'RETURN_URL'              	    => 'http : //localhost/merchant_return_page.php', //*
-                'SIGNATURE' 			 	    => $signaturecc, //*
-                'BILLING_ADDRESS'				=> 'bekasi',
-                'BILLING_ADDRESS_CITY'			=> 'bekasi',
-                'BILLING_ADDRESS_REGION'		=> 'bekasi',
-                'BILLING_ADDRESS_STATE'			=> 'bekasi pusat6',
-                'BILLING_ADDRESS_POSCODE'		=> '10712',
-                'BILLING_ADDRESS_COUNTRY_CODE'	=> 'ID',
-                'RECEIVER_NAME_FOR_SHIPPING'	=> 'ega',
-                'SHIPPING_ADDRESS' 				=> 'bekasi air enam',
-                'SHIPPING_ADDRESS_CITY' 		=> 'bekasi tengah',
-                'SHIPPING_ADDRESS_REGION'		=> 'bekasi tengah',
-                'SHIPPING_ADDRESS_STATE'		=> 'bekasi tengah',
-                'SHIPPING_ADDRESS_POSCODE'		=> 'bekasi tengah',
-                'SHIPPING_ADDRESS_COUNTRY_CODE' => 'bekasi tengah',
-                'SHIPPINGCOST'					=> '0.00',
-                'PHONE_NO' 						=> '43654657687',
-                'MREF1'							=> 'tes',
-                'MREF2' 						=> 'testing',
-                'MREF3'							=> 'Tas;2;3000000',
-                'MREF4'							=> '',
-                'MREF5'							=> '',
-                'MREF6'							=> '',
-                'MREF7'							=> '',
-                'MREF8'							=> '',
-                'MREF9'							=> '',
-                'MREF10'						=> '',
-                'MPARAM1' 						=> '',// direct, isi dengan direct
-                'MPARAM2' 						=> '',
-                'CUSTOMER_REF'	 				=> '',
-                'FRISK1'						=> '',
-                'FRISK2'						=> '',
-                'DOMICILE_ADDRESS'				=> '',
-                'DOMICILE_ADDRESS_CITY'			=> '',
-                'DOMICILE_ADDRESS_REGION'		=> '',
-                'DOMICILE_ADDRESS_STATE'		=> '',
-                'DOMICILE_ADDRESS_POSCODE' 		=> '',
-                'DOMICILE_ADDRESS_COUNTRY_CODE' => '',
-                'DOMICILE_PHONE_NO'	 			=> '',
-                'handshake_url'					=> '',
-                'handshake_param'			    => '',
-                'style_merchant_name'           => 'black',
-                'style_order_summary'           => 'black',
-                'style_order_no'                => 'black',
-                'style_order_desc'              => 'black',
-                'style_amount'                  => 'black',
-                'style_background_left'         => '#fff',
-                'style_button_cancel'           => 'grey',
-                'style_font_cancel'             => 'red',
-                //harus url yg lgsg ke gambar
-                'style_image_url'               => 'https: //tirtasanitaresort.com/user/1599209847_5f520177f30bd.jpg',
-            ],
+        Payment::create([
+            // 'transaction_id'     => $data['trx_id'],
+            'booking_id'         => $booking_id,
+            'merchant_id'        => $merchant_id,
+            'from_table'         => 'ROOMS',
+            'gross_amount'       => $amount,
+            'currency'           => 'IDR',
+            'transaction_status' => 'pending',
+            'transaction_time'   => $bill_date,
+            'settlement_time'    => $bill_expired,
+            'fraud_status'       => 'Sukses',
+            'payment_type'       => 'Credit Card',
+            // 'approval_code'      => $approval_code,
+            'status_code'        => '00',
+            'status_message'     => 'Transmisi Info Detil Pembelian',
+            'signature_key'      => $signaturecc,
         ]);
 
-        // dd($response);
+        $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';
+            // $merchant_id = "tes_auto";
+            // $password    = "abcde";
+            // $tranid      = $booking_id;
 
-        // return $response->getBody()->getContents();
+            // $signaturecc=sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
+
+            $post = array(
+                "TRANSACTIONTYPE"               => '1',
+                "RESPONSE_TYPE"	                => '2',
+                "LANG" 			                => '',
+                "MERCHANTID"                    => $merchant_id,  //*   // MERCHANT ID
+                "PAYMENT_METHOD"                => '1', //*
+                "TXN_PASSWORD" 	                => $password, //Transaction password  ajgbi
+                "MERCHANT_TRANID"               => $tranid,   //*
+                "CURRENCYCODE"	                => 'IDR', //*
+                "AMOUNT"		                => $amount, //*
+                "CUSTNAME"                      => 'tes faspay', //*
+                "CUSTEMAIL"		                => 'account@faspay.co.id', //*
+                "RETURN_URL"                    => 'http : //localhost/merchant_return_page.php', //*
+                "SIGNATURE" 	                => $signaturecc, //*
+                "BILLING_ADDRESS"				=> 'bekasi',
+                "BILLING_ADDRESS_CITY"			=> 'bekasi',
+                "BILLING_ADDRESS_REGION"		=> 'bekasi',
+                "BILLING_ADDRESS_STATE"			=> 'bekasi pusat6',
+                "BILLING_ADDRESS_POSCODE"		=> '10712',
+                "BILLING_ADDRESS_COUNTRY_CODE"	=> 'ID',
+                "RECEIVER_NAME_FOR_SHIPPING"	=> 'ega',
+                "SHIPPING_ADDRESS" 				=> 'bekasi air enam',
+                "SHIPPING_ADDRESS_CITY" 		=> 'bekasi tengah',
+                "SHIPPING_ADDRESS_REGION"		=> 'bekasi tengah',
+                "SHIPPING_ADDRESS_STATE"		=> 'bekasi tengah',
+                "SHIPPING_ADDRESS_POSCODE"		=> 'bekasi tengah',
+                "SHIPPING_ADDRESS_COUNTRY_CODE" => 'bekasi tengah',
+                "SHIPPINGCOST"					=> '0.00',
+                "PHONE_NO" 						=> '43654657687',
+                "MREF1"							=> 'tes',
+                "MREF2" 						=> 'testing',
+                "MREF3"							=> 'Tas;2;3000000',
+                "MREF4"							=> '',
+                "MREF5"							=> '',
+                "MREF6"							=> '',
+                "MREF7"							=> '',
+                "MREF8"							=> '',
+                "MREF9"							=> '',
+                "MREF10"						=> '',
+                "MPARAM1" 						=> '',// direct, isi dengan direct
+                "MPARAM2" 						=> '',
+                "CUSTOMER_REF"	 				=> '',
+                "FRISK1"						=> '',
+                "FRISK2"						=> '',
+                "DOMICILE_ADDRESS"				=> '',
+                "DOMICILE_ADDRESS_CITY"			=> '',
+                "DOMICILE_ADDRESS_REGION"		=> '',
+                "DOMICILE_ADDRESS_STATE"		=> '',
+                "DOMICILE_ADDRESS_POSCODE" 		=> '',
+                "DOMICILE_ADDRESS_COUNTRY_CODE" => '',
+                "DOMICILE_PHONE_NO"	 			=> '',
+                "handshake_url"					=> '',
+                "handshake_param"				=> '',
+                "style_merchant_name"           => 'black',
+                "style_order_summary"           => 'black',
+                "style_order_no"                => 'black',
+                "style_order_desc"              => 'black',
+                "style_amount"                  => 'black',
+                "style_background_left"         => '#fff',
+                "style_button_cancel"           => 'grey',
+                "style_font_cancel"             => 'red',
+                //harus url yg lgsg ke gambar
+                "style_image_url"               => 'https://tirtasanitaresort.com/user/1599209847_5f520177f30bd.jpg',
+            );
+
+        // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
+        if ($post != null) {
+            foreach ($post as $name=>$value) {
+                $string .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
+            }
+        }
+
+        $string .= '</form>';
+        $string .= '<script> document.form.submit();</script>';
+
+        echo $string;
+        exit;
     }
 
     public function xpress(Request $request)
@@ -672,4 +720,5 @@ class PaymentController extends Controller
     {
         return sha1(md5($merchant_user.$merchant_password.$bill_no.$bill_total));
     }
+
 }

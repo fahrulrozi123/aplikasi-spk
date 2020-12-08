@@ -17,7 +17,7 @@ Route::post('/visitor/product_reservation/', ['as' => 'visitor.product_reservati
 Route::get('/payment-channel', 'Payment\ReserveController@paymentChannel')->name('payment.channel');
 Route::post('/checkout-room', ['as' => 'visitor.room_checkout', 'uses' => 'Payment\PaymentController@room_checkout']);
 Route::post('/checkout-product', ['as' => 'visitor.product_checkout', 'uses' => 'Payment\PaymentController@product_checkout']);
-Route::get('/credit', ['as' => 'visitor.credit', 'uses' => 'Payment\PaymentController@credit']);
+Route::post('/credit', ['as' => 'visitor.credit', 'uses' => 'Payment\PaymentController@credit']);
 Route::get('/xpress', ['as' => 'visitor.xpress', 'uses' => 'Payment\PaymentController@xpress']);
 
 

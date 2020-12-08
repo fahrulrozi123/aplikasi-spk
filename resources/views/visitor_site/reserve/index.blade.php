@@ -90,6 +90,11 @@
     <div class="col-lg-12">
         <div class="row">
             <div>
+                <form id="reserve" method="POST" action="{{ route('visitor.credit') }}">
+                    {{csrf_field()}}
+                    <input type="hidden" name="reserve_data" id="reserve_data">
+                </form>
+
                 <form id="rootwizard-2" method="post" action="" class="form-wizard validate" >
 
                     <div class="bg-primary" style="width: 100%; height: 12rem; position:absolute; top:0; z-index: -1; margin-bottom: 10px;"></div>
@@ -489,11 +494,13 @@
 
                                                                     <div class="tab-pane tab-horison-credit" id="credit">
 
+
+
                                                                         <div class="row">
                                                                             <div class="col-md-12" align="left">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:left;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -1383,24 +1390,32 @@
             });
         }
 
-        function confirmPaymentCredit(e, type) {
-            var paymentChannel = ($('#payment-channel').val());
-
+        function confirmPaymentCredit() {
             if("{{$data->type}}" == "Room"){
-                var url = "{{ route('visitor.credit') }}";
+
+                var value = {
+                    "amount"    : "{{ $data->totalPrice }}",
+                    "booking_id": "{{$data->booking_id}}",
+                    "from"      : "ROOMS"
+                };
+
+            } else if("{{$data->type}}" == "Product") {
+
+                var pax = $('.inputPax').val();
+
+                var price = {{$data->productPrice}} * pax;
+
+                var value = {
+                    "amount"    : price,
+                    "booking_id": "{{$data->booking_id}}",
+                    "from"      : "PRODUCTS"
+                };
             }
 
-            $.ajax({
-                type: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "booking_id": "{{$data->booking_id}}",
-                    "payment_channel": paymentChannel,
-                    "total_price" : "{{$data->totalPrice}}"
-                },
-                url: url,
-            });
+            $('#reserve_data').val(JSON.stringify(value));
+            $('#reserve').submit();
         }
+
     </script>
 
 </body>
