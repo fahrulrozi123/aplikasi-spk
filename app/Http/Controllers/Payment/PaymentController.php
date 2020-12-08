@@ -528,20 +528,22 @@ class PaymentController extends Controller
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
 
         if ($from == "ROOMS") {
-            $booking      = RoomRSvp   ::where('booking_id', $booking_id)->first();
+            $booking      = RoomRSvp::where('booking_id', $booking_id)->first();
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
+            $from         = 'ROOMS';
         } else {
             $booking      = ProductRSvp::where('booking_id', $booking_id)->first();
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
+            $from         = 'PRODUCTS';
         }
 
         Payment::create([
             // 'transaction_id'     => $data['trx_id'],
             'booking_id'         => $booking_id,
             'merchant_id'        => $merchant_id,
-            'from_table'         => 'ROOMS',
+            'from_table'         => $from,
             'gross_amount'       => $amount,
             'currency'           => 'IDR',
             'transaction_status' => 'pending',

@@ -1391,6 +1391,8 @@
         }
 
         function confirmPaymentCredit() {
+            top.window.onbeforeunload = null;
+
             if("{{$data->type}}" == "Room"){
 
                 var value = {
