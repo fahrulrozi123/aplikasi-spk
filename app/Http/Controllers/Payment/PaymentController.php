@@ -576,7 +576,7 @@ class PaymentController extends Controller
                 "AMOUNT"		                => $amount, //*
                 "CUSTNAME"                      => 'tes faspay', //*
                 "CUSTEMAIL"		                => 'account@faspay.co.id', //*
-                "RETURN_URL"                    => 'http : //localhost/merchant_return_page.php', //*
+                "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification', //*
                 "SIGNATURE" 	                => $signaturecc, //*
                 "BILLING_ADDRESS"				=> 'bekasi',
                 "BILLING_ADDRESS_CITY"			=> 'bekasi',
