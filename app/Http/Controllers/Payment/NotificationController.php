@@ -241,6 +241,11 @@ class NotificationController extends Controller
         return $this->payment_check();
     }
 
+    public function credit_notification(Request $request)
+    {
+        // dd($request->all());
+    }
+
     public function generate_room_id($id, $date, $roomName)
     {
         $generateId = '';
