@@ -243,7 +243,7 @@ class NotificationController extends Controller
 
     public function credit_notification(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
     }
 
     public function generate_room_id($id, $date, $roomName)
