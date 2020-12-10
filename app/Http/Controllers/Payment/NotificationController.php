@@ -30,6 +30,7 @@ class NotificationController extends Controller
         $merchant_password = 'p@ssw0rd';
         $submerchant_id	   = $merchant_id."0001";
         $merchant_user	   = "bot".$merchant_id;
+        $trx_id            = $request['trx_id'];
         $bill_no           = $request['bill_no'];
         $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
@@ -38,7 +39,7 @@ class NotificationController extends Controller
         $response = $client->post('https://dev.faspay.co.id/cvr/100004/10', [
             'json' => [
                 'request'     => 'Pengecekan Status Pembayaran',
-                'trx_id'      => '3351980200000455',
+                'trx_id'      => $trx_id,
                 'merchant_id' => $merchant_id,
                 'bill_no'     => $bill_no,
                 'signature'   => $signature
