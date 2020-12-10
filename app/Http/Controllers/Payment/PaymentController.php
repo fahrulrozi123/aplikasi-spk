@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
-    // data profile setting
     public function setting()
     {
         return Setting::first();
@@ -34,13 +33,11 @@ class PaymentController extends Controller
 
     public function paymentChannelPayment()
     {
-        $merchant_id		= 33519;
-        $merchant_password 	= 'p@ssw0rd';
-
-        $submerchant_id		= $merchant_id."0001";
-        $merchant_user		= "bot".$merchant_id;
-
-        $signature = sha1(md5($merchant_user.$merchant_password));
+        $merchant          = config('faspay.merchant');
+        $merchant_id	   = config('faspay.merchantId');
+        $merchant_password = config('faspay.merchantPassword');
+        $merchant_user	   = 'bot'.$merchant_id;
+        $signature         = sha1(md5($merchant_user.$merchant_password));
 
         $client = new Client();
 
@@ -48,7 +45,7 @@ class PaymentController extends Controller
             'json' => [
                 'request'     => 'Request List of Payment Gateway',
                 'merchant_id' => $merchant_id,
-                'merchant'    => 'STORE',
+                'merchant'    => $merchant,
                 'signature'   => $signature
             ]
         ]);
@@ -67,7 +64,6 @@ class PaymentController extends Controller
 
         dd($result);
     }
-
 
     public function reserve_room(Request $request)
     {
@@ -182,8 +178,8 @@ class PaymentController extends Controller
         $email               = Customer::where('id', $booking->customer_id)->first();
 
         // user
-        $merchant_id	     = 33519;
-        $merchant_password   = 'p@ssw0rd';
+        $merchant_id	     = config('faspay.merchantId');
+        $merchant_password   = config('faspay.merchantPassword');
         $merchant_user	     = 'bot'.$merchant_id;
 
         // search payment channel
@@ -203,18 +199,23 @@ class PaymentController extends Controller
 
         $client = new Client();
 
-        $response = $client->post('https://dev.faspay.co.id/cvr/300011/10', [
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/300011/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/300011/10';
+        }
+
+        $response = $client->post($url, [
             'json' => [
                 'request'          => $request,
                 'merchant_id'      => $merchant_id,
                 'bill_no'          => $bill_no,
-
                 'bill_date'        => $bill_date,
                 'bill_expired'     => $bill_expired,
                 'bill_desc'        => $bill_desc,
                 'bill_currency'    => 'IDR',
                 'bill_total'       => $bill_total,
-
                 // 'cust_no'       => '500505',
                 'cust_name'        => $cust_name,
                 'payment_channel'  => $payment_channel,
@@ -404,9 +405,7 @@ class PaymentController extends Controller
             return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "tab" => "2", "text" => "Payment Information"]);
 
         } elseif ($data['type'] == "credit" || $data['type'] == "bank") {
-
             return response()->json(["status" => 200, "msg" => $data['type'], "transaction" => $transaction]);
-
         }
     }
 
@@ -423,8 +422,8 @@ class PaymentController extends Controller
         $email               = Customer   ::where('id', $booking->customer_id)->first();
 
         // user
-        $merchant_id	     = 33519;
-        $merchant_password   = 'p@ssw0rd';
+        $merchant_id	     = config('faspay.merchantId');
+        $merchant_password   = config('faspay.merchantPassword');
         $merchant_user	     = 'bot'.$merchant_id;
 
         // search payment channel
@@ -444,18 +443,23 @@ class PaymentController extends Controller
 
         $client = new Client();
 
-        $response = $client->post('https://dev.faspay.co.id/cvr/300011/10', [
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/300011/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/300011/10';
+        }
+
+        $response = $client->post($url, [
             'json' => [
                 'request'          => $request,
                 'merchant_id'      => $merchant_id,
                 'bill_no'          => $bill_no,
-
                 'bill_date'        => $bill_date,
                 'bill_expired'     => $bill_expired,
                 'bill_desc'        => $bill_desc,
                 'bill_currency'    => 'IDR',
                 'bill_total'       => $bill_total,
-
                 // 'cust_no'       => '500505',
                 'cust_name'        => $cust_name,
                 'payment_channel'  => $payment_channel,
@@ -550,7 +554,7 @@ class PaymentController extends Controller
             'transaction_time'   => $bill_date,
             'settlement_time'    => $bill_expired,
             'fraud_status'       => 'Sukses',
-            'payment_type'       => 'Credit Card',
+            'payment_type'       => 'credit_card',
             // 'approval_code'      => $approval_code,
             'status_code'        => '00',
             'status_message'     => 'Transmisi Info Detil Pembelian',
@@ -558,12 +562,6 @@ class PaymentController extends Controller
         ]);
 
         $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';
-            // $merchant_id = "tes_auto";
-            // $password    = "abcde";
-            // $tranid      = $booking_id;
-
-            // $signaturecc=sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
-
             $post = array(
                 "TRANSACTIONTYPE"               => '1',
                 "RESPONSE_TYPE"	                => '2',

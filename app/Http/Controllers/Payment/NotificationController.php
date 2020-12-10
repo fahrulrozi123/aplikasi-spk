@@ -26,17 +26,23 @@ class NotificationController extends Controller
 {
     public function payment_check(Request $request)
     {
-        $merchant_id	   = 33519;
-        $merchant_password = 'p@ssw0rd';
-        $submerchant_id	   = $merchant_id."0001";
-        $merchant_user	   = "bot".$merchant_id;
+        $merchant_id	   = config('faspay.merchantId');
+        $merchant_password = config('faspay.merchantPassword');
+        $merchant_user	   = 'bot'.$merchant_id;
         $trx_id            = $request['trx_id'];
         $bill_no           = $request['bill_no'];
         $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
         $client = new Client();
 
-        $response = $client->post('https://dev.faspay.co.id/cvr/100004/10', [
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/100004/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/100004/10';
+        }
+
+        $response = $client->post($url, [
             'json' => [
                 'request'     => 'Pengecekan Status Pembayaran',
                 'trx_id'      => $trx_id,
@@ -52,6 +58,7 @@ class NotificationController extends Controller
     public function payment_notification(Request $request)
     {
         // dd($request->all());
+        // from faspay
         $transaction_id      = $request['trx_id'] ?: null;
         $merchant_id         = $request['merchant_id'] ?: null;
         $merchant            = $request['merchant'] ?: null;
@@ -66,6 +73,7 @@ class NotificationController extends Controller
         $payment_channel     = $request['payment_channel'] ?: null;
         $signature           = $request['signature'] ?: null;
 
+        // from database payment
         $data_payment        = Payment::where('booking_id', $booking_id)->first();
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
@@ -81,6 +89,8 @@ class NotificationController extends Controller
             'booking_id'         => $booking_id,
             'merchant_id'        => $merchant_id,
             'transaction_status' => 'settlement',
+            'settlement_time'    => $payment_date,
+            'payment_reff'       => $payment_reff,
             'status_code'        => $payment_status_code,
             'payment_type'       => $payment_channel,
             'status_message'     => $payment_status_desc,
@@ -147,13 +157,13 @@ class NotificationController extends Controller
         // }
 
         $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
-        $merchant_id        =  "33519";
+        $merchant_id        =  config('faspay.merchantId');
 
         $data               =  [
             "response"      => "Payment Notification",
             "trx_id"        => $transaction_id,
             "merchant_id"   => $merchant_id,
-            "merchant"      => "Tripasysfo Development",
+            "merchant"      => config('faspay.merchant'),
             "bill_no"       => $booking_id,
             "response_code" => "00",
             "response_desc" => "Sukses",
@@ -244,7 +254,33 @@ class NotificationController extends Controller
 
     public function credit_notification(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        $transaction_id      = $request['TRANSACTIONID'] ?: null;
+        $merchant_id         = $request['MERCHANTID'] ?: null;
+        $booking_id          = $request['MERCHANT_TRANID'] ?: null;
+        $payment_date        = $request['TRANDATE'] ?: null;
+        $fraud_status        = $request['FRAUD_STATUS'] ?: null;
+        $status_message      = $request['USR_MSG'] ?: null;
+        $payment_total       = $request['AMOUNT'];
+        $signature           = $request['SIGNATURE'] ?: null;
+
+        $data =
+            [
+            'transaction_id'     => $transaction_id,
+            'merchant_id'        => $merchant_id,
+            'booking_id'         => $booking_id,
+            'transaction_status' => 'settlement',
+            'settlement_time'    => $payment_date,
+            'status_message'     => $status_message,
+            'payment_type'       => $payment_total,
+            'signature_key'      => $signature,
+        ];
+
+        if (Payment::where('booking_id', $booking_id)->exists()) {
+            Payment::where('booking_id', $booking_id)->update($data);
+        } else {
+            Payment::insert($data);
+        }
     }
 
     public function generate_room_id($id, $date, $roomName)
@@ -515,7 +551,6 @@ class NotificationController extends Controller
 
             //FOR MARKETING
             $data->date = $data->rsvp_date_reserve;
-
         }
 
         $query = DB::select('select * from payment where booking_id = ?', [$id]);
@@ -571,7 +606,6 @@ class NotificationController extends Controller
     {
         $pdf = PDF::loadview('templates.template_email');
         return $pdf->stream('email_Template.pdf');
-
     }
 
     public function template_voucher($data, $setting)
