@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Horison Tirta Sanita')
+@section('title','Horison Ultima Bandung')
 @section('content')
     <style type="text/css">
     .login-page .login-header {

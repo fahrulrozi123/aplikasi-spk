@@ -5,7 +5,7 @@
             <div class="modal-header modal-product">
                 <button type="button" class="close btn btn-horison" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-horison">
-                    <center>Horison Tirta Sanita</center>
+                    <center>Horison Ultima Bandung</center>
                 </h4>
             </div>
             <div class="modal-body">

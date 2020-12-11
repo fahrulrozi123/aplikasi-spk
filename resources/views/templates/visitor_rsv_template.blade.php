@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Enjoy your experience at Tirta Sanita with Ciremai Mountain View while traveling in Kuningan">
-    <meta name="keywords" content="Horison, Tirta, Sanita, Hotel, Kuningan, Ciremai">
-    <meta name="author" content="Horison Tirta Sanita">
+    <meta name="description" content="Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung">
+    <meta name="keywords" content="Horison, Ultima, Banudng, Hotel">
+    <meta name="author" content="Horison Ultima Bandung">
     <title>{{ $setting->title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">

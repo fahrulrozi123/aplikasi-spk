@@ -54,7 +54,7 @@
         </center>
         <center>
             <p class="description-mw-dark">
-                Don't stop at Kuningan, visit Starcamp Upukan, Curug Putri, Waduk Darma, Linggarjati, Cibulan and<br>
+                Don't stop at Bandung, visit Kawah Putih, Mount Tangkuban Perahu, Situ Patenggang, Museum Gedung Sate and<br>
                 many other places.
             </p>
         </center>

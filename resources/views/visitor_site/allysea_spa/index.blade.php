@@ -54,7 +54,7 @@
         </center>
         <center>
             <p class="description-mw-dark">
-                Receive nature best medicine with Mount Ciremai Volcanic Sulfur Bath<br>
+                Receive nature best medicine with Mount Papandayan Volcanic Sulfur Bath<br>
                 known as Hydrotherapy.
             </p>
         </center>

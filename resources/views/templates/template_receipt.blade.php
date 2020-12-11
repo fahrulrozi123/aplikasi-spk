@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Receipt Booking - Horison Tirta Sanita</title>
+    <title>Receipt Booking - Horison Ultima Bandung</title>
 
     <style>
         @page  {

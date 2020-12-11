@@ -31,8 +31,8 @@
         </center>
         <center>
             <p class="description-rooms-dark">
-                Ciremai Mountain View, International TV Channel and a 24/7
-                Indonesia and Local Kuningan Cuisine at your expenses.
+                Bandung View, International TV Channel and a 24/7
+                Indonesia and Local Bandung Cuisine at your expenses.
             </p>
         </center>
         <br><br>

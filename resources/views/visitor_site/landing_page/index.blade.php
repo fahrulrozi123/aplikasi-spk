@@ -31,7 +31,7 @@
         <p class="black-unset lp-title-1">
             YOUR <span class="gold">PERFECT<br><br>DESTINATION</span> IS ON</p>
         <p class="description-lp-dark">
-            Commited to your satisfactory, we invite you to have the best experience at Kuningan, Horison Tirta Sanita.
+            Commited to your satisfactory, we invite you to have the best experience at Bandung, Horison Ultima Bandung.
         </p>
         <button class="btn btn-horison btn-lg reserveNow btn-rn-dekstop"><b>Reserve Now</b></button>
     </div>
@@ -45,9 +45,9 @@
                 <p class="white lp-title-2" style="margin-top:85px; margin-bottom:25px;">
                     MAKE <span class="gold">THE MOST</span><br><br> OF YOUR STAY</p>
                 <p class="description-lp-white">
-                    While enjoying Ciremai Mountain View and our occomodation that consist of
-                    International TV Chanel, Indonesia Native Cuisine and other Horison Tirta Sanita
-                    Hotel Facilities
+                    While enjoying Bandung View and our occomodation that consist of
+                    International TV Chanel, Indonesia Native Cuisine and other Horison Ultima Bandung
+                    Hotel Facilities.
                 </p>
             </div>
 

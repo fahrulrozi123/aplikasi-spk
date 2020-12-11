@@ -949,7 +949,7 @@ $gambar = $img."/".$setting->logo;
 														style="font-size: 12px; line-height: 1.2; color: #d4b580; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
-															Horison Tirta Sanita</p>
+															Horison Ultima Bandung</p>
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
 															Jl. Raya Panawuan No. 98 - Sangkanhurip, Kuningan Jawa

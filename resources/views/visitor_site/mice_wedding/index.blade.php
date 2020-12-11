@@ -55,7 +55,7 @@
             <p class="description-mw-dark">
                 Meetings, Business Trip and Wedding not like any others. Plan your activities with many our facilities
                 at<br>
-                Horison Tirta Sanita.
+                Horison Ultima Bandung.
             </p>
         </center>
     </div>

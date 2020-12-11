@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Hotel Voucher - Horison Tirta Sanita</title>
+    <title>Hotel Voucher - Horison Ultima Bandung</title>
 
     <style>
         @page  {
