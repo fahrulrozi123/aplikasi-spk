@@ -41,7 +41,14 @@ class PaymentController extends Controller
 
         $client = new Client();
 
-        $response = $client->post('https://dev.faspay.co.id/cvr/100001/10', [
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/100001/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/100001/10';
+        }
+
+        $response = $client->post($url, [
             'json' => [
                 'request'     => 'Request List of Payment Gateway',
                 'merchant_id' => $merchant_id,
@@ -525,8 +532,8 @@ class PaymentController extends Controller
         $from        = $data->from;
 
         // insert payment
-        $merchant_id = "tes_auto";
-        $password    = "abcde";
+        $merchant_id = 'faspay_trial_4';
+        $password    = 'kgrfH';
         $tranid      = $booking_id;
 
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
@@ -627,12 +634,12 @@ class PaymentController extends Controller
                 "style_image_url"               => 'https://tirtasanitaresort.com/user/1599209847_5f520177f30bd.jpg',
             );
 
-        // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
-        if ($post != null) {
-            foreach ($post as $name=>$value) {
-                $string .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
+            // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
+            if ($post != null) {
+                foreach ($post as $name=>$value) {
+                    $string .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
+                }
             }
-        }
 
         $string .= '</form>';
         $string .= '<script> document.form.submit();</script>';

@@ -430,7 +430,14 @@ class ReserveController extends Controller
 
         $client = new Client();
 
-        $response = $client->post('https://dev.faspay.co.id/cvr/100001/10', [
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/100001/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/100001/10';
+        }
+
+        $response = $client->post($url, [
             'json' => [
                 'request'     => 'Request List of Payment Gateway',
                 'merchant_id' => $merchant_id,

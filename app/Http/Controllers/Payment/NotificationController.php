@@ -78,10 +78,10 @@ class NotificationController extends Controller
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
 
-        // if ($signature !== $valid_signature_key) {
-        //     return response()->json(["status" => 401, "message" => "Something went wrong"]);
-        //     return redirect()->route('index')->with('warning', 'Something went wrong');
-        // }
+        if ($signature !== $valid_signature_key) {
+            return response()->json(["status" => 401, "message" => "Something went wrong"]);
+            return redirect()->route('index')->with('warning', 'Something went wrong');
+        }
 
         $data =
             [
@@ -280,6 +280,61 @@ class NotificationController extends Controller
             Payment::where('booking_id', $booking_id)->update($data);
         } else {
             Payment::insert($data);
+        }
+
+        $data_payment        = Payment::where('booking_id', $booking_id)->first();
+        $valid_signature_key = $data_payment->signature_key;
+        $from                = $data_payment->from_table;
+
+        if ($from == "ROOMS") {
+
+            // generated rsvp_id room
+            $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+            $checkIn = $rsvp->rsvp_date_reserve;
+
+            $getRoom = Type::where('id', $rsvp->room_id)->first();
+
+            $rsvpId = rand($min = 1, $max = 99999);
+            $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+            while ($reservationId == false) {
+                $rsvpId = rand($min = 1, $max = 99999);
+                $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+            }
+
+            RoomRsvp::where('booking_id', $booking_id)->update([
+                'rsvp_payment' => $payment_channel,
+                'rsvp_status'  => "Payment received",
+                "reservation_id" => $reservationId,
+            ]);
+
+            $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+            $this->resendEmail($from, $rsvp_id->booking_id);
+
+        } else if ($from == "PRODUCTS") {
+
+            // generated rsvp_id products
+            $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+            $productsId = $rsvp->product_id;
+
+            $productData = Product::where('id', $productsId)->first();
+
+            // generated rsvp_id products
+            $rsvp_id = rand($min = 1, $max = 99999);
+            $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+            while ($reservation_id == false) {
+                $rsvp_id = rand($min = 1, $max = 99999);
+                $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+            }
+
+            ProductRsvp::where('booking_id', $booking_id)->update([
+                'rsvp_payment' => $payment_channel,
+                'rsvp_status'  => "Payment received",
+                "reservation_id" =>  $reservation_id,
+            ]);
+
+            $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+            $this->resendEmail($from, $rsvp_id->booking_id);
         }
     }
 
