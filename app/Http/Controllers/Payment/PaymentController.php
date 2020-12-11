@@ -414,10 +414,10 @@ class PaymentController extends Controller
         // dd($request->all());
         $input               = $request->all();
         $data                = $input['data'];
-
         $booking_id          = $input['booking_id'];
         $payment_channel     = $input['payment_channel'];
         $bill_total          = $data['total_price'].'00';
+
         $booking             = ProductRSvp::where('booking_id', $input['booking_id'])->first();
         $email               = Customer   ::where('id', $booking->customer_id)->first();
 

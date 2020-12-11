@@ -619,5 +619,4 @@ class NotificationController extends Controller
         $pdf = PDF::loadview('templates.template_receipt', get_defined_vars());
         return $pdf->stream('receipt_template.pdf');
     }
-
 }

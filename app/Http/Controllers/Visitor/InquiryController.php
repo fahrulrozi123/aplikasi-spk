@@ -12,6 +12,7 @@ use App\Models\Inquiry\Inquiry;
 use App\Models\Inquiry\OtherRequest;
 use App\Models\Setting\Setting;
 use App\Models\Admin\User;
+use App\Models\Product\Rsvp as ProductRsvp;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
@@ -49,7 +50,6 @@ class InquiryController extends Controller
         $wedding_other_request = ['7', '8', '9',
         '10', '11', '12', '13', '14', '15', '16', '17', '18'];
 
-        //end cheatsheet
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:50',
             // 'email' => 'required|email|unique:customer,cust_email',
@@ -613,61 +613,7 @@ class InquiryController extends Controller
 
     public function resendEmail($from, $id)
     {
-
-        if ($from == "ROOMS") {
-            $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
-            $data = $query[0];
-
-            $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
-            $data->room = $query[0];
-
-            $query = DB::select('select * from customer where id = ?', [$data->customer_id]);
-            $data->customer = $query[0];
-
-            $query = DB::select('select * from room_photo where room_id = ? LIMIT 1', [$data->room_id]);
-            $data->room->photo = $query;
-
-            $start = Carbon::parse($data->rsvp_checkin);
-            $end = Carbon::parse($data->rsvp_checkout);
-            $totalStay = $start->diffInDays($end);
-            $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('dddd, DD MMMM YYYY');
-            $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('dddd, DD MMMM YYYY');
-            $data->total_stay = $totalStay;
-            $data = RoomRsvp::getInclusivePrice($data);
-
-            $to = $data->customer->cust_email;
-
-            //FOR MARKETING
-            $data->date = "(Check In) ".$data->rsvp_checkin.", (Check Out) ".$data->rsvp_checkout;
-
-        } elseif ($from == "PRODUCTS") {
-            $data = ProductRsvp::where('reservation_id', $id)->with('product')->with('customer')->first();
-            $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('dddd, DD MMMM YYYY');
-            $data = ProductRsvp::getInclusivePrice($data);
-            $to = $data['customer']->cust_email;
-            switch ($data['product']->category) {
-                case '1':
-                    $data['product']->category = "Recreation";
-                    break;
-                case '2':
-                    $data['product']->category = "AllySea a SPA";
-                    break;
-                case '3':
-                    $data['product']->category = "MICE";
-                    break;
-                case '4':
-                    $data['product']->category = "Wedding";
-                    break;
-
-                default:
-                    # code...
-                    break;
-            }
-
-            //FOR MARKETING
-            $data->date = $data->rsvp_date_reserve;
-
-        }else if($from == "INQUIRY"){
+        if($from == "INQUIRY"){
             $setting = Setting::first();
             $data = Inquiry::where('reservation_id', $id)->first();
             $data->from = $from;
@@ -678,7 +624,6 @@ class InquiryController extends Controller
             $customer = $data->customer->cust_email;
 
             $to = User::whereNull('deleted_at')->whereIn('level', [0, 1])->pluck('email')->toArray();
-            // Mail::to($to[0])->cc($to)->send(new ReservationEmail($data));
 
             // EMAIL FOR MARKETING/ADMIN
             foreach ($to as $key => $value) {
@@ -738,5 +683,17 @@ class InquiryController extends Controller
         }
 
         // return 'Resend Email for reservation ' . $request['reservation_id'] . ' success';
+    }
+
+    public function template_voucher($data, $setting)
+    {
+        $pdf = PDF::loadview('templates.template_voucher', get_defined_vars());
+        return $pdf->stream('voucher_template.pdf');
+    }
+
+    public function template_receipt($data, $setting)
+    {
+        $pdf = PDF::loadview('templates.template_receipt', get_defined_vars());
+        return $pdf->stream('receipt_template.pdf');
     }
 }

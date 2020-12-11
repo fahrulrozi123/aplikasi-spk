@@ -24,12 +24,6 @@ use App\Models\Room\Rsvp as RoomRsvp;
 
 class VisitorController extends Controller
 {
-    // data profile setting
-    public function setting()
-    {
-        return Setting::first();
-    }
-
     public function index()
     {
         $setting = $this->setting();
@@ -113,6 +107,13 @@ class VisitorController extends Controller
 
     public function details()
     {
+        $arrContextOptions =array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
         $setting = $this->setting();
         $id = Input::get('key', null);
         $from = Input::get('from', null);
@@ -187,43 +188,6 @@ class VisitorController extends Controller
         $pagesettings = PageSetting::where('page_code', "Newsletter")->with('photo')->get();
 
         return view('visitor_site.newsletter.index', get_defined_vars());
-
-    }
-
-    public function getIP()
-    {
-        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
-            if (array_key_exists($key, $_SERVER) === true) {
-                foreach (explode(',', $_SERVER[$key]) as $ip) {
-                    if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
-                        return $ip;
-                    }
-                }
-            }
-        }
-    }
-
-    public function convertCurrency($amount, $from_currency, $to_currency)
-    {
-        $apikey = 'b53b3e01c91301ad3314';
-
-        $from_Currency = urlencode($from_currency);
-        $to_Currency = urlencode($to_currency);
-        $query = "{$from_Currency}_{$to_Currency}";
-
-        // change to the free URL if you're using the free version
-        $json = file_get_contents("https://free.currconv.com/api/v7/convert?q={$query}&compact=ultra&apiKey={$apikey}");
-        $obj = json_decode($json, true);
-
-        $val = floatval($obj["$query"]);
-
-        $total = $val * $amount;
-        return number_format($total, 2, '.', '');
-    }
-
-    public function not_avail()
-    {
-        return view('visitor_site.reservation.not_avail', get_defined_vars());
 
     }
 
