@@ -302,7 +302,6 @@ class NotificationController extends Controller
             }
 
             RoomRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_payment' => $payment_channel,
                 'rsvp_status'  => "Payment received",
                 "reservation_id" => $reservationId,
             ]);
@@ -328,7 +327,6 @@ class NotificationController extends Controller
             }
 
             ProductRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_payment' => $payment_channel,
                 'rsvp_status'  => "Payment received",
                 "reservation_id" =>  $reservation_id,
             ]);
