@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h2>Testing Notification Payment</h2>
+<h2>Testing Notification Payment Debit</h2>
 
 <form method="POST" action="{{ route('payment.notification') }}" enctype="multipart/form-data">
     {{csrf_field()}}

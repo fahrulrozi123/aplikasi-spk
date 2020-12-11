@@ -188,38 +188,65 @@ class TestingController extends Controller
         // return 'Resend Email for reservation ' . $request['reservation_id'] . ' success';
     }
 
-    public function paymentNotification()
+    public function paymentNotificationDebit()
     {
         // select booking_id room or products
-        $booking_id = "a664ee74be8ea104";
+        $booking_id          = "a664ee74be8ea104";
 
         // rooms
-        $data = RoomRsvp::where('booking_id', $booking_id)->first();
+        $data                = RoomRsvp   ::where('booking_id', $booking_id)->first();
 
         // products
-        // $data = ProductRsvp::where('booking_id', $booking_id)->first();
+        // $data             = ProductRsvp::where('booking_id', $booking_id)->first();
 
-        $payment = Payment::where('booking_id', $booking_id)->first();
+        $payment             = Payment    ::where('booking_id', $booking_id)->first();
 
-        $transaction_id = $payment->transaction_id;
-        $merchant_id = $payment->merchant_id;
+        $transaction_id      = $payment->transaction_id;
+        $merchant_id         = $payment->merchant_id;
         $payment_status_code = 2;
         $payment_status_desc = "Payment Sukses";
-        $payment_channel = "Mandiri Virtual Account";
+        $payment_channel     = "Mandiri Virtual Account";
 
-        $signature = $payment->signature_key;
+        $signature           = $payment->signature_key;
 
         // signature_fail
-        // $signature = "40f0c967a94683207831ca3661ae7d6fa8aa0eec1f1e2f69c5806bab0616511";
+        // $signature        = "40f0c967a94683207831ca3661ae7d6fa8aa0eec1f1e2f69c5806bab0616511";
 
-        return view('layouts.testing_payment', get_defined_vars());
+        return view('layouts.testing_payment_debit', get_defined_vars());
     }
 
-    public function checkPayment()
+    public function paymentNotificationCredit()
+    {
+        // select booking_id room or products
+        $booking_id     = "2631647d01eeea4c";
+
+        // rooms
+        $data           = RoomRsvp   ::where('booking_id', $booking_id)->first();
+
+        // products
+        // $data        = ProductRsvp::where('booking_id', $booking_id)->first();
+
+        $payment        = Payment    ::where('booking_id', $booking_id)->first();
+
+        $transaction_id = 'FF2A8743-4921-44CA-AEC5-E2B389A5246E';
+        $merchant_id    = $payment->merchant_id;
+        $payment_date   = Carbon     ::now();
+        $fraud_status   = 'Sukses';
+        $status_message = 'Transaction approved';
+
+        $signature      = $payment->signature_key;
+
+        // signature_fail
+        // $signature   = "40f0c967a94683207831ca3661ae7d6fa8aa0eec1f1e2f69c5806bab0616511";
+
+        return view('layouts.testing_payment_credit', get_defined_vars());
+    }
+
+    public function checkPaymentDebit()
     {
         $setting = $this->setting();
 
-        return view('visitor_site.reserve.credit_notification', get_defined_vars());
-        // return view('layouts.payment_check', get_defined_vars());
+        // return view('visitor_site.reserve.credit_notification', get_defined_vars());
+        return view('layouts.payment_check', get_defined_vars());
     }
 }

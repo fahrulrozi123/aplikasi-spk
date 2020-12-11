@@ -12,12 +12,15 @@ Route::get('/push','Payment\TestingController@push')->name('push');
 //store a push subscriber.
 Route::post('/push','Payment\TestingController@storeNotification');
 
-// test payment
-Route::get('/test-payment','Payment\TestingController@paymentNotification')->name('test.payment');
+// test payment debit
+Route::get('/test-payment-debit','Payment\TestingController@paymentNotificationDebit')->name('test.debit.payment');
+
+// test payment credit
+Route::get('/test-payment-credit','Payment\TestingController@paymentNotificationCredit')->name('test.credit.payment');
 
 // check payment debit
-Route::get('/check-payment','Payment\TestingController@checkPayment');
-Route::post('/status-payment','Payment\NotificationController@payment_check')->name('status.payment');
+Route::get('/check-payment-debit','Payment\TestingController@checkPaymentDebit');
+Route::post('/status-payment-debit','Payment\NotificationController@payment_check')->name('status.payment');
 
 // result one payment code
 Route::get('/one-list-payment','Payment\PaymentController@listPaymentChannel');

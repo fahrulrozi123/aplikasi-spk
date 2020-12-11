@@ -334,6 +334,10 @@ class NotificationController extends Controller
             $rsvp_id = Payment::where('booking_id', $booking_id)->first();
             $this->resendEmail($from, $rsvp_id->booking_id);
         }
+
+        $setting = $this->setting();
+
+        return view('visitor_site.reserve.credit_notification', get_defined_vars());
     }
 
     public function generate_room_id($id, $date, $roomName)
