@@ -127,10 +127,9 @@ class NotificationController extends Controller
                 }
 
                 RoomRsvp::where('booking_id', $booking_id)->update([
-                    "reservation_id" => $reservationId,
+                    'reservation_id' => $reservationId,
                     'rsvp_payment'   => $payment_channel,
                     'rsvp_status'    => 'Payment received',
-                    'signature_key'  => $signature,
                 ]);
 
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
@@ -157,7 +156,6 @@ class NotificationController extends Controller
                     'reservation_id' => $reservation_id,
                     'rsvp_payment'   => $payment_channel,
                     'rsvp_status'    => 'Payment received',
-                    'signature_key'  => $signature,
                 ]);
 
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
@@ -270,8 +268,22 @@ class NotificationController extends Controller
         $payment_date        = $request['TRANDATE'] ?: null;
         $fraud_status        = $request['FRAUD_STATUS'] ?: null;
         $status_message      = $request['USR_MSG'] ?: null;
-        $payment_total       = $request['AMOUNT'];
+        $payment_total       = $request['AMOUNT'] ?: null;
         $signature           = $request['SIGNATURE'] ?: null;
+
+        // validate signature
+        $merchant_id         = 'faspay_trial_4';
+        $merchant_password   = 'kgrfH';
+        $merchant_tranid     = $request['MERCHANT_TRANID'] ?: null;
+        $amount              = $request['AMOUNT'] ?: null;
+        $transactionid       = $request['TRANSACTIONID'] ?: null;
+
+        $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$transactionid);
+
+        if ($signature !== $valid_signature_key) {
+            return response()->json(["status" => 401, "message" => "Something went wrong"]);
+            return redirect()->route('index')->with('warning', 'Something went wrong');
+        }
 
         $data =
             [
@@ -718,5 +730,10 @@ class NotificationController extends Controller
     public function generateSignatureDebit($merchant_user,$merchant_password,$bill_no,$payment_status_code)
     {
         return sha1(md5($merchant_user.$merchant_password.$bill_no.$payment_status_code));
+    }
+
+    public function generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$transactionid)
+    {
+        return sha1(md5($merchant_id.$merchant_password.$merchant_tranid.$amount,$transactionid));
     }
 }
