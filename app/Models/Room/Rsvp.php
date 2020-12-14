@@ -19,7 +19,7 @@ class Rsvp extends Model
         'rsvp_publish_rate', 'rsvp_total_room', 'rsvp_total_amount_room',
         'rsvp_extrabed_rate', 'rsvp_total_extrabed', 'rsvp_total_amount_extrabed',
         'rsvp_tax', 'rsvp_service', 'rsvp_tax_total',
-        'rsvp_payment', 'rsvp_convenience_fee', 'rsvp_grand_total', 'rsvp_status', 'cancellation_date', 'reschedule_date', 'endpoint', 'public_key', 'auth_token', 'create_at'];
+        'rsvp_payment', 'rsvp_convenience_fee', 'rsvp_grand_total', 'rsvp_status', 'cancellation_date', 'reschedule_date', 'endpoint', 'public_key', 'auth_token', 'create_at','expired_at'];
 
     public function customer()
     {

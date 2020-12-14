@@ -10,17 +10,17 @@ class Rsvp extends Model
     protected $table = 'product_rsvp';
     public $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = ['reservation_id','booking_id','customer_id', 'product_id', 
+    protected $fillable = ['reservation_id','booking_id','customer_id', 'product_id',
                             'rsvp_date_reserve','rsvp_arrive_time', 'rsvp_cust_name', 'rsvp_cust_phone', 'rsvp_cust_idtype',
-                            'rsvp_cust_idnumber','rsvp_guest_name', 'rsvp_special_request', 'rsvp_amount_pax', 'rsvp_pax_price', 
+                            'rsvp_cust_idnumber','rsvp_guest_name', 'rsvp_special_request', 'rsvp_amount_pax', 'rsvp_pax_price',
                             'rsvp_total_amount', 'rsvp_tax', 'rsvp_service', 'rsvp_tax_total',
-                            'rsvp_payment', 'rsvp_convenience_fee', 
-                            'rsvp_grand_total', 'rsvp_status', 'cancellation_date','reschedule_date','expired_at'];
+                            'rsvp_payment', 'rsvp_convenience_fee',
+                            'rsvp_grand_total', 'rsvp_status', 'cancellation_date','reschedule_date','create_at','expired_at'];
 
     public function customer()
     {
         return $this->hasOne('App\Models\Customer\Customer', 'id', 'customer_id');
-    }                        
+    }
 
     public function product()
     {
