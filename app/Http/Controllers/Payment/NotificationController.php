@@ -273,7 +273,7 @@ class NotificationController extends Controller
             'transaction_status' => 'settlement',
             'settlement_time'    => $payment_date,
             'status_message'     => $status_message,
-            'payment_type'       => $payment_total,
+            'gross_amount'       => $payment_total,
             'signature_key'      => $signature,
         ];
 

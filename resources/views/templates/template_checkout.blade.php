@@ -268,7 +268,7 @@ $gambar = $img."/".$setting->logo;
 												<div
 													style="font-size: 12px; line-height: 1.2; color: #333333; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
 													<p
-														style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> Please wait as you'll be hearing from our team as soon as possible.</p>
+														style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;"> Please finish this transaction.</p>
 												</div>
                                             </div>
                                             <p style="font-size: 14px;color:#333333;font-family:Cabin, Arial, Helvetica Neue, Helvetica, sans-serif;text-align:justify">
