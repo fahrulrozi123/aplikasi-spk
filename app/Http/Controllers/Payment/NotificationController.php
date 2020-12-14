@@ -13,7 +13,6 @@ use App\Models\Payment\Payment;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
-use App\Models\Setting\Setting;
 use App\Models\Admin\User;
 use App\Models\Customer\Customer;
 
@@ -76,8 +75,15 @@ class NotificationController extends Controller
 
         // from database payment
         $data_payment        = Payment::where('booking_id', $booking_id)->first();
-        $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
+
+        // validate signature
+        $merchant_id	     = config('faspay.merchantId');
+        $merchant_password   = config('faspay.merchantPassword');
+        $merchant_user	     = 'bot'.$merchant_id;
+        $bill_no             = $request['bill_no'] ?: null;
+
+        $valid_signature_key = $this->generateSignatureDebit($merchant_user,$merchant_password,$bill_no,$payment_status_code);
 
         if ($signature !== $valid_signature_key) {
             return response()->json(["status" => 401, "message" => "Something went wrong"]);
@@ -121,9 +127,10 @@ class NotificationController extends Controller
                 }
 
                 RoomRsvp::where('booking_id', $booking_id)->update([
-                    'rsvp_payment' => $payment_channel,
-                    'rsvp_status'  => "Payment received",
                     "reservation_id" => $reservationId,
+                    'rsvp_payment'   => $payment_channel,
+                    'rsvp_status'    => 'Payment received',
+                    'signature_key'  => $signature,
                 ]);
 
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
@@ -147,9 +154,10 @@ class NotificationController extends Controller
                 }
 
                 ProductRsvp::where('booking_id', $booking_id)->update([
-                    'rsvp_payment' => $payment_channel,
-                    'rsvp_status'  => "Payment received",
-                    "reservation_id" =>  $reservation_id,
+                    'reservation_id' => $reservation_id,
+                    'rsvp_payment'   => $payment_channel,
+                    'rsvp_status'    => 'Payment received',
+                    'signature_key'  => $signature,
                 ]);
 
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
@@ -669,7 +677,7 @@ class NotificationController extends Controller
                 break;
         }
 
-        $setting = Setting::first();
+        $setting = $this->setting();
         $data->from = $from;
         $data->voucher_attachment = $this->template_voucher($data, $setting);
         $data->receipt_attachment = $this->template_receipt($data, $setting);
@@ -705,5 +713,10 @@ class NotificationController extends Controller
     {
         $pdf = PDF::loadview('templates.template_receipt', get_defined_vars());
         return $pdf->stream('receipt_template.pdf');
+    }
+
+    public function generateSignatureDebit($merchant_user,$merchant_password,$bill_no,$payment_status_code)
+    {
+        return sha1(md5($merchant_user.$merchant_password.$bill_no.$payment_status_code));
     }
 }

@@ -11,7 +11,6 @@ use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Room\Type;
-use App\Models\Setting\Setting;
 use App\Models\Payment\Payment;
 
 use Carbon\Carbon;
@@ -23,14 +22,8 @@ use \Waavi\Sanitizer\Sanitizer;
 use App\Mail\CheckoutEmail;
 use Illuminate\Support\Facades\Mail;
 
-
 class PaymentController extends Controller
 {
-    public function setting()
-    {
-        return Setting::first();
-    }
-
     public function paymentChannelPayment()
     {
         $merchant          = config('faspay.merchant');
@@ -267,7 +260,7 @@ class PaymentController extends Controller
         ]);
 
         // Email Checkout Confirmation
-        $setting = Setting::first();
+        $setting = $this->setting();
         $data    = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $data->subject = 'Booking - '.$data->booking_id;
 
@@ -512,7 +505,7 @@ class PaymentController extends Controller
         ]);
 
         // Email Checkout Confirmation
-        $setting = Setting::first();
+        $setting = $this->setting();
         $data    = ProductRSvp::where('booking_id', $input['booking_id'])->first();
         $data->subject = 'Booking - '.$data->booking_id;
 
