@@ -543,11 +543,19 @@ class PaymentController extends Controller
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
             $from         = 'ROOMS';
+            // customer
+            $customer     = Customer::where('id', $booking->customer_id)->first();
+            $email        = $customer->cust_email;
+            $name         = $booking->rsvp_cust_name;
         } else {
             $booking      = ProductRSvp::where('booking_id', $booking_id)->first();
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
             $from         = 'PRODUCTS';
+            // customer
+            $customer     = Customer::where('id', $booking->customer_id)->first();
+            $email        = $customer->cust_email;
+            $name         = $booking->rsvp_cust_name;
         }
 
         Payment::create([
@@ -579,8 +587,8 @@ class PaymentController extends Controller
                 "MERCHANT_TRANID"               => $tranid,   //*
                 "CURRENCYCODE"	                => 'IDR', //*
                 "AMOUNT"		                => $amount, //*
-                "CUSTNAME"                      => 'tes faspay', //*
-                "CUSTEMAIL"		                => 'account@faspay.co.id', //*
+                "CUSTNAME"                      => $name, //*
+                "CUSTEMAIL"		                => $email, //*
                 "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification', //*
                 "SIGNATURE" 	                => $signaturecc, //*
                 "BILLING_ADDRESS"				=> 'bekasi',
