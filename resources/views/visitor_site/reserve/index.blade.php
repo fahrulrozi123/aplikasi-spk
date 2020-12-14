@@ -485,7 +485,7 @@
                                                                             <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:right;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT BANK TRANSFER<i class="entypo-right-open"></i></a>
+                                                                                        <a id="btn-transfer" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT BANK TRANSFER<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -498,7 +498,7 @@
                                                                             <div class="col-md-12" align="left">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:left;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT CREDIT CARD<i class="entypo-right-open"></i></a>
+                                                                                        <a id="btn-credit" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT CREDIT CARD<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -1306,6 +1306,12 @@
         }
 
         function confirmPayment(e, type) {
+
+            $('.lds-dual-ring-admin').show();
+
+            $("#btn-transfer").attr("disabled",true);
+            $("#btn-credit").attr("disabled",true);
+
             var paymentChannel = ($('#payment-channel').val());
 
             if("{{$data->type}}" == "Room"){
@@ -1357,6 +1363,8 @@
                         );
                     }  else if(data.status === 200) {
                         // console.log(data);
+
+                        $('.lds-dual-ring-admin').hide();
 
                         $('.transaction_id').text(data.transaction_id);
                         $('.payment_type').text(data.payment_type);
