@@ -15,6 +15,7 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Setting\Setting;
 use App\Models\Admin\User;
+use App\Models\Customer\Customer;
 
 use DB;
 use PDF;
