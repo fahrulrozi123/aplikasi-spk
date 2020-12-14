@@ -136,10 +136,9 @@
                                                                     </label>
                                                                     <ul>
                                                                         <li>You will receive your booking details at
-                                                                            <b class="customer_email">{{ $email->cust_email }}</b></li>
-                                                                        <li>You will receive your Voucher after you have made
-                                                                            your payment</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($rsvp->expired_at)->format('j F Y h:i')}}</b></li>
+                                                                            <b class="customer_email">{{ $customer->cust_email }}</b></li>
+                                                                        <li>You will receive your Voucher and Receipt</li>
+                                                                        {{-- <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($rsvp->expired_at)->format('j F Y h:i')}}</b></li> --}}
                                                                         <li>You will receive a confirmation email as soon this
                                                                             transaction has been approved</li>
                                                                     </ul>
@@ -212,15 +211,15 @@
                                                                 <p><strong>Reserve By</strong></p>
                                                             </div>
                                                             <div class="col-md-12 mt-10">
-                                                                <label class="customer_name" for="">{{ $rsvp->cust_name }}</label>
+                                                                <label class="customer_name" for="">{{ $rsvp->rsvp_cust_name }}</label>
                                                             </div>
                                                         </div>
                                                         <hr><br>
                                                         {{-- MAIN FORM --}}
-                                                        <h4><b>Booking Details</b></h4>
-
+                                                        {{-- <h4><b>Booking Details</b></h4> --}}
+{{--
                                                         <div class="row">
-                                                            {{-- @if($from == "ROOMS")
+                                                            @if($from == "ROOMS")
                                                             <div class="col-md-12">
                                                                 <i class="fa fa-calendar-o"></i>
                                                                 <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
@@ -248,8 +247,8 @@
                                                                 <span class="amount_pax" style="font-weight:normal" for="">&nbsp;
                                                                     Pax</span>
                                                             </div>
-                                                            @endif --}}
-                                                        </div>
+                                                            @endif
+                                                        </div> --}}
 
 
                                                     </section>
@@ -268,9 +267,9 @@
 
                                                     <section class="album-info-inq shadow">
                                                         {{-- MAIN FORM --}}
-                                                        <h4><b>Price Details</b></h4>
+                                                        {{-- <h4><b>Price Details</b></h4>
                                                         <div style="display: flex; flex-wrap: wrap;">
-                                                            {{-- @if($from == "ROOMS")
+                                                            @if($from == "ROOMS")
                                                             <div class="col-md-7">
                                                                 <p style="font-size:14px; color:black;">{{$data->roomDetail}}
                                                                 </p>
@@ -309,11 +308,11 @@
                                                                 <strong>Rp 0</strong>
                                                             </p>
                                                             </div>
-                                                            @endif --}}
+                                                            @endif
                                                         </div>
                                                         <hr>
                                                         <div class="row" style="display: flex">
-                                                            {{-- <div class="col-md-7">
+                                                            <div class="col-md-7">
                                                                 <p style="margin-left: 10px; font-weight: bolder; font-size:18px">Total</p>
                                                             </div>
                                                             <div class="col-md-5" style="margin-left: auto; padding-left: 55px; min-width: 200px;">
@@ -329,8 +328,8 @@
                                                                 <p class="product_total" style="font-weight: bolder; font-size:18px;"><strong></strong>
                                                                 </p>
                                                             @endif
-                                                            </div> --}}
-                                                        </div>
+                                                            </div>
+                                                        </div> --}}
                                                     </section>
                                                 </article>
                                             </div>
