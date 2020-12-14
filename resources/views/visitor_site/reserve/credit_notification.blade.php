@@ -131,24 +131,24 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    {{-- <label for="">
-                                                                        <strong>Your Booking <b class="booking_id">{{ $data->booking_id }}</b> has been placed!</strong>
+                                                                    <label for="">
+                                                                        <strong>Your Booking <b class="booking_id">{{ $rsvp->reservation_id }}</b> has been placed!</strong>
                                                                     </label>
                                                                     <ul>
                                                                         <li>You will receive your booking details at
-                                                                            <b class="customer_email">noreply1@tripasysfo.com</b></li>
+                                                                            <b class="customer_email">{{ $email->cust_email }}</b></li>
                                                                         <li>You will receive your Voucher after you have made
                                                                             your payment</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($data->expired_at)->format('j F Y h:i')}}</b></li>
+                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($rsvp->expired_at)->format('j F Y h:i')}}</b></li>
                                                                         <li>You will receive a confirmation email as soon this
                                                                             transaction has been approved</li>
-                                                                    </ul> --}}
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group">
-                                                                {{-- <div class="col-md-6 mb-10">
+                                                                <div class="col-md-6 mb-10">
                                                                     <div>
                                                                         <label for="">Customer Service Email</label>
                                                                     </div>
@@ -166,7 +166,7 @@
                                                                         <i class="fa fa-phone"></i>
                                                                         <span style="font-weight:normal" for="">&nbsp; {{ $setting->phone }}</span>
                                                                     </div>
-                                                                </div> --}}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </section>
@@ -206,13 +206,13 @@
                                                                 <p><strong>Booking ID</strong></p>
                                                             </div>
                                                             <div class="col-md-12 mt-10">
-                                                                {{-- <label class="booking_id" for="">{{ $data->booking_id }}</label> --}}
+                                                                <label class="booking_id" for="">{{ $rsvp->booking_id }}</label>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <p><strong>Reserve By</strong></p>
                                                             </div>
                                                             <div class="col-md-12 mt-10">
-                                                                <label class="customer_name" for="">Norma Steward</label>
+                                                                <label class="customer_name" for="">{{ $rsvp->cust_name }}</label>
                                                             </div>
                                                         </div>
                                                         <hr><br>
@@ -220,7 +220,7 @@
                                                         <h4><b>Booking Details</b></h4>
 
                                                         <div class="row">
-                                                            {{-- @if($data->type == "Room")
+                                                            {{-- @if($from == "ROOMS")
                                                             <div class="col-md-12">
                                                                 <i class="fa fa-calendar-o"></i>
                                                                 <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
@@ -234,7 +234,7 @@
                                                                 <span style="font-weight:normal" for="">&nbsp;
                                                                     {{$data->totalGuest}}</span>
                                                             </div>
-                                                            @elseif($data->type == "Product")
+                                                            @elseif($from == "PRODUCTS")
                                                             <div class="col-md-12">
                                                                 <i class="fa fa-calendar-o"></i>
                                                                 <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
@@ -270,7 +270,7 @@
                                                         {{-- MAIN FORM --}}
                                                         <h4><b>Price Details</b></h4>
                                                         <div style="display: flex; flex-wrap: wrap;">
-                                                            {{-- @if($data->type == "Room")
+                                                            {{-- @if($from == "ROOMS")
                                                             <div class="col-md-7">
                                                                 <p style="font-size:14px; color:black;">{{$data->roomDetail}}
                                                                 </p>
@@ -313,11 +313,11 @@
                                                         </div>
                                                         <hr>
                                                         <div class="row" style="display: flex">
-                                                            <div class="col-md-7">
+                                                            {{-- <div class="col-md-7">
                                                                 <p style="margin-left: 10px; font-weight: bolder; font-size:18px">Total</p>
                                                             </div>
                                                             <div class="col-md-5" style="margin-left: auto; padding-left: 55px; min-width: 200px;">
-                                                            {{-- @if($data->type == "Room")
+                                                            @if($from == "ROOMS")
                                                                 <p style="font-weight: bolder; font-size:18px;">
                                                                     <strong style="font-weight: bolder;">
                                                                         <script>
@@ -325,7 +325,7 @@
                                                                         </script>
                                                                     </strong>
                                                                 </p>
-                                                            @elseif($data->type == "Product")
+                                                            @elseif($from == "PRODUCTS")
                                                                 <p class="product_total" style="font-weight: bolder; font-size:18px;"><strong></strong>
                                                                 </p>
                                                             @endif

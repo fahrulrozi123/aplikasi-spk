@@ -282,9 +282,11 @@ class NotificationController extends Controller
             Payment::insert($data);
         }
 
+        // from payment
         $data_payment        = Payment::where('booking_id', $booking_id)->first();
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
+
 
         if ($from == "ROOMS") {
 
@@ -293,6 +295,9 @@ class NotificationController extends Controller
             $checkIn = $rsvp->rsvp_date_reserve;
 
             $getRoom = Type::where('id', $rsvp->room_id)->first();
+
+            // customer email
+            $email   = Customer::where('id', $rsvp->customer_id)->first();
 
             $rsvpId = rand($min = 1, $max = 99999);
             $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
@@ -316,6 +321,9 @@ class NotificationController extends Controller
             $productsId = $rsvp->product_id;
 
             $productData = Product::where('id', $productsId)->first();
+
+            // customer email
+            $email   = Customer::where('id', $rsvp->customer_id)->first();
 
             // generated rsvp_id products
             $rsvp_id = rand($min = 1, $max = 99999);
