@@ -437,14 +437,14 @@
                                                                 <ul class="nav nav-tabs bordered">
                                                                     <!-- available classes "bordered", "right-aligned" -->
                                                                     <li>
-                                                                        <a href="#bank" data-toggle="tab" style="background-color: white">
+                                                                        <a href="#bank" data-toggle="tab" class="bg-primary font-primary">
                                                                             <span><i class="fa fa-archive"></i></span>
                                                                             <span class="hidden-xs">Bank Transfer</span>
                                                                         </a>
                                                                     </li>
 
                                                                     <li>
-                                                                        <a href="#credit" data-toggle="tab" style="background-color: white">
+                                                                        <a href="#credit" data-toggle="tab" class="bg-primary font-primary">
                                                                             <span><i class="fa fa-credit-card""></i></span>
                                                                             <span class="hidden-xs"">Credit Card</span>
                                                                         </a>
@@ -485,7 +485,7 @@
                                                                             <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:right;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT BANK TRANSFER<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -494,18 +494,15 @@
 
                                                                     <div class="tab-pane tab-horison-credit" id="credit">
 
-
-
                                                                         <div class="row">
                                                                             <div class="col-md-12" align="left">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:left;">
-                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        <a class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT CREDIT CARD<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-
 
                                                                     </div>
                                                                 </div>

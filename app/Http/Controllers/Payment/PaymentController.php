@@ -547,6 +547,7 @@ class PaymentController extends Controller
             $customer     = Customer::where('id', $booking->customer_id)->first();
             $email        = $customer->cust_email;
             $name         = $booking->rsvp_cust_name;
+            $phone        = $booking->rsvp_cust_phone;
         } else {
             $booking      = ProductRSvp::where('booking_id', $booking_id)->first();
             $bill_date    = $booking->create_at;
@@ -556,6 +557,7 @@ class PaymentController extends Controller
             $customer     = Customer::where('id', $booking->customer_id)->first();
             $email        = $customer->cust_email;
             $name         = $booking->rsvp_cust_name;
+            $phone        = $booking->rsvp_cust_phone;
         }
 
         Payment::create([
@@ -605,7 +607,7 @@ class PaymentController extends Controller
                 "SHIPPING_ADDRESS_POSCODE"		=> 'bekasi tengah',
                 "SHIPPING_ADDRESS_COUNTRY_CODE" => 'bekasi tengah',
                 "SHIPPINGCOST"					=> '0.00',
-                "PHONE_NO" 						=> '43654657687',
+                "PHONE_NO" 						=> $phone,
                 "MREF1"							=> 'tes',
                 "MREF2" 						=> 'testing',
                 "MREF3"							=> 'Tas;2;3000000',

@@ -214,7 +214,7 @@
                                                                 <label class="customer_name" for="">{{ $rsvp->rsvp_cust_name }}</label>
                                                             </div>
                                                         </div>
-                                                        <hr><br>
+                                                        {{-- <hr><br> --}}
                                                         {{-- MAIN FORM --}}
                                                         {{-- <h4><b>Booking Details</b></h4> --}}
 {{--
@@ -259,7 +259,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="gallery-env">
+                                    {{-- <div class="gallery-env">
                                         <div class="row">
 
                                             <div class="col-sm-12">
@@ -330,11 +330,11 @@
                                                             @endif
                                                             </div>
                                                         </div> --}}
-                                                    </section>
+                                                    {{-- </section>
                                                 </article>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     {{-- end bills --}}
                                 </div>
                             </div>
