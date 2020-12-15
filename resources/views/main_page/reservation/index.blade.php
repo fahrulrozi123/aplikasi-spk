@@ -38,6 +38,7 @@
                                     <thead>
                                         <tr>
                                             <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Booking ID</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Customer Phone Number</th>
                                             <th class="horisonth-table">Guest Name</th>
@@ -67,6 +68,7 @@
                                     <thead style="font-weight:bold">
                                         <tr>
                                             <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Booking ID</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Reserved Rooms</th>
                                             <th class="horisonth-table">Check In</th>
@@ -79,6 +81,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>Reservation Number</th>
+                                            <th>Booking ID</th>
                                             <th>Customer Name</th>
                                             <th>Reserved Rooms</th>
                                             <th>Check In</th>
@@ -114,6 +117,7 @@
                                     <thead>
                                         <tr>
                                             <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Booking ID</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Customer Email</th>
                                             <th class="horisonth-table">Customer Phone Number</th>
@@ -141,6 +145,7 @@
                                     <thead>
                                         <tr>
                                             <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Booking ID</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Customer Email</th>
                                             <th class="horisonth-table">Reserved Package</th>
@@ -151,6 +156,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>Reservation Number</th>
+                                            <th>Booking ID</th>
                                             <th>Customer Name</th>
                                             <th>Customer Email</th>
                                             <th>Reserved Package</th>
@@ -283,6 +289,10 @@
                     name: 'reservation_id'
                 },
                 {
+                    data: 'booking_id',
+                    name: 'booking_id'
+                },
+                {
                     data: 'rsvp_cust_name',
                     name: 'rsvp_cust_name'
                 },
@@ -326,18 +336,22 @@
             initComplete: setFooter("table-2"),
             ajax: "{{route('reservation.room_data')}}",
             "columnDefs": [{
-                "targets": [3, 4],
+                "targets": [4, 5],
                 render: function (data) {
                     return moment(data).format('DD MMMM YYYY');
                 },
                 "type": "date"
             }, {
                 "orderable": false,
-                "targets": [1, 2, 5]
+                "targets": [1, 3, 6]
             }],
             columns: [{
                     data: 'reservation_id',
                     name: 'reservation_id'
+                },
+                {
+                    data: 'booking_id',
+                    name: 'booking_id'
                 },
                 {
                     data: 'rsvp_cust_name',
@@ -424,11 +438,15 @@
             ajax: "{{route('reservation.product_reservation_today')}}",
             "columnDefs": [{
                 "orderable": false,
-                "targets": [1, 2, 3, 4]
+                "targets": [1, 3, 4, 5]
             }],
             columns: [{
                     data: 'reservation_id',
                     name: 'reservation_id'
+                },
+                {
+                    data: 'booking_id',
+                    name: 'booking_id'
                 },
                 {
                     data: 'rsvp_cust_name',
@@ -470,7 +488,7 @@
             initComplete: setFooter('table-4'),
             ajax: "{{route('reservation.product_data')}}",
             "columnDefs": [{
-                "targets": 4,
+                "targets": 5,
                 render: function (data) {
                     if (data != null) {
                         return moment(data).format('DD MMMM YYYY');
@@ -479,11 +497,15 @@
                 "type": "date"
             }, {
                 "orderable": false,
-                "targets": [1, 2, 3, 5]
+                "targets": [1, 3, 4, 6]
             }],
             columns: [{
                     data: 'reservation_id',
                     name: 'reservation_id'
+                },
+                {
+                    data: 'booking_id',
+                    name: 'booking_id'
                 },
                 {
                     data: 'rsvp_cust_name',
@@ -861,6 +883,7 @@
             }
 
             $('#reservation_id').text(data.reservation_id);
+            $('#booking_id').text(data.booking_id);
             $('#reservation_date').text(reservation_date);
             $('#room_checkin').text(checkin);
             $('#room_checkout').text(checkout);
@@ -1064,7 +1087,7 @@
             if (data.rsvp_status == "Payment received") {
                 $('#product_paid_amount').text(formatRupiah(data.rsvp_grand_total));
 
-                var payment_status = "Payment Received via " + data.rsvp_payment + " Payment";
+                var payment_status = "Payment Received via " + data.rsvp_payment;
                 var payment_class = 'text-success col-lg-3';
                 var payment_date = reservation_date;
             } else if (data.rsvp_status == "Waiting for payment") {
@@ -1080,6 +1103,7 @@
             }
 
             $('#online_rsvp_number').text(data.reservation_id);
+            $('#online_booking_id').text(data.booking_id);
             $('#online_rsvp_date').text(reservation_date);
             $('#online_rsvp_product_name').text(data.product.product_name);
             $('#online_rsvp_pax').text(data.rsvp_amount_pax + " Pax");

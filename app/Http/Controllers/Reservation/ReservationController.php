@@ -132,7 +132,7 @@ class ReservationController extends Controller
 
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
-        $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.reservation_id = payment.booking_id
+        $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.booking_id = payment.booking_id
         WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received'";
 
         $reservations = DB::select(DB::raw($query));
@@ -147,8 +147,8 @@ class ReservationController extends Controller
         //   $reservation = RoomRsvp::orderBy('id')->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('room')->get();
         //   return $reservation;
 
-        $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.reservation_id = payment.booking_id
-                    where reservation_id <> '' or customer_id not in (null, '') ;";
+        $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
+                    where rsvp_payment <> '' or customer_id not in (null, '') ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -300,7 +300,7 @@ class ReservationController extends Controller
 
     public function product_data()
     {
-        $reservations = ProductRsvp::where('reservation_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
+        $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
             ->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
 

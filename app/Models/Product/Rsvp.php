@@ -28,7 +28,7 @@ class Rsvp extends Model
     }
     public function payment()
     {
-        return $this->hasOne('App\Models\Payment\Payment', 'rsvp_id', 'reservation_id');
+        return $this->hasOne('App\Models\Payment\Payment', 'booking_id', 'booking_id');
     }
     public static function getInclusivePrice($data)
     {
