@@ -1401,9 +1401,12 @@
             if("{{$data->type}}" == "Room"){
 
                 var value = {
-                    "amount"    : "{{ $data->totalPrice }}",
-                    "booking_id": "{{$data->booking_id}}",
-                    "from"      : "ROOMS"
+                    "room_name"  : "{{ $data->roomName }}",
+                    "total_rooms": "{{ $data->totalRooms }}",
+                    "total_days" : "{{ $data->totalDays }}",
+                    "amount"     : "{{ $data->totalPrice }}",
+                    "booking_id" : "{{$data->booking_id}}",
+                    "from"       : "ROOMS"
                 };
 
             } else if("{{$data->type}}" == "Product") {
@@ -1413,9 +1416,10 @@
                 var price = {{$data->productPrice}} * pax;
 
                 var value = {
-                    "amount"    : price,
-                    "booking_id": "{{$data->booking_id}}",
-                    "from"      : "PRODUCTS"
+                    "product_name": "{{ $data->productName }}",
+                    "amount"      : price,
+                    "booking_id"  : "{{$data->booking_id}}",
+                    "from"        : "PRODUCTS"
                 };
             }
 

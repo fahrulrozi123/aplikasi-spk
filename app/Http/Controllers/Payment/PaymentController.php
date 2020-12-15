@@ -223,7 +223,7 @@ class PaymentController extends Controller
                 'email'            => $email->cust_email,
                 'pay_type'         => '1',
                 'item'             => [
-                    'product'      => $data['total_rooms'] . "x " . $data['room_name'] . "x " . $data['total_days'] . " day(s)",
+                    'product'      => $data['total_rooms'] . "x " . $data['room_name'] . " x " . $data['total_days'] . " day(s)",
                     'qty'          => $data['total_rooms'],
                     'amount'       => $bill_total
                 ],
@@ -467,7 +467,7 @@ class PaymentController extends Controller
                 'email'            => $email->cust_email,
                 'pay_type'         => '1',
                 'item'             => [
-                    'product'      => $data['amount_pax'] . "x " . $data['product_name'],
+                    'product'      => $data['amount_pax'] . " x " . $data['product_name'],
                     'qty'          => $data['amount_pax'],
                     'amount'       => $bill_total
                 ],
@@ -516,6 +516,7 @@ class PaymentController extends Controller
 
     public function credit(Request $request)
     {
+        // dd($request->all());
         $data        = $request['reserve_data'];
         $data        = json_decode($data);
 
@@ -536,6 +537,11 @@ class PaymentController extends Controller
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
             $from         = 'ROOMS';
+
+            //order description
+            $order_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s)";
+            // dd($order_desc);
+
             // customer
             $customer     = Customer::where('id', $booking->customer_id)->first();
             $email        = $customer->cust_email;
@@ -546,6 +552,10 @@ class PaymentController extends Controller
             $bill_date    = $booking->create_at;
             $bill_expired = $booking->expired_at;
             $from         = 'PRODUCTS';
+
+            //order description
+            $order_desc   = $data->amount_pax . " x " . $data->product_name;
+
             // customer
             $customer     = Customer::where('id', $booking->customer_id)->first();
             $email        = $customer->cust_email;
@@ -584,6 +594,7 @@ class PaymentController extends Controller
                 "AMOUNT"		                => $amount, //*
                 "CUSTNAME"                      => $name, //*
                 "CUSTEMAIL"		                => $email, //*
+                "DESCRIPTION"                   => $order_desc,
                 "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification', //*
                 "SIGNATURE" 	                => $signaturecc, //*
                 "BILLING_ADDRESS"				=> 'bekasi',
@@ -634,7 +645,7 @@ class PaymentController extends Controller
                 "style_button_cancel"           => 'grey',
                 "style_font_cancel"             => 'red',
                 //harus url yg lgsg ke gambar
-                "style_image_url"               => 'https://tirtasanitaresort.com/user/1599209847_5f520177f30bd.jpg',
+                "style_image_url"               => 'http://horisonultimabandung.tripasysfo.com/images/logo/logo.png',
             );
 
             // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
