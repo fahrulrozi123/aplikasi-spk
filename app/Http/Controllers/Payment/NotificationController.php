@@ -336,11 +336,14 @@ class NotificationController extends Controller
             }
 
             RoomRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_status'  => "Payment received",
-                "reservation_id" => $reservationId,
+                'rsvp_status'    => 'Payment received',
+                'reservation_id' => $reservationId,
+                'rsvp_payment'   => 'Credit Card'
             ]);
 
-            if ($rsvp->rsvp_status == "Payment received") {
+            $status = RoomRsvp::where('booking_id', $booking_id)->first();
+
+            if ($status->rsvp_status == "Payment received") {
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
                 $this->resendEmail($from, $rsvp_id->booking_id);
             }
@@ -374,11 +377,14 @@ class NotificationController extends Controller
             }
 
             ProductRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_status'  => "Payment received",
-                "reservation_id" =>  $reservation_id,
+                'rsvp_status'    => 'Payment received',
+                'reservation_id' => $reservation_id,
+                'rsvp_payment'   => 'Credit Card'
             ]);
 
-            if ($rsvp->rsvp_status == "Payment received") {
+            $status = ProductRsvp::where('booking_id', $booking_id)->first();
+
+            if ($status->rsvp_status == "Payment received") {
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
                 $this->resendEmail($from, $rsvp_id->booking_id);
             }

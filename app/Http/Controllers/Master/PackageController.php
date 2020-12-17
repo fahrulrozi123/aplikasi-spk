@@ -38,7 +38,7 @@ class PackageController extends Controller
         if(count($packages) > 0){
             return view('master_data.package.indexisi', ['products'=>$packages, 'setting'=>$setting]);
         }else{
-            return view('master_data.package.index');
+            return view('master_data.package.index', get_defined_vars());
         }
     }
 

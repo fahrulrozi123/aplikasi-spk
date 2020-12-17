@@ -526,8 +526,8 @@ class PaymentController extends Controller
         $from        = $data->from;
 
         // insert payment
-        $merchant_id = 'faspay_trial_4';
-        $password    = 'kgrfH';
+        $merchant_id = 'faspay_trial_10';
+        $password    = ']kISlB{ZY8ne5=R';
         $tranid      = $booking_id;
 
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
@@ -554,7 +554,7 @@ class PaymentController extends Controller
             $from         = 'PRODUCTS';
 
             //order description
-            $order_desc   = $data->amount_pax . " x " . $data->product_name;
+            $order_desc   = $data->amount . " x " . $data->product_name;
 
             // customer
             $customer     = Customer::where('id', $booking->customer_id)->first();
@@ -572,11 +572,11 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            'settlement_time'    => $bill_expired,
+            // 'settlement_time'    => $bill_expired,
             'fraud_status'       => 'Sukses',
-            'payment_type'       => 'credit_card',
+            'payment_type'       => 'Credit Card',
             // 'approval_code'      => $approval_code,
-            'status_code'        => '00',
+            // 'status_code'        => '00',
             'status_message'     => 'Transmisi Info Detil Pembelian',
             'signature_key'      => $signaturecc,
         ]);

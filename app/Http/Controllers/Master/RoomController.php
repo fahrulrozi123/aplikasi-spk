@@ -45,7 +45,7 @@ class RoomController extends Controller
         if (count($rooms) > 0) {
             return view('master_data.room.indexisi', get_defined_vars());
         } else {
-            return view('master_data.room.index');
+            return view('master_data.room.index', get_defined_vars());
         }
     }
 

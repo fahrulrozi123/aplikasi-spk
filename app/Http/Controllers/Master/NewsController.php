@@ -38,7 +38,7 @@ class NewsController extends Controller
         if (count($newss) > 0) {
             return view('master_data.news.index', get_defined_vars());
         } else {
-            return view('master_data.news.empty');
+            return view('master_data.news.empty', get_defined_vars());
         }
     }
 

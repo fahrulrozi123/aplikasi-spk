@@ -34,7 +34,7 @@ class CustomerEmail extends Mailable
     public function build()
     {
         if($this->data->from == "INQUIRY"){
-            return $this->from('noreply@tripasysfo.com', 'Horison Tirta Sanita')
+            return $this->from('noreply@tripasysfo.com', 'Horison Ultima Bandung')
             ->subject($this->data->subject)
             ->view('templates/template_email_customer')
             ->with('data', $this->data)
