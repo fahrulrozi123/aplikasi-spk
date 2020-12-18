@@ -790,7 +790,7 @@
             }
 
             if (data.rsvp_status == "Payment received") {
-                var payment_status = "Payment Received via " + data.rsvp_payment + " Payment";
+                var payment_status = "Payment Received via " + data.rsvp_payment;
                 var payment_class = 'text-success col-lg-3';
                 $('#paid_amount').text(formatRupiah(data.rsvp_grand_total));
 
@@ -860,7 +860,7 @@
 
             if (data.rsvp_status == "Payment received") {
                 var paid_amount = formatRupiah(parseInt(data.gross_amount));
-                var payment_status = "Payment Received via " + data.rsvp_payment + " Payment";
+                var payment_status = "Payment Received via " + data.rsvp_payment;
                 var payment_class = 'text-success col-lg-3';
 
                 if(data.transaction_status == "settlement"){
@@ -1157,7 +1157,7 @@
 
             if (data.rsvp_status == "Payment received") {
                 var paid_amount = formatRupiah(parseInt(data['payment'].gross_amount));
-                var payment_status = "Payment Received via " + data.rsvp_payment + " Payment";
+                var payment_status = "Payment Received via " + data.rsvp_payment;
                 var payment_class = 'text-success col-lg-3';
                 if(data['payment'].transaction_status == "settlement"){
                     var payment_date = moment(new Date(data['payment'].settlement_time)).format('LLLL');

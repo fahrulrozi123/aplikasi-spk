@@ -194,7 +194,7 @@
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
                                     <option value="0">Recreation</option>
-                                    <option value="1">AllySea a Spa</option>
+                                    <option value="1">Spa & Salon</option>
                                     <option value="2">Mice</option>
                                     <option value="3">Wedding</option>
                                 </select><br>
@@ -360,7 +360,7 @@
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
                                     <option value="0">Recreation</option>
-                                    <option value="1">AllySea a Spa</option>
+                                    <option value="1">Spa & Salon</option>
                                     <option value="2">Mice</option>
                                     <option value="3">Wedding</option>
                                 </select><br>
@@ -408,7 +408,7 @@
                     </li>
                     <li class="{{ Request::path() === 'visitor/allysea_spa' ? 'active':'' }}">
                         <a href="{{ route('visitor.allysea_spa') }}">
-                            <span class="title">AllySea a SPA</span>
+                            <span class="title">Spa & Salon</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/mice_wedding' ? 'active':'' }}">
