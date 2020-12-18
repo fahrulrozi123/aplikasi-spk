@@ -563,7 +563,7 @@ class PaymentController extends Controller
 
         // insert payment
         $merchant_id = 'faspay_trial_10';
-        $password    = ']kISlB{ZY8ne5=R';
+        $password    = 'oHMfi';
         $tranid      = $booking_id;
 
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
