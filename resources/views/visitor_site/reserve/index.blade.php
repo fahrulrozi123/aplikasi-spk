@@ -1318,10 +1318,13 @@
                 var url = "{{ route('visitor.room_checkout') }}";
 
                 data = {
-                    room_name  : "{{ $data->roomName }}",
-                    total_rooms: "{{ $data->totalRooms }}",
-                    total_days : "{{ $data->totalDays }}",
-                    total_price: "{{ $data->totalPrice }}"
+                    room_name           : "{{ $data->roomName }}",
+                    total_rooms         : "{{ $data->totalRooms }}",
+                    total_days          : "{{ $data->totalDays }}",
+                    total_room_price    : "{{ $data->roomPrice }}",
+                    total_extrabed      : "{{ $data->extrabedTotal }}",
+                    total_extrabed_price: "{{ $data->extrabedPrice }}",
+                    total_price         : "{{ $data->totalPrice }}"
                 }
 
             } else if("{{$data->type}}" == "Product") {

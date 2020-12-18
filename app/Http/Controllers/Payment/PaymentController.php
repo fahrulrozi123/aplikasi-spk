@@ -178,6 +178,7 @@ class PaymentController extends Controller
         $email               = Customer::where('id', $booking->customer_id)->first();
 
         // user
+        $merchant	         = config('faspay.merchant');
         $merchant_id	     = config('faspay.merchantId');
         $merchant_password   = config('faspay.merchantPassword');
         $merchant_user	     = 'bot'.$merchant_id;
@@ -191,7 +192,9 @@ class PaymentController extends Controller
 
         $bill_no	         = $booking->booking_id;
         $request             = 'Room Reservation of '.$bill_no;
+        $cust_no             = $booking->customer_id;
         $cust_name           = $booking->rsvp_cust_name;
+        $msisdn              = '+'.$booking->rsvp_cust_phone;
         $bill_date           = $booking->create_at;
         $bill_expired        = $booking->expired_at;
         $bill_desc           = 'Room Reservation of '.$bill_no;
@@ -206,27 +209,52 @@ class PaymentController extends Controller
             $url = 'https://dev.faspay.co.id/cvr/300011/10';
         }
 
+        // rooms
+        $item1_details = array(
+            'product'      => $data['total_rooms'] . "x " . $data['room_name'] . " x " . $data['total_days'] . " day(s)",
+            'qty'          => $data['total_rooms'],
+            'amount'       => $data['total_room_price'],
+            'payment_plan' => '01',
+            'merchant_id'  => $merchant_id,
+            'tenor'        => '00'
+        );
+
+        // extrabed
+        $item2_details = array(
+            'product'      => $data['total_extrabed'] . "x " ."Additional Extra Bed". " x " . $data['total_days'] . " day(s)",
+            'qty'          => $data['total_extrabed'],
+            'amount'       => $data['total_extrabed_price'],
+            'payment_plan' => '01',
+            'merchant_id'  => $merchant_id,
+            'tenor'        => '00'
+        );
+
+        // cek extrabed
+        if ($data['total_extrabed_price'] == NULL) {
+            $item_details = array($item1_details);
+        } else {
+            $item_details = array($item1_details, $item2_details);
+        }
+
         $response = $client->post($url, [
             'json' => [
                 'request'          => $request,
                 'merchant_id'      => $merchant_id,
+                'merchant'         => $merchant,
                 'bill_no'          => $bill_no,
                 'bill_date'        => $bill_date,
                 'bill_expired'     => $bill_expired,
                 'bill_desc'        => $bill_desc,
                 'bill_currency'    => 'IDR',
                 'bill_total'       => $bill_total,
-                // 'cust_no'       => '500505',
-                'cust_name'        => $cust_name,
                 'payment_channel'  => $payment_channel,
-                'terminal'         => '10',
-                'email'            => $email->cust_email,
                 'pay_type'         => '1',
-                'item'             => [
-                    'product'      => $data['total_rooms'] . "x " . $data['room_name'] . " x " . $data['total_days'] . " day(s)",
-                    'qty'          => $data['total_rooms'],
-                    'amount'       => $bill_total
-                ],
+                'cust_no'          => $cust_no,
+                'cust_name'        => $cust_name,
+                'msisdn'           => $msisdn,
+                'email'            => $email->cust_email,
+                'terminal'         => '10',
+                'item'             => $item_details,
                 'reserve1'         => 'ROOMS',
                 'signature'        => $signature
             ]
@@ -422,6 +450,7 @@ class PaymentController extends Controller
         $email               = Customer   ::where('id', $booking->customer_id)->first();
 
         // user
+        $merchant	         = config('faspay.merchant');
         $merchant_id	     = config('faspay.merchantId');
         $merchant_password   = config('faspay.merchantPassword');
         $merchant_user	     = 'bot'.$merchant_id;
@@ -435,7 +464,9 @@ class PaymentController extends Controller
 
         $bill_no	         = $booking->booking_id;
         $request             = 'Product Reservation of '.$bill_no;
+        $cust_no             = $booking->customer_id;
         $cust_name           = $booking->rsvp_cust_name;
+        $msisdn              = '+'.$booking->rsvp_cust_phone;
         $bill_date           = $booking->create_at;
         $bill_expired        = $booking->expired_at;
         $bill_desc           = 'Product Reservation of '.$bill_no;
@@ -454,22 +485,27 @@ class PaymentController extends Controller
             'json' => [
                 'request'          => $request,
                 'merchant_id'      => $merchant_id,
+                'merchant'         => $merchant,
                 'bill_no'          => $bill_no,
                 'bill_date'        => $bill_date,
                 'bill_expired'     => $bill_expired,
                 'bill_desc'        => $bill_desc,
                 'bill_currency'    => 'IDR',
                 'bill_total'       => $bill_total,
-                // 'cust_no'       => '500505',
-                'cust_name'        => $cust_name,
                 'payment_channel'  => $payment_channel,
-                'terminal'         => '10',
-                'email'            => $email->cust_email,
                 'pay_type'         => '1',
+                'cust_no'          => $cust_no,
+                'cust_name'        => $cust_name,
+                'msisdn'           => $msisdn,
+                'email'            => $email->cust_email,
+                'terminal'         => '10',
                 'item'             => [
                     'product'      => $data['amount_pax'] . " x " . $data['product_name'],
                     'qty'          => $data['amount_pax'],
-                    'amount'       => $bill_total
+                    'amount'       => $bill_total,
+                    'payment_plan' => '01',
+                    'merchant_id'  => $merchant_id,
+                    'tenor'        => '00'
                 ],
                 'reserve1'         => 'PRODUCTS',
                 'signature'        => $signature
@@ -741,5 +777,4 @@ class PaymentController extends Controller
     {
         return sha1(md5($merchant_user.$merchant_password.$bill_no.$bill_total));
     }
-
 }
