@@ -1404,12 +1404,15 @@
             if("{{$data->type}}" == "Room"){
 
                 var value = {
-                    "room_name"  : "{{ $data->roomName }}",
-                    "total_rooms": "{{ $data->totalRooms }}",
-                    "total_days" : "{{ $data->totalDays }}",
-                    "amount"     : "{{ $data->totalPrice }}",
-                    "booking_id" : "{{$data->booking_id}}",
-                    "from"       : "ROOMS"
+                    room_name           : "{{ $data->roomName }}",
+                    total_rooms         : "{{ $data->totalRooms }}",
+                    total_days          : "{{ $data->totalDays }}",
+                    total_room_price    : "{{ $data->roomPrice }}",
+                    total_extrabed      : "{{ $data->extrabedTotal }}",
+                    total_extrabed_price: "{{ $data->extrabedPrice }}",
+                    total_price         : "{{ $data->totalPrice }}",
+                    booking_id          : "{{$data->booking_id}}",
+                    from                : "ROOMS"
                 };
 
             } else if("{{$data->type}}" == "Product") {

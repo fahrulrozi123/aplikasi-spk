@@ -274,7 +274,7 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            'settlement_time'    => $bill_expired,
+            // 'settlement_time'    => $bill_expired,
             'fraud_status'       => $data['response_desc'],
             'payment_type'       => $result,
             // 'approval_code'      => $approval_code,
@@ -527,7 +527,7 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            'settlement_time'    => $bill_expired,
+            // 'settlement_time'    => $bill_expired,
             'fraud_status'       => $data['response_desc'],
             'payment_type'       => $result,
             // 'approval_code'      => $approval_code,
@@ -556,7 +556,7 @@ class PaymentController extends Controller
         $data        = $request['reserve_data'];
         $data        = json_decode($data);
 
-        $data_amount = $data->amount;
+        $data_amount = $data->total_price;
         $booking_id  = $data->booking_id;
         $amount      = number_format( (float) $data_amount, 2, '.', '');
         $from        = $data->from;
@@ -574,9 +574,19 @@ class PaymentController extends Controller
             $bill_expired = $booking->expired_at;
             $from         = 'ROOMS';
 
-            //order description
-            $order_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s)";
+            //order description room
+            $room_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s)";
             // dd($order_desc);
+
+            //order description room plus extrabed
+            $extrabed_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s) | " . $data->total_extrabed . "x " . "Additional Extra Bed" . " x " . $data->total_days . " day(s)";
+
+            // cek extrabed
+            if ($data->total_extrabed_price == "0") {
+                $order_desc = $room_desc;
+            } else {
+                $order_desc = $extrabed_desc;
+            }
 
             // customer
             $customer     = Customer::where('id', $booking->customer_id)->first();
