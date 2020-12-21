@@ -173,6 +173,7 @@ class PaymentController extends Controller
         $booking_id          = $input['booking_id'];
         $payment_channel     = $input['payment_channel'];
         $bill_total          = $data['total_price'].'00';
+        $total_price         = $data['total_price'];
 
         $booking             = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $email               = Customer::where('id', $booking->customer_id)->first();
@@ -270,7 +271,7 @@ class PaymentController extends Controller
             'booking_id'         => $data['bill_no'],
             'merchant_id'        => $data['merchant_id'],
             'from_table'         => 'ROOMS',
-            'gross_amount'       => $booking->rsvp_grand_total,
+            'gross_amount'       => $total_price,
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,

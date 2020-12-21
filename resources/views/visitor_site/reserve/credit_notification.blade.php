@@ -171,7 +171,7 @@
                                                     </section>
 
                                                 </article>
-                                                <div class="panel-footer footer-payment">
+                                                <div class="panel-footer footer-payment" style="padding: 14px;">
                                                     <div class="form-group">
                                                         <div class="row">
                                                             <div class="col-md-8" align="right">
@@ -214,41 +214,40 @@
                                                                 <label class="customer_name" for="">{{ $rsvp->rsvp_cust_name }}</label>
                                                             </div>
                                                         </div>
-                                                        {{-- <hr><br> --}}
+                                                        <hr><br>
                                                         {{-- MAIN FORM --}}
-                                                        {{-- <h4><b>Booking Details</b></h4> --}}
-{{--
-                                                        <div class="row">
+                                                        <h4><b>Booking Details</b></h4>
+
+                                                        <div class="row indent-reserve">
                                                             @if($from == "ROOMS")
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{  $data->rsvp_checkin }} - {{  $data->rsvp_checkout }}</span>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->roomName}}</span>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data->room->room_name }}</span>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-users"></i>
                                                                 <span style="font-weight:normal" for="">&nbsp;
-                                                                    {{$data->totalGuest}}</span>
+                                                                    {{ $data->rsvp_adult }} Adult</span>
                                                             </div>
                                                             @elseif($from == "PRODUCTS")
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-calendar-o"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->reserveDate}}</span>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_date_reserve }}</span>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-shopping-cart"></i>
-                                                                <span style="font-weight:normal" for="">&nbsp; {{$data->productName}}</span>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data['product']->product_name }}</span>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-12 indext-reserve-margin">
                                                                 <i class="fa fa-users"></i>
-                                                                <span class="amount_pax" style="font-weight:normal" for="">&nbsp;
-                                                                    Pax</span>
+                                                                <span class="amount_pax" style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_amount_pax }} Pax</span>
                                                             </div>
                                                             @endif
-                                                        </div> --}}
+                                                        </div>
 
 
                                                     </section>

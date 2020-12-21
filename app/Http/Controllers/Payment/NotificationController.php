@@ -348,6 +348,22 @@ class NotificationController extends Controller
                 $this->resendEmail($from, $rsvp_id->booking_id);
             }
 
+            // data view step 3
+            $query = DB::select('select * from room_reservation where booking_id = ?', [$booking_id]);
+            $data = $query[0];
+
+            $query = DB::select('select * from room_type where id = ?', [$rsvp->room_id]);
+            $data->room = $query[0];
+
+            $start = Carbon::parse($data->rsvp_checkin);
+            $end = Carbon::parse($data->rsvp_checkout);
+            $totalStay = $start->diffInDays($end);
+            $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
+            $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
+            $data->total_stay = $totalStay;
+
+            // dd($data);
+
         } else if ($from == "PRODUCTS") {
 
             // generated rsvp_id products
@@ -388,6 +404,12 @@ class NotificationController extends Controller
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
                 $this->resendEmail($from, $rsvp_id->booking_id);
             }
+
+            // data view step 3
+            $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
+            $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
+
+            // dd($data);
         }
 
         $setting = $this->setting();
