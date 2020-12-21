@@ -562,8 +562,8 @@ class PaymentController extends Controller
         $from        = $data->from;
 
         // insert payment
-        $merchant_id = 'faspay_trial_10';
-        $password    = 'oHMfi';
+        $merchant_id = config('faspay.merchantIdCredit');
+        $password    = config('faspay.merchantPasswordCredit');
         $tranid      = $booking_id;
 
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');

@@ -272,8 +272,8 @@ class NotificationController extends Controller
         $signature           = $request['SIGNATURE'] ?: null;
 
         // validate signature
-        $merchant_id         = 'faspay_trial_4';
-        $merchant_password   = 'kgrfH';
+        $merchant_id         = config('faspay.merchantIdCredit');
+        $merchant_password   = config('faspay.merchantPasswordCredit');
         $merchant_tranid     = $request['MERCHANT_TRANID'] ?: null;
         $amount              = $request['AMOUNT'] ?: null;
 
