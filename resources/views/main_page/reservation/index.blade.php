@@ -269,6 +269,9 @@
         //{{route('reservation.room_data')}}
 
         $table1.DataTable({
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -282,7 +285,7 @@
             ajax: "{{route('reservation.today_room_data')}}",
             "columnDefs": [{
                 "orderable": false,
-                "targets": [1, 2, 3, 4, 5]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
@@ -323,6 +326,9 @@
             //     'csvHtml5',
             //     'pdfHtml5'
             // ],
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -343,7 +349,7 @@
                 "type": "date"
             }, {
                 "orderable": false,
-                "targets": [1, 3, 6]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
@@ -425,6 +431,9 @@
             //     'csvHtml5',
             //     'pdfHtml5'
             // ],
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -438,7 +447,7 @@
             ajax: "{{route('reservation.product_reservation_today')}}",
             "columnDefs": [{
                 "orderable": false,
-                "targets": [1, 3, 4, 5]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
@@ -475,6 +484,9 @@
             //     'csvHtml5',
             //     'pdfHtml5'
             // ],
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -497,7 +509,7 @@
                 "type": "date"
             }, {
                 "orderable": false,
-                "targets": [1, 3, 4, 6]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
@@ -572,6 +584,9 @@
         });
 
         $table5.DataTable({
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -605,7 +620,7 @@
                 "defaultContent": ""
             }, {
                 "orderable": false,
-                "targets": [1, 2, 3, 4]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
@@ -631,6 +646,9 @@
         });
 
         $table6.DataTable({
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -661,7 +679,7 @@
 
             }, {
                 "orderable": false,
-                "targets": [1, 2, 3, 4]
+                "targets": 0
             }],
             columns: [{
                     data: 'reservation_id',
