@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\InvalidReservation',
+        'App\Console\Commands\StatusReservation',
     ];
 
     /**
@@ -29,6 +30,8 @@ class Kernel extends ConsoleKernel
         })->dailyAt('23:00')->timezone('Asia/Jakarta');
 
         $schedule->command('invalid:rsvp')->everyMinute()->timezone('Asia/Jakarta');
+
+        $schedule->command('status:rsvp')->everyMinute()->timezone('Asia/Jakarta');
     }
 
     /**
