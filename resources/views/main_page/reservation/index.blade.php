@@ -1056,9 +1056,9 @@
                 }
             }
 
-            else {
-                $('#room_cancel_reschedule_btn').hide();
-            }
+            // else {
+            //     $('#room_cancel_reschedule_btn').hide();
+            // }
             // END CANCELLATION
 
             if ("{{Auth::user()->level}}" == "2") {

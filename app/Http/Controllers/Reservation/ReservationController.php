@@ -148,7 +148,7 @@ class ReservationController extends Controller
         //   return $reservation;
 
         $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
-                    where rsvp_payment <> '' or customer_id not in (null, '') ;";
+                    where rsvp_payment <> '' or customer_id not in (null, '') order by create_at ASC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -234,7 +234,7 @@ class ReservationController extends Controller
     public function product_inquiry_data()
     {
 
-        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->get();
+        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('create_at', 'ASC')->get();
 
         foreach ($data as $key => $value) {
             if ($value['inq_type'] == 0) {
@@ -301,7 +301,7 @@ class ReservationController extends Controller
     public function product_data()
     {
         $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
-            ->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('product')->with('customer')->with('payment')->get();
+            ->orderBy('rsvp_date_reserve')->orderBy('create_at', 'ASC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
 
     }
