@@ -297,7 +297,6 @@ class NotificationController extends Controller
             'merchant_id'        => $merchant_id,
             'booking_id'         => $booking_id,
             'transaction_status' => $transaction_status,
-            'transaction_status' => 'settlement',
             'settlement_time'    => $payment_date,
             'status_message'     => $status_message,
             'gross_amount'       => $payment_total,
@@ -421,6 +420,14 @@ class NotificationController extends Controller
                 // dd($data);
             }
 
+        } else if ($status == "E") {
+            if ($from == "ROOMS") {
+                // canceled room
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+            } else if ($from == "PRODUCTS") {
+                // canceled product
+                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+            }
         }
 
         $setting = $this->setting();
