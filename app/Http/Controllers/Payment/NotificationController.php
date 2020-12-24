@@ -26,70 +26,33 @@ class NotificationController extends Controller
 {
     public function payment_check(Request $request)
     {
-        $table = DB::table('payment')->select('booking_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
+        $merchant_id	   = config('faspay.merchantId');
+        $merchant_password = config('faspay.merchantPassword');
+        $merchant_user	   = 'bot'.$merchant_id;
+        $trx_id            = $request['trx_id'];
+        $bill_no           = $request['bill_no'];
+        $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
-        // dd($table);
+        $client = new Client();
 
-        $booking_id = [];
-
-        foreach ($table as $key => $value) {
-            array_push($booking_id, $value->booking_id);
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/100004/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/100004/10';
         }
 
-        // dd($booking_id);
+        $response = $client->post($url, [
+            'json' => [
+                'request'     => 'Pengecekan Status Pembayaran',
+                'trx_id'      => $trx_id,
+                'merchant_id' => $merchant_id,
+                'bill_no'     => $bill_no,
+                'signature'   => $signature
+            ]
+        ]);
 
-        $where_booking_id = DB::table('payment')->whereIn('booking_id', $booking_id)->get();
-
-        foreach ($where_booking_id as $key => $value) {
-            $merchant_id	   = config('faspay.merchantId');
-            $merchant_password = config('faspay.merchantPassword');
-            $merchant_user	   = 'bot'.$merchant_id;
-
-            $bill_no = $value->booking_id;
-            $from = $value->from_table;
-
-            $signature = sha1(md5($merchant_user.$merchant_password.$bill_no));
-
-            // echo '<xmp><br>' . $bill_no . '||' . $signature  . '||' . $from . '</xmp>';
-
-            $client = new Client();
-
-            // cek url endpoint production or development
-            if(config('faspay.endpoint') == true) {
-                $url = 'https://web.faspay.co.id/cvr/100004/10';
-            } else if (config('faspay.endpoint') == false) {
-                $url = 'https://dev.faspay.co.id/cvr/100004/10';
-            }
-
-            $response = $client->post($url, [
-                'json' => [
-                    'request'     => 'Pengecekan Status Pembayaran',
-                    'trx_id'      => $value->transaction_id,
-                    'merchant_id' => $merchant_id,
-                    'bill_no'     => $value->booking_id,
-                    'signature'   => $signature
-                ]
-            ]);
-
-            // return $response->getBody()->getContents();
-
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            Payment::where('booking_id', $bill_no)->update([
-                'transaction_status' => $data['payment_status_desc']
-            ]);
-
-            if ($value->from_table == "ROOMS") {
-                RoomRsvp::where('booking_id', $bill_no)->update([
-                    'rsvp_status' => $data['payment_status_desc']
-                ]);
-            } else {
-                ProductRsvp::where('booking_id', $bill_no)->update([
-                    'rsvp_status' => $data['payment_status_desc']
-                ]);
-            }
-
-        }
+        return $response->getBody()->getContents();
     }
 
     public function payment_notification(Request $request)
@@ -302,6 +265,7 @@ class NotificationController extends Controller
         $transaction_id      = $request['TRANSACTIONID'] ?: null;
         $merchant_id         = $request['MERCHANTID'] ?: null;
         $booking_id          = $request['MERCHANT_TRANID'] ?: null;
+        $status              = $request['TXN_STATUS'] ?: null;
         $payment_date        = $request['TRANDATE'] ?: null;
         $fraud_status        = $request['FRAUD_STATUS'] ?: null;
         $status_message      = $request['USR_MSG'] ?: null;
@@ -321,11 +285,18 @@ class NotificationController extends Controller
         //     return redirect()->route('index')->with('warning', 'Something went wrong');
         // }
 
+        if ($status == "S") {
+            $transaction_status = 'settlement';
+        } else if ($status == "E") {
+            $transaction_status = 'Payment Expired';
+        }
+
         $data =
             [
             'transaction_id'     => $transaction_id,
             'merchant_id'        => $merchant_id,
             'booking_id'         => $booking_id,
+            'transaction_status' => $transaction_status,
             'transaction_status' => 'settlement',
             'settlement_time'    => $payment_date,
             'status_message'     => $status_message,
@@ -344,109 +315,112 @@ class NotificationController extends Controller
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
 
-        if ($from == "ROOMS") {
+        if ($status == "S") {
+            if ($from == "ROOMS") {
 
-            // generated rsvp_id room
-            $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
-            $checkIn = $rsvp->rsvp_date_reserve;
+                // generated rsvp_id room
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+                $checkIn = $rsvp->rsvp_date_reserve;
 
-            $getRoom = Type::where('id', $rsvp->room_id)->first();
+                $getRoom = Type::where('id', $rsvp->room_id)->first();
 
-            // customer data
-            $customer  = Customer::where('id', $rsvp->customer_id)->first();
+                // customer data
+                $customer  = Customer::where('id', $rsvp->customer_id)->first();
 
-            // check room reservation_id empty or not
-            $checkRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-            $valueCheckRsvpId = $checkRsvpId->reservation_id;
+                // check room reservation_id empty or not
+                $checkRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $valueCheckRsvpId = $checkRsvpId->reservation_id;
 
-            if ($valueCheckRsvpId == "") {
-                $rsvpId = rand($min = 1, $max = 99999);
-                $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-
-                while ($reservationId == false) {
+                if ($valueCheckRsvpId == "") {
                     $rsvpId = rand($min = 1, $max = 99999);
                     $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+
+                    while ($reservationId == false) {
+                        $rsvpId = rand($min = 1, $max = 99999);
+                        $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+                    }
+                } else {
+                    $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                    $reservationId = $dataRsvpId->reservation_id;
                 }
-            } else {
-                $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-                $reservationId = $dataRsvpId->reservation_id;
-            }
 
-            RoomRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_status'    => 'Payment received',
-                'reservation_id' => $reservationId,
-                'rsvp_payment'   => 'Credit Card'
-            ]);
+                RoomRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment received',
+                    'reservation_id' => $reservationId,
+                    'rsvp_payment'   => 'Credit Card'
+                ]);
 
-            $status = RoomRsvp::where('booking_id', $booking_id)->first();
+                $status = RoomRsvp::where('booking_id', $booking_id)->first();
 
-            if ($status->rsvp_status == "Payment received") {
-                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                $this->resendEmail($from, $rsvp_id->booking_id);
-            }
+                if ($status->rsvp_status == "Payment received") {
+                    $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                    $this->resendEmail($from, $rsvp_id->booking_id);
+                }
 
-            // data view step 3
-            $query = DB::select('select * from room_reservation where booking_id = ?', [$booking_id]);
-            $data = $query[0];
+                // data view step 3
+                $query = DB::select('select * from room_reservation where booking_id = ?', [$booking_id]);
+                $data = $query[0];
 
-            $query = DB::select('select * from room_type where id = ?', [$rsvp->room_id]);
-            $data->room = $query[0];
+                $query = DB::select('select * from room_type where id = ?', [$rsvp->room_id]);
+                $data->room = $query[0];
 
-            $start = Carbon::parse($data->rsvp_checkin);
-            $end = Carbon::parse($data->rsvp_checkout);
-            $totalStay = $start->diffInDays($end);
-            $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
-            $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
-            $data->total_stay = $totalStay;
+                $start = Carbon::parse($data->rsvp_checkin);
+                $end = Carbon::parse($data->rsvp_checkout);
+                $totalStay = $start->diffInDays($end);
+                $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
+                $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
+                $data->total_stay = $totalStay;
 
-            // dd($data);
+                // dd($data);
 
-        } else if ($from == "PRODUCTS") {
+            } else if ($from == "PRODUCTS") {
 
-            // generated rsvp_id products
-            $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
-            $productsId = $rsvp->product_id;
+                // generated rsvp_id products
+                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+                $productsId = $rsvp->product_id;
 
-            $productData = Product::where('id', $productsId)->first();
+                $productData = Product::where('id', $productsId)->first();
 
-            // customer data
-            $customer  = Customer::where('id', $rsvp->customer_id)->first();
+                // customer data
+                $customer  = Customer::where('id', $rsvp->customer_id)->first();
 
-            /// check product reservation_id empty or not
-            $checkRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-            $valueCheckRsvpId = $checkRsvpId->reservation_id;
+                /// check product reservation_id empty or not
+                $checkRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $valueCheckRsvpId = $checkRsvpId->reservation_id;
 
-            if ($valueCheckRsvpId == "") {
-                $rsvp_id = rand($min = 1, $max = 99999);
-                $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
-
-                while ($reservation_id == false) {
+                if ($valueCheckRsvpId == "") {
                     $rsvp_id = rand($min = 1, $max = 99999);
                     $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+                    while ($reservation_id == false) {
+                        $rsvp_id = rand($min = 1, $max = 99999);
+                        $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+                    }
+                } else {
+                    $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                    $reservation_id = $dataRsvpId->reservation_id;
                 }
-            } else {
-                $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
-                $reservation_id = $dataRsvpId->reservation_id;
+
+                ProductRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment received',
+                    'reservation_id' => $reservation_id,
+                    'rsvp_payment'   => 'Credit Card'
+                ]);
+
+                $status = ProductRsvp::where('booking_id', $booking_id)->first();
+
+                if ($status->rsvp_status == "Payment received") {
+                    $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                    $this->resendEmail($from, $rsvp_id->booking_id);
+                }
+
+                // data view step 3
+                $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
+                $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
+
+                // dd($data);
             }
 
-            ProductRsvp::where('booking_id', $booking_id)->update([
-                'rsvp_status'    => 'Payment received',
-                'reservation_id' => $reservation_id,
-                'rsvp_payment'   => 'Credit Card'
-            ]);
-
-            $status = ProductRsvp::where('booking_id', $booking_id)->first();
-
-            if ($status->rsvp_status == "Payment received") {
-                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                $this->resendEmail($from, $rsvp_id->booking_id);
-            }
-
-            // data view step 3
-            $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
-            $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
-
-            // dd($data);
         }
 
         $setting = $this->setting();
