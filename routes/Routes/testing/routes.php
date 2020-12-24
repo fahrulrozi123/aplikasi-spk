@@ -22,5 +22,8 @@ Route::get('/test-payment-credit','Payment\TestingController@paymentNotification
 Route::get('/check-payment-debit','Payment\TestingController@checkPaymentDebit');
 Route::post('/status-payment-debit','Payment\NotificationController@payment_check')->name('status.payment');
 
+// check payment credit
+Route::get('/check-payment-credit','Payment\NotificationController@payment_check_credit');
+
 // result one payment code
 Route::get('/one-list-payment','Payment\PaymentController@listPaymentChannel');

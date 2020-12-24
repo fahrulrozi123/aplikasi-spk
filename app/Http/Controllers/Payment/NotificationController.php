@@ -55,6 +55,77 @@ class NotificationController extends Controller
         return $response->getBody()->getContents();
     }
 
+    public function payment_check_credit()
+    {
+        $signaturecc=sha1('##'.strtoupper('test_migs_non').'##'.strtoupper('abcde').'##2017091850745##1000.00##'.'0'.'##');
+        $post = array(
+            "TRANSACTIONTYPE"      => '4',
+            "RESPONSE_TYPE"        => '3',
+            "MERCHANTID"           => 'test_migs_non',
+            "PAYMENT_METHOD"       => '1',
+            "MERCHANT_TRANID"      => '2017091850745',
+            "TRANSACTIONID"        => '9E69AD15-4AB0-43AE-B37B-8FD276E24155',
+            "AMOUNT"               => '1000.00',
+            "SIGNATURE"            => $signaturecc
+        );
+
+        $post   = http_build_query($post);
+        $url    = "https://fpg.faspay.co.id/payment/api";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($ch);
+        // print_r($result);
+        curl_close($ch);
+
+        $arr1 = explode(';',$result);
+
+        $res_arr = array();
+
+        foreach($arr1 as $val)
+        {
+            $arr2=explode('=',$val);
+            $res_arr[$arr2[0]]=$arr2[1];
+        }
+        dd($res_arr);
+
+
+        // $client = new Client();
+
+        // // // cek url endpoint production or development
+        // // if(config('faspay.endpoint') == true) {
+        // //     $url = 'https://web.faspay.co.id/cvr/300011/10';
+        // // } else if (config('faspay.endpoint') == false) {
+        // //     $url = 'https://dev.faspay.co.id/cvr/300011/10';
+        // // }
+
+        // $response = $client->post('https://fpg.faspay.co.id/payment/api', [
+        //     'form_params' => [
+        //         "TRANSACTIONTYPE"      => '4',
+        //         "RESPONSE_TYPE"        => '3',
+        //         "MERCHANTID"           => 'test_migs_non',
+        //         "PAYMENT_METHOD"       => '1',
+        //         "MERCHANT_TRANID"      => '2017091850745',
+        //         "TRANSACTIONID"        => '9E69AD15-4AB0-43AE-B37B-8FD276E24155',
+        //         "AMOUNT"               => '1000.00',
+        //         "SIGNATURE"            => $signaturecc
+        //     ]
+        // ]);
+
+        // // return response()->json(json_decode($response));
+
+        // // dd($response->getBody()->getContents());
+
+    }
+
     public function payment_notification(Request $request)
     {
         // dd($request->all());
