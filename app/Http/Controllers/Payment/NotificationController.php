@@ -285,6 +285,7 @@ class NotificationController extends Controller
         //     return redirect()->route('index')->with('warning', 'Something went wrong');
         // }
 
+        // cek status payment success or cancel
         if ($status == "S") {
             $transaction_status = 'settlement';
         } else if ($status == "E") {
@@ -314,6 +315,7 @@ class NotificationController extends Controller
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
 
+        // cek status payment success or cancel
         if ($status == "S") {
             if ($from == "ROOMS") {
 
@@ -419,14 +421,24 @@ class NotificationController extends Controller
 
                 // dd($data);
             }
-
         } else if ($status == "E") {
             if ($from == "ROOMS") {
                 // canceled room
                 $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+
+                RoomRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment Expired',
+                    'rsvp_payment'   => 'Credit Card'
+                ]);
+
             } else if ($from == "PRODUCTS") {
                 // canceled product
                 $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+
+                ProductRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment Expired',
+                    'rsvp_payment'   => 'Credit Card'
+                ]);
             }
         }
 

@@ -115,7 +115,11 @@
                     </ul>
                     {{-- END HEADER --}}
 
-                    <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
+                    @if($status == "S")
+                        <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
+                    @else
+                        <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+                    @endif
 
                         <div class="tab-content mt-35">
                             <div class="tab-pane" id="tab2-3">
