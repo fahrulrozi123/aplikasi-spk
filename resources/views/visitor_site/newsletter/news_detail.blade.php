@@ -24,28 +24,22 @@
     <br>
     <div class="row">
         <div class="gallery-env">
-        <?php $no = 0;?>
-        @foreach($other_news->take(6) as $news) <?php $no++ ;?>
-            <div class="col-sm-4">
-                <article class="album">
-                <header>
-                        <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
-                </header>
-                    <section class="album-info shadow">
-                        <a href="/visitor/news_detail/{{$news->id}}"><h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4></a>
+            <?php $no = 0;?>
+            @foreach($other_news->take(6) as $news) <?php $no++ ;?>
+                <div class="col-sm-4">
+                    <article class="album">
+                    <header>
+                            <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
+                    </header>
+                        <section class="album-info shadow">
+                            <a href="/visitor/news_detail/{{$news->id}}"><h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4></a>
 
-                        <p style="font-size:12px;">{{$news->news_publish_date}}</p>
-                    </section>
-                </article>
-            </div>
+                            <p style="font-size:12px;">{{$news->news_publish_date}}</p>
+                        </section>
+                    </article>
+                </div>
             @endforeach
         </div>
     </div>
-
-
 </div>
-
-
-
-
 @endsection
