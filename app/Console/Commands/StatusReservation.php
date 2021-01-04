@@ -23,7 +23,7 @@ class StatusReservation extends Command
      *
      * @var string
      */
-    protected $description = 'Checking Reservation Status';
+    protected $description = 'Checking Debit Reservation Status';
 
     /**
      * Create a new command instance.
