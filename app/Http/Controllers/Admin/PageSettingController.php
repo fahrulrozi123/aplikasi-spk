@@ -21,7 +21,7 @@ class PageSettingController extends Controller
     public function index()
     {
         $setting = Setting::first();
-        $pagesettings =  PageSetting::orderBy('page_name')->with('photo')->get();
+        $pagesettings =  PageSetting::orderBy('id', 'ASC')->with('photo')->get();
 
         return view('main_page.page_setting.index', get_defined_vars());
     }

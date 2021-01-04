@@ -127,13 +127,13 @@ class ReservationController extends Controller
         $data = DB::select(DB::raw($query));
         return $data;
     }
+
     public function today_room_data()
     {
-
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
         $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.booking_id = payment.booking_id
-        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received'";
+        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by create_at DESC";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -142,13 +142,14 @@ class ReservationController extends Controller
         }
         return Datatables::of($reservations)->make(true);
     }
+
     public function room_data()
     {
         //   $reservation = RoomRsvp::orderBy('id')->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('room')->get();
         //   return $reservation;
 
         $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
-                    where rsvp_payment <> '' or customer_id not in (null, '') order by create_at ASC ;";
+                    where rsvp_payment <> '' or customer_id not in (null, '') order by create_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -234,7 +235,7 @@ class ReservationController extends Controller
     public function product_inquiry_data()
     {
 
-        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('create_at', 'ASC')->get();
+        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('create_at', 'DESC')->get();
 
         foreach ($data as $key => $value) {
             if ($value['inq_type'] == 0) {
@@ -257,6 +258,7 @@ class ReservationController extends Controller
                 ->with('product')
                 ->with('function_room')
                 ->with('other_request')
+                ->orderBy('create_at', 'DESC')
                 ->get();
 
         foreach ($data as $key => $value) {
@@ -301,13 +303,14 @@ class ReservationController extends Controller
     public function product_data()
     {
         $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
-            ->orderBy('rsvp_date_reserve')->orderBy('create_at', 'ASC')->with('product')->with('customer')->with('payment')->get();
+            ->orderBy('rsvp_date_reserve')->orderBy('create_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
 
     }
+
     public function product_reservation_today()
     {
-        $reservations = ProductRsvp::where('customer_id', '<>', 'NULL')->where('rsvp_date_reserve', DB::raw("CURDATE()"))->where('rsvp_status', "Payment received")->with('product')->with('customer')->get();
+        $reservations = ProductRsvp::where('customer_id', '<>', 'NULL')->where('rsvp_date_reserve', DB::raw("CURDATE()"))->where('rsvp_status', "Payment received")->with('product')->with('customer')->orderBy('create_at', 'DESC')->get();
         return Datatables::of($reservations)->make(true);
     }
 
@@ -393,6 +396,7 @@ class ReservationController extends Controller
             ->orderBy('room_rsvp.rsvp_date_reserve')->get();
         return $reservation;
     }
+
     public function product_data_today()
     {
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");

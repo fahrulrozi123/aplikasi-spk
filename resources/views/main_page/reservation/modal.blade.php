@@ -22,46 +22,50 @@
                                     <thead>
                                         <tr>
                                             <th class="col-lg-3 col-sm-12"><strong>Reservation Number</strong></th>
+                                            <th class="col-lg-3 col-sm-12"><strong>Booking ID</strong></th>
                                             <th class="col-lg-3 col-sm-12"><strong>Reserved Date</strong></th>
                                             <th class="col-lg-3 col-sm-12"><strong>Check In</strong></th>
-                                            <th class="col-lg-3 col-sm-12"><strong>Check Out</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td id="reservation_id">01/RSV/DLXB/XII/19</td>
+                                            <td id="booking_id">c725a2f36807490a</td>
                                             <td id="reservation_date">1 December 2019 8:47 AM</td>
                                             <td id="room_checkin">Thursday, 19 December 2019</td>
-                                            <td id="room_checkout">Saturday, 21 December 2019</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
+                                            <th class="col-lg-3"><strong>Check Out</strong></th>
                                             <th class="col-lg-3"><strong>Room Type Reserved</strong></th>
                                             <th class="col-lg-3"><strong>Accommodation</strong></th>
                                             <th class="col-lg-3"><strong>Breakfast</strong></th>
-                                            <th class="col-lg-3"><strong>Additional Extra Bed</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td id="room_checkout">Saturday, 21 December 2019</td>
                                             <td id="room_type_reserved">2x Deluxe Business</td>
                                             <td id="room_accommodation">1 December 2019 8:47 AM</td>
                                             <td id="room_breakfast">Thursday, 19 December 2019</td>
-                                            <td id="room_extrabed">Saturday, 21 December 2019</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th class="col-lg-5"><strong>Additional Description</strong></th>
+                                            <th class="col-lg-3"><strong>Additional Extra Bed</strong></th>
+                                            <th class="col-lg-3"><strong>Additional Description</strong></th>
+                                            <th class="col-lg-3"></th>
+                                            <th class="col-lg-3"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td id="room_extrabed">Saturday, 21 December 2019</td>
                                             <td id="special_request">Room with visible mountain view and near breakfast place</td>
                                         </tr>
                                     </tbody>
@@ -75,12 +79,14 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-lg-3" ><strong>Reservation Number</strong></th>
-                                                <th class="col-lg-9"><strong>Date</strong></th>
+                                                <th class="col-lg-3" ><strong>Booking ID</strong></th>
+                                                <th class="col-lg-6"><strong>Date</strong></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td id="online_rsvp_number">01/RSV/DLXB/XII/19</td>
+                                                <td id="online_booking_id">e0f0c383e3ec8da7</td>
                                                 <td id="online_rsvp_date">Thursday, 19 December 2019</td>
                                             </tr>
                                         </tbody>

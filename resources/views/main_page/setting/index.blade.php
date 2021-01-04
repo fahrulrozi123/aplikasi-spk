@@ -45,7 +45,7 @@
                                 <div class="col-md-6">
 
                                     {{-- HOME --}}
-                                    <h4><b>Home information</b></h4>
+                                    <h4><b>Hotel Information</b></h4>
 
                                     <div class="container">
                                         <label for="logo" class="col-sm-2 control-label">Logo Company<br><small class="text-muted"></small></label>
@@ -126,7 +126,7 @@
                                     </div><br>
 
                                     {{-- CONTACT --}}
-                                    <h4><b>Sosial Information</b></h4>
+                                    <h4><b>Social Information</b></h4>
 
                                     <div class="container">
                                         <label for="so_facebook" class="col-sm-2 control-label">Facebook<br><small class="text-muted"></small></label>

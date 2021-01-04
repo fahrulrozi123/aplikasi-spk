@@ -398,32 +398,32 @@
                 <ul class="navbar-nav">
                     <li class="{{ Request::path() === 'visitor/rooms' ? 'active':'' }}">
                         <a href="{{ route('visitor.room') }}">
-                            <span class="title">Rooms</span>
+                            <span class="title">{{ $menu['room'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/recreation' ? 'active':'' }}">
                         <a href="{{ route('visitor.recreation') }}">
-                            <span class="title">Recreation</span>
+                            <span class="title">{{ $menu['recreation'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/allysea_spa' ? 'active':'' }}">
                         <a href="{{ route('visitor.allysea_spa') }}">
-                            <span class="title">Spa & Salon</span>
+                            <span class="title">{{ $menu['spa'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/mice_wedding' ? 'active':'' }}">
                         <a href="{{ route('visitor.mice_wedding') }}">
-                            <span class="title">MICE & Wedding</span>
+                            <span class="title">{{ $menu['mice'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/function_room' ? 'active':'' }}">
                         <a href="{{ route('visitor.function_room') }}">
-                            <span class="title">Function Room</span>
+                            <span class="title">{{ $menu['functionroom'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/newsletter' ? 'active':'' }}">
                         <a href="{{ route('visitor.newsletter') }}">
-                            <span class="title">Our Newsletter</span>
+                            <span class="title">{{ $menu['newsletter'][0]['page_name'] }}</span>
                         </a>
                     </li>
                     <li class="{{ Request::path() === 'visitor/inquiry' ? 'active':'' }}">

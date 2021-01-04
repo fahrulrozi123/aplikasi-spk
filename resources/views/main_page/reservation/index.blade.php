@@ -189,7 +189,7 @@
                                 <table class="table table-striped table-bordered  hoverTable datatable" id="table-5">
                                     <thead>
                                         <tr>
-                                            <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Inquiry Number</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Customer Email</th>
                                             <th class="horisonth-table">Inquiry Type</th>
@@ -226,7 +226,7 @@
                                 <table class="table table-striped table-bordered datatable hoverTable" id="table-6">
                                     <thead>
                                         <tr>
-                                            <th class="horisonth-table">Reservation Number</th>
+                                            <th class="horisonth-table">Inquiry Number</th>
                                             <th class="horisonth-table">Customer Name</th>
                                             <th class="horisonth-table">Customer Email</th>
                                             <th class="horisonth-table">Inquiry Type</th>
@@ -900,7 +900,12 @@
 
             }
 
-            $('#reservation_id').text(data.reservation_id);
+            if (data.reservation_id == "") {
+                $('#reservation_id').text("-");
+            } else {
+                $('#reservation_id').text(data.reservation_id);
+            }
+
             $('#booking_id').text(data.booking_id);
             $('#reservation_date').text(reservation_date);
             $('#room_checkin').text(checkin);
@@ -1089,7 +1094,7 @@
 
             var data = $table3.DataTable().row(this).data();
 
-            var reservation_date = moment(new Date(data.rsvp_date_reserve +' '+ data.rsvp_arrive_time)).format('LLLL');
+            var reservation_date = moment(new Date(data.rsvp_date_reserve)).format('LLLL');
 
             if (data.rsvp_guest_name == '') {
                 var guest_name = data.rsvp_cust_name;
@@ -1137,8 +1142,6 @@
             $('#product_payment_date').text(payment_date);
             $('#product_booking_price').text(formatRupiah(data.rsvp_grand_total));
 
-
-
             $('#product_cancel_reschedule_btn').hide();
             $('#cancel_booking_tab').hide();
             $('#reschedule_booking_tab').hide();
@@ -1160,7 +1163,7 @@
         $('#table-4 tbody').on('click', 'tr', function () {
 
             var data = $table4.DataTable().row(this).data();
-            var reservation_date = moment(new Date(data.rsvp_date_reserve +' '+ data.rsvp_arrive_time)).format('LLLL');
+            var reservation_date = moment(new Date(data.rsvp_date_reserve)).format('LLLL');
 
             if (data.rsvp_guest_name == null) {
                 var guest_name = data.rsvp_cust_name;
@@ -1196,7 +1199,12 @@
 
             }
 
-            $('#online_rsvp_number').text(data.reservation_id);
+            if (data.reservation_id == "") {
+                $('#online_rsvp_number').text("-");
+            } else {
+                $('#online_rsvp_number').text(data.reservation_id);
+            }
+
             $('#online_rsvp_date').text(reservation_date);
             $('#online_rsvp_product_name').text(data.product.product_name);
             $('#online_rsvp_pax').text(data.rsvp_amount_pax + " Pax");

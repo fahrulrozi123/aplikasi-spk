@@ -33,6 +33,10 @@ class VisitorController extends Controller
             $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
         }
 
+        //menu code
+        $menu = $this->menu();
+
+        // index
         $spas = PageSetting::where('page_code', "Spa")->with('photo')->get();
         $functionrooms = PageSetting::where('page_code', "Function")->with('photo')->get();
         $mices = PageSetting::where('page_code', "Mice")->with('photo')->get();
@@ -50,6 +54,7 @@ class VisitorController extends Controller
             ),
         );
 
+        $menu = $this->menu();
         $setting = $this->setting();
         $rooms = Type::orderBy('id', 'DESC')->with('amenities')->with('photo')->get();
         $pagesettings = PageSetting::where('page_code', "Room")->with('photo')->get();
@@ -59,6 +64,7 @@ class VisitorController extends Controller
 
     public function recreation()
     {
+        $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $recreations = Product::where('category', '1')->orderBy('id', 'DESC')->with('photos')->get();
@@ -69,6 +75,7 @@ class VisitorController extends Controller
 
     public function allysea_spa()
     {
+        $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $spas = Product::where('category', '2')->orderBy('id', 'DESC')->with('photos')->get();
@@ -80,6 +87,7 @@ class VisitorController extends Controller
 
     public function mice_wedding()
     {
+        $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $mices = Product::where('category', '3')->orWhere('category', '4')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
@@ -97,6 +105,7 @@ class VisitorController extends Controller
             ),
         );
 
+        $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
         $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('func_name')->get();
@@ -114,6 +123,7 @@ class VisitorController extends Controller
             ),
         );
 
+        $menu = $this->menu();
         $setting = $this->setting();
         $id = Input::get('key', null);
         $from = Input::get('from', null);
@@ -180,6 +190,7 @@ class VisitorController extends Controller
 
     public function newsletter()
     {
+        $menu = $this->menu();
         $setting = $this->setting();
         $newss = News::where('news_publish_date', '<=', Carbon::now())->where('news_publish_status', "1")->orderBy('news_sticky_state', 'DESC')->orderBy('news_publish_date', 'DESC')->paginate(8);
         foreach ($newss as $key => $value) {
@@ -193,6 +204,7 @@ class VisitorController extends Controller
 
     public function news_detail($id)
     {
+        $menu = $this->menu();
         $setting = $this->setting();
         $news = News::where('id', $id)->first();
         $news->news_publish_date = Carbon::parse($news->news_publish_date)->format('l d F Y');
