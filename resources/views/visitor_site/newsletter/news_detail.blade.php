@@ -2,7 +2,7 @@
 @section('content')
 <br><br>
 
-<div class="container">
+<div class="container newsletter">
 
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>

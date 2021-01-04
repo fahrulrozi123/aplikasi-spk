@@ -478,6 +478,14 @@ a > .pull-right{
     color: gray;
 }
 
+.newsletter a{
+    color: #0077dd !important;
+}
+
+.newsletter a:hover{
+    color: #005599 !important;
+}
+
 /* FUNCTION ROOM VISITOR STYLE ELEMENTS */
 .fr-icon {
     padding-top: 50px;
