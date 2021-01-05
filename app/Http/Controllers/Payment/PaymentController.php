@@ -56,6 +56,8 @@ class PaymentController extends Controller
     public function listPaymentChannel()
     {
         $paymentChannels = $this->paymentChannelPayment();
+
+        // start one -list payment
         $listPaymentChannels = json_decode($paymentChannels, true);
 
         $name_payment = '818';
@@ -63,6 +65,12 @@ class PaymentController extends Controller
         $result = $listPaymentChannels['payment_channel'][$key]['pg_name'];
 
         dd($result);
+
+        // start disable list payment
+        // $list = json_decode($paymentChannels, true);
+        // $listPaymentChannels = $list['payment_channel'];
+
+        // return view('layouts.testing_disable_payment', get_defined_vars());
     }
 
     public function reserve_room(Request $request)

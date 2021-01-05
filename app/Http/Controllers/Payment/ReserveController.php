@@ -484,7 +484,8 @@ class ReserveController extends Controller
         $setting = $this->setting();
 
         $paymentChannels = $this->paymentChannel();
-        $listPaymentChannels = json_decode($paymentChannels, true);
+        $list = json_decode($paymentChannels, true);
+        $listPaymentChannels = $list['payment_channel'];
 
         return view('visitor_site.reserve.index', get_defined_vars());
 
