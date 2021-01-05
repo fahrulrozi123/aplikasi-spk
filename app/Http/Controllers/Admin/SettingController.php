@@ -35,22 +35,17 @@ class SettingController extends Controller
             'title' => 'required',
             'img' => 'dimensions:max_width=350,max_height=100',
             'email' => 'required|email',
-            'phone' => 'required',
-            'wa_number' => 'required',
-            'address' => 'required',
-            'so_facebook' => 'required',
-            'so_twitter' => 'required',
-            'so_instagram' => 'required'
+            'phone' => 'required|numeric',
+            'wa_number' => 'numeric',
+            'address' => 'required'
         ],[
             'title.required' => 'Title field is required.',
             'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
             'email.required'  => 'Email field is required.',
             'phone.required'  => 'Phone field is required.',
-            'wa_number.required'  => 'Whatsapp field is required.',
             'address.required'  => 'Address field is required.',
-            'so_facebook.required'  => 'Facebook Address field is required.',
-            'so_twitter.required'  => 'Twitter Address field is required.',
-            'so_instagram.required'  => 'Instagram Address field is required.'
+            'phone.numeric'  => 'Phone field must be a number.',
+            'wa_number.numeric'  => 'Whatsapp field must be a number.'
         ]);
 
         //UPLOAD FOTO
