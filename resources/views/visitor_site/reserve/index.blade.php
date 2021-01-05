@@ -1318,7 +1318,9 @@
 
             $('.lds-dual-ring-admin').show();
 
-            $("#btn-transfer").attr("disabled",true);
+            $('#btn-transfer').css("pointer-events", "none");
+
+            // $("#btn-transfer").attr("disabled",true);
             $("#btn-credit").attr("disabled",true);
 
             var paymentChannel = ($('#payment-channel').val());
