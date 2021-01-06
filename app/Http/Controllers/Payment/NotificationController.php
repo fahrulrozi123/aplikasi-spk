@@ -334,10 +334,8 @@ class NotificationController extends Controller
         // cek status payment success or cancel
         if ($status == "S") {
             $transaction_status = 'settlement';
-        } else if ($status == "E") {
-            $transaction_status = 'Payment Expired';
         } else {
-            $transaction_status = 'void';
+            $transaction_status = 'Failed';
         }
 
         $data =

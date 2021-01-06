@@ -19,9 +19,10 @@ class CheckoutEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($data, $setting)
+    public function __construct($data, $payment, $setting)
     {
-        $this->data = $data;
+        $this->data    = $data;
+        $this->payment = $payment;
         $this->setting = $setting;
     }
 
@@ -36,6 +37,7 @@ class CheckoutEmail extends Mailable
                     ->subject($this->data->subject)
                     ->view('templates/template_checkout')
                     ->with('data', $this->data)
+                    ->with('payment', $this->payment)
                     ->with('setting', $this->setting);
     }
 }

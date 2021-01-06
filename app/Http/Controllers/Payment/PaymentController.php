@@ -283,13 +283,14 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            // 'settlement_time'    => $bill_expired,
+            // 'settlement_time' => $bill_expired,
             'fraud_status'       => $data['response_desc'],
             'payment_type'       => $result,
-            // 'approval_code'      => $approval_code,
+            // 'approval_code'   => $approval_code,
             'status_code'        => $data['response_code'],
             'status_message'     => $data['response'],
             'signature_key'      => $signature,
+            'redirect_url'       => $data['redirect_url']
         ]);
 
         RoomRsvp::where('booking_id', $booking_id)->update([
@@ -297,11 +298,12 @@ class PaymentController extends Controller
         ]);
 
         // Email Checkout Confirmation
-        $setting = $this->setting();
-        $data    = RoomRSvp::where('booking_id', $input['booking_id'])->first();
+        $setting       = $this->setting();
+        $data          = RoomRSvp::where('booking_id', $input['booking_id'])->first();
         $data->subject = 'Booking - '.$data->booking_id;
+        $payment       = Payment ::where('booking_id', $input['booking_id'])->first();
 
-        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
+        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
         return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "href" => "tab2-3"]);
     }
@@ -536,13 +538,14 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            // 'settlement_time'    => $bill_expired,
+            // 'settlement_time' => $bill_expired,
             'fraud_status'       => $data['response_desc'],
             'payment_type'       => $result,
-            // 'approval_code'      => $approval_code,
+            // 'approval_code'   => $approval_code,
             'status_code'        => $data['response_code'],
             'status_message'     => $data['response'],
             'signature_key'      => $signature,
+            'redirect_url'       => $data['redirect_url']
         ]);
 
         ProductRsvp::where('booking_id', $booking_id)->update([
@@ -550,11 +553,12 @@ class PaymentController extends Controller
         ]);
 
         // Email Checkout Confirmation
-        $setting = $this->setting();
-        $data    = ProductRSvp::where('booking_id', $input['booking_id'])->first();
+        $setting       = $this->setting();
+        $data          = ProductRSvp::where('booking_id', $input['booking_id'])->first();
         $data->subject = 'Booking - '.$data->booking_id;
+        $payment       = Payment    ::where('booking_id', $input['booking_id'])->first();
 
-        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $setting));
+        Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
         return response()->json(["status" => 200, "transaction_id" => $transaction_id, "product_total" => $product_total, "payment_type" => $result, "href" => "tab2-3"]);
     }
