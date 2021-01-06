@@ -609,7 +609,7 @@ class PaymentController extends Controller
             $from         = 'PRODUCTS';
 
             //order description
-            $order_desc   = $data->amount . " x " . $data->product_name;
+            $order_desc   = $data->total_pax . " x " . $data->product_name;
 
             // customer
             $customer     = Customer::where('id', $booking->customer_id)->first();

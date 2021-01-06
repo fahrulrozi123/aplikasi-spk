@@ -1434,8 +1434,9 @@
 
                 var value = {
                     "product_name": "{{ $data->productName }}",
-                    "amount"      : price,
                     "booking_id"  : "{{$data->booking_id}}",
+                    "total_price" : price,
+                    "total_pax"   : pax,
                     "from"        : "PRODUCTS"
                 };
             }
