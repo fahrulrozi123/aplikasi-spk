@@ -30,6 +30,7 @@
                     <center><b>Room Type</b></center>
                 </div>
             </div>
+
             {{-- TAMPILAN CHART MOBILE VERSION --}}
             <div class="panel panel-primary panel-shadow rsv_made_thismonth_mobile" data-collapsed="0">
                 <!-- panel head -->
@@ -63,8 +64,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
             <div class="panel panel-primary panel-shadow" data-collapsed="0">
                 <!-- panel head -->
-                <div class="panel-heading" style="background-image: url('/images/dashboard/header-2.png');
-			        background-size: 369px 59px; background-repeat: no-repeat; background-position:right;">
+                <div class="panel-heading" style="background-image: url('/images/dashboard/header-2.png'); background-size: 369px 59px; background-repeat: no-repeat; background-position:right;">
                     <div class="panel-title col-md-9 col-xs-8" style="margin-top:7px">
                         <h5><b>Today Remaining Allotment</b></h5>
                     </div>
@@ -90,13 +90,11 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="panel panel-primary panel-shadow" data-collapsed="0">
                 <!-- panel head -->
-                <div class="panel-heading" style="background-image: url('/images/dashboard/header-3.png');
-			background-size: 1169px 59px; background-repeat: no-repeat; background-position:right;">
+                <div class="panel-heading" style="background-image: url('/images/dashboard/header-3.png'); background-size: 1169px 59px; background-repeat: no-repeat; background-position:right;">
                     <div class="panel-title col-xs-8" style="margin-top:5px">
                         <h5 class="fontheader">
                             <span class="numberlg" id="today_guest"><b>10</b></span>
@@ -132,15 +130,11 @@
     </div>
 
     <div class="row">
-
         <div class="col-md-6 col-sm-6">
             <div class="panel panel-primary panel-shadow" data-collapsed="0">
 
                 <!-- panel head -->
-                <div class="panel-heading" style="background-image: url('/images/dashboard/header-4.png');
-			background-size: 569px 59px; background-repeat: no-repeat; background-position:right;">
-
-
+                <div class="panel-heading" style="background-image: url('/images/dashboard/header-4.png'); background-size: 569px 59px; background-repeat: no-repeat; background-position:right;">
                     <div class="panel-title col-xs-8 col-sm-9" style="margin-top:5px">
                         <h5 class="fontheader">
                             <span class="numberlg" id="total_product_online"><b>5</b></span>
@@ -152,12 +146,10 @@
                         <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
                         {{-- <a href="#" data-rel="reload" class="bg"><i class="entypo-arrows-ccw"></i></a> --}}
                     </div>
-
                 </div>
 
                 <!-- panel body -->
                 <div class="panel-body">
-
                     <div style="overflow-x:auto;">
                         <table class="table table-striped table-bordered datatable" id="table-2">
                             <thead>
@@ -178,8 +170,7 @@
             <div class="panel panel-primary panel-shadow" data-collapsed="0">
 
                 <!-- panel head -->
-                <div class="panel-heading" style="background-image: url('/images/dashboard/header-4.png');
-			background-size: 569px 59px; background-repeat: no-repeat; background-position:right;">
+                <div class="panel-heading" style="background-image: url('/images/dashboard/header-4.png'); background-size: 569px 59px; background-repeat: no-repeat; background-position:right;">
 
                     <div class="panel-title col-xs-9 col-sm-9" style="margin-top:5px">
                         <h5 class="fontheader">
@@ -192,12 +183,10 @@
                         <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
                         {{-- <a href="#" data-rel="reload" class="bg"><i class="entypo-arrows-ccw"></i></a> --}}
                     </div>
-
                 </div>
 
                 <!-- panel body -->
                 <div class="panel-body">
-
                     <div style="overflow-x:auto;">
                         <table class="table table-striped table-bordered datatable" id="table-3">
                             <thead>
@@ -210,7 +199,6 @@
                             </thead>
                         </table>
                     </div>
-
                 </div>
 
             </div>
@@ -220,12 +208,8 @@
 
 </div>
 
-
-
-
-
-
 <canvas id="myChart" width="0" height="0"></canvas>
+
 <script>
     var rooms = 0;
 
@@ -350,6 +334,7 @@
 
         var html = '';
         var total_reservation = 0;
+
         room_reservations.forEach(element => {
             html += '<div class="row">'+
                         '<div class="col-md-8 col-sm-8 col-xs-8">'+
@@ -360,8 +345,9 @@
                         '</div>'+
                     '</div>'+
                     '<hr class="custom" />';
-            total_reservation += element.reserved;
+            total_reservation += parseInt(element.reserved);
         });
+
         $('#mobile_body').append(html);
         $('#total_reservation_mobile').text(total_reservation);
 
@@ -388,7 +374,6 @@
         });
 
         rooms.forEach(function (room, i) {
-
             var customer_name = room.rsvp_cust_name;
             if(room.rsvp_guest_name == null){
                 var guest_name = customer_name;
@@ -410,9 +395,7 @@
         $('#total_product_online').text(total_product_online);
     }
 
-
     am4core.ready(function () {
-
         // Themes begin
         am4core.useTheme(am4themes_animated);
         // Themes end
@@ -426,10 +409,8 @@
 
         chart.paddingBottom = 30;
 
-
         //INSERT DATA INTO CHART
         chart.data = room_reservations;
-
 
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "room";
@@ -438,11 +419,9 @@
         categoryAxis.renderer.labels.template.dy = 40;
         categoryAxis.renderer.tooltip.dy = 35;
 
-
         var label = categoryAxis.renderer.labels.template;
         label.wrap = true;
         label.maxWidth = 90;
-
 
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
         valueAxis.renderer.inside = true;
@@ -473,6 +452,7 @@
             min: am4core.color("#e5dc36"),
             max: am4core.color("#5faa46")
         });
+
         series.mainContainer.mask = undefined;
 
         var cursor = new am4charts.XYCursor();
@@ -559,7 +539,6 @@
             minimumResultsForSearch: -1
         });
 
-
         // Initialize DataTable
         $online_product_today.DataTable({
             data: online_product_today,
@@ -569,7 +548,6 @@
             ],
             "bStateSave": true
         });
-
 
         // Initialize DataTable
         $offline_product_today.DataTable({
@@ -581,12 +559,11 @@
             "bStateSave": true
         });
 
-
-
         // Initalize Select Dropdown after DataTables is created
         $online_product_today.closest('.dataTables_wrapper').find('select').select2({
             minimumResultsForSearch: -1
         });
+
         // Initalize Select Dropdown after DataTables is created
         $offline_product_today.closest('.dataTables_wrapper').find('select').select2({
             minimumResultsForSearch: -1
@@ -594,7 +571,4 @@
     });
 
 </script>
-
-
-
 @endsection

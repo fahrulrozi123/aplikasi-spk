@@ -67,7 +67,6 @@ class HomeController extends Controller
 
     public function online_product_today()
     {
-
         $query = "SELECT rsvp.reservation_id,
         rsvp.rsvp_cust_name,
         rsvp.rsvp_date_reserve,
@@ -86,7 +85,6 @@ class HomeController extends Controller
 
     public function offline_product_today()
     {
-
         $query = "SELECT *
         FROM   inquiry inq
                 LEFT JOIN product
@@ -98,12 +96,11 @@ class HomeController extends Controller
 
         $inquiry = DB::select(DB::raw($query));
 
-
         return $inquiry;
     }
+
     public function room_today()
     {
-
         $query = "SELECT DISTINCT customer.*, rsvp.rsvp_cust_name, rsvp.rsvp_cust_phone,
                             rsvp.rsvp_guest_name, rsvp.reservation_id,
                             rsvp.rsvp_adult, rsvp.rsvp_child,
