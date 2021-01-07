@@ -36,18 +36,19 @@ class PageSettingController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $id = $request['id'];
         $temp_photo = PagePhoto::where('page_id', $id)->get();
         PagePhoto::where('page_id', $id)->forceDelete();
 
         $this->validate($request, [
-            'page_name' => 'required',
-            'page_description' => 'required',
-            // 'page_code' => 'required'
+            'page_name'                 => 'required',
+            'page_description'          => 'required',
+            'oldImg'                    => 'required'
         ],[
-            'page_name.required'  => 'Page Name field is required.',
-            'page_description.required'  => 'Page Description field is required.',
-            // 'so_instagram.required'  => 'Instagram Address field is required.'
+            'page_name.required'        => 'Page Name field is required.',
+            'page_description.required' => 'Page Description field is required.',
+            'oldImg.required'           => 'At least one photo.'
         ]);
 
         if ($request['oldImg']) {

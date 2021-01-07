@@ -10,7 +10,8 @@
                 <div class="panel-title">
                     <h4><strong>{{ $pagesetting->page_name }}</strong></h4>
                 </div>
-                <div class="panel-options"><a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                <div class="panel-options">
+                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
                 </div>
             </div>
             <div class="panel-body shadow">
@@ -33,13 +34,15 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
                         </div><br>
                         <div class="container">
                             <label for="logo" class="col-sm-2 control-label">Image<br><small class="text-muted"></small></label>
                             <div class="col-sm-10">
                                 <h6><i>Choose a picture from your computer</i></h6>
                                 <p class="mt">Upload room photos, the first uploaded photos will be treated as <strong>Main Photos</strong></p>
+                                @error('oldImg')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                                 <fieldset class="form-group">
                                     <a class="btn btn-horison-gold shadow" href="javascript:void(0)" onclick="$('#pro-image').click()">
                                     <i class="glyphicon glyphicon-circle-arrow-up"></i> Browse Image</a>
@@ -63,14 +66,12 @@
                         </div><br>
                     </div>
                 </div>
-
                 <div class="row" align="right">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <a href="/main_page/page_setting" class="btn btn-white btn-lg shadow" style="width: 150px; margin-right:3px; font-size:13px;">Cancel</a>
                         <button class="btn btn-horison-gold btn-lg shadow" style="width: 150px; margin-left:3px; font-size:13px;">Save</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
