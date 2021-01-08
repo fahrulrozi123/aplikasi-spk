@@ -65,7 +65,6 @@ class SettingController extends Controller
             'id' => 1
         ], $request->all());
 
-        return redirect()->route('setting.index')
-            ->with('status', 'Setting berhasil diupdate!');
+        return redirect()->to('main_page/setting')->with('status', 'Setting berhasil diupdate!');
     }
 }
