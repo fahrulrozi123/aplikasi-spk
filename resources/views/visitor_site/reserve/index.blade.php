@@ -674,7 +674,7 @@
                                                                             <b class="customer_email">noreply1@tripasysfo.com</b></li>
                                                                         <li>You will receive your Voucher after you have made
                                                                             your payment</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($data->expired_at)->format('j F Y h:i')}}</b></li>
+                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due"></b></li>
                                                                         <li>You will receive a confirmation email as soon this
                                                                             transaction has been approved</li>
                                                                     </ul>
@@ -1377,12 +1377,15 @@
                         );
                     }  else if(data.status === 200) {
                         // console.log(data);
-
                         $('.lds-dual-ring-admin').hide();
 
                         $('.transaction_id').text(data.transaction_id);
                         $('.payment_type').text(data.payment_type);
                         $('.product_total').text("Rp "+formatRupiah(data.product_total));
+
+                        var expired = moment(data.bill_expired).format('DD MMMM YYYY HH:mm');
+
+                        $('.transaction_due').text(expired);
 
                         var html1 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>1</span>Customer Information</a>';
                         var html2 ='<a href="javascript:;" aria-disabled="true" style="cursor:not-allowed;"><span>2</span>Payment Information</a>';

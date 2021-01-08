@@ -204,8 +204,8 @@ class PaymentController extends Controller
         $cust_no             = $booking->customer_id;
         $cust_name           = $booking->rsvp_cust_name;
         $msisdn              = '+'.$booking->rsvp_cust_phone;
-        $bill_date           = $booking->create_at;
-        $bill_expired        = $booking->expired_at;
+        $bill_date           = Carbon::now();
+        $bill_expired        = Carbon::now()->addMinutes(20);
         $bill_desc           = 'Room Reservation of '.$bill_no;
         $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
@@ -294,7 +294,9 @@ class PaymentController extends Controller
         ]);
 
         RoomRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $result
+            'rsvp_payment' => $result,
+            'create_at'    => $bill_date,
+            'expired_at'   => $bill_expired
         ]);
 
         // Email Checkout Confirmation
@@ -305,7 +307,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
-        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "bill_expired" => $bill_expired, "href" => "tab2-3"]);
     }
 
     public function reserve_product(Request $request)
@@ -478,8 +480,8 @@ class PaymentController extends Controller
         $cust_no             = $booking->customer_id;
         $cust_name           = $booking->rsvp_cust_name;
         $msisdn              = '+'.$booking->rsvp_cust_phone;
-        $bill_date           = $booking->create_at;
-        $bill_expired        = $booking->expired_at;
+        $bill_date           = Carbon::now();
+        $bill_expired        = Carbon::now()->addMinutes(20);
         $bill_desc           = 'Product Reservation of '.$bill_no;
         $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
@@ -549,7 +551,9 @@ class PaymentController extends Controller
         ]);
 
         ProductRsvp::where('booking_id', $booking_id)->update([
-            'rsvp_payment'       => $result
+            'rsvp_payment' => $result,
+            'create_at'    => $bill_date,
+            'expired_at'   => $bill_expired
         ]);
 
         // Email Checkout Confirmation
@@ -560,7 +564,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
-        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "product_total" => $product_total, "payment_type" => $result, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "bill_expired" => $bill_expired, "product_total" => $product_total, "payment_type" => $result, "href" => "tab2-3"]);
     }
 
     public function credit(Request $request)
