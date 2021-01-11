@@ -1061,9 +1061,12 @@
                 }
             }
 
-            // else {
-            //     $('#room_cancel_reschedule_btn').hide();
-            // }
+            else {
+                $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
+                $('#modal_reservation_type').val("Room");
+                $('#modal_reservation_from').val("ROOMS");
+            }
             // END CANCELLATION
 
             if ("{{Auth::user()->level}}" == "2") {

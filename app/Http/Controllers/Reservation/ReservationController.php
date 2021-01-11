@@ -470,6 +470,7 @@ class ReservationController extends Controller
     {
         $from = $request['reservation_from'];
         $id = $request['reservation_id'];
+        $booking_id = $request['booking_id'];
 
         if ($from == "ROOMS") {
             $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
@@ -516,7 +517,7 @@ class ReservationController extends Controller
             }
         }
 
-        $query = DB::select('select * from payment where booking_id = ?', [$id]);
+        $query = DB::select('select * from payment where booking_id = ?', [$booking_id]);
         $data->payment = $query[0];
 
         $data->payment->transaction_time = Carbon::parse($data->payment->transaction_time)->isoFormat('LLLL');

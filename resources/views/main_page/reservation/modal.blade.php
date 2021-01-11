@@ -691,6 +691,8 @@
 
                     {{-- PUT Reservation Id --}}
                     <input type="hidden" id="modal_reservation_id" name="reservation_id">
+                    {{-- PUT Reservation Booking Id --}}
+                    <input type="hidden" id="modal_booking_id" name="booking_id">
                     {{-- PUT Reservation Id --}}
                     <input type="hidden" id="modal_reservation_from" name="reservation_from">
                     {{-- PUT Reservation Type --}}
@@ -877,6 +879,7 @@
                 {
 
                     var reservaion_id = $('#modal_reservation_id').val();
+                    var booking_id = $('#modal_booking_id').val();
                     var reservation_type = "Email";
                     var reservation_email = formValues[1];
                     var reservation_from = $('#modal_reservation_from').val();
@@ -891,6 +894,7 @@
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "reservation_id": reservation_id,
+                        "booking_id": booking_id,
                         "reservation_type": reservation_type,
                         "reservation_email": reservation_email,
                         "reservation_from": reservation_from
