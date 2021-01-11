@@ -123,26 +123,22 @@
                     @endif
 
                     @if($mice->sales_inquiry == "0")
-                    <p class="price">
-                        <script>
-                            document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
-                        </script><span class="pax"> / Pax</span>
-                    </p>
-                    <br>
-                    <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-horison-gold" style="font-weight:bold;" value="Book Now" />
-                    </form>
+                        <p class="price">
+                            <script>
+                                document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
+                            </script><span class="pax"> / Pax</span>
+                        </p>
+                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
+                            {{ csrf_field() }}
+                            <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
+                        </form>
                     @else
-                    <br><br><br><br>
                     @php
-                        if($mice->category == 3){
-                            $from = "mice";
-                        }else if($mice->category == 4){
+                        if($mice->category == 4){
                             $from = "wedding";
                         }
                     @endphp
-                    <a href="/visitor/inquiry?from={{$from}}" class="btn btn-horison-gold"><b>Reserve Now</b></a>
+                        <a href="/visitor/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                     @endif
                 </section>
                 </article>

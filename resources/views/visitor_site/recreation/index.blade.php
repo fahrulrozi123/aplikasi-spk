@@ -123,19 +123,17 @@
                     @endif
 
                     @if($recreation->sales_inquiry == "0")
-                    <p class="price">
-                        <script>
-                            document.write("Rp " + formatRupiah("{{$recreation->product_price}}"));
-                        </script><span class="pax"> / Pax</span>
-                    </p>
-                    <br>
-                    <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$recreation->id}}">
-                        {{ csrf_field() }}
-                        <input type="submit" class="btn btn-horison-gold" style="font-weight:bold;" value="Book Now" />
-                    </form>
+                        <p class="price">
+                            <script>
+                                document.write("Rp " + formatRupiah("{{$recreation->product_price}}"));
+                            </script><span class="pax"> / Pax</span>
+                        </p>
+                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$recreation->id}}">
+                            {{ csrf_field() }}
+                            <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
+                        </form>
                     @else
-                    <br><br><br><br>
-                    <a href="/visitor/inquiry?from=recreational" class="btn btn-horison-gold"><b>Reserve Now</b></a>
+                        <a href="/visitor/inquiry?from=recreational" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                     @endif
                 </section>
                 </article>

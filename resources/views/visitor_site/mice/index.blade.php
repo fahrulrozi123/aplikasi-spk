@@ -37,8 +37,7 @@
         <i class="right" class="arrows" style="z-index:2; position:absolute;">
             <svg viewBox="0 0 100 100">
                 <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z"
-                    transform="translate(100, 100) rotate(180) ">
-                </path>
+                    transform="translate(100, 100) rotate(180) "></path>
             </svg>
         </i>
     </div>
@@ -49,13 +48,14 @@
     <div class="container">
         <br>
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR
-                <span class="gold">THERAPY, SAUNA & VOLCANIC</span> BATH</p>
+            <p class="black" style="margin-top:20px; margin-bottom:20px;">NOT <span class="gold">ONLY A PLACES</span>
+            </p>
         </center>
         <center>
             <p class="description-mw-dark">
-                Receive nature best medicine with Mount Papandayan Volcanic Sulfur Bath<br>
-                known as Hydrotherapy.
+                Meetings, Business Trip and Wedding not like any others. Plan your activities with many our facilities
+                at<br>
+                Horison Ultima Bandung.
             </p>
         </center>
     </div>
@@ -68,17 +68,17 @@
         <div class="gallery-env">
             <div class="">
                 {{-- PUT DATA IN HIDDEN FOR TRANSFER TO JS --}}
-                <input id="spas" type="hidden" value='@json($spas)'>
+                <input id="mices" type="hidden" value='@json($mices)'>
                 <?php $no = 0; $row = 0;?>
-                @foreach($spas as $spa)<?php $no++; $row++;?>
+                @foreach($mices as $mice)<?php $no++; $row++;?>
                 @if($row == 1)
                 <div class="row">
                 @endif
                 <div class="col-sm-6 col-md-4">
                     <article class="album">
                         <header>
-                            <?php $i = 0;$total = count($spa['photos']);?>
-                            @foreach($spa['photos'] as $photo)<?php $i++;?>
+                            <?php $i = 0;$total = count($mice['photos']);?>
+                            @foreach($mice['photos'] as $photo)<?php $i++;?>
                             <div class="mySlides1 id_{{$no}}">
                                 <div class="numbertext">{{$i}} / {{$total}}</div>
                                 <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
@@ -86,19 +86,19 @@
                             </div>
                             @endforeach
                             <div class="bbaris-rec">
-                                @php $i = 0; $total = count($spa['photos']);
+                                @php $i = 0; $total = count($mice['photos']);
                                 if($total == 1)
                                 {
                                 $class = "hidden";
                                 }else{
                                 $class="";
                                 }@endphp
-                                @foreach($spa['photos'] as $photo)@php $i++;@endphp
+                                @foreach($mice['photos'] as $photo)@php $i++;@endphp
                                 @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                     <img class="demo1 id_{{$no}}"
-                                        src="{{asset('/user/'.$spa['photos'][$i-1]->product_photo_path)}}"
+                                        src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
                                         style="width:100%!important; height:45px!important;"
-                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Allysea a Spa">
+                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Mice & Wedding">
                                     @if($i == 3)
                                     <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
                                         style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
@@ -112,33 +112,38 @@
                 </div>
                 </header>
                 <section class="album-info shadow" style="height: 19rem;">
-                    <h4><b class="line-clamp-1"> {{ $spa->product_name }}</b></h4>
-                    @if(strlen($spa->product_detail) > 100)
+                    <h4><b class="line-clamp-1"> {{ $mice->product_name }}</b></h4>
+                    @if(strlen($mice->product_detail) > 100)
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                            {{substr($spa->product_detail, 0, 100)."..."}}
+                            {{substr($mice->product_detail, 0, 100)."..."}}
                     </h5>
-                        <a href="/visitor/details?from=allysea_spa&key={{$spa->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                        <a href="/visitor/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$spa->product_detail}}</h5>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                     @endif
 
-                    @if($spa->sales_inquiry == "0")
+                    @if($mice->sales_inquiry == "0")
                         <p class="price">
                             <script>
-                                document.write("Rp " + formatRupiah("{{$spa->product_price}}"));
+                                document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
                             </script><span class="pax"> / Pax</span>
                         </p>
-                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
+                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                         </form>
                     @else
-                        <a href="/visitor/inquiry?from=spa" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
+                    @php
+                        if($mice->category == 3){
+                            $from = "mice";
+                        }
+                    @endphp
+                        <a href="/visitor/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                     @endif
                 </section>
                 </article>
             </div>
-            @if($row == 3 || $no == count($spas))
+            @if($row == 3 || $no == count($mices))
             </div>
             @php
                 $row = 0;
@@ -150,6 +155,7 @@
 </div>
 </div>
 @include('visitor_site.modal_product')
+
 
 {{-- script untuk image slide header --}}
 <script>
@@ -314,10 +320,12 @@
 {{-- script untuk image slide album --}}
 <script>
     var slideIndex = 1;
-    var spas = JSON.parse($('#spas').val());
+    var mices = JSON.parse($('#mices').val());
 
-    for (let n = 1; n <= spas.length; n++) {
-        if (spas[n - 1]['photos'].length > 0) {
+
+    // console.log(mices.length);
+    for (let n = 1; n <= mices.length; n++) {
+        if (mices[n - 1]['photos'].length > 0) {
             showSlides(n, 1);
         }
     }
@@ -351,23 +359,24 @@
     var slideIndex3 = 1;
     var path = "{{asset('/user/')}}";
     var first = true;
+
     function seeAll(id) {
-        var spa = spas[id - 1];
+        var mice = mices[id - 1];
         var slider_for = "";
         var slider_nav = "";
 
-        $('#modal_title').text(spa.product_name);
 
+        $('#modal_title').text(mice.product_name);
 
-        spa['photos'].forEach(function (data, index) {
+        mice['photos'].forEach(function (data, index) {
             index++;
             slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
             slider_nav += '<div class="sub-seeall">'+
                               '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
                               '</div>';
 
-
         });
+
 
         $('#seeAllModal').modal('show');
 
@@ -383,7 +392,6 @@
             $('.slider-nav').slick('unslick');
         }
         do_slider();
-
     }
 
 </script>

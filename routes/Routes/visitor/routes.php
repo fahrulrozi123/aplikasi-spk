@@ -16,7 +16,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/visitor/function_room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');
 
     //MICE & WEDDING//
-    Route::get('/visitor/mice_wedding/', 'Visitor\VisitorController@mice_wedding')->name('visitor.mice_wedding');
+    Route::get('/visitor/mice/', 'Visitor\VisitorController@mice')->name('visitor.mice_wedding');
+
+    //WEDDING//
+    Route::get('/visitor/wedding/', 'Visitor\VisitorController@wedding')->name('visitor.wedding');
 
     //ALLYSEA A SPA//
     Route::get('/visitor/allysea_spa/', 'Visitor\VisitorController@allysea_spa')->name('visitor.allysea_spa');

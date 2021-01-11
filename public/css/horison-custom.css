@@ -566,6 +566,23 @@ a > .pull-right{
     vertical-align: middle !important;
 }
 
+.book-reserve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 50px;
+}
+
+/* @media only screen and (max-width: 768px) {
+    .book-reserve {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 45px;
+        margin-top: 20px !important;
+    }
+} */
+
 /* FUNCTION ROOM ADMIN STYLE ELEMENTS */
 .fr-label {
     font-weight: normal;
