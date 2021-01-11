@@ -34,9 +34,12 @@ class PackageController extends Controller
         $setting = $this->setting();
         $packages = Product::orderBy('category')->orderBy('id','DESC')->with('photos')->get();
 
+        //menu code
+        $menu = $this->menu();
+
         // dd($packages[4]['photos'][0]->product_photo_path);
         if(count($packages) > 0){
-            return view('master_data.package.indexisi', ['products'=>$packages, 'setting'=>$setting]);
+            return view('master_data.package.indexisi', ['products'=>$packages, 'setting'=>$setting, 'menu'=>$menu]);
         }else{
             return view('master_data.package.index', get_defined_vars());
         }
@@ -45,6 +48,9 @@ class PackageController extends Controller
     public function create()
     {
         $setting = $this->setting();
+        //menu code
+        $menu = $this->menu();
+
         return view('master_data.package.create', get_defined_vars());
     }
 
@@ -147,6 +153,10 @@ class PackageController extends Controller
         $setting = $this->setting();
         $id = Crypt::decryptString($id);
         $product = Product::where('id', $id)->with('photos')->first();
+
+        //menu code
+        $menu = $this->menu();
+
         // dd($product);
         return view('master_data.package.create', get_defined_vars());
     }

@@ -47,7 +47,7 @@ $category = "1";
                         <a>
                             <img src="{{asset('/images/dashboard/team-build.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
                             <div class="centered">
-                                <h3 class="font-tertiary"><strong>RECREATIONAL</strong></h3>
+                                <h3 class="font-tertiary"><strong>{{ $menu['recreation'][0]['page_name'] }}</strong></h3>
                             </div>
                         </a>
                     </div>
@@ -57,7 +57,7 @@ $category = "1";
                         <a>
                             <img src="{{asset('/images/dashboard/massage-spa-lg.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
                             <div class="centered">
-                                <h3 class="font-tertiary"><strong>ALLYSea A SPA</strong></h3>
+                                <h3 class="font-tertiary"><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h3>
                             </div>
                         </a>
                     </div>
@@ -67,7 +67,7 @@ $category = "1";
                         <a>
                             <img src="{{asset('/images/dashboard/meet-room-lg.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
                             <div class="centered">
-                                <h3 class="font-tertiary"><strong>MICE</strong></h3>
+                                <h3 class="font-tertiary"><strong>{{ $menu['mice'][0]['page_name'] }}</strong></h3>
                             </div>
                         </a>
                     </div>
@@ -77,7 +77,7 @@ $category = "1";
                         <a>
                             <img src="{{asset('/images/dashboard/wedding-celebration.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
                             <div class="centered">
-                                <h3 class="font-tertiary"><strong>WEDDING</strong></h3>
+                                <h3 class="font-tertiary"><strong>{{ $menu['wedding'][0]['page_name'] }}</strong></h3>
                             </div>
                         </a>
                     </div>
