@@ -194,9 +194,28 @@ class ReservationController extends Controller
         ];
         $data["room"] = [];
 
-        $query = "SELECT room_reservation.* FROM room_reservation
-                        where rsvp_checkin >= '" . $start_date . "' AND rsvp_checkout <= '" . $end_date . "'
-                            AND rsvp_status in ('Payment received', 'Cancellation fee') ORDER BY rsvp_checkin ASC";
+        $query = "SELECT *,
+                    concat(totalroom,' x ' ,room_name) AS reserved_rooms
+                    FROM room_reservation
+                        LEFT JOIN room_type ON room_reservation.room_id = room_type.id
+                        LEFT JOIN (
+                            SELECT
+                                `booking_id`,
+                                SUM(`rsvp_total_room`) as 'TotalRoom'
+                            FROM room_rsvp
+                                WHERE
+                                rsvp_status IN ('Payment received' ,'Cancellation fee')
+                                AND
+                                rsvp_date_reserve BETWEEN '" . $start_date . "' AND '" . $end_date . "'
+                                GROUP BY `booking_id`
+                                ORDER BY create_at DESC
+                            ) totalroom
+                        ON room_reservation.booking_id = totalroom.booking_id
+                        WHERE
+                        rsvp_status IN ('Payment received' ,'Cancellation fee')
+                        AND
+                        rsvp_checkin BETWEEN '" . $start_date . "' AND '" . $end_date . "'
+                        ORDER BY create_at DESC";
 
         $rsvp = DB::select(DB::raw($query));
         $data['rsvp'] = $rsvp;

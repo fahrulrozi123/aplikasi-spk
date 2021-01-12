@@ -819,7 +819,7 @@
 
             var ADR = Math.floor(element.rsvp_grand_total / total_stay);
             var nett_sales = parseInt(element.rsvp_grand_total) - parseInt(element.rsvp_service) - parseInt(element.rsvp_tax);
-            room_reservation_all.push([date, element.rsvp_reserved_room, formatRupiah(ADR),
+            room_reservation_all.push([date, element.reserved_rooms, formatRupiah(ADR),
                                     formatRupiah(element.rsvp_grand_total), formatRupiah(element.rsvp_tax),
                                     formatRupiah(element.rsvp_service), formatRupiah(nett_sales)
             ]);
