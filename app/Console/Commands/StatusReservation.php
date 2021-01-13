@@ -42,7 +42,7 @@ class StatusReservation extends Command
      */
     public function handle()
     {
-        $table = DB::table('payment')->select('booking_id')->whereNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
+        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
 
         $booking_id = [];
 

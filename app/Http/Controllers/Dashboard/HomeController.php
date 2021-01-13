@@ -51,8 +51,7 @@ class HomeController extends Controller
                                                             AND
                                                     room_rsvp.rsvp_date_reserve =
                                                     Curdate()
-                                                            AND rsvp_status =
-                                                                'Payment received')
+                                                            AND rsvp_status IN ('Payment received' ,'Cancellation fee', 'Waiting for payment'))
                             )
                     FROM   allotment
                     WHERE  room_id = room.id

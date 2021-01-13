@@ -208,7 +208,7 @@ class ReservationController extends Controller
                                 AND
                                 rsvp_date_reserve BETWEEN '" . $start_date . "' AND '" . $end_date . "'
                                 GROUP BY `booking_id`
-                                ORDER BY create_at DESC
+                                -- ORDER BY create_at DESC
                             ) totalroom
                         ON room_reservation.booking_id = totalroom.booking_id
                         WHERE
