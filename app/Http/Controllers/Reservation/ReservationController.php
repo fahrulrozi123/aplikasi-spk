@@ -215,7 +215,7 @@ class ReservationController extends Controller
                         rsvp_status IN ('Payment received' ,'Cancellation fee')
                         AND
                         rsvp_checkin BETWEEN '" . $start_date . "' AND '" . $end_date . "'
-                        ORDER BY create_at DESC";
+                        ORDER BY create_at ASC";
 
         $rsvp = DB::select(DB::raw($query));
         $data['rsvp'] = $rsvp;

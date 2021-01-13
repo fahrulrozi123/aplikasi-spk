@@ -314,8 +314,7 @@
             var rsvp_status = "<p class='text-success'>" + element.rsvp_status + "</p>";
 
 
-            room_reservation_all.push([element.reservation_id, element.rsvp_cust_name, element
-                .rsvp_reserved_room,
+            room_reservation_all.push([element.reservation_id, element.rsvp_cust_name, element.reserved_rooms,
                 check_in, check_out, element.rsvp_status
             ]);
         });
