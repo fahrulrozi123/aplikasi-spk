@@ -4,19 +4,12 @@
 
 @if(isset($setting))
     @php
-        $id = Crypt::encryptString($setting->id);
-        $logo = $setting->logo;
+        $id      = Crypt::encryptString($setting->id);
+        $logo    = $setting->logo;
+        $favicon = $setting->favicon;
     @endphp
 @endif
 
-    {{-- <ol class="breadcrumb bc-3">
-        <li>
-            <a href="/main_page/setting">Setting</a>
-        </li>
-        <li class="active">
-            <strong>Setting</strong>
-        </li>
-    </ol> --}}
 
     <form enctype="multipart/form-data" method="POST" action="{{route('setting.store')}}">
         <input type="hidden" name="id" value="{{$id}}">
@@ -71,6 +64,34 @@
                                                 </div>
                                             </div>
                                             @error('img')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div><br>
+                                    <div class="container">
+                                        <label for="logo" class="col-sm-2 control-label">Favicon<br><small class="text-muted"></small></label>
+                                        <div class="col-sm-5">
+                                            <h6><i>Choose a picture from your computer</i></h6>
+                                            <div class="fileinput fileinput-new" data-provides="fileinput"><input type="hidden">
+                                                <div class="fileinput-new shadow img-responsive" data-trigger="fileinput" style="cursor:pointer; max-width: 150px;">
+                                                    @if($favicon != null)
+                                                        <img src="{{asset('/images/logo/'.$favicon)}}" alt="Company Profile">
+                                                    @else
+                                                        <img src="{{asset('images/dashboard/insert-here.png')}}" alt="Insert Here">
+                                                    @endif
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists img-responsive shadow" style="width:150px;"></div>
+                                                <div class="text-center" style="margin-top:20px;">
+                                                    <span class="btn btn-horison-gold btn-file shadow">
+                                                        <span class="fileinput-new">
+                                                            <i class="glyphicon glyphicon-circle-arrow-up"></i> Browse Files</span>
+                                                        <span class="fileinput-exists">Change</span>
+                                                        <input type="file" id="favicon" name="favicon" accept="image/*" class="validateImage" onchange="fileValidation();">
+                                                    </span>
+                                                    <a href="#" class="btn btn-orange fileinput-exists shadow" data-dismiss="fileinput">Remove</a>
+                                                </div>
+                                            </div>
+                                            @error('favicon')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>

@@ -28,8 +28,8 @@
 	<link rel="stylesheet" href="{{ asset('js/datatables/datatables.css') }}">
 	<link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
 	<link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
-	<link rel="shortcut icon" href="{{asset('images/icon.png')}}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
+	<link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon"/>
 
 	{{-- <script type="text/javascript" src="{{ asset('js/jquery.hislide.js') }}"></script> --}}
 	<script src="{{ asset('js/datatables/datatables.js') }}"></script>

@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
     <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
-    <link rel="shortcut icon" href="{{asset('images/icon.png')}}" type="image/x-icon" />
+	<link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon"/>
 
     <script src="{{ asset('js/jquery-1.11.3.min.js ') }}"></script>
     <script src="{{ asset('js/numeral/numeral.js') }}"></script>

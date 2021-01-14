@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('js/selectboxit/jquery.selectBoxIt.css') }}">
     <link rel="stylesheet" href="{{ asset('css/skins/white.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
-    <link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon" />
 
 	<link rel="stylesheet" href="{{ asset('css/horison-custom.css ') }}">
     <script src="{{ asset('js/jquery-1.11.0.min.js') }}" defer></script>

@@ -37,8 +37,9 @@ class SettingController extends Controller
             // 'img' => 'dimensions:max_width=350,max_height=100',
             'email' => 'required|email',
             'phone' => 'required|numeric',
-            'wa_number' => 'numeric',
-            'address' => 'required'
+            'wa_number' => 'numeric|nullable',
+            'address' => 'required',
+            'favicon' => 'mimes:ico'
         ],[
             'title.required' => 'Title field is required.',
             // 'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
@@ -46,7 +47,8 @@ class SettingController extends Controller
             'phone.required'  => 'Phone field is required.',
             'address.required'  => 'Address field is required.',
             'phone.numeric'  => 'Phone field must be a number.',
-            'wa_number.numeric'  => 'Whatsapp field must be a number.'
+            'wa_number.numeric'  => 'Whatsapp field must be a number.',
+            'favicon.mimes' => 'Favicon field must be a ico format'
         ]);
 
         //UPLOAD FOTO
@@ -59,6 +61,18 @@ class SettingController extends Controller
             $file->move($this->path,$this->fileName);
             Setting::where('id', $id)->update([
                 'logo'            => $this->fileName
+            ]);
+        }
+
+        if($request->file('favicon')){
+            // File::delete($this->path . '/'. $setting->logo);
+            $file = $request->file('favicon');
+            //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+            $this->fileName = 'favicon' . '.' . $file->getClientOriginalExtension();
+            //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+            $file->move($this->path,$this->fileName);
+            Setting::where('id', $id)->update([
+                'favicon'            => $this->fileName
             ]);
         }
 
