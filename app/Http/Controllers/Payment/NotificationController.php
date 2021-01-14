@@ -467,7 +467,7 @@ class NotificationController extends Controller
 
                 // dd($data);
             }
-        } else if ($status == "E") {
+        } else {
             if ($from == "ROOMS") {
                 // canceled room
                 $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
