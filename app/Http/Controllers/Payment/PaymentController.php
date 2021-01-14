@@ -552,7 +552,7 @@ class PaymentController extends Controller
 
         ProductRsvp::where('booking_id', $booking_id)->update([
             'rsvp_payment' => $result,
-            'rsvp_status'  => 'Failed',
+            // 'rsvp_status'  => 'Failed',
             'create_at'    => $bill_date,
             'expired_at'   => $bill_expired
         ]);
