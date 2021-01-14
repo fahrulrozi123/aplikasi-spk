@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting\Setting;
 use Illuminate\Support\Facades\Crypt;
 
-use Image;
+// use Image;
 use File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SettingController extends Controller
 {
@@ -33,14 +34,14 @@ class SettingController extends Controller
 
         $this->validate($request, [
             'title' => 'required',
-            'img' => 'dimensions:max_width=350,max_height=100',
+            // 'img' => 'dimensions:max_width=350,max_height=100',
             'email' => 'required|email',
             'phone' => 'required|numeric',
             'wa_number' => 'numeric',
             'address' => 'required'
         ],[
             'title.required' => 'Title field is required.',
-            'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
+            // 'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
             'email.required'  => 'Email field is required.',
             'phone.required'  => 'Phone field is required.',
             'address.required'  => 'Address field is required.',
@@ -60,6 +61,9 @@ class SettingController extends Controller
                 'logo'            => $this->fileName
             ]);
         }
+
+        $img = Image::make('images/logo/logo.png');
+        $img->save('images/logo/logo.jpg');
 
         Setting::updateOrCreate([
             'id' => 1

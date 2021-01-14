@@ -107,7 +107,7 @@ $gambar = $img."/".$setting->logo;
                     {{-- BOOKING DETAILS - HEADER --}}
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
-                            <img src="{{asset('/images/dashboard/sidebar-email.jpg')}}" width="210" alt="tirtasanitaresort">
+                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="tirtasanitaresort">
                             {{-- <img src="{{ $gambar }}" width="210" alt="tirtasanitaresort"> --}}
                             <h3 class="font-voucher horison-dark" style="margin-top: -65px; margin-left: 240px;">
                                 <b>RECEIPT</b><br>
