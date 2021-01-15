@@ -1061,6 +1061,10 @@
                 }
             }
 
+            else if (data.rsvp_status == "Failed") {
+                $('#room_cancel_reschedule_btn').hide();
+            }
+
             else {
                 $('#modal_reservation_id').val(data.reservation_id);
                 $('#modal_booking_id').val(data.booking_id);
