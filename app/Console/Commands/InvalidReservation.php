@@ -42,11 +42,11 @@ class InvalidReservation extends Command
     public function handle()
     {
         // Room
-        RoomRsvp::whereRaw('reservation_id is null or reservation_id = ?',[''])->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
+        RoomRsvp::whereNull('reservation_id')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
         RoomRsvp::whereRaw('rsvp_payment is null')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
 
         // Product
-        ProductRsvp::whereRaw('reservation_id is null or reservation_id = ?',[''])->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
+        ProductRsvp::whereNull('reservation_id')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
         ProductRsvp::whereRaw('rsvp_payment is null')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
     }
 }

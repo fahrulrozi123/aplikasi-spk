@@ -190,7 +190,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
 
         // laravel intervention
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
 
 
     ],
@@ -247,7 +247,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Sanitizer' => Waavi\Sanitizer\Laravel\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

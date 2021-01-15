@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Crypt;
 
 // use Image;
 use File;
-use Intervention\Image\ImageManagerStatic as Image;
+// use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Facades\Image as Image;
 
 class SettingController extends Controller
 {
