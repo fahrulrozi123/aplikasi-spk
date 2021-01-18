@@ -1062,10 +1062,11 @@
             }
 
             else if (data.rsvp_status == "Failed") {
-                $('#room_cancel_reschedule_btn').hide();
+                $('#room_cancel_reschedule_btn').fadeOut();
             }
 
             else {
+                $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
                 $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
