@@ -37,9 +37,6 @@ class PageSettingController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $id = $request['id'];
-        $temp_photo = PagePhoto::where('page_id', $id)->get();
-        PagePhoto::where('page_id', $id)->forceDelete();
 
         $this->validate($request, [
             'page_name'                 => 'required',
@@ -50,6 +47,10 @@ class PageSettingController extends Controller
             'page_description.required' => 'Page Description field is required.',
             'oldImg.required'           => 'At least one photo.'
         ]);
+
+        $id = $request['id'];
+        $temp_photo = PagePhoto::where('page_id', $id)->get();
+        PagePhoto::where('page_id', $id)->forceDelete();
 
         if ($request['oldImg']) {
             foreach ($temp_photo as $img) {

@@ -86,6 +86,14 @@
             $(document).on('click', '.image-cancel', function () {
                 let no = $(this).data('no');
                 $(".preview-image.preview-show-" + no).remove();
+
+                var html =  '<input type="hidden" style="width:auto" name="oldImg">';
+
+                if ($(".preview-image").length > 0){
+                } else {
+                    $('.preview-images-zone').append(html);
+                }
+
             });
         });
 
