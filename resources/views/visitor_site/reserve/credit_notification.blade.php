@@ -115,7 +115,7 @@
                     </ul>
                     {{-- END HEADER --}}
 
-                    @if($status == "S")
+                    @if($status_payment == "S")
                         <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
                     @else
                         <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
@@ -134,7 +134,7 @@
                                                         <h4></h4>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                @if($status == "S")
+                                                                @if($status_payment == "S")
                                                                 <div class="form-group">
                                                                     <label for="">
                                                                         <strong>Your Booking <b class="booking_id">{{ $rsvp->reservation_id }}</b> has been placed!</strong>
@@ -210,7 +210,7 @@
                                     </div>
                                 </div>
 
-                                @if($status == "S")
+                                @if($status_payment == "S")
                                     <div class="col-md-4">
                                         {{-- bills dikanan --}}
                                         <div class="gallery-env">

@@ -311,7 +311,7 @@ class NotificationController extends Controller
         $transaction_id      = $request['TRANSACTIONID'] ?: null;
         $merchant_id         = $request['MERCHANTID'] ?: null;
         $booking_id          = $request['MERCHANT_TRANID'] ?: null;
-        $status              = $request['TXN_STATUS'] ?: null;
+        $status_payment      = $request['TXN_STATUS'] ?: null;
         $payment_date        = $request['TRANDATE'] ?: null;
         $fraud_status        = $request['FRAUD_STATUS'] ?: null;
         $status_message      = $request['USR_MSG'] ?: null;
@@ -332,7 +332,7 @@ class NotificationController extends Controller
         // }
 
         // cek status payment success or cancel
-        if ($status == "S") {
+        if ($status_payment == "S") {
             $transaction_status = 'settlement';
         } else {
             $transaction_status = 'Failed';
@@ -362,7 +362,7 @@ class NotificationController extends Controller
         $from                = $data_payment->from_table;
 
         // cek status payment success or cancel
-        if ($status == "S") {
+        if ($status_payment == "S") {
             if ($from == "ROOMS") {
 
                 // generated rsvp_id room
