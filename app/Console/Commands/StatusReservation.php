@@ -42,7 +42,7 @@ class StatusReservation extends Command
      */
     public function handle()
     {
-        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
+        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->where('expired_at', '<', Carbon::now())->get();
 
         $booking_id = [];
 
@@ -84,7 +84,10 @@ class StatusReservation extends Command
             $data = json_decode($response->getBody()->getContents(), true);
 
             Payment::where('booking_id', $bill_no)->update([
-                'transaction_status' => $data['payment_status_desc']
+                'transaction_status' => $data['payment_status_desc'],
+                'fraud_status'       => $data['payment_status_code'],
+                'status_code'        => $data['response_code'],
+                'status_message'     => $data['response_desc']
             ]);
 
             if ($value->from_table == "ROOMS") {

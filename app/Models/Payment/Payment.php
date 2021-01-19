@@ -12,7 +12,8 @@ class Payment extends Model
   public $timestamps  = false;
   protected $fillable = ['transaction_id','booking_id','merchant_id',
                         'from_table','gross_amount','currency',
-                        'transaction_status','transaction_time','settlement_time',
-                        'fraud_status','payment_type','approval_code',
-                        'status_code','status_message','signature_key','redirect_url'];
+                        'transaction_status','transaction_time','payment_reff',
+                        'settlement_time','fraud_status','payment_type',
+                        'status_code','status_message','signature_key',
+                        'redirect_url'];
 }
