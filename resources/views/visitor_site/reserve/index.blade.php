@@ -759,14 +759,22 @@
                                                 <div class="panel-footer footer-payment">
                                                     <div class="form-group">
                                                         <div class="row">
-                                                            <div class="col-md-8" align="right">
-                                                                <a href="/">
-                                                                    <p style="padding: 10px;font-size: 12px!important; font-weight: 600;"> Back To Home</p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-md-4" align="right">
-                                                                <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another Rooms</a>
-                                                            </div>
+                                                            @if($from == "ROOMS")
+                                                                <div class="col-md-8" align="right">
+                                                                    <a href="/">
+                                                                        <p style="padding: 10px;font-size: 12px!important; font-weight: 600;"> Back To Home</p>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-md-4" align="right">
+                                                                    <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another Rooms</a>
+                                                                </div>
+                                                            @else
+                                                                <div class="col-md-12" align="right">
+                                                                    <a href="/">
+                                                                        <p style="padding: 10px;font-size: 12px!important; font-weight: 600;"> Back To Home</p>
+                                                                    </a>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
