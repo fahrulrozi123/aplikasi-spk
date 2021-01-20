@@ -324,12 +324,12 @@ class NotificationController extends Controller
         $merchant_tranid     = $request['MERCHANT_TRANID'] ?: null;
         $amount              = $request['AMOUNT'] ?: null;
 
-        // $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount);
+        $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$status_payment);
 
-        // if ($signature !== $valid_signature_key) {
-        //     return response()->json(["status" => 401, "message" => "Something went wrong"]);
-        //     return redirect()->route('index')->with('warning', 'Something went wrong');
-        // }
+        if ($signature !== $valid_signature_key) {
+            return response()->json(["status" => 401, "message" => "Something went wrong"]);
+            return redirect()->route('index')->with('warning', 'Something went wrong');
+        }
 
         // cek status payment success or cancel
         if ($status_payment == "S") {
@@ -835,8 +835,8 @@ class NotificationController extends Controller
         return sha1(md5($merchant_user.$merchant_password.$bill_no.$payment_status_code));
     }
 
-    public function generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount)
+    public function generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$status_payment)
     {
-        return sha1('##'.strtoupper($merchant_id).'##'.strtoupper($merchant_password).'##'.$merchant_tranid.'##'.$amount.'##'.'0'.'##');
+        return strtoupper(sha1('##'.strtoupper($merchant_id).'##'.strtoupper($merchant_password).'##'.strtoupper($merchant_tranid).'##'.strtoupper($amount).'##'.strtoupper($status_payment).'##'));
     }
 }

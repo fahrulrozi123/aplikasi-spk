@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
+
 use DB;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Illuminate\Console\Command;
+
 use App\Models\Payment\Payment;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Product\Rsvp as ProductRsvp;
@@ -48,7 +50,7 @@ class StatusReservation extends Command
         ProductRsvp::whereNull('rsvp_payment')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
 
         // Status Reservation jika sudah memilih pembayaran
-        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->where('expired_at', '<', Carbon::now())->get();
+        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->where('transaction_time', '<', Carbon::now()->addMinutes(20))->get();
 
         $booking_id = [];
 
