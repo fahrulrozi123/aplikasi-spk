@@ -137,13 +137,12 @@
                                                                 @if($status_payment == "S")
                                                                 <div class="form-group">
                                                                     <label for="">
-                                                                        <strong>Your Booking <b class="booking_id">{{ $rsvp->reservation_id }}</b> has been placed!</strong>
+                                                                        <strong>Your Reservation <b class="booking_id">{{ $status->reservation_id }}</b> has been placed!</strong>
                                                                     </label>
                                                                     <ul>
                                                                         <li>You will receive your booking details at
                                                                             <b class="customer_email">{{ $customer->cust_email }}</b></li>
                                                                         <li>You will receive your Voucher and Receipt</li>
-                                                                        {{-- <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($rsvp->expired_at)->format('j F Y h:i')}}</b></li> --}}
                                                                         <li>You will receive a confirmation email as soon this
                                                                             transaction has been approved</li>
                                                                     </ul>
@@ -153,14 +152,6 @@
                                                                     <label for="">
                                                                         <strong>Your Booking <b class="booking_id">{{ $rsvp->booking_id }}</b> has been canceled!</strong>
                                                                     </label>
-                                                                    {{-- <ul>
-                                                                        <li>You will receive your booking details at
-                                                                            <b class="customer_email">{{ $customer->cust_email }}</b></li>
-                                                                        <li>You will receive your Voucher and Receipt</li>
-                                                                        <li id="transaction_due">Please finish this transaction before <b class="transaction_due">{{ \Carbon\Carbon::parse($rsvp->expired_at)->format('j F Y h:i')}}</b></li>
-                                                                        <li>You will receive a confirmation email as soon this
-                                                                            transaction has been approved</li>
-                                                                    </ul> --}}
                                                                 </div>
                                                                 @endif
                                                             </div>
@@ -189,7 +180,6 @@
                                                             </div>
                                                         </div>
                                                     </section>
-
                                                 </article>
                                                 <div class="panel-footer footer-payment" style="padding: 14px;">
                                                     <div class="form-group">
@@ -215,12 +205,9 @@
                                         {{-- bills dikanan --}}
                                         <div class="gallery-env">
                                             <div class="row">
-
                                                 <div class="col-sm-12">
                                                     <article class="album" style="">
-
                                                         <section class="album-info-inq shadow">
-
                                                             <div class="row" style="margin-top:-30px;">
                                                                 <div class="col-md-12">
                                                                     <p><strong>Booking ID</strong></p>
@@ -237,7 +224,7 @@
                                                             </div>
                                                             <hr><br>
                                                             {{-- MAIN FORM --}}
-                                                            <h4><b>Booking Details</b></h4>
+                                                            <h4><b>Reservation Details</b></h4>
 
                                                             <div class="row indent-reserve">
                                                                 @if($from == "ROOMS")
@@ -269,93 +256,11 @@
                                                                 </div>
                                                                 @endif
                                                             </div>
-
-
                                                         </section>
-
                                                     </article>
-
                                                 </div>
-
                                             </div>
                                         </div>
-                                        {{-- <div class="gallery-env">
-                                            <div class="row">
-
-                                                <div class="col-sm-12">
-                                                    <article class="album" style="">
-
-                                                        <section class="album-info-inq shadow">
-                                                            {{-- MAIN FORM --}}
-                                                            {{-- <h4><b>Price Details</b></h4>
-                                                            <div style="display: flex; flex-wrap: wrap;">
-                                                                @if($from == "ROOMS")
-                                                                <div class="col-md-7">
-                                                                    <p style="font-size:14px; color:black;">{{$data->roomDetail}}
-                                                                    </p>
-                                                                </div>
-                                                                <div style="margin-left: auto;">
-                                                                    <p style="font-size:14px">
-                                                                        <strong>
-                                                                            <script>
-                                                                                document.write("Rp "+formatRupiah("{{$data->roomPrice}}"));
-                                                                            </script>
-                                                                        </strong>
-                                                                    </p>
-                                                                </div>
-                                                                @if($data->extrabedTotal > 0)
-                                                                <div class="col-md-7">
-                                                                    <p style="font-size:14px; color:black;">Additional Extra Bed
-                                                                    </p>
-                                                                </div>
-                                                                <div style="margin-left: auto;">
-                                                                    <p style="font-size:14px">
-                                                                        <strong>
-                                                                            <script>
-                                                                                document.write("Rp "+formatRupiah("{{$data->extrabedPrice}}"));
-                                                                            </script>
-                                                                        </strong>
-                                                                    </p>
-                                                                </div>
-                                                                @endif
-                                                                @else
-                                                                <div class="col-md-7">
-                                                                    <p class="product_details" style="font-size:14px; color:black;">
-                                                                        0 x {{$data->productName}}</p>
-                                                                </div>
-                                                                <div class="col-md-5">
-                                                                <p class="product_price" style="font-size:14px; font-weight: bolder;">
-                                                                    <strong>Rp 0</strong>
-                                                                </p>
-                                                                </div>
-                                                                @endif
-                                                            </div>
-                                                            <hr>
-                                                            <div class="row" style="display: flex">
-                                                                <div class="col-md-7">
-                                                                    <p style="margin-left: 10px; font-weight: bolder; font-size:18px">Total</p>
-                                                                </div>
-                                                                <div class="col-md-5" style="margin-left: auto; padding-left: 55px; min-width: 200px;">
-                                                                @if($from == "ROOMS")
-                                                                    <p style="font-weight: bolder; font-size:18px;">
-                                                                        <strong style="font-weight: bolder;">
-                                                                            <script>
-                                                                                document.write("Rp "+formatRupiah("{{$data->totalPrice}}"));
-                                                                            </script>
-                                                                        </strong>
-                                                                    </p>
-                                                                @elseif($from == "PRODUCTS")
-                                                                    <p class="product_total" style="font-weight: bolder; font-size:18px;"><strong></strong>
-                                                                    </p>
-                                                                @endif
-                                                                </div>
-                                                            </div> --}}
-                                                        {{-- </section>
-                                                    </article>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-                                        {{-- end bills --}}
                                     </div>
                                 @endif
                             </div>

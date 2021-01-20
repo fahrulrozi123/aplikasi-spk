@@ -156,58 +156,56 @@ class NotificationController extends Controller
             Payment::insert($data);
         }
 
-        // if ($payment_status_code == "2") {
-            if ($from == "ROOMS") {
+        if ($from == "ROOMS") {
 
-                // generated rsvp_id room
-                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
-                $checkIn = $rsvp->rsvp_date_reserve;
+            // generated rsvp_id room
+            $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+            $checkIn = $rsvp->rsvp_date_reserve;
 
-                $getRoom = Type::where('id', $rsvp->room_id)->first();
+            $getRoom = Type::where('id', $rsvp->room_id)->first();
 
+            $rsvpId = rand($min = 1, $max = 99999);
+            $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+            while ($reservationId == false) {
                 $rsvpId = rand($min = 1, $max = 99999);
                 $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-                while ($reservationId == false) {
-                    $rsvpId = rand($min = 1, $max = 99999);
-                    $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-                }
+            }
 
-                RoomRsvp::where('booking_id', $booking_id)->update([
-                    'reservation_id' => $reservationId,
-                    'rsvp_payment'   => $payment_channel,
-                    'rsvp_status'    => 'Payment received',
-                ]);
+            RoomRsvp::where('booking_id', $booking_id)->update([
+                'reservation_id' => $reservationId,
+                'rsvp_payment'   => $payment_channel,
+                'rsvp_status'    => 'Payment received',
+            ]);
 
-                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                $this->resendEmail($from, $rsvp_id->booking_id);
+            $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+            $this->resendEmail($from, $rsvp_id->booking_id);
 
-            } else if ($from == "PRODUCTS") {
+        } else if ($from == "PRODUCTS") {
 
-                // generated rsvp_id products
-                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
-                $productsId = $rsvp->product_id;
+            // generated rsvp_id products
+            $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+            $productsId = $rsvp->product_id;
 
-                $productData = Product::where('id', $productsId)->first();
+            $productData = Product::where('id', $productsId)->first();
 
-                // generated rsvp_id products
+            // generated rsvp_id products
+            $rsvp_id = rand($min = 1, $max = 99999);
+            $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+            while ($reservation_id == false) {
                 $rsvp_id = rand($min = 1, $max = 99999);
                 $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
-
-                while ($reservation_id == false) {
-                    $rsvp_id = rand($min = 1, $max = 99999);
-                    $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
-                }
-
-                ProductRsvp::where('booking_id', $booking_id)->update([
-                    'reservation_id' => $reservation_id,
-                    'rsvp_payment'   => $payment_channel,
-                    'rsvp_status'    => 'Payment received',
-                ]);
-
-                $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                $this->resendEmail($from, $rsvp_id->booking_id);
             }
-        // }
+
+            ProductRsvp::where('booking_id', $booking_id)->update([
+                'reservation_id' => $reservation_id,
+                'rsvp_payment'   => $payment_channel,
+                'rsvp_status'    => 'Payment received',
+            ]);
+
+            $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+            $this->resendEmail($from, $rsvp_id->booking_id);
+        }
 
         $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
         $merchant_id        =  config('faspay.merchantId');
