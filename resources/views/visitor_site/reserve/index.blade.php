@@ -759,7 +759,7 @@
                                                 <div class="panel-footer footer-payment">
                                                     <div class="form-group">
                                                         <div class="row">
-                                                            @if($from == "ROOMS")
+                                                            @if($data->type == "Room")
                                                                 <div class="col-md-8" align="right">
                                                                     <a href="/">
                                                                         <p style="padding: 10px;font-size: 12px!important; font-weight: 600;"> Back To Home</p>
