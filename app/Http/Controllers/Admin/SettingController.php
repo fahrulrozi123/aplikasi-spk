@@ -35,7 +35,7 @@ class SettingController extends Controller
 
         $this->validate($request, [
             'title' => 'required',
-            // 'img' => 'dimensions:max_width=350,max_height=100',
+            'img' => 'dimensions:max_width=350,max_height=100',
             'email' => 'required|email',
             'phone' => 'required|numeric',
             'wa_number' => 'numeric|nullable',
@@ -43,7 +43,7 @@ class SettingController extends Controller
             'favicon' => 'mimes:ico'
         ],[
             'title.required' => 'Title field is required.',
-            // 'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
+            'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
             'email.required'  => 'Email field is required.',
             'phone.required'  => 'Phone field is required.',
             'address.required'  => 'Address field is required.',
