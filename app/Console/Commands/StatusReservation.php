@@ -50,7 +50,7 @@ class StatusReservation extends Command
         ProductRsvp::whereNull('rsvp_payment')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
 
         // Status Reservation jika sudah memilih pembayaran
-        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->where('transaction_time', '<', Carbon::now()->addMinutes(20))->get();
+        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
 
         $booking_id = [];
 
@@ -91,8 +91,16 @@ class StatusReservation extends Command
 
             $data = json_decode($response->getBody()->getContents(), true);
 
+            if ($data['payment_status_desc'] == 'Belum diproses') {
+                $status_payment = 'pending';
+                $status_rsvp    = 'Waiting for payment';
+            } else {
+                $status_payment = $data['payment_status_desc'];
+                $status_rsvp    = $data['payment_status_desc'];
+            }
+
             Payment::where('booking_id', $bill_no)->update([
-                'transaction_status' => $data['payment_status_desc'],
+                'transaction_status' => $status_payment,
                 'fraud_status'       => $data['payment_status_code'],
                 'status_code'        => $data['response_code'],
                 'status_message'     => $data['response_desc']
@@ -100,11 +108,11 @@ class StatusReservation extends Command
 
             if ($value->from_table == "ROOMS") {
                 RoomRsvp::where('booking_id', $bill_no)->update([
-                    'rsvp_status' => $data['payment_status_desc']
+                    'rsvp_status' => $status_rsvp
                 ]);
             } else {
                 ProductRsvp::where('booking_id', $bill_no)->update([
-                    'rsvp_status' => $data['payment_status_desc']
+                    'rsvp_status' => $status_rsvp
                 ]);
             }
         }
