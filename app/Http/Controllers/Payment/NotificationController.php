@@ -322,15 +322,17 @@ class NotificationController extends Controller
         $merchant_tranid     = $request['MERCHANT_TRANID'] ?: null;
         $amount              = $request['AMOUNT'] ?: null;
 
-        $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$status_payment);
-
-        if ($signature !== $valid_signature_key) {
-            return response()->json(["status" => 401, "message" => "Something went wrong"]);
-            return redirect()->route('index')->with('warning', 'Something went wrong');
-        }
-
         // cek status payment success or cancel
         if ($status_payment == "S") {
+
+            // validate signature sales
+            $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$status_payment);
+
+            if ($signature !== $valid_signature_key) {
+                return response()->json(["status" => 401, "message" => "Something went wrong"]);
+                return redirect()->route('index')->with('warning', 'Something went wrong');
+            }
+
             $transaction_status = 'settlement';
         } else {
             $transaction_status = 'Failed';

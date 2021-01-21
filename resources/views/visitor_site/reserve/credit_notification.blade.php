@@ -118,7 +118,7 @@
                     @if($status_payment == "S")
                         <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
                     @else
-                        <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+                        <div class="container" style="margin-top: 55px; margin-bottom: 55px;">
                     @endif
 
                         <div class="tab-content mt-35">
