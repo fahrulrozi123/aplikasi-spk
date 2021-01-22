@@ -640,71 +640,50 @@ class PaymentController extends Controller
             'signature_key'      => $signaturecc,
         ]);
 
-        $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';
-            $post = array(
-                "TRANSACTIONTYPE"               => '1',
-                "RESPONSE_TYPE"	                => '2',
-                "LANG" 			                => '',
-                "MERCHANTID"                    => $merchant_id,  //*   // MERCHANT ID
-                "PAYMENT_METHOD"                => '1', //*
-                "TXN_PASSWORD" 	                => $password, //Transaction password  ajgbi
-                "MERCHANT_TRANID"               => $tranid,   //*
-                "CURRENCYCODE"	                => 'IDR', //*
-                "AMOUNT"		                => $amount, //*
-                "CUSTNAME"                      => $name, //*
-                "CUSTEMAIL"		                => $email, //*
-                "DESCRIPTION"                   => $order_desc,
-                "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification', //*
-                "SIGNATURE" 	                => $signaturecc, //*
-                "BILLING_ADDRESS"				=> 'bekasi',
-                "BILLING_ADDRESS_CITY"			=> 'bekasi',
-                "BILLING_ADDRESS_REGION"		=> 'bekasi',
-                "BILLING_ADDRESS_STATE"			=> 'bekasi pusat6',
-                "BILLING_ADDRESS_POSCODE"		=> '10712',
-                "BILLING_ADDRESS_COUNTRY_CODE"	=> 'ID',
-                "RECEIVER_NAME_FOR_SHIPPING"	=> 'ega',
-                "SHIPPING_ADDRESS" 				=> 'bekasi air enam',
-                "SHIPPING_ADDRESS_CITY" 		=> 'bekasi tengah',
-                "SHIPPING_ADDRESS_REGION"		=> 'bekasi tengah',
-                "SHIPPING_ADDRESS_STATE"		=> 'bekasi tengah',
-                "SHIPPING_ADDRESS_POSCODE"		=> 'bekasi tengah',
-                "SHIPPING_ADDRESS_COUNTRY_CODE" => 'bekasi tengah',
-                "SHIPPINGCOST"					=> '0.00',
-                "PHONE_NO" 						=> $phone,
-                "MREF1"							=> 'tes',
-                "MREF2" 						=> 'testing',
-                "MREF3"							=> 'Tas;2;3000000',
-                "MREF4"							=> '',
-                "MREF5"							=> '',
-                "MREF6"							=> '',
-                "MREF7"							=> '',
-                "MREF8"							=> '',
-                "MREF9"							=> '',
-                "MREF10"						=> '',
-                "MPARAM1" 						=> '',// direct, isi dengan direct
-                "MPARAM2" 						=> '',
-                "CUSTOMER_REF"	 				=> '',
-                "FRISK1"						=> '',
-                "FRISK2"						=> '',
-                "DOMICILE_ADDRESS"				=> '',
-                "DOMICILE_ADDRESS_CITY"			=> '',
-                "DOMICILE_ADDRESS_REGION"		=> '',
-                "DOMICILE_ADDRESS_STATE"		=> '',
-                "DOMICILE_ADDRESS_POSCODE" 		=> '',
-                "DOMICILE_ADDRESS_COUNTRY_CODE" => '',
-                "DOMICILE_PHONE_NO"	 			=> '',
-                "handshake_url"					=> '',
-                "handshake_param"				=> '',
-                "style_merchant_name"           => 'black',
-                "style_order_summary"           => 'black',
-                "style_order_no"                => 'black',
-                "style_order_desc"              => 'black',
-                "style_amount"                  => 'black',
-                "style_background_left"         => '#fff',
-                "style_button_cancel"           => 'grey',
-                "style_font_cancel"             => 'red',
-                //harus url yg lgsg ke gambar
-                "style_image_url"               => 'http://horisonultimabandung.tripasysfo.com/images/logo/logo.png',
+        if(config('faspay.endpoint') == true) {
+            $endpoint = 'https://fpg.faspay.co.id/payment/api';
+        } else if (config('faspay.endpoint') == false) {
+            $endpoint = 'https://fpgdev.faspay.co.id/payment';
+        }
+
+        $string = '<form method="post" name="form" action="'.$endpoint.'">';
+        $post = array(
+            "TRANSACTIONTYPE"               => '1',
+            "RESPONSE_TYPE"	                => '2',
+            "MERCHANTID"                    => $merchant_id,
+            "PAYMENT_METHOD"                => '1',
+            "TXN_PASSWORD" 	                => $password,
+            "MERCHANT_TRANID"               => $tranid,
+            "CURRENCYCODE"	                => 'IDR',
+            "AMOUNT"		                => $amount,
+            "CUSTNAME"                      => $name,
+            "CUSTEMAIL"		                => $email,
+            "DESCRIPTION"                   => $order_desc,
+            "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification',
+            "SIGNATURE" 	                => $signaturecc,
+            // "BILLING_ADDRESS"				=> 'bekasi',
+            // "BILLING_ADDRESS_CITY"			=> 'bekasi',
+            // "BILLING_ADDRESS_REGION"		=> 'bekasi',
+            // "BILLING_ADDRESS_STATE"			=> 'bekasi pusat6',
+            // "BILLING_ADDRESS_POSCODE"		=> '10712',
+            // "BILLING_ADDRESS_COUNTRY_CODE"	=> 'ID',
+            // "SHIPPING_ADDRESS" 				=> 'bekasi air enam',
+            // "SHIPPING_ADDRESS_CITY" 		=> 'bekasi tengah',
+            // "SHIPPING_ADDRESS_REGION"		=> 'bekasi tengah',
+            // "SHIPPING_ADDRESS_STATE"		=> 'bekasi tengah',
+            // "SHIPPING_ADDRESS_POSCODE"		=> 'bekasi tengah',
+            // "SHIPPING_ADDRESS_COUNTRY_CODE" => 'bekasi tengah',
+            "PHONE_NO" 						=> $phone,
+            "style_merchant_name"           => 'black',
+            "style_order_summary"           => 'black',
+            "style_order_no"                => 'black',
+            "style_order_desc"              => 'black',
+            "style_amount"                  => 'black',
+            "style_background_left"         => '#fff',
+            "style_button_cancel"           => 'grey',
+            "style_font_cancel"             => 'red',
+            //harus url yg lgsg ke gambar
+            "style_image_url"               => 'http://horisonultimabandung.tripasysfo.com/images/logo/logo.png',
             );
 
             // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
