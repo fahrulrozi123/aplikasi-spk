@@ -46,22 +46,21 @@
         }
 
         .th-purchase{
-        border: 1px solid black;
-        background-color: #DAF2FC;
-        vertical-align: middle;
-        text-align: center;
-        height: 7%;
+            border: 1px solid black;
+            background-color: #DAF2FC;
+            vertical-align: middle;
+            text-align: center;
+            height: 7%;
         }
         .td-purchase{
-        border: 1px solid black;
-        font-size: 11px;
+            border: 1px solid black;
+            font-size: 11px;
         }
 
         .indent-reserve {
             /* padding-left: 25px; */
             text-indent: -10px;
         }
-
 
         /* table, th, td {
             border: 1px solid black;
@@ -70,28 +69,31 @@
 
 </head>
 @php
-if($data->rsvp_guest_name == ""){
-    $guest_name = $data->rsvp_cust_name;
-}else{
-    $guest_name = $data->rsvp_guest_name;
-}
-if($data->from == "ROOMS"){
-    $room_ppu = $data->rsvp_total_amount_room / $data->total_stay / $data->rsvp_total_room;
-    $room_ppu = floor($room_ppu);
-    $grand_total = $data->rsvp_total_amount_room;
+    if($data->rsvp_guest_name == ""){
+        $guest_name = $data->rsvp_cust_name;
+    }else{
+        $guest_name = $data->rsvp_guest_name;
+    }
+    if($data->from == "ROOMS"){
+        $room_ppu    = $data->rsvp_total_amount_room / $data->total_stay / $data->rsvp_total_room;
+        $room_ppu    = floor($room_ppu);
+        $grand_total = $data->rsvp_total_amount_room;
+        $tax_total   = $data->rsvp_tax + $data->rsvp_service;
 
-    if($data->rsvp_total_extrabed > 0){
-        $extrabed_ppu = $data->rsvp_total_amount_extrabed / $data->total_stay / $data->rsvp_total_extrabed;
-        $extrabed_ppu = floor($extrabed_ppu);
-        $grand_total += $data->rsvp_total_amount_extrabed;
+        if($data->rsvp_total_extrabed > 0){
+            $extrabed_ppu = $data->rsvp_total_amount_extrabed / $data->total_stay / $data->rsvp_total_extrabed;
+            $extrabed_ppu = floor($extrabed_ppu);
+            $grand_total  += $data->rsvp_total_amount_extrabed;
+            $tax_total    = $data->rsvp_tax + $data->rsvp_service;
+        }
+
+    }elseif($data->from == "PRODUCTS"){
+        $grand_total = $data->rsvp_total_amount;
+        $tax_total   = $data->rsvp_tax_total;
     }
 
-}elseif($data->from == "PRODUCTS"){
-    $grand_total = $data->rsvp_total_amount;
-}
-
-$img = public_path() . '/images/logo/';
-$gambar = $img."/".$setting->logo;
+    $img = public_path() . '/images/logo/';
+    $gambar = $img."/".$setting->logo;
 @endphp
 
 <body class="page-body" data-url="">
@@ -121,7 +123,7 @@ $gambar = $img."/".$setting->logo;
                     {{-- BOOKING DETAILS - ROW 1--}}
                     <br>
                     <div class="row">
-                        <table width="100%" style="table-layout:fixed; " class="font-voucher fs-13 horison-dark">
+                        <table width="100%" style="table-layout:fixed;" class="font-voucher fs-13 horison-dark">
                             <tr>
                                 <td colspan="2" style="width:40%; height: 3%; vertical-align:top;"><b>CUSTOMER DETAILS</b></td>
                                 <td colspan="2" style="width:55%; vertical-align:top;"><b>PAYMENT DETAILS</b></td>
@@ -172,9 +174,9 @@ $gambar = $img."/".$setting->logo;
                             <tr>
                                 <td style="width:365px; vertical-align:top;">
                                     @if($data->from == "ROOMS")
-                                    <span style="font-size: 11px;"><b>{{$data->room->room_name}}</b></span>
+                                        <span style="font-size: 11px;"><b>{{$data->room->room_name}}</b></span>
                                     @elseif($data->from == "PRODUCTS")
-                                    <span style="font-size: 11px;"><b>{{$data['product']->product_name}}</b></span>
+                                        <span style="font-size: 11px;"><b>{{$data['product']->product_name}}</b></span>
                                     @endif
                                 </td>
                             </tr>
@@ -182,38 +184,38 @@ $gambar = $img."/".$setting->logo;
                         <table width ="100%" class="font-voucher fs-13 horison-dark">
                             <tr>
                                 @if($data->from == "ROOMS")
-                                <td style="width:10px; vertical-align:top;">
-                                    <span style="font-size: 11px;">Check-in:</span>
-                                </td>
-                                <td style="width:300px; vertical-align:top;">
-                                    <span style="font-size: 11px;">{{$data->rsvp_checkin}}</span>
-                                </td>
+                                    <td style="width:10px; vertical-align:top;">
+                                        <span style="font-size: 11px;">Check-in</span>
+                                    </td>
+                                    <td style="width:300px; vertical-align:top;">
+                                        <span style="font-size: 11px;">: {{$data->rsvp_checkin}}</span>
+                                    </td>
                                 @elseif($data->from == "PRODUCTS")
-                                <td style="width:10px; vertical-align:top;">
-                                    <span style="font-size: 11px;">Date:</span>
-                                </td>
-                                <td style="width:300px; vertical-align:top;">
-                                    <span style="font-size: 11px;">{{$data->rsvp_date_reserve}}</span>
-                                </td>
+                                    <td style="width:10px; vertical-align:top;">
+                                        <span style="font-size: 11px;">Date</span>
+                                    </td>
+                                    <td style="width:300px; vertical-align:top;">
+                                        <span style="font-size: 11px;">: {{$data->rsvp_date_reserve}}</span>
+                                    </td>
                                 @endif
                             </tr>
                             @if($data->from == "ROOMS")
-                            <tr>
-                                <td style="vertical-align:top;">
-                                    <span style="font-size: 11px;">Duration:</span>
-                                </td>
-                                <td style="vertical-align:top;">
-                                    <span style="font-size: 11px;">{{$data->total_stay}} night(s)</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align:top;">
-                                    <span style="font-size: 11px;">Breakfast:</span>
-                                </td>
-                                <td style="vertical-align:top;">
-                                    <span style="font-size: 11px;">{{$data->rsvp_breakfast == 1 ? "Yes" : "No"}}</span>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td style="vertical-align:top;">
+                                        <span style="font-size: 11px;">Duration</span>
+                                    </td>
+                                    <td style="vertical-align:top;">
+                                        <span style="font-size: 11px;">: {{$data->total_stay}} night(s)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top;">
+                                        <span style="font-size: 11px;">Breakfast</span>
+                                    </td>
+                                    <td style="vertical-align:top;">
+                                        <span style="font-size: 11px;">: {{$data->rsvp_breakfast == 1 ? "Yes" : "No"}}</span>
+                                    </td>
+                                </tr>
                             @endif
                         </table>
                     </div>
@@ -226,30 +228,30 @@ $gambar = $img."/".$setting->logo;
                                 <th class="th-purchase" style="width:20%;"><b>Type of Item</b></th>
                                 <th class="th-purchase" style="width:25%;"><b>Item Description</b></th>
                                 @if($data->from == "ROOMS")
-                                <th class="th-purchase" style="width:5%;"><b>Qty</b></th>
-                                <th class="th-purchase" style="width:5%;"><b>Night</b></th>
+                                    <th class="th-purchase" style="width:5%;"><b>Qty</b></th>
+                                    <th class="th-purchase" style="width:5%;"><b>Night</b></th>
                                 @elseif($data->from == "PRODUCTS")
-                                <th class="th-purchase" style="width:10%;"><b>Qty</b></th>
+                                    <th class="th-purchase" style="width:10%;"><b>Qty</b></th>
                                 @endif
                                 <th class="th-purchase" style="width:20%;"><b>Price per Unit (Rp)</b></th>
                                 <th class="th-purchase" style="width:20%;"><b>Total (Rp)</b></th>
                             </tr>
                             <tr>
                                 @if($data->from == "ROOMS")
-                                <td class="td-purchase" style="width:5%; height:4%; text-align:center;">1</td>
-                                <td class="td-purchase" style="width:20%; text-align:center;"><b>Accommodation</b></td>
-                                <td class="td-purchase" style="width:25%;text-align:center;">{{$data->room->room_name}} - {{$data->rsvp_adult + $data->rsvp_child}} Guest(s)</td>
-                                <td class="td-purchase" style="width:5%; text-align:center;">{{$data->rsvp_total_room}}</td>
-                                <td class="td-purchase" style="width:5%; text-align:center;">{{$data->total_stay}}</td>
-                                <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($room_ppu, 2, ',', '.')}}</td>
-                                <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_total_amount_room, 2, ',', '.')}}</td>
+                                    <td class="td-purchase" style="width:5%; height:4%; text-align:center;">1.</td>
+                                    <td class="td-purchase" style="width:20%; text-align:center;"><b>Accommodation</b></td>
+                                    <td class="td-purchase" style="width:25%;text-align:center;">{{$data->room->room_name}} - {{$data->rsvp_adult + $data->rsvp_child}} Guest(s)</td>
+                                    <td class="td-purchase" style="width:5%; text-align:center;">{{$data->rsvp_total_room}}</td>
+                                    <td class="td-purchase" style="width:5%; text-align:center;">{{$data->total_stay}}</td>
+                                    <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($room_ppu, 2, ',', '.')}}</td>
+                                    <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_total_amount_room, 2, ',', '.')}}</td>
                                 @elseif($data->from == "PRODUCTS")
-                                <td class="td-purchase" style="width:5%; height:4%; text-align:center;">1</td>
-                                <td class="td-purchase" style="width:20%; text-align:center;"><b>{{$data['product']->category}}</b></td>
-                                <td class="td-purchase" style="width:25%;">{{$data['product']->product_name}}</td>
-                                <td class="td-purchase" style="width:10%; text-align:center;">{{$data->rsvp_amount_pax}} Pax</td>
-                                <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_pax_price, 2, ',', '.')}}</td>
-                                <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_total_amount, 2, ',', '.')}}</td>
+                                    <td class="td-purchase" style="width:5%; height:4%; text-align:center;">1.</td>
+                                    <td class="td-purchase" style="width:20%; text-align:center;"><b>{{$data['product']->category}}</b></td>
+                                    <td class="td-purchase" style="width:25%;">{{$data['product']->product_name}}</td>
+                                    <td class="td-purchase" style="width:10%; text-align:center;">{{$data->rsvp_amount_pax}} Pax</td>
+                                    <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_pax_price, 2, ',', '.')}}</td>
+                                    <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_total_amount, 2, ',', '.')}}</td>
                                 @endif
 
                             </tr>
@@ -269,10 +271,10 @@ $gambar = $img."/".$setting->logo;
                                 <td class="" style="width:20%; text-align:center;"><b></b></td>
                                 <td class="" style="width:25%;"></td>
                                 @if($data->from == "ROOMS")
-                                <td class="" style="width:5%; text-align:center;"></td>
-                                <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
                                 @elseif($data->from == "PRODUCTS")
-                                <td class="" style="width:10%; text-align:center;"></td>
+                                    <td class="" style="width:10%; text-align:center;"></td>
                                 @endif
                                 <td class="td-purchase" style="width:20%; text-align:left; font-size:12px !important;">TOTAL</td>
                                 <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($grand_total, 2, ',', '.')}}</td>
@@ -282,23 +284,23 @@ $gambar = $img."/".$setting->logo;
                                 <td class="" style="width:20%; text-align:center;"><b></b></td>
                                 <td class="" style="width:25%;"></td>
                                 @if($data->from == "ROOMS")
-                                <td class="" style="width:5%; text-align:center;"></td>
-                                <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
                                 @elseif($data->from == "PRODUCTS")
-                                <td class="" style="width:10%; text-align:center;"></td>
+                                    <td class="" style="width:10%; text-align:center;"></td>
                                 @endif
                                 <td class="td-purchase" style="width:20%; text-align:left; font-size:12px !important;">CONVENIENCE FEE</td>
-                                <td class="td-purchase" style="width:20%; text-align:right;">{{$data->rsvp_convenience_fee}}</td></td>
+                                <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($tax_total, 2, ',', '.')}}</td></td>
                             </tr>
                             <tr>
                                 <td class="" style="width:5%; height:4%; text-align:center;"></td>
                                 <td class="" style="width:20%; text-align:center;"><b></b></td>
                                 <td class="" style="width:25%;"></td>
                                 @if($data->from == "ROOMS")
-                                <td class="" style="width:5%; text-align:center;"></td>
-                                <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
+                                    <td class="" style="width:5%; text-align:center;"></td>
                                 @elseif($data->from == "PRODUCTS")
-                                <td class="" style="width:10%; text-align:center;"></td>
+                                    <td class="" style="width:10%; text-align:center;"></td>
                                 @endif
                                 <td class="td-purchase" style="width:20%; text-align:left; font-size:12px !important;">PAYMENT AMOUNT</td>
                                 <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($data->rsvp_grand_total, 2, ',', '.')}}</td>
@@ -306,12 +308,14 @@ $gambar = $img."/".$setting->logo;
                         </table>
                     </div>
                     <br>
-                    <div class="row"> {{-- Paid Confirmation --}}
+                    {{-- Paid Confirmation --}}
+                    {{-- <div class="row">
                         <img src="{{asset('/images/dashboard/paid.png')}}" width="185" style="margin-left: 50px;">
-                    </div>
+                    </div> --}}
                     {{-- BOOKING DETAILS - FOOTER --}}
-                    <hr style="margin-top: 50px;">
-                    <div class="row">
+                    {{-- <hr style="margin-top: 50px;"> --}}
+                    <div class="row" style="position: absolute; bottom:45px;">
+                        <hr>
                         <table class="font-voucher fs-11 horison-dark;">
                             <tr>
                                 <td style="width:345px; vertical-align:top; text-align: center;"><b><i>Customer Services Email</i></b></td>

@@ -200,8 +200,8 @@ $gambar = $img."/".$setting->logo;
                     {{-- <hr style="margin-top: 5px;"> --}}
 
                     {{-- BOOKING DETAILS - FOOTER --}}
-                    <hr>
-                    <div class="row" style="margin-top: 10px;">
+                    <div class="row" style="position: absolute; bottom:45px;">
+                        <hr>
                         <table class="font-voucher fs-11 horison-dark;">
                             <tr>
                                 <td style="width:345px; vertical-align:top; text-align: center;"><b><i>Customer Services Email</i></b></td>
