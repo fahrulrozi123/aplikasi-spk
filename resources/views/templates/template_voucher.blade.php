@@ -85,7 +85,7 @@ $gambar = $img."/".$setting->logo;
                     <div class="row">
                         <table width="100%" class="font-voucher fs-14 horison-dark">
                             <tr>
-                                <td style="width:30%; height:4%; vertical-align:top;"><b>Booking ID:</b></td>
+                                <td style="width:30%; height:4%; vertical-align:top;"><b>Reservation Number:</b></td>
                             <td style="width:35%; vertical-align:top;">{{$data->reservation_id}}</td>
                                 <td style="width:18%; vertical-align:top;"><b>Address:</b></td>
                                 <td rowspan="2"style="width:60%; vertical-align:top;">{{ $setting->address }}</td>

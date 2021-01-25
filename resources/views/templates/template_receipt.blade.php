@@ -123,13 +123,13 @@ $gambar = $img."/".$setting->logo;
                     <div class="row">
                         <table width="100%" style="table-layout:fixed; " class="font-voucher fs-13 horison-dark">
                             <tr>
-                                <td colspan="2" style="width:50%; height: 3%; vertical-align:top;"><b>CUSTOMER DETAILS</b></td>
-                                <td colspan="2" style="width:50%; vertical-align:top;"><b>PAYMENT DETAILS</b></td>
+                                <td colspan="2" style="width:40%; height: 3%; vertical-align:top;"><b>CUSTOMER DETAILS</b></td>
+                                <td colspan="2" style="width:55%; vertical-align:top;"><b>PAYMENT DETAILS</b></td>
                             </tr>
                             <tr>
                                 <td style="vertical-align:top;">Name</td>
                                 <td style="vertical-align:top;">: {{$data->rsvp_cust_name}}</td>
-                                <td style="vertical-align:top;">PAYMENT DATE</td>
+                                <td style="vertical-align:top;">Payment Date</td>
                                 <td class="indent-reserve" style="vertical-align:top;">: {{$data->payment->transaction_time}}</td>
                             </tr>
                             <tr>
@@ -139,13 +139,13 @@ $gambar = $img."/".$setting->logo;
                                 @elseif($data->from == "PRODUCTS")
                                     <td style="vertical-align:top;">: {{$data['customer']->cust_email}}</td>
                                 @endif
-                                <td style="vertical-align:top;">PAYMENT METHOD</td>
+                                <td style="vertical-align:top;">Payment Method</td>
                                 <td class="indent-reserve" style="vertical-align:top;">: {{$data->payment->payment_type}}</td>
                             </tr>
                             <tr>
                                 <td style="vertical-align:top;">Contact Number</td>
                                 <td style="vertical-align:top;">: {{$data->rsvp_cust_phone}}</td>
-                                <td style="vertical-align:top;">BOOKING ID</td>
+                                <td style="vertical-align:top;">Reservation Number</td>
                                 <td class="indent-reserve" style="vertical-align:top;">: {{$data->reservation_id}}</td>
                             </tr>
                         </table>

@@ -249,8 +249,7 @@ $gambar = $img."/".$setting->logo;
 													style="font-size: 12px; line-height: 1.2; color: #333333; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
 													<p
 														style="line-height: 1.2; word-break: break-word; text-align: left; font-size: 20px; mso-line-height-alt: 24px; margin: 0;">
-														<span style="font-size: 20px;"><strong><span style="">Booking
-																	ID</span></strong></span></p>
+														<span style="font-size: 20px;"><strong><span style="">Reservation Number</span></strong></span></p>
 												</div>
 											</div>
 											<div

@@ -40,7 +40,7 @@ class ReservationEmail extends Mailable
             ->with('data', $this->data);
         }else if($this->data->from == "ROOMS" || $this->data->from == "PRODUCTS"){
             return $this->from('noreply@tripasysfo.com', 'Horison Ultima Bandung')
-            ->subject('Horison Reservation for Booking ID '.$this->data->reservation_id)
+            ->subject('Horison Reservation Number '.$this->data->reservation_id)
             ->view('templates/template_email')
             ->with('data', $this->data)
             ->with('setting', $this->setting)

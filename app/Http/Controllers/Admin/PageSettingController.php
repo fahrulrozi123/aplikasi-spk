@@ -45,7 +45,7 @@ class PageSettingController extends Controller
         ],[
             'page_name.required'        => 'Page Name field is required.',
             'page_description.required' => 'Page Description field is required.',
-            'oldImg.required'           => 'At least one photo.'
+            'oldImg.required'           => 'Upload at least 1 photo to be shown.'
         ]);
 
         $id = $request['id'];
