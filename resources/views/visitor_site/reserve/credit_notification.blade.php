@@ -291,16 +291,30 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                     <p>
-                                        <a href="{{ $setting->so_instagram }}" class="fa fa-instagram visitor-footer-icon" target="_blank"></a>
+                                        @if($setting->so_instagram !== NULL)
+                                            <a href="{{ $setting->so_instagram }}" class="fa fa-instagram visitor-footer-icon" target="_blank"></a>
+                                        @else
+                                            <a class="fa fa-instagram visitor-footer-icon" target="_blank"></a>
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                     <p>
-                                        <a href="{{ $setting->so_facebook }}" class="fa fa-facebook visitor-footer-icon" target="_blank"></a>
+                                        @if($setting->so_facebook !== NULL)
+                                            <a href="{{ $setting->so_facebook }}" class="fa fa-facebook visitor-footer-icon" target="_blank"></a>
+                                        @else
+                                            <a class="fa fa-facebook visitor-footer-icon" target="_blank"></a>
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <p><a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon" target="_blank"></a></p>
+                                    <p>
+                                        @if($setting->so_twitter !== NULL)
+                                            <a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon"></a>
+                                        @else
+                                            <a class="fa fa-twitter visitor-footer-icon"></a>
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>

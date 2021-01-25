@@ -42,6 +42,7 @@
                                     value="{{ old('full_name') }}" placeholder="Please Type Your Full Name" required><br>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="email" style="font-size:12px">Email</label>
@@ -580,6 +581,7 @@
         </div>
     </div>
 </div>
+
 <script>
  $(document).ready(function() {
     const event_type = '{{ old('event_type') }}';
