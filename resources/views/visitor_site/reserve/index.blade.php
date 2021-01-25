@@ -1453,7 +1453,10 @@
             }
 
             $('#reserve_data').val(JSON.stringify(value));
+            $('#reserve').attr('target', '_blank');
             $('#reserve').submit();
+
+            window.location.href = '/';
         }
 
     </script>

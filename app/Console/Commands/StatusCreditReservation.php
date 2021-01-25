@@ -103,7 +103,7 @@ class StatusCreditReservation extends Command
             if ($res_arr['TXN_STATUS'] == 'S') {
                 $status_payment = 'settlement';
             } else {
-                $status_payment = 'Fail';
+                $status_payment = 'Failed';
             }
 
             Payment::where('booking_id', $tranid)->update([

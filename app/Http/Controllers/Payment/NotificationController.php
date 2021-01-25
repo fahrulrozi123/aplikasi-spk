@@ -57,35 +57,23 @@ class NotificationController extends Controller
 
     public function payment_check_credit()
     {
-        // FAIL
-        // $signaturecc=sha1('##'.strtoupper('faspay_trial_1').'##'.strtoupper('UnTKu').'##'.'61c3f5137bd18a79'.'##'.'1100000.00'.'##'.'0'.'##');
+        $merchant_id = config('faspay.merchantIdCredit');
+        $password    = config('faspay.merchantPasswordCredit');
+        $tranid      = '28590ab28b3e4119';
+        $amount      = '200000.00';
 
-        // $post = array(
-        //     "TRANSACTIONTYPE"      => '4',
-        //     "RESPONSE_TYPE"        => '3',
-        //     "MERCHANTID"           => 'faspay_trial_1',
-        //     "PAYMENT_METHOD"       => '1',
-        //     "MERCHANT_TRANID"      => '61c3f5137bd18a79',
-        //     // "TRANSACTIONID"        => '53CBA232-D828-4676-9243-C3493B603CE0',
-        //     "AMOUNT"               => '1100000.00',
-        //     "SIGNATURE"            => $signaturecc
-        // );
-        // dd($signaturecc);
-        // dd($post);
-
-        // SUCCESS
-        $signaturecc=sha1('##'.strtoupper('faspay_trial_1').'##'.strtoupper('UnTKu').'##'.'7250a47b9d255b26'.'##'.'200000.00'.'##'.'0'.'##');
+        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
 
         // dd($signaturecc);
 
         $post = array(
             "TRANSACTIONTYPE"      => '4',
             "RESPONSE_TYPE"        => '3',
-            "MERCHANTID"           => 'faspay_trial_1',
+            "MERCHANTID"           => $merchant_id,
             "PAYMENT_METHOD"       => '1',
-            "MERCHANT_TRANID"      => '7250a47b9d255b26',
+            "MERCHANT_TRANID"      => $tranid,
             // "TRANSACTIONID"        => '53CBA232-D828-4676-9243-C3493B603CE0',
-            "AMOUNT"               => '200000.00',
+            "AMOUNT"               => $amount,
             "SIGNATURE"            => $signaturecc
         );
 
@@ -107,7 +95,6 @@ class NotificationController extends Controller
         // curl_close($ch);
 
         $result  = curl_exec($ch);
-        // print_r($result);
         curl_close($ch);
         $arr1    = explode(';',$result);
         $res_arr = array();
