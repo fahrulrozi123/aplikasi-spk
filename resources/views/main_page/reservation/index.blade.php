@@ -960,6 +960,7 @@
             if (data.rsvp_status == "Payment received" && new Date(checkin).getTime() == new Date(today).getTime()) {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
                 $('#cancellation_fee').text(formatRupiah(data.cancellation_fee));
@@ -981,6 +982,7 @@
             else if (data.rsvp_status == "Payment received" && new Date(checkin).getTime() == new Date(one_day_add).getTime()) {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
                 $('#cancellation_fee').text(formatRupiah(data.cancellation_fee * 50 / 100));
@@ -1002,6 +1004,7 @@
             else if (data.rsvp_status == "Payment received" && new Date(checkin).getTime() == new Date(two_day_add).getTime()) {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
                 $('#cancellation_fee').text(formatRupiah(data.cancellation_fee * 30 / 100));
@@ -1023,6 +1026,7 @@
             else if (data.rsvp_status == "Payment received" && new Date(checkin).getTime() == new Date(three_day_add).getTime()) {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
                 $('#cancellation_fee').text(formatRupiah(data.cancellation_fee * 30 / 100));
@@ -1044,6 +1048,7 @@
             else if (data.rsvp_status == "Payment received" && new Date(checkin).getTime() > new Date(three_day_add).getTime()) {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
                 $('#cancellation_fee').text(formatRupiah('0'));
@@ -1068,6 +1073,7 @@
             else {
                 $('#room_cancel_reschedule_btn').fadeIn();
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Room");
                 $('#modal_reservation_from').val("ROOMS");
@@ -1234,6 +1240,7 @@
             var date_reserve = moment(date_reserve).format('DD MMMM YYYY');
             if (data.rsvp_status == "Payment received" && new Date(date_reserve) >= new Date(today)) {
                 $('#modal_reservation_id').val(data.reservation_id);
+                $('#modal_booking_id').val(data.booking_id);
                 $('#modal_reservation_type').val("Product");
                 $('#modal_reservation_from').val("PRODUCTS");
                 $('#product_cancel_reschedule_btn').fadeIn();
