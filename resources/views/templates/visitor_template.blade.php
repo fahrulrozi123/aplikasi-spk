@@ -208,7 +208,7 @@
                         </div>
 
                         <div class="row" align="center" style="margin-left:30px; margin-right:30px;">
-                            <input type="button" onclick="submit('product_reserve');"
+                            <input id="validate_click" type="button" onclick="submit('product_reserve');"
                                 class="btn btn-block btn-lg btn-horison-visitor" value="Reserve Package"
                                 style="font-weight:bold;" />
                         </div>
@@ -373,7 +373,7 @@
                             </div>
                         </div><br><br>
                         <div class="row" align="center" style="margin-left:30px; margin-right:30px;">
-                            <input type="button" onclick="submit('product_reserve_mobile');"
+                            <input id="validate_click_mobile" type="button" onclick="submit('product_reserve_mobile');"
                                 class="btn btn-block btn-lg btn-horison-visitor" value="Reserve Package"
                                 style="font-weight:bold;" />
                         </div>
@@ -735,6 +735,9 @@
         }
 
         function submit(form) {
+            $('#validate_click').css("pointer-events", "none");
+            $('#validate_click_mobile').css("pointer-events", "none");
+
             var cek = true;
 
             if (form == 'room_reserve' || form == "room_reserve_mobile") {

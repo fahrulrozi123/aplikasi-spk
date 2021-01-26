@@ -310,7 +310,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                        <a href="javascript:;" onclick="reserve({{$no}}, 1);"
+                        <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 1);"
                             class="btn btn-horison btn-lg ipad-book"><b>BOOK NOW</b></a>
                     </div>
                 </div>
@@ -358,7 +358,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2 col-md-offset-3 col-xs-4 col-xs-offset-6">
-                                <a href="javascript:;" onclick="reserve({{$no}}, 0);"
+                                <a id="validate_click" href="javascript:;" onclick="reserve({{$no}}, 0);"
                                     class="btn btn-horison btn-lg ipad-book {{$class}}"><b>BOOK NOW</b></a>
                             </div>
                         </div>
@@ -628,9 +628,9 @@
 
     }
 
-
-
     function reserve(index, type) {
+        $('#validate_click').css("pointer-events", "none");
+
         if ({{$childTotal}} > 0) {
             var child_list = $('#child_list').val();
             child_list = child_list.replace("\"", "").replace("\"", "");
