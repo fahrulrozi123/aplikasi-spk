@@ -2,9 +2,9 @@
 <html>
 <body>
 
-<h2>Check Payment</h2>
+<h2>Check Payment Debit</h2>
 
-<form method="POST" action="{{ route('status.payment') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('status.payment.debit') }}" enctype="multipart/form-data">
     {{csrf_field()}}
 
     <label for="trx_id">trx_id:</label><br>

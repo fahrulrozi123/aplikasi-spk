@@ -246,7 +246,13 @@ class TestingController extends Controller
     {
         $setting = $this->setting();
 
-        // return view('visitor_site.reserve.credit_notification', get_defined_vars());
-        return view('layouts.payment_check', get_defined_vars());
+        return view('layouts.payment_check_debit', get_defined_vars());
+    }
+
+    public function checkPaymentCredit()
+    {
+        $setting = $this->setting();
+
+        return view('layouts.payment_check_credit', get_defined_vars());
     }
 }

@@ -20,10 +20,11 @@ Route::get('/test-payment-credit','Payment\TestingController@paymentNotification
 
 // check payment debit
 Route::get('/check-payment-debit','Payment\TestingController@checkPaymentDebit');
-Route::post('/status-payment-debit','Payment\NotificationController@payment_check')->name('status.payment');
+Route::post('/status-payment-debit','Payment\NotificationController@payment_check_debit')->name('status.payment.debit');
 
 // check payment credit
-Route::get('/check-payment-credit','Payment\NotificationController@payment_check_credit');
+Route::get('/check-payment-credit','Payment\TestingController@checkPaymentCredit');
+Route::post('/status-payment-credit','Payment\NotificationController@payment_check_credit')->name('status.payment.credit');
 
 // result one payment code
 Route::get('/one-list-payment','Payment\PaymentController@listPaymentChannel');

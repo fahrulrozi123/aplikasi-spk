@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
-    public function payment_check(Request $request)
+    public function payment_check_debit(Request $request)
     {
         $merchant_id	   = config('faspay.merchantId');
         $merchant_password = config('faspay.merchantPassword');
@@ -55,7 +55,7 @@ class NotificationController extends Controller
         return $response->getBody()->getContents();
     }
 
-    public function payment_check_credit()
+    public function payment_check_credit(Request $request)
     {
         $merchant_id = config('faspay.merchantIdCredit');
         $password    = config('faspay.merchantPasswordCredit');
