@@ -276,7 +276,7 @@ class NotificationController extends Controller
         if(config('faspay.endpoint') == true) {
             $endpoint = 'https://fpg.faspay.co.id/payment/api';
         } else if (config('faspay.endpoint') == false) {
-            $endpoint = 'https: //fpgdev.faspay.co.id/payment/api';
+            $endpoint = 'https://fpgdev.faspay.co.id/payment/api';
         }
 
         $url  = $endpoint;

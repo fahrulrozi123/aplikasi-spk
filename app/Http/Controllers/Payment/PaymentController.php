@@ -667,7 +667,7 @@ class PaymentController extends Controller
             // "SHIPPING_ADDRESS_STATE"		=> 'bekasi tengah',
             // "SHIPPING_ADDRESS_POSCODE"		=> 'bekasi tengah',
             // "SHIPPING_ADDRESS_COUNTRY_CODE" => 'bekasi tengah',
-            "PHONE_NO" 						=> $phone,
+            "PHONE_NO" 						=> '+'.$phone,
             "style_merchant_name"           => 'black',
             "style_order_summary"           => 'black',
             "style_order_no"                => 'black',
