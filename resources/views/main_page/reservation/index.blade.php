@@ -1213,7 +1213,7 @@
 
             }
 
-            if (data.reservation_id == "") {
+            if (data.reservation_id == "" || data.reservation_id == null) {
                 $('#online_rsvp_number').text("-");
             } else {
                 $('#online_rsvp_number').text(data.reservation_id);

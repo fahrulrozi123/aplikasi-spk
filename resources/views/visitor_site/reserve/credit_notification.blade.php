@@ -153,7 +153,7 @@
                                                                         <strong>Your Booking <b class="booking_id">{{ $rsvp->booking_id }}</b> has been canceled!</strong>
                                                                     </label>
                                                                     <ul>
-                                                                        <li><b>{{ $status_message }}</b></li>
+                                                                        <li>{{ $status_message }}</li>
                                                                     </ul>
                                                                 </div>
                                                                 @endif
