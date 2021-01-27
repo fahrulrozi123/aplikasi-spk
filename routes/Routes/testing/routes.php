@@ -27,4 +27,4 @@ Route::get('/check-payment-credit','Payment\TestingController@checkPaymentCredit
 Route::post('/status-payment-credit','Payment\NotificationController@payment_check_credit')->name('status.payment.credit');
 
 // result one payment code
-Route::get('/one-list-payment','Payment\PaymentController@listPaymentChannel');
+Route::get('/one-list-payment','Payment\PaymentController@onePaymentChannel');

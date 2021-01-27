@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
-    public function paymentChannelPayment()
+    public function paymentChannel()
     {
         $merchant          = config('faspay.merchant');
         $merchant_id	   = config('faspay.merchantId');
@@ -53,9 +53,9 @@ class PaymentController extends Controller
         return $response->getBody()->getContents();
     }
 
-    public function listPaymentChannel()
+    public function onePaymentChannel()
     {
-        $paymentChannels = $this->paymentChannelPayment();
+        $paymentChannels = $this->paymentChannel();
 
         // start one -list payment
         $listPaymentChannels = json_decode($paymentChannels, true);
@@ -193,7 +193,7 @@ class PaymentController extends Controller
         $merchant_user	     = 'bot'.$merchant_id;
 
         // search payment channel
-        $paymentChannels     = $this->paymentChannelPayment();
+        $paymentChannels     = $this->paymentChannel();
         $listPaymentChannels = json_decode($paymentChannels, true);
         $name_payment        = $payment_channel;
         $key                 = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
@@ -467,7 +467,7 @@ class PaymentController extends Controller
         $merchant_user	     = 'bot'.$merchant_id;
 
         // search payment channel
-        $paymentChannels     = $this->paymentChannelPayment();
+        $paymentChannels     = $this->paymentChannel();
         $listPaymentChannels = json_decode($paymentChannels, true);
         $name_payment        = $payment_channel;
         $key                 = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
@@ -698,72 +698,6 @@ class PaymentController extends Controller
 
         echo $string;
         exit;
-    }
-
-    public function xpress(Request $request)
-    {
-        $merchant_id	   = 33519;
-		$merchant_user	   = "bot".$merchant_id;
-
-		$merchant_name	   = "Test"; // akan di provide oleh faspay per merchant
-        $merchant_password = 'p@ssw0rd';
-        $bill_no	       = date('YmdGis');
-        $bill_total        = 300000;
-
-        $signature	       = $this->generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total);
-        // die(var_dump($signature, $bill_total));
-
-        $products = array(
-            array(
-                'product'   => 'Bunga',
-                'qty'       => 1,
-                'amount'    => 450000
-            ),
-            array(
-                'product'   => 'Coklat',
-                'qty'       => 2,
-                'amount'    => 500000
-            )
-        );
-
-        $client = new Client();
-
-        $response =  $client->request('GET', 'https://dev.faspay.co.id/xpress/payment', [
-            "merchant_id"				=> $merchant_id,
-			"merchant_name"				=> $merchant_name,
-			"order_id" 			    	=> $bill_no,
-			"order_reff"				=> $bill_no,
-			"bill_date"					=> date("Y-m-d H:i:s"),
-			"bill_expired"				=> date("Y-m-d H:i:s", strtotime("+1 day")),
-			"bill_gross"				=> $bill_total,
-			"bill_miscfee"				=> '0',
-			"bill_total"				=> $bill_total,
-			"bill_desc"					=> 'Pembelian barang',
-			"custNo"					=> '01',
-			"display_cust"				=> 'true',
-			"custName"					=> 'Test',
-			"custPhone"					=> '08561020121',
-			"custEmail"					=> 'customertest@faspay.co.id',
-			"billingAddress" 			=> 'Jl. Pintu Air Raya No 2A',
-			"billingState"				=> 'Indonesia',
-			"billingCity"				=> 'Jakarta Pusat',
-			"billingRegion"				=> 'DKI Jakarta',
-			"billingPostcode"			=> '10710',
-			"billingCountryCode"		=> 'ID',
-			"receiver_name"				=> 'Saya',
-			"shippingAddress"			=> 'Jl. Pintu Air Raya No 2A',
-			"shippingState"				=> 'Indonesia',
-			"shippingCity"				=> 'Jakarta Pusat',
-			"shippingRegion"			=> 'DKI JAKARTA',
-			"shippingPostCode"			=> '10710',
-			"products"					=> $products,
-			"return_url"            => 'https://google.com',
-
-			"term_condition"			=> 1,
-			"signature"					=> $signature,
-        ]);
-
-        return $response->getBody()->getContents();
     }
 
     // uses regex that accepts any word character or hyphen in last name
