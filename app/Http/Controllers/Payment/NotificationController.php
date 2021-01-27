@@ -233,29 +233,23 @@ class NotificationController extends Controller
 
     public function credit_notification(Request $request)
     {
-        // dd($request->all());
-        $transaction_id      = $request['TRANSACTIONID'] ?: null;
-        $merchant_id         = $request['MERCHANTID'] ?: null;
-        $booking_id          = $request['MERCHANT_TRANID'] ?: null;
-        $status_payment      = $request['TXN_STATUS'] ?: null;
-        $payment_date        = $request['TRANDATE'] ?: null;
-        $fraud_status        = $request['FRAUD_STATUS'] ?: null;
-        $status_message      = $request['USR_MSG'] ?: null;
-        $payment_total       = $request['AMOUNT'] ?: null;
-        $signature           = $request['SIGNATURE'] ?: null;
+        $merchant_id       = config('faspay.merchantIdCredit');
+        $merchant_password = config('faspay.merchantPasswordCredit');
 
-        // validate signature
-        $merchant_id         = config('faspay.merchantIdCredit');
-        $merchant_password   = config('faspay.merchantPasswordCredit');
-        $merchant_tranid     = $request['MERCHANT_TRANID'] ?: null;
-        $amount              = $request['AMOUNT'] ?: null;
+        // from faspay
+        $booking_id        = $request['MERCHANT_TRANID'] ?: null;
+        $fraud_status      = $request['FRAUD_STATUS'] ?: null;
+        $merchant_tranid   = $request['MERCHANT_TRANID'] ?: null;
+        $amount            = $request['AMOUNT'] ?: null;
+        $status_payment    = $request['TXN_STATUS'] ?: null;
+        $status_message    = $request['USR_MSG'] ?: null;
+        $signature         = $request['SIGNATURE'] ?: null;
 
-        // validate signature sales
+        //validate signature sales
         $valid_signature_key = $this->generateSignatureCredit($merchant_id,$merchant_password,$merchant_tranid,$amount,$status_payment);
 
         if ($signature !== $valid_signature_key) {
-            return response()->json(["status" => 401, "message" => "Something went wrong"]);
-            return redirect()->route('index')->with('warning', 'Something went wrong');
+            return redirect()->route('index');
         }
 
         // cek status payment success or cancel
@@ -265,16 +259,67 @@ class NotificationController extends Controller
             $transaction_status = 'Failed';
         }
 
+        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($merchant_password).'##'.$merchant_tranid.'##'.$amount.'##'.'0'.'##');
+
+        $post = array(
+            "TRANSACTIONTYPE" => '4',
+            "RESPONSE_TYPE"   => '3',
+            "MERCHANTID"      => $merchant_id,
+            "PAYMENT_METHOD"  => '1',
+            "MERCHANT_TRANID" => $merchant_tranid,
+            "AMOUNT"          => $amount,
+            "SIGNATURE"       => $signaturecc
+        );
+
+        $post   = http_build_query($post);
+
+        if(config('faspay.endpoint') == true) {
+            $endpoint = 'https://fpg.faspay.co.id/payment/api';
+        } else if (config('faspay.endpoint') == false) {
+            $endpoint = 'https: //fpgdev.faspay.co.id/payment/api';
+        }
+
+        $url  = $endpoint;
+        $ch   = curl_init();
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $result  = curl_exec($ch);
+        curl_close($ch);
+        $arr1    = explode(';',$result);
+        $res_arr = array();
+
+        foreach($arr1 as $val)
+        {
+            $arr2=explode('=',$val);
+            $res_arr[$arr2[0]]=$arr2[1];
+        }
+
+        // result inquiry status
+        $TRANSACTIONID   = $res_arr['TRANSACTIONID'] ?: null;
+        $MERCHANTID      = $res_arr['MERCHANTID'] ?: null;
+        $MERCHANT_TRANID = $res_arr['MERCHANT_TRANID'] ?: null;
+        $TRANDATE        = $res_arr['TRANDATE'] ?: null;
+        $payment_total   = $res_arr['AMOUNT'] ?: null;
+        $signature       = $res_arr['SIGNATURE'] ?: null;
+
         $data =
-            [
-            'transaction_id'     => $transaction_id,
-            'merchant_id'        => $merchant_id,
-            'booking_id'         => $booking_id,
+        [
+            'transaction_id'     => $TRANSACTIONID,
+            'merchant_id'        => $MERCHANTID,
+            'booking_id'         => $MERCHANT_TRANID,
             'transaction_status' => $transaction_status,
-            'settlement_time'    => $payment_date,
+            'settlement_time'    => $TRANDATE,
             'status_message'     => $status_message,
             'gross_amount'       => $payment_total,
-            'signature_key'      => $signature,
+            'signature_key_updated'      => $signature,
         ];
 
         if (Payment::where('booking_id', $booking_id)->exists()) {
@@ -287,9 +332,10 @@ class NotificationController extends Controller
         $data_payment        = Payment::where('booking_id', $booking_id)->first();
         $valid_signature_key = $data_payment->signature_key;
         $from                = $data_payment->from_table;
+        $status_message      = $data_payment->status_message;
 
         // cek status payment success or cancel
-        if ($status_payment == "S") {
+        if ($status_payment == "S" || $status_payment == "C") {
             if ($from == "ROOMS") {
 
                 // generated rsvp_id room

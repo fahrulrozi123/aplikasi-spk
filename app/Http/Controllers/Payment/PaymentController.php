@@ -623,7 +623,6 @@ class PaymentController extends Controller
         }
 
         Payment::create([
-            // 'transaction_id'     => $data['trx_id'],
             'booking_id'         => $booking_id,
             'merchant_id'        => $merchant_id,
             'from_table'         => $from,
@@ -631,12 +630,7 @@ class PaymentController extends Controller
             'currency'           => 'IDR',
             'transaction_status' => 'pending',
             'transaction_time'   => $bill_date,
-            // 'settlement_time'    => $bill_expired,
-            'fraud_status'       => 'Sukses',
             'payment_type'       => 'Credit Card',
-            // 'approval_code'      => $approval_code,
-            // 'status_code'        => '00',
-            'status_message'     => 'Transmisi Info Detil Pembelian',
             'signature_key'      => $signaturecc,
         ]);
 

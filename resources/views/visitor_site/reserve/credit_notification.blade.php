@@ -115,7 +115,7 @@
                     </ul>
                     {{-- END HEADER --}}
 
-                    @if($status_payment == "S")
+                    @if($status_payment == "S" || $status_payment == "C")
                         <div class="container" style="margin-top: 30px; margin-bottom: 30px;">
                     @else
                         <div class="container" style="margin-top: 55px; margin-bottom: 55px;">
@@ -134,7 +134,7 @@
                                                         <h4></h4>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                @if($status_payment == "S")
+                                                                @if($status_payment == "S" || $status_payment == "C")
                                                                 <div class="form-group">
                                                                     <label for="">
                                                                         <strong>Your Reservation <b class="booking_id">{{ $status->reservation_id }}</b> has been placed!</strong>
@@ -152,6 +152,9 @@
                                                                     <label for="">
                                                                         <strong>Your Booking <b class="booking_id">{{ $rsvp->booking_id }}</b> has been canceled!</strong>
                                                                     </label>
+                                                                    <ul>
+                                                                        <li><b>{{ $status_message }}</b></li>
+                                                                    </ul>
                                                                 </div>
                                                                 @endif
                                                             </div>
@@ -208,7 +211,7 @@
                                     </div>
                                 </div>
 
-                                @if($status_payment == "S")
+                                @if($status_payment == "S" || $status_payment == "C")
                                     <div class="col-md-4">
                                         {{-- bills dikanan --}}
                                         <div class="gallery-env">
