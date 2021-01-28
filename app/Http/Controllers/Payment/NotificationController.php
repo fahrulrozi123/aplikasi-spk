@@ -319,7 +319,7 @@ class NotificationController extends Controller
             'settlement_time'    => $TRANDATE,
             'status_message'     => $status_message,
             'gross_amount'       => $payment_total,
-            'signature_key_updated'      => $signature,
+            'signature_key'      => $signature,
         ];
 
         if (Payment::where('booking_id', $booking_id)->exists()) {

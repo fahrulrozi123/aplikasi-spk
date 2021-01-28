@@ -634,6 +634,12 @@ class PaymentController extends Controller
             'signature_key'      => $signaturecc,
         ]);
 
+        // assets url and image
+        $url_credit    = route('credit.notification');
+        $setting       = $this->setting();
+        $img           = asset('images/logo/');
+        $assets_credit = $img."/".$setting->logo;
+
         if(config('faspay.endpoint') == true) {
             $endpoint = 'https://fpg.faspay.co.id/payment/api';
         } else if (config('faspay.endpoint') == false) {
@@ -653,7 +659,7 @@ class PaymentController extends Controller
             "CUSTNAME"                      => $name,
             "CUSTEMAIL"		                => $email,
             "DESCRIPTION"                   => $order_desc,
-            "RETURN_URL"                    => 'http://horisonultimabandung.tripasysfo.com/credit-notification',
+            "RETURN_URL"                    => $url_credit,
             "SIGNATURE" 	                => $signaturecc,
             // "BILLING_ADDRESS"				=> 'bekasi',
             // "BILLING_ADDRESS_CITY"			=> 'bekasi',
@@ -677,7 +683,7 @@ class PaymentController extends Controller
             "style_button_cancel"           => 'grey',
             "style_font_cancel"             => 'red',
             //harus url yg lgsg ke gambar
-            "style_image_url"               => 'http://horisonultimabandung.tripasysfo.com/images/logo/logo.png',
+            "style_image_url"               => $assets_credit,
             );
 
             // $string = '<form method="post" name="form" action="https://fpgdev.faspay.co.id/payment">';  // yang diubah URLnya ke prod apa dev
