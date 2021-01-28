@@ -94,6 +94,9 @@ class StatusReservation extends Command
             if ($data['payment_status_desc'] == 'Belum diproses') {
                 $status_payment = 'pending';
                 $status_rsvp    = 'Waiting for payment';
+            } elseif ($data['payment_status_desc'] == 'Payment Sukses'){
+                $status_payment = 'settlement';
+                $status_rsvp    = 'Payment received';
             } else {
                 $status_payment = $data['payment_status_desc'];
                 $status_rsvp    = $data['payment_status_desc'];
