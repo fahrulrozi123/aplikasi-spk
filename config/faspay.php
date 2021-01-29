@@ -8,7 +8,7 @@ if (env('FASPAY_IS_PRODUCTION') == true) {
         'merchantId'             => env('FASPAY_MERCHANT_ID'),
         'merchantPassword'       => env('FASPAY_MERCHANT_PASSWORD'),
         'merchantIdCredit'       => env('FASPAY_MERCHANT_ID_CREDIT'),
-        'merchantPasswordCredit' => env('FASPAY_PASSWORD_CREDIT')
+        'merchantPasswordCredit' => env('FASPAY_MERCHANT_PASSWORD_CREDIT')
     ];
 
 } else {
@@ -19,7 +19,7 @@ if (env('FASPAY_IS_PRODUCTION') == true) {
         'merchantId'             => env('FASPAY_MERCHANT_ID_DEV'),
         'merchantPassword'       => env('FASPAY_MERCHANT_PASSWORD_DEV'),
         'merchantIdCredit'       => env('FASPAY_MERCHANT_ID_CREDIT_DEV'),
-        'merchantPasswordCredit' => env('FASPAY_PASSWORD_CREDIT_DEV')
+        'merchantPasswordCredit' => env('FASPAY_MERCHANT_PASSWORD_CREDIT_DEV')
     ];
 
 }
