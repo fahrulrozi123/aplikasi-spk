@@ -59,8 +59,8 @@ class NotificationController extends Controller
     {
         $merchant_id = config('faspay.merchantIdCredit');
         $password    = config('faspay.merchantPasswordCredit');
-        $tranid      = '28590ab28b3e4119';
-        $amount      = '200000.00';
+        $tranid      = $request['tranid'];
+        $amount      = $request['amount'];
 
         $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
 
