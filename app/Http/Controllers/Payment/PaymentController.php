@@ -641,7 +641,7 @@ class PaymentController extends Controller
         $assets_credit = $img."/".$setting->logo;
 
         if(config('faspay.endpoint') == true) {
-            $endpoint = 'https://fpg.faspay.co.id/payment/api';
+            $endpoint = 'https://fpg.faspay.co.id/payment';
         } else if (config('faspay.endpoint') == false) {
             $endpoint = 'https://fpgdev.faspay.co.id/payment';
         }
