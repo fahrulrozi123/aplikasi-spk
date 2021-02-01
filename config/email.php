@@ -3,15 +3,15 @@
 if (env('FASPAY_IS_PRODUCTION') == true) {
 
     return [
-        'emailAddress' => env('MAIL_FROM'),
-        'emailSubject' => env('MAIL_SUBJECT')
+        'emailAddress' => env('MAIL_FROM_ADDRESS'),
+        'emailSubject' => env('MAIL_FROM_NAME')
     ];
 
 } else {
 
     return [
-        'emailAddress' => env('MAIL_FROM_DEV'),
-        'emailSubject' => env('MAIL_SUBJECT_DEV')
+        'emailAddress' => env('MAIL_FROM_ADDRESS_DEV'),
+        'emailSubject' => env('MAIL_FROM_NAME_DEV')
     ];
 
 }
