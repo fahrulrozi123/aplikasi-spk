@@ -171,11 +171,21 @@ class NotificationController extends Controller
 
             $getRoom = Type::where('id', $rsvp->room_id)->first();
 
-            $rsvpId = rand($min = 1, $max = 99999);
-            $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
-            while ($reservationId == false) {
+            // check room reservation_id empty or not
+            $checkRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+            $valueCheckRsvpId = $checkRsvpId->reservation_id;
+
+            if ($valueCheckRsvpId == "" || $valueCheckRsvpId == NULL) {
                 $rsvpId = rand($min = 1, $max = 99999);
                 $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+
+                while ($reservationId == false) {
+                    $rsvpId = rand($min = 1, $max = 99999);
+                    $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+                }
+            } else {
+                $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $reservationId = $dataRsvpId->reservation_id;
             }
 
             RoomRsvp::where('booking_id', $booking_id)->update([
@@ -195,13 +205,21 @@ class NotificationController extends Controller
 
             $productData = Product::where('id', $productsId)->first();
 
-            // generated rsvp_id products
-            $rsvp_id = rand($min = 1, $max = 99999);
-            $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+            // check product reservation_id empty or not
+            $checkRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+            $valueCheckRsvpId = $checkRsvpId->reservation_id;
 
-            while ($reservation_id == false) {
+            if ($valueCheckRsvpId == "" || $valueCheckRsvpId == NULL) {
                 $rsvp_id = rand($min = 1, $max = 99999);
                 $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+                while ($reservation_id == false) {
+                    $rsvp_id = rand($min = 1, $max = 99999);
+                    $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+                }
+            } else {
+                $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $reservation_id = $dataRsvpId->reservation_id;
             }
 
             ProductRsvp::where('booking_id', $booking_id)->update([
