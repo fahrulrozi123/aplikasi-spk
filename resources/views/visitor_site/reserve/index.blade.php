@@ -461,7 +461,7 @@
                                                                                     <select id="payment-channel" name="payment-channel" class="form-control visitor-input">
                                                                                         @php
                                                                                             foreach ($listPaymentChannels as $listPaymentChannel => $item) {
-                                                                                                if ($item['pg_code'] == 405) {
+                                                                                                if ($item['pg_code'] == 807) {
                                                                                                     unset($listPaymentChannels[$listPaymentChannel]);
                                                                                                 }
                                                                                             }
