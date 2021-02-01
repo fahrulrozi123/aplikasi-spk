@@ -33,8 +33,11 @@ class CustomerEmail extends Mailable
     */
     public function build()
     {
+        $address = config('email.emailAddress');
+        $subject = config('email.emailSubject');
+
         if($this->data->from == "INQUIRY"){
-            return $this->from('noreply@tripasysfo.com', 'Horison Ultima Bandung')
+            return $this->from($address, $subject)
             ->subject($this->data->subject)
             ->view('templates/template_email_customer')
             ->with('data', $this->data)

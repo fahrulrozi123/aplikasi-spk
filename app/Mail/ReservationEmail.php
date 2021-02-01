@@ -33,13 +33,16 @@ class ReservationEmail extends Mailable
      */
     public function build()
     {
+        $address = config('email.emailAddress');
+        $subject = config('email.emailSubject');
+
         if($this->data->from == "INQUIRY" || $this->data->from == "RSVP MARKETING"){
-            return $this->from('noreply@tripasysfo.com', 'Horison Ultima Bandung')
+            return $this->from($address, $subject)
             ->subject($this->data->subject)
             ->view('templates/template_email_marketing')
             ->with('data', $this->data);
         }else if($this->data->from == "ROOMS" || $this->data->from == "PRODUCTS"){
-            return $this->from('noreply@tripasysfo.com', 'Horison Ultima Bandung')
+            return $this->from($address, $subject)
             ->subject('Horison Reservation Number '.$this->data->reservation_id)
             ->view('templates/template_email')
             ->with('data', $this->data)
