@@ -184,7 +184,12 @@
                                                         </div>
                                                     </section>
                                                 </article>
-                                                <div class="panel-footer footer-payment" style="padding: 14px;">
+
+                                                @if($status_payment == "S" || $status_payment == "C")
+                                                    <div class="panel-footer footer-payment" style="padding: 14px;">
+                                                @else
+                                                    <div class="panel-footer footer-payment" style="padding: 24px;">
+                                                @endif
                                                     <div class="form-group">
                                                         <div class="row">
                                                             @if($from == "ROOMS")
