@@ -457,7 +457,7 @@
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
-                                                                                    <label class="control-label" for="payment-channel" style="font-size:12px; font-weight:bold;">Choose Bank</label>
+                                                                                    <label class="control-label" for="payment-channel" style="font-size:13px; font-weight:bold;">Choose Bank</label>
                                                                                     <select id="payment-channel" name="payment-channel" class="form-control visitor-input">
                                                                                         @php
                                                                                             foreach ($listPaymentChannels as $listPaymentChannel => $item) {
@@ -478,23 +478,17 @@
                                                                         <div class="row">
                                                                             <div class="col-md-12">
                                                                                 <ul class="form-group">
-                                                                                    <li>Confirm OTP to
-                                                                                        make Payment</li>
-                                                                                    <li>Complete
-                                                                                        payment within 20 minutes</li>
+                                                                                    <li>See your payment instruction in the next page after you’ve confirmed your payment method.</li>
+                                                                                    <li>You can’t change your payment method after you’ve confirmed this process.</li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="row pdrl-20">
-                                                                            <div class="col-md-12">
-                                                                                <p style="text-align:left;">By proceeding, I agree to Horison Terms of Use and Privacy Policy</p>
-                                                                            </div>
-
                                                                             <div class="col-md-12" align="right">
                                                                                 <ul class="pager wizard">
                                                                                     <li class="" style="float:right;">
-                                                                                        <a id="btn-transfer" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT BANK TRANSFER<i class="entypo-right-open"></i></a>
+                                                                                        <a id="btn-transfer" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPayment(this, 'customer')">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -502,18 +496,32 @@
                                                                     </div>
 
                                                                     <div class="tab-pane tab-horison-credit" id="credit">
-
                                                                         <div class="row">
-                                                                            <div class="col-md-12" align="left">
-                                                                                <ul class="pager wizard">
-                                                                                    <li class="" style="float:left;">
-                                                                                        <a id="btn-credit" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT CREDIT CARD<i class="entypo-right-open"></i></a>
-                                                                                    </li>
-                                                                                </ul>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label" for="payment-channel" style="font-size:13px; font-weight:bold;">Confirm your credit card payment</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <ul class="form-group">
+                                                                                        <li>You’ll be redirected and will be given 10 minutes to enter your credit card credential.</li>
+                                                                                        <li>You can’t change your payment method after you’ve confirmed this process.</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row pdrl-20">
+                                                                                <div class="col-md-12" align="right">
+                                                                                    <ul class="pager wizard">
+                                                                                        <li class="" style="float:right;">
+                                                                                            <a id="btn-credit" class="btn btn-horison-payment" href="javascript:;" onclick="confirmPaymentCredit();">CONFIRM PAYMENT<i class="entypo-right-open"></i></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-
-                                                                    </div>
                                                                 </div>
                                                             </form>
                                                         </div>

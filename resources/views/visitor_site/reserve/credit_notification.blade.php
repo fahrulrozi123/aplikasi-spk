@@ -211,69 +211,77 @@
                                     </div>
                                 </div>
 
-                                @if($status_payment == "S" || $status_payment == "C")
-                                    <div class="col-md-4">
-                                        {{-- bills dikanan --}}
-                                        <div class="gallery-env">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <article class="album" style="">
-                                                        <section class="album-info-inq shadow">
-                                                            <div class="row" style="margin-top:-30px;">
+                                <div class="col-md-4">
+                                    {{-- bills dikanan --}}
+                                    <div class="gallery-env">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <article class="album" style="">
+                                                    <section class="album-info-inq shadow">
+                                                        <div class="row" style="margin-top:-30px;">
+                                                            @if($status_payment == "S" || $status_payment == "C")
+                                                                <div class="col-md-12">
+                                                                    <p><strong>Reservation Number</strong></p>
+                                                                </div>
+                                                                <div class="col-md-12 mt-10">
+                                                                    <label>{{ $status->reservation_id }}</label>
+                                                                </div>
+                                                            @else
                                                                 <div class="col-md-12">
                                                                     <p><strong>Booking ID</strong></p>
                                                                 </div>
                                                                 <div class="col-md-12 mt-10">
-                                                                    <label class="booking_id" for="">{{ $rsvp->booking_id }}</label>
+                                                                    <label>{{ $rsvp->booking_id }}</label>
                                                                 </div>
-                                                                <div class="col-md-12">
-                                                                    <p><strong>Reserve By</strong></p>
-                                                                </div>
-                                                                <div class="col-md-12 mt-10">
-                                                                    <label class="customer_name" for="">{{ $rsvp->rsvp_cust_name }}</label>
-                                                                </div>
+                                                            @endif
+                                                            <div class="col-md-12">
+                                                                <p><strong>Reserve By</strong></p>
                                                             </div>
-                                                            <hr><br>
-                                                            {{-- MAIN FORM --}}
-                                                            <h4><b>Reservation Details</b></h4>
+                                                            <div class="col-md-12 mt-10">
+                                                                <label class="customer_name" for="">{{ $rsvp->rsvp_cust_name }}</label>
+                                                            </div>
+                                                        </div>
+                                                        <hr><br>
+                                                        {{-- MAIN FORM --}}
+                                                        <h4><b>Reservation Details</b></h4>
 
-                                                            <div class="row indent-reserve">
-                                                                @if($from == "ROOMS")
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-calendar-o"></i>
-                                                                    <span style="font-weight:normal" for="">&nbsp; {{  $data->rsvp_checkin }} - {{  $data->rsvp_checkout }}</span>
-                                                                </div>
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-shopping-cart"></i>
-                                                                    <span style="font-weight:normal" for="">&nbsp; {{ $data->room->room_name }}</span>
-                                                                </div>
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-users"></i>
-                                                                    <span style="font-weight:normal" for="">&nbsp;
-                                                                        {{ $data->rsvp_adult }} Adult</span>
-                                                                </div>
-                                                                @elseif($from == "PRODUCTS")
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-calendar-o"></i>
-                                                                    <span style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_date_reserve }}</span>
-                                                                </div>
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-shopping-cart"></i>
-                                                                    <span style="font-weight:normal" for="">&nbsp; {{ $data['product']->product_name }}</span>
-                                                                </div>
-                                                                <div class="col-md-12 indext-reserve-margin">
-                                                                    <i class="fa fa-users"></i>
-                                                                    <span class="amount_pax" style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_amount_pax }} Pax</span>
-                                                                </div>
-                                                                @endif
+                                                        <div class="row indent-reserve">
+                                                            @if($from == "ROOMS")
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-calendar-o"></i>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{  $data->rsvp_checkin }} - {{  $data->rsvp_checkout }}</span>
                                                             </div>
-                                                        </section>
-                                                    </article>
-                                                </div>
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-shopping-cart"></i>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data->room->room_name }}</span>
+                                                            </div>
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-users"></i>
+                                                                <span style="font-weight:normal" for="">&nbsp;
+                                                                    {{ $data->rsvp_adult }} Adult</span>
+                                                            </div>
+                                                            @elseif($from == "PRODUCTS")
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-calendar-o"></i>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_date_reserve }}</span>
+                                                            </div>
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-shopping-cart"></i>
+                                                                <span style="font-weight:normal" for="">&nbsp; {{ $data['product']->product_name }}</span>
+                                                            </div>
+                                                            <div class="col-md-12 indext-reserve-margin">
+                                                                <i class="fa fa-users"></i>
+                                                                <span class="amount_pax" style="font-weight:normal" for="">&nbsp; {{ $data->rsvp_amount_pax }} Pax</span>
+                                                            </div>
+                                                            @endif
+                                                        </div>
+                                                    </section>
+                                                </article>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+
                             </div>
                         </div>
 
