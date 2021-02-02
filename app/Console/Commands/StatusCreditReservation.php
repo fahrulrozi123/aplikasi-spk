@@ -107,7 +107,8 @@ class StatusCreditReservation extends Command
             }
 
             Payment::where('booking_id', $tranid)->update([
-                'transaction_status' => $status_payment
+                'transaction_status' => $status_payment,
+                'transaction_id'     => $res_arr['TRANSACTIONID'],
             ]);
 
             if ($value->from_table == "ROOMS") {

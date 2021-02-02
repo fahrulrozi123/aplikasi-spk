@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\StatusReservation',
+        'App\Console\Commands\StatusCreditReservation',
     ];
 
     /**
@@ -25,11 +26,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // reset allotment
         $schedule->call(function () {
             DB::statement('call set_allotment');
         })->dailyAt('23:00')->timezone('Asia/Jakarta');
 
+        // check debit reservation
         $schedule->command('status:rsvp')->everyMinute()->timezone('Asia/Jakarta');
+
+        // check credit reservation
+        $schedule->command('credit:rsvp')->everyMinute()->timezone('Asia/Jakarta');
     }
 
     /**
