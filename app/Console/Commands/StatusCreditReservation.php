@@ -2,8 +2,12 @@
 
 namespace App\Console\Commands;
 
-use DB;
 use Illuminate\Console\Command;
+
+use DB;
+use App\Models\Payment\Payment;
+use App\Models\Room\Rsvp as RoomRsvp;
+use App\Models\Product\Rsvp as ProductRsvp;
 
 class StatusCreditReservation extends Command
 {
@@ -38,7 +42,7 @@ class StatusCreditReservation extends Command
      */
     public function handle()
     {
-        $table = DB::table('payment')->whereNotNull('transaction_id')->select('booking_id')->where('transaction_status', 'pending')->where('payment_type', 'Credit Card')->get();
+        $table = DB::table('payment')->select('booking_id')->where('transaction_status', 'pending')->where('payment_type', 'Credit Card')->get();
 
         $booking_id = [];
 
@@ -49,14 +53,11 @@ class StatusCreditReservation extends Command
         $where_booking_id = DB::table('payment')->whereIn('booking_id', $booking_id)->get();
 
         foreach ($where_booking_id as $key => $value) {
-            $merchant_id    = config('faspay.merchantIdCredit');
-            $password       = config('faspay.merchantPasswordCredit');
-
-            $tranid         = $value->booking_id;
-            $data_amount    = $value->gross_amount;
-            $amount         = number_format( (float) $data_amount, 2, '.', '');
-
-            $signaturecc    = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
+            $merchant_id = config('faspay.merchantIdCredit');
+            $password    = config('faspay.merchantPasswordCredit');
+            $tranid      = $value->booking_id;
+            $amount      = $value->gross_amount;
+            $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
 
             $post = array(
                 'TRANSACTIONTYPE' => '4',
