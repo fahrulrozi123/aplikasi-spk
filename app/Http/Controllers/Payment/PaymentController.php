@@ -354,7 +354,7 @@ class PaymentController extends Controller
             'amount_pax.max' => 'Amount Pax field maximal 4 Pax',
             'date_reserve.required' => 'Product Reservation Date field is required',
             'date_reserve.after_or_equal' => 'Product Reservation Date field date cannot less than today',
-            'time_reserve.after' => 'Product Reservation Time at least from now',
+            'time_reserve.after' => 'Please set your reservation arrival time higher than the current time',
         ]);
 
         if ($validator->fails()) {

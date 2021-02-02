@@ -1343,7 +1343,7 @@
             $('#btn-transfer').css("pointer-events", "none");
 
             // $("#btn-transfer").attr("disabled",true);
-            $("#btn-credit").attr("disabled",true);
+            // $("#btn-credit").attr("disabled",true);
 
             var paymentChannel = ($('#payment-channel').val());
 
@@ -1436,6 +1436,8 @@
 
         function confirmPaymentCredit() {
             top.window.onbeforeunload = null;
+
+            $('#btn-credit').css("pointer-events", "none");
 
             if("{{$data->type}}" == "Room"){
 

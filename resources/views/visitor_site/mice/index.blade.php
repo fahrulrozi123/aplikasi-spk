@@ -130,7 +130,7 @@
                         </p>
                         <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
                             {{ csrf_field() }}
-                            <input id="validate_click" type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
+                            <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                         </form>
                     @else
                     @php
@@ -394,8 +394,8 @@
         do_slider();
     }
 
-    $("#validate_click").click(function(){
-        $('#validate_click').css("pointer-events", "none");
+    $('form').submit(function(){
+        $(this).children('input[type=submit]').prop('disabled', true);
     });
 
 </script>

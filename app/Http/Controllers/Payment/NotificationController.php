@@ -464,7 +464,7 @@ class NotificationController extends Controller
                 $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
 
                 RoomRsvp::where('booking_id', $booking_id)->update([
-                    'rsvp_status'    => 'Payment Expired',
+                    'rsvp_status'    => 'Failed',
                     'rsvp_payment'   => 'Credit Card'
                 ]);
 
@@ -473,7 +473,7 @@ class NotificationController extends Controller
                 $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
 
                 ProductRsvp::where('booking_id', $booking_id)->update([
-                    'rsvp_status'    => 'Payment Expired',
+                    'rsvp_status'    => 'Failed',
                     'rsvp_payment'   => 'Credit Card'
                 ]);
             }

@@ -37,18 +37,15 @@ class SettingController extends Controller
             'title' => 'required',
             'img' => 'dimensions:max_width=350,max_height=100',
             'email' => 'required|email',
-            'phone' => 'required|numeric',
-            'wa_number' => 'numeric|nullable',
+            'phone' => 'required',
             'address' => 'required',
             'favicon' => 'mimes:ico'
         ],[
             'title.required' => 'Title field is required.',
             'img.dimensions' => 'Logo dimension should be: Width (350px) and Height (100px).',
             'email.required'  => 'Email field is required.',
-            'phone.required'  => 'Phone field is required.',
             'address.required'  => 'Address field is required.',
             'phone.numeric'  => 'Phone field must be a number.',
-            'wa_number.numeric'  => 'Whatsapp field must be a number.',
             'favicon.mimes' => 'Favicon field must be a ico format'
         ]);
 
