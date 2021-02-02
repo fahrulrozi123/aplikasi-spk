@@ -69,16 +69,16 @@ class StatusCreditReservation extends Command
                 'SIGNATURE'       => $signaturecc
             );
 
-            $post = http_build_query($post);
+            $post   = http_build_query($post);
 
             if(config('faspay.endpoint') == true) {
                 $endpoint = 'https://fpg.faspay.co.id/payment/api';
-            } else if (config('faspay.endpoint') == false) {
+            } else {
                 $endpoint = 'https://fpgdev.faspay.co.id/payment/api';
             }
 
-            $url  = $endpoint;
-            $ch   = curl_init();
+            $url = $endpoint;
+            $ch  = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -89,8 +89,7 @@ class StatusCreditReservation extends Command
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-            $result = curl_exec($ch);
-            // print_r($result);
+            $result  = curl_exec($ch);
             curl_close($ch);
             $arr1    = explode(';',$result);
             $res_arr = array();
