@@ -121,7 +121,7 @@ class NotificationController extends Controller
         $payment_status_code = $request['payment_status_code'] ?: null;
         $payment_status_desc = $request['payment_status_desc'] ?: null;
         $bill_total          = $request['bill_total'] ?: null;
-        $payment_total       = $request['payment_total'];
+        $payment_total       = $request['payment_total'] ?: null;
         $payment_channel_uid = $request['payment_channel_uid'] ?: null;
         $payment_channel     = $request['payment_channel'] ?: null;
         $signature           = $request['signature'] ?: null;

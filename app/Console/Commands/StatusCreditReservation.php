@@ -106,9 +106,11 @@ class StatusCreditReservation extends Command
                 $status_payment = 'Failed';
             }
 
+            $transaction_id = $res_arr['TXN_STATUS'] !== '0' ? $res_arr['TRANSACTIONID'] : null;
+
             Payment::where('booking_id', $tranid)->update([
                 'transaction_status' => $status_payment,
-                'transaction_id'     => $res_arr['TRANSACTIONID'],
+                'transaction_id'     => $transaction_id,
             ]);
 
             if ($value->from_table == "ROOMS") {
