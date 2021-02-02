@@ -528,6 +528,9 @@
         // Initialize DataTable
         $today_reservation.DataTable({
             data: room_today_reservation_data,
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [5, 10, 50, -1],
                 [5, 10, 50]
@@ -542,6 +545,9 @@
         // Initialize DataTable
         $online_product_today.DataTable({
             data: online_product_today,
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [3, 5, 10, -1],
                 [3, 5, 10, "All"]
@@ -552,6 +558,9 @@
         // Initialize DataTable
         $offline_product_today.DataTable({
             data: offline_product_today,
+            "targets": 'no-sort',
+            "bSort": false,
+            "order": [],
             "aLengthMenu": [
                 [3, 5, 10, -1],
                 [3, 5, 10, "All"]

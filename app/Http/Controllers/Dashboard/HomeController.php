@@ -75,7 +75,7 @@ class HomeController extends Controller
                 ON rsvp.product_id = product.id
         WHERE  rsvp.rsvp_date_reserve = Curdate()
                 AND rsvp.rsvp_status = 'Payment received'
-        ORDER  BY product.product_name ASC;";
+        ORDER  BY create_at DESC;";
 
         $products = DB::select(DB::raw($query));
 
@@ -91,7 +91,7 @@ class HomeController extends Controller
                 LEFT JOIN customer
                 ON inq.customer_id = customer.id
         WHERE  inq.inq_event_start = Curdate()
-        ORDER BY inq.inq_type;";
+        ORDER BY create_at DESC;";
 
         $inquiry = DB::select(DB::raw($query));
 
