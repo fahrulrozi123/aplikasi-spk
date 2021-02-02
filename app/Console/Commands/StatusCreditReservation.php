@@ -96,8 +96,8 @@ class StatusCreditReservation extends Command
 
             foreach($arr1 as $val)
             {
-                $arr2              = explode(' = ',$val);
-                $res_arr[$arr2[0]] = $arr2[1];
+                $arr2=explode('=',$val);
+                $res_arr[$arr2[0]]=$arr2[1];
             }
             // dd($res_arr);
 
