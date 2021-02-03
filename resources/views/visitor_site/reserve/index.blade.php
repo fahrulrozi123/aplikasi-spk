@@ -460,8 +460,10 @@
                                                                                     <label class="control-label" for="payment-channel" style="font-size:13px; font-weight:bold;">Choose Bank</label>
                                                                                     <select id="payment-channel" name="payment-channel" class="form-control visitor-input">
                                                                                         @php
+                                                                                            $disablePayment = [801,708,814,408,402,818];
+
                                                                                             foreach ($listPaymentChannels as $listPaymentChannel => $item) {
-                                                                                                if ($item['pg_code'] == 807) {
+                                                                                                if (in_array($item['pg_code'], $disablePayment)) {
                                                                                                     unset($listPaymentChannels[$listPaymentChannel]);
                                                                                                 }
                                                                                             }
@@ -469,7 +471,6 @@
                                                                                             foreach ($listPaymentChannels as $listPaymentChannel ) {
                                                                                                 echo"<option value='$listPaymentChannel[pg_code]'>$listPaymentChannel[pg_name]</option>";
                                                                                             }
-
                                                                                         @endphp
                                                                                     </select>
                                                                                 </div>
