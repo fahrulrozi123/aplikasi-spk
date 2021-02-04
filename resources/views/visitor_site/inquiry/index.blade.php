@@ -23,10 +23,10 @@
                                 <div class="col-xs-12 col-lg-12">
                                     <select focus="true" onchange="selectEvent(event);" name="event_type" id="event_type" class="form-control visitor-input">
                                         <option value="tab_general">General Inquiry</option>
-                                        <option value="tab_recreational">Recreational Inquiry</option>
-                                        <option value="tab_spa">AllySea a SPA Inquiry</option>
-                                        <option value="tab_mice">MICE Inquiry</option>
-                                        <option value="tab_wedding">Wedding Inquiry</option>
+                                        <option value="tab_recreational">{{ $menu['recreation'][0]['page_name'] }} Inquiry</option>
+                                        <option value="tab_spa">{{ $menu['spa'][0]['page_name'] }} Inquiry</option>
+                                        <option value="tab_mice">{{ $menu['mice'][0]['page_name'] }} Inquiry</option>
+                                        <option value="tab_wedding">{{ $menu['wedding'][0]['page_name'] }} Inquiry</option>
                                     </select><br><br>
                                 </div><br>
                             </div>
@@ -74,7 +74,7 @@
 
                             {{-- RECREATIONAL INQUIRY --}}
                             <div id="tab_recreational" style="display:none;">
-                                <h4><b>Recreational Inquiry<b></h4>
+                                <h4><b>{{ $menu['recreation'][0]['page_name'] }} Inquiry<b></h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <label for="recreation_product" style="font-size:12px">Which package would you like to inquire?</label>
@@ -173,7 +173,7 @@
 
                             {{-- ALLYSEA A SPA INQUIRY --}}
                             <div id="tab_spa" style="display:none;">
-                                <h4><b>AllySea a SPA Inquiry<b></h4>
+                                <h4><b>{{ $menu['spa'][0]['page_name'] }} Inquiry<b></h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <label for="spa_product" style="font-size:12px">Which product would you like to inquire?</label>
@@ -274,7 +274,7 @@
 
                             {{-- MICE INQUIRY --}}
                             <div id="tab_mice" style="display:none;">
-                                <h4><b>MICE Inquiry<b></h4>
+                                <h4><b>{{ $menu['mice'][0]['page_name'] }} Inquiry<b></h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <label for="mice_package" style="font-size:12px">Which package would you like to inquire?</label>
@@ -435,7 +435,7 @@
 
                             {{-- WEDDING INQUIRY --}}
                             <div id="tab_wedding" style="display:none;">
-                                <h4><b>Wedding Inquiry<b></h4>
+                                <h4><b>{{ $menu['wedding'][0]['page_name'] }} Inquiry<b></h4>
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
                                         <label for="service_req" style="font-size:12px">Service Request</label>

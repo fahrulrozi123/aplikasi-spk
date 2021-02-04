@@ -26,21 +26,20 @@ class VisitorController extends Controller
 {
     public function index()
     {
-        $setting = $this->setting();
         $banners = Banner::orderBy('banner_status', 'ASC')->get();
         $newss = News::where('news_publish_date', '<=', Carbon::now())->where('news_publish_status', "1")->orderBy('news_sticky_state', 'DESC')->orderBy('news_publish_date', 'DESC')->get();
         foreach ($newss as $key => $value) {
             $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
         }
 
-        //menu code
-        $menu = $this->menu();
-
         // index
         $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
         $functionrooms = PageSetting::where('page_code', 'Function')->with('photo')->get();
         $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
         $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
+
+        $menu = $this->menu();
+        $setting = $this->setting();
 
         return view('visitor_site.landing_page.index', get_defined_vars());
     }

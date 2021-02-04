@@ -193,10 +193,10 @@
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    <option value="0">Recreation</option>
-                                    <option value="1">Spa & Salon</option>
-                                    <option value="2">Mice</option>
-                                    <option value="3">Wedding</option>
+                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="1">{{ $menu['spa'][0]['page_name'] }}</option>
+                                    <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
+                                    <option value="3">{{ $menu['wedding'][0]['page_name'] }}</option>
                                 </select><br>
                             </div>
                             <div class="col-md-12">
@@ -359,10 +359,10 @@
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    <option value="0">Recreation</option>
-                                    <option value="1">Spa & Salon</option>
-                                    <option value="2">Mice</option>
-                                    <option value="3">Wedding</option>
+                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="1">{{ $menu['spa'][0]['page_name'] }}</option>
+                                    <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
+                                    <option value="3">{{ $menu['wedding'][0]['page_name'] }}</option>
                                 </select><br>
                             </div>
                             <div class="col-sm-6 col-md-6">

@@ -39,6 +39,7 @@ class InquiryController extends Controller
         $weddings = Product::select('id', 'product_name')->where('category', '4')->where('sales_inquiry', '1')->orderBy('product_name')->get();
         $function_rooms = FunctionRoom::orderBy('func_name')->get();
 
+        $menu = $this->menu();
         $setting = $this->setting();
         return view('visitor_site.inquiry.index', get_defined_vars());
     }
@@ -633,43 +634,6 @@ class InquiryController extends Controller
             // EMAIL FOR CUSTOMER
             Mail::to($customer)->send(new CustomerEmail($data, $setting));
             return 0;
-        }
-
-        $query = DB::select('select * from payment where rsvp_id = ?', [$id]);
-        $data->payment = $query[0];
-
-        $data->payment->transaction_time = Carbon::parse($data->payment->transaction_time)->isoFormat('LLLL');
-        switch ($data->payment->payment_type) {
-            case 'credit_card':
-                $data->payment->payment_type = "Credit Card";
-                break;
-            case 'bank_transfer':
-                $data->payment->payment_type = "Bank Transfer";
-                break;
-            case 'bca_klikpay':
-                $data->payment->payment_type = "Bca KlikPay";
-                break;
-            case 'cimb_clicks':
-                $data->payment->payment_type = "CIMB Clicks";
-                break;
-            case 'danamon_online':
-                $data->payment->payment_type = "Danamon Online Banking";
-                break;
-            case 'echannel':
-                $data->payment->payment_type = "Mandiri Bill Payment";
-                break;
-
-            default:
-                # code...
-                break;
-        }
-        $setting = Setting::first();
-        $data->from = $from;
-        $data->voucher_attachment = $this->template_voucher($data, $setting);
-        $data->receipt_attachment = $this->template_receipt($data, $setting);
-
-        if ($data->rsvp_status == "Payment received") {
-            Mail::to($to)->send(new ReservationEmail($data, $setting));
         }
 
         //FOR MARKETING
