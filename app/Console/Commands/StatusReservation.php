@@ -50,7 +50,25 @@ class StatusReservation extends Command
         ProductRsvp::whereNull('rsvp_payment')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
 
         // Status Reservation jika sudah memilih pembayaran
-        $table = DB::table('payment')->whereNotNull('transaction_id')->where('transaction_status', 'pending')->where('payment_type', '!=' , 'Credit Card')->get();
+        $time = Carbon::now()->toDateTimeString();
+
+        $query = "SELECT transaction_id, booking_id, expired_at FROM  (
+                    (SELECT payment.transaction_id, payment.booking_id, payment.transaction_status, payment.payment_type, room_rsvp.expired_at
+                        FROM payment JOIN room_rsvp
+                            ON payment.booking_id = room_rsvp.booking_id
+                                WHERE from_table='ROOMS')
+
+                    UNION
+
+                    (SELECT payment.transaction_id, payment.booking_id, payment.transaction_status, payment.payment_type, product_rsvp.expired_at
+                        FROM payment JOIN product_rsvp
+                            ON payment.booking_id = product_rsvp.booking_id
+                                WHERE from_table='PRODUCTS')
+
+                ) A WHERE transaction_id IS NOT NULL AND transaction_status='pending' AND payment_type <>'Credit Card' AND expired_at < '" . $time . "' ";
+
+
+        $table = DB::select(DB::raw($query));
 
         $booking_id = [];
 

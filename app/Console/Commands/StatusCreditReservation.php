@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 use DB;
+use Carbon\Carbon;
+
 use App\Models\Payment\Payment;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Product\Rsvp as ProductRsvp;
@@ -42,7 +44,26 @@ class StatusCreditReservation extends Command
      */
     public function handle()
     {
-        $table = DB::table('payment')->select('booking_id')->where('transaction_status', 'pending')->where('payment_type', 'Credit Card')->get();
+        // status credit reservation
+        $time = Carbon::now()->toDateTimeString();
+
+        $query = "SELECT booking_id, gross_amount, expired_at FROM  (
+
+                    (SELECT payment.booking_id, payment.gross_amount, payment.transaction_status, payment.payment_type, room_rsvp.expired_at
+                    FROM payment JOIN room_rsvp
+                        ON payment.booking_id = room_rsvp.booking_id
+                            WHERE from_table='ROOMS')
+
+                    UNION
+
+                    (SELECT payment.booking_id, payment.gross_amount, payment.transaction_status, payment. payment_type, product_rsvp.expired_at
+                    FROM payment JOIN product_rsvp
+                        ON payment.booking_id = product_rsvp.booking_id
+                            WHERE from_table='PRODUCTS')
+
+                ) A WHERE transaction_status='pending' AND payment_type='Credit Card' AND expired_at < '" . $time . "' ";
+
+        $table = DB::select(DB::raw($query));
 
         $booking_id = [];
 
@@ -107,7 +128,13 @@ class StatusCreditReservation extends Command
                 $status_payment = 'Failed';
             }
 
-            $transaction_id = $res_arr['TXN_STATUS'] !== '0' ? $res_arr['TRANSACTIONID'] : null;
+            // if ($res_arr['TXN_STATUS'] !== '0') {
+            //     $transaction_id = $res_arr['TRANSACTIONID'];
+            // } else {
+            //     $transaction_id = null;
+            // }
+
+            $transaction_id = $res_arr['TRANSACTIONID'] !== '0' ? $res_arr['TRANSACTIONID'] : null;
 
             Payment::where('booking_id', $tranid)->update([
                 'transaction_status' => $status_payment,
