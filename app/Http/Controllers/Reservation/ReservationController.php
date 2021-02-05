@@ -133,7 +133,7 @@ class ReservationController extends Controller
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
         $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.booking_id = payment.booking_id
-        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by create_at DESC";
+        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by create_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {

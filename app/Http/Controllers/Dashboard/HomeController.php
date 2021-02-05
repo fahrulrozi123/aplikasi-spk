@@ -103,8 +103,8 @@ class HomeController extends Controller
         $query = "SELECT DISTINCT customer.*, rsvp.rsvp_cust_name, rsvp.rsvp_cust_phone,
                             rsvp.rsvp_guest_name, rsvp.reservation_id,
                             rsvp.rsvp_adult, rsvp.rsvp_child,
-                            rsvp.customer_id,
-                            rsvp.rsvp_status,
+                            rsvp.customer_id, rsvp.rsvp_status,
+                            rsvp.create_at,
                             Concat(rsvp.rsvp_total_room, 'x ', room.room_name) AS
                             rsvp_reserved_room,
                             (SELECT b.rsvp_date_reserve
@@ -135,7 +135,7 @@ class HomeController extends Controller
                     WHERE  b.reservation_id = rsvp.reservation_id
                     ORDER  BY b.rsvp_date_reserve
                     LIMIT  1)
-                    ORDER  BY rsvp.reservation_id;";
+                    ORDER  BY rsvp.create_at DESC;";
 
         $rooms = DB::select(DB::raw($query));
         return $rooms;
