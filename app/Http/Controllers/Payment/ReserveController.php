@@ -413,10 +413,11 @@ class ReserveController extends Controller
             }
         }
 
-        $checkIn = Carbon::parse($checkIn)->format('d F Y');
+        $checkIn  = Carbon::parse($checkIn)->format('d F Y');
         $checkOut = Carbon::parse($checkOut)->format('d F Y');
 
-        $setting = $this->setting();
+        $menu     = $this->menu();
+        $setting  = $this->setting();
         return view('visitor_site.reservation.index', get_defined_vars());
     }
 
