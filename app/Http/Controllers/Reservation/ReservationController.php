@@ -322,7 +322,7 @@ class ReservationController extends Controller
     public function product_data()
     {
         $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
-            ->orderBy('rsvp_date_reserve')->orderBy('create_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
+            ->orderBy('create_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
 
     }
