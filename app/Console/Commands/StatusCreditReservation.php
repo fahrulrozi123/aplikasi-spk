@@ -120,36 +120,33 @@ class StatusCreditReservation extends Command
                 $arr2=explode('=',$val);
                 $res_arr[$arr2[0]]=$arr2[1];
             }
-            // dd($res_arr);
 
-            if ($res_arr['TXN_STATUS'] == 'S') {
-                $status_payment = 'settlement';
-            } else {
-                $status_payment = 'Failed';
+            if($res_arr !== '') {
+
+                if ($res_arr['TXN_STATUS'] == 'S') {
+                    $status_payment = 'settlement';
+                } else {
+                    $status_payment = 'Failed';
+                }
+
+                $transaction_id = $res_arr['TRANSACTIONID'] !== '0' ? $res_arr['TRANSACTIONID'] : null;
+
+                Payment::where('booking_id', $tranid)->update([
+                    'transaction_status' => $status_payment,
+                    'transaction_id'     => $transaction_id,
+                ]);
+
+                if ($value->from_table == "ROOMS") {
+                    RoomRsvp::where('booking_id', $tranid)->update([
+                        'rsvp_status' => $status_payment
+                    ]);
+                } else {
+                    ProductRsvp::where('booking_id', $tranid)->update([
+                        'rsvp_status' => $status_payment
+                    ]);
+                }
             }
 
-            // if ($res_arr['TXN_STATUS'] !== '0') {
-            //     $transaction_id = $res_arr['TRANSACTIONID'];
-            // } else {
-            //     $transaction_id = null;
-            // }
-
-            $transaction_id = $res_arr['TRANSACTIONID'] !== '0' ? $res_arr['TRANSACTIONID'] : null;
-
-            Payment::where('booking_id', $tranid)->update([
-                'transaction_status' => $status_payment,
-                'transaction_id'     => $transaction_id,
-            ]);
-
-            if ($value->from_table == "ROOMS") {
-                RoomRsvp::where('booking_id', $tranid)->update([
-                    'rsvp_status' => $status_payment
-                ]);
-            } else {
-                ProductRsvp::where('booking_id', $tranid)->update([
-                    'rsvp_status' => $status_payment
-                ]);
-            }
         }
     }
 }
