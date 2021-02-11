@@ -841,7 +841,6 @@ class NotificationController extends Controller
             $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('dddd, DD MMMM YYYY');
             $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('dddd, DD MMMM YYYY');
             $data->total_stay = $totalStay;
-            $data = RoomRsvp::getInclusivePrice($data);
 
             $to = $data->customer->cust_email;
 
@@ -853,7 +852,6 @@ class NotificationController extends Controller
             $data = ProductRsvp::where('booking_id', $id)->with('product')->with('customer')->first();
 
             $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('dddd, DD MMMM YYYY');
-            $data = ProductRsvp::getInclusivePrice($data);
             $to = $data['customer']->cust_email;
             switch ($data['product']->category) {
                 case '1':
