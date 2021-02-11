@@ -410,7 +410,8 @@ class NotificationController extends Controller
                 if($sendEmail == true){ 
                     if ($status->rsvp_status == "Payment received") {
                         $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                        $this->resendEmail($from, $rsvp_id->booking_id);
+                        $id = $rsvp_id->booking_id;
+                        $this->resendEmail($from, $id);
                     }
                 }
 
@@ -473,7 +474,8 @@ class NotificationController extends Controller
                 if($sendEmail == true){
                     if ($status->rsvp_status == "Payment received") {
                         $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                        $this->resendEmail($from, $rsvp_id->booking_id);
+                        $id = $rsvp_id->booking_id;
+                        $this->resendEmail($from, $id);
                     }
                 }
 
