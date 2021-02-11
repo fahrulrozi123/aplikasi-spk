@@ -390,9 +390,13 @@ class NotificationController extends Controller
                         $rsvpId = rand($min = 1, $max = 99999);
                         $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
                     }
+
+                    $sendEmail = true;
                 } else {
                     $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
                     $reservationId = $dataRsvpId->reservation_id;
+
+                    $sendEmail = false;
                 }
 
                 RoomRsvp::where('booking_id', $booking_id)->update([
@@ -403,9 +407,11 @@ class NotificationController extends Controller
 
                 $status = RoomRsvp::where('booking_id', $booking_id)->first();
 
-                if ($status->rsvp_status == "Payment received") {
-                    $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                    $this->resendEmail($from, $rsvp_id->booking_id);
+                if($sendEmail == true){ 
+                    if ($status->rsvp_status == "Payment received") {
+                        $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                        $this->resendEmail($from, $rsvp_id->booking_id);
+                    }
                 }
 
                 // data view step 3
@@ -447,9 +453,13 @@ class NotificationController extends Controller
                         $rsvp_id = rand($min = 1, $max = 99999);
                         $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
                     }
+
+                    $sendEmail = true;
                 } else {
                     $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
                     $reservation_id = $dataRsvpId->reservation_id;
+                
+                    $sendEmail = false;
                 }
 
                 ProductRsvp::where('booking_id', $booking_id)->update([
@@ -460,9 +470,11 @@ class NotificationController extends Controller
 
                 $status = ProductRsvp::where('booking_id', $booking_id)->first();
 
-                if ($status->rsvp_status == "Payment received") {
-                    $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                    $this->resendEmail($from, $rsvp_id->booking_id);
+                if($sendEmail == true){
+                    if ($status->rsvp_status == "Payment received") {
+                        $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                        $this->resendEmail($from, $rsvp_id->booking_id);
+                    }
                 }
 
                 // data view step 3

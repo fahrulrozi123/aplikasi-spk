@@ -278,7 +278,6 @@
                                 @endif
                                 <td class="td-purchase" style="width:20%; text-align:left; font-size:12px !important;">CONVENIENCE FEE</td>
                                 <td class="td-purchase" style="width:20%; text-align:right;">{{number_format($tax_total, 2, ',', '.')}}</td></td>
-
                             </tr>
                             <tr>
                                 <td class="" style="width:5%; height:4%; text-align:center;"></td>
