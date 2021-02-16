@@ -150,11 +150,11 @@
                                                                 @else
                                                                 <div class="form-group">
                                                                     <label for="">
-                                                                        <strong>Your Booking <b class="booking_id">{{ $rsvp->booking_id }}</b> has been canceled!</strong>
+                                                                        <strong>Your Booking <b class="booking_id">{{ $rsvp->booking_id }}</b> has been {{ $status_message }}!</strong>
                                                                     </label>
-                                                                    <ul>
+                                                                    {{-- <ul>
                                                                         <li>{{ $status_message }}</li>
-                                                                    </ul>
+                                                                    </ul> --}}
                                                                 </div>
                                                                 @endif
                                                             </div>

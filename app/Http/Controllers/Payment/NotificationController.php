@@ -563,32 +563,167 @@ class NotificationController extends Controller
 
         $data = json_decode($response->getBody()->getContents(), true);
 
-        if ($data['payment_status_desc'] == 'Belum diproses') {
-            $status_payment = 'pending';
-            $status_rsvp    = 'Waiting for payment';
-        } elseif ($data['payment_status_desc'] == 'Payment Sukses'){
+        if ($data['payment_status_desc'] == 'Payment Sukses'){
             $status_payment = 'settlement';
-            $status_rsvp    = 'Payment received';
-        } else {
-            $status_payment = $data['payment_status_desc'];
-            $status_rsvp    = $data['payment_status_desc'];
         }
 
-        Payment::where('booking_id', $bill_no)->update([
-            'transaction_status' => $status_payment,
-            'fraud_status'       => $data['payment_status_code'],
-            'status_code'        => $data['response_code'],
-            'status_message'     => $data['response_desc']
-        ]);
+        $from           = $data_payment->from_table;
+        $status_message = $data['payment_status_desc'];
 
-        if ($data_payment->from_table == "ROOMS") {
-            RoomRsvp::where('booking_id', $bill_no)->update([
-                'rsvp_status' => $status_rsvp
-            ]);
+        // cek status payment success or cancel
+        if ($status_payment == "settlement") {
+            if ($from == "ROOMS") {
+
+                // generated rsvp_id room
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+                $checkIn = $rsvp->rsvp_date_reserve;
+
+                $getRoom = Type::where('id', $rsvp->room_id)->first();
+
+                // customer data
+                $customer  = Customer::where('id', $rsvp->customer_id)->first();
+
+                // check room reservation_id empty or not
+                $checkRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $valueCheckRsvpId = $checkRsvpId->reservation_id;
+
+                if ($valueCheckRsvpId == "") {
+                    $rsvpId = rand($min = 1, $max = 99999);
+                    $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+
+                    while ($reservationId == false) {
+                        $rsvpId = rand($min = 1, $max = 99999);
+                        $reservationId = $this->generate_room_id($rsvpId, $checkIn, $getRoom->room_name);
+                    }
+
+                    $sendEmail = true;
+                } else {
+                    $dataRsvpId = DB::table('room_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                    $reservationId = $dataRsvpId->reservation_id;
+
+                    $sendEmail = false;
+                }
+
+                RoomRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment received',
+                    'reservation_id' => $reservationId,
+                ]);
+
+                $status = RoomRsvp::where('booking_id', $booking_id)->first();
+
+                if($sendEmail == true){ 
+                    if ($status->rsvp_status == "Payment received") {
+                        $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                        $id = $rsvp_id->booking_id;
+                        $this->resendEmail($from, $id);
+                    }
+                }
+
+                // data view step 3
+                $query = DB::select('select * from room_reservation where booking_id = ?', [$booking_id]);
+                $data = $query[0];
+
+                $query = DB::select('select * from room_type where id = ?', [$rsvp->room_id]);
+                $data->room = $query[0];
+
+                $start = Carbon::parse($data->rsvp_checkin);
+                $end = Carbon::parse($data->rsvp_checkout);
+                $totalStay = $start->diffInDays($end);
+                $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
+                $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
+                $data->total_stay = $totalStay;
+
+                // dd($data);
+
+            } else if ($from == "PRODUCTS") {
+
+                // generated rsvp_id products
+                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+                $productsId = $rsvp->product_id;
+
+                $productData = Product::where('id', $productsId)->first();
+
+                // customer data
+                $customer  = Customer::where('id', $rsvp->customer_id)->first();
+
+                /// check product reservation_id empty or not
+                $checkRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                $valueCheckRsvpId = $checkRsvpId->reservation_id;
+
+                if ($valueCheckRsvpId == "") {
+                    $rsvp_id = rand($min = 1, $max = 99999);
+                    $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+
+                    while ($reservation_id == false) {
+                        $rsvp_id = rand($min = 1, $max = 99999);
+                        $reservation_id = $this->generate_product_id($rsvp_id, $productData->rsvp_date_reserve, $productData->product_name, $productData->sales_inquiry);
+                    }
+
+                    $sendEmail = true;
+                } else {
+                    $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
+                    $reservation_id = $dataRsvpId->reservation_id;
+                
+                    $sendEmail = false;
+                }
+
+                ProductRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Payment received',
+                    'reservation_id' => $reservation_id,
+                ]);
+
+                $status = ProductRsvp::where('booking_id', $booking_id)->first();
+
+                if($sendEmail == true){
+                    if ($status->rsvp_status == "Payment received") {
+                        $rsvp_id = Payment::where('booking_id', $booking_id)->first();
+                        $id = $rsvp_id->booking_id;
+                        $this->resendEmail($from, $id);
+                    }
+                }
+
+                // data view step 3
+                $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
+                $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
+
+                // dd($data);
+            }
         } else {
-            ProductRsvp::where('booking_id', $bill_no)->update([
-                'rsvp_status' => $status_rsvp
-            ]);
+            if ($from == "ROOMS") {
+                // canceled room
+                $rsvp = RoomRsvp::where('booking_id', $booking_id)->first();
+
+                RoomRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Failed',
+                    'rsvp_payment'   => 'Credit Card'
+                ]);
+
+                // data view step 3
+                $query = DB::select('select * from room_reservation where booking_id = ?', [$booking_id]);
+                $data = $query[0];
+
+                $query = DB::select('select * from room_type where id = ?', [$rsvp->room_id]);
+                $data->room = $query[0];
+
+                $start = Carbon::parse($data->rsvp_checkin);
+                $end = Carbon::parse($data->rsvp_checkout);
+                $totalStay = $start->diffInDays($end);
+                $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
+                $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
+                $data->total_stay = $totalStay;
+
+            } else if ($from == "PRODUCTS") {
+                // canceled product
+                $rsvp = ProductRsvp::where('booking_id', $booking_id)->first();
+
+                ProductRsvp::where('booking_id', $booking_id)->update([
+                    'rsvp_status'    => 'Failed',
+                ]);
+
+                // data view step 3
+                $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
+                $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
+            }
         }
 
         $setting = $this->setting();
