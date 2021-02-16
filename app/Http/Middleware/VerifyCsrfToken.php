@@ -20,6 +20,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
 
-        'payment-notification', 'payment-success', 'credit-notification', 'ibank-notification'
+        'payment-notification', 'payment-success', 'credit-notification', 'klikpay-notification'
     ];
 }
