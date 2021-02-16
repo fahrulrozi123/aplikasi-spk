@@ -581,7 +581,7 @@ class NotificationController extends Controller
             'status_message'     => $data['response_desc']
         ]);
 
-        if ($value->from_table == "ROOMS") {
+        if ($data_payment->from_table == "ROOMS") {
             RoomRsvp::where('booking_id', $bill_no)->update([
                 'rsvp_status' => $status_rsvp
             ]);
@@ -590,6 +590,10 @@ class NotificationController extends Controller
                 'rsvp_status' => $status_rsvp
             ]);
         }
+
+        $setting = $this->setting();
+
+        return view('visitor_site.reserve.klikpay_notification', get_defined_vars());
     }
 
     public function generate_room_id($id, $date, $roomName)
