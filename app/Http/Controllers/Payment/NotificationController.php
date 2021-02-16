@@ -24,90 +24,6 @@ use Illuminate\Support\Facades\Mail;
 
 class NotificationController extends Controller
 {
-    public function payment_check_debit(Request $request)
-    {
-        $merchant_id	   = config('faspay.merchantId');
-        $merchant_password = config('faspay.merchantPassword');
-        $merchant_user	   = 'bot'.$merchant_id;
-        $trx_id            = $request['trx_id'];
-        $bill_no           = $request['bill_no'];
-        $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
-
-        $client = new Client();
-
-        // cek url endpoint production or development
-        if(config('faspay.endpoint') == true) {
-            $url = 'https://web.faspay.co.id/cvr/100004/10';
-        } else if (config('faspay.endpoint') == false) {
-            $url = 'https://dev.faspay.co.id/cvr/100004/10';
-        }
-
-        $response = $client->post($url, [
-            'json' => [
-                'request'     => 'Pengecekan Status Pembayaran',
-                'trx_id'      => $trx_id,
-                'merchant_id' => $merchant_id,
-                'bill_no'     => $bill_no,
-                'signature'   => $signature
-            ]
-        ]);
-
-        return $response->getBody()->getContents();
-    }
-
-    public function payment_check_credit(Request $request)
-    {
-        $merchant_id = config('faspay.merchantIdCredit');
-        $password    = config('faspay.merchantPasswordCredit');
-        $tranid      = $request['tranid'];
-        $amount      = $request['amount'];
-
-        $signaturecc = sha1('##'.strtoupper($merchant_id).'##'.strtoupper($password).'##'.$tranid.'##'.$amount.'##'.'0'.'##');
-
-        // dd($signaturecc);
-
-        $post = array(
-            "TRANSACTIONTYPE"      => '4',
-            "RESPONSE_TYPE"        => '3',
-            "MERCHANTID"           => $merchant_id,
-            "PAYMENT_METHOD"       => '1',
-            "MERCHANT_TRANID"      => $tranid,
-            // "TRANSACTIONID"        => '53CBA232-D828-4676-9243-C3493B603CE0',
-            "AMOUNT"               => $amount,
-            "SIGNATURE"            => $signaturecc
-        );
-
-        $post   = http_build_query($post);
-        $url    = "https://fpgdev.faspay.co.id/payment/api";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        // $result = curl_exec($ch);
-        // print_r($result);
-        // curl_close($ch);
-
-        $result  = curl_exec($ch);
-        curl_close($ch);
-        $arr1    = explode(';',$result);
-        $res_arr = array();
-
-        foreach($arr1 as $val)
-        {
-            $arr2=explode('=',$val);
-            $res_arr[$arr2[0]]=$arr2[1];
-        }
-
-        dd($res_arr);
-    }
-
     public function payment_notification(Request $request)
     {
         // dd($request->all());
@@ -561,14 +477,19 @@ class NotificationController extends Controller
             ]
         ]);
 
+        // return $response->getBody()->getContents();
+
         $data = json_decode($response->getBody()->getContents(), true);
 
         if ($data['payment_status_desc'] == 'Payment Sukses'){
             $status_payment = 'settlement';
+        }else {
+            $status_payment = $data['payment_status_desc'];
         }
 
         $from           = $data_payment->from_table;
         $status_message = $data['payment_status_desc'];
+        $booking_id     = $data_payment->booking_id;
 
         // cek status payment success or cancel
         if ($status_payment == "settlement") {

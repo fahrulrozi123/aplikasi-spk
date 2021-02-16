@@ -53,26 +53,6 @@ class PaymentController extends Controller
         return $response->getBody()->getContents();
     }
 
-    public function onePaymentChannel()
-    {
-        $paymentChannels = $this->paymentChannel();
-
-        // start one -list payment
-        $listPaymentChannels = json_decode($paymentChannels, true);
-
-        $name_payment = '818';
-        $key = array_search($name_payment, array_column($listPaymentChannels['payment_channel'], 'pg_code'));
-        $result = $listPaymentChannels['payment_channel'][$key]['pg_name'];
-
-        dd($result);
-
-        // start disable list payment
-        // $list = json_decode($paymentChannels, true);
-        // $listPaymentChannels = $list['payment_channel'];
-
-        // return view('layouts.testing_disable_payment', get_defined_vars());
-    }
-
     public function reserve_room(Request $request)
     {
         // dd($request->all());
@@ -702,6 +682,11 @@ class PaymentController extends Controller
         exit;
     }
 
+    public function generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total)
+    {
+        return sha1(md5($merchant_user.$merchant_password.$bill_no.$bill_total));
+    }
+
     // uses regex that accepts any word character or hyphen in last name
     public function split_name($name)
     {
@@ -709,10 +694,5 @@ class PaymentController extends Controller
         $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
         $first_name = trim(preg_replace('#' . $last_name . '#', '', $name));
         return array($first_name, $last_name);
-    }
-
-    public function generateSignature($merchant_user,$merchant_password,$bill_no,$bill_total)
-    {
-        return sha1(md5($merchant_user.$merchant_password.$bill_no.$bill_total));
     }
 }

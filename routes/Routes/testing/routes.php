@@ -1,16 +1,9 @@
 <?php
+// test email rsvp
+Route::get('/test-email-rsvp', 'Payment\TestingController@testEmailRsvp');
 
-//TESTING EMAIL ROOM//
-Route::get('/testemail', 'Payment\TestingController@test_email');
-
-//TESTING EMAIL INQUIRY//
-Route::get('/testemail2', 'Payment\TestingController@test_email2');
-
-//push notification
-Route::get('/push','Payment\TestingController@push')->name('push');
-
-//store a push subscriber.
-Route::post('/push','Payment\TestingController@storeNotification');
+// test email inquiry
+Route::get('/test-email-inquiry', 'Payment\TestingController@testEmailInquiry');
 
 // test payment debit
 Route::get('/test-payment-debit','Payment\TestingController@paymentNotificationDebit')->name('test.debit.payment');
@@ -20,11 +13,14 @@ Route::get('/test-payment-credit','Payment\TestingController@paymentNotification
 
 // check payment debit
 Route::get('/check-payment-debit','Payment\TestingController@checkPaymentDebit');
-Route::post('/status-payment-debit','Payment\NotificationController@payment_check_debit')->name('status.payment.debit');
+Route::post('/status-payment-debit','Payment\TestingController@resultPaymentDebit')->name('status.payment.debit');
 
 // check payment credit
 Route::get('/check-payment-credit','Payment\TestingController@checkPaymentCredit');
-Route::post('/status-payment-credit','Payment\NotificationController@payment_check_credit')->name('status.payment.credit');
+Route::post('/status-payment-credit','Payment\TestingController@resultPaymentCredit')->name('status.payment.credit');
 
 // result one payment code
-Route::get('/one-list-payment','Payment\PaymentController@onePaymentChannel');
+Route::get('/one-list-payment','Payment\TestingController@onePaymentChannel');
+
+// check payment bca klikpay
+Route::get('/check-payment-klikpay','Payment\TestingController@checkPaymentKlikpay');
