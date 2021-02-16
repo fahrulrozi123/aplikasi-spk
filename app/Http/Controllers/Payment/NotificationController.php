@@ -529,83 +529,9 @@ class NotificationController extends Controller
         return view('visitor_site.reserve.credit_notification', get_defined_vars());
     }
 
-    public function payment_success(Request $request)
+    public function ibank_notification (Request $request)
     {
-        $transaction = $request->all();
-        if(!isset($transaction['id'])){
-            $data = json_decode($transaction['response']);
-            $transaction_id = $data->transaction_id;
-        }else{
-            $transaction_id = $transaction['id'];
-        }
-        if(!Payment::where('transaction_id', $transaction_id)->exists()){
-            return redirect()->route('index')->with('warning', 'Transaction not found!');
-        }
-        $payment = Payment::where('transaction_id', $transaction_id)->first();
-        $from = $payment->from_table;
-        $id = $payment->rsvp_id;
-
-        if ($from == "ROOMS") {
-            $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
-            $data = $query[0];
-
-            $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
-            $data->room = $query[0];
-
-            $query = DB::select('select * from customer where id = ?', [$data->customer_id]);
-            $data->customer = $query[0];
-
-            $query = DB::select('select * from room_photo where room_id = ? LIMIT 1', [$data->room_id]);
-            $data->room->photo = $query;
-
-            $start = Carbon::parse($data->rsvp_checkin);
-            $end = Carbon::parse($data->rsvp_checkout);
-            $totalStay = $start->diffInDays($end);
-            $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
-            $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
-            $data->total_stay = $totalStay;
-            $data->person = $data->rsvp_adult.' Adult';
-            if($data->rsvp_child > 0){
-                $data->person .= ' & '.$data->rsvp_child.' Child';
-            }
-            $data = RoomRsvp::getInclusivePrice($data);
-            $to = $data->customer->cust_email;
-
-        } elseif ($from == "PRODUCTS") {
-            $data = ProductRsvp::where('reservation_id', $id)->with('product')->with('customer')->first();
-            $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
-            $data = ProductRsvp::getInclusivePrice($data);
-            $to = $data['customer']->cust_email;
-            switch ($data['product']->category) {
-                case '1':
-                    $data['product']->category = "Recreation";
-                    break;
-                case '2':
-                    $data['product']->category = "AllySea a SPA";
-                    break;
-                case '3':
-                    $data['product']->category = "MICE";
-                    break;
-                case '4':
-                    $data['product']->category = "Wedding";
-                    break;
-
-                default:
-                    # code...
-                break;
-            }
-        }
-        return view('visitor_site.payment.payment', get_defined_vars());
-    }
-
-    public function payment_unfinish()
-    {
-        return $this->payment_check();
-    }
-
-    public function payment_error()
-    {
-        return $this->payment_check();
+        
     }
 
     public function generate_room_id($id, $date, $roomName)
