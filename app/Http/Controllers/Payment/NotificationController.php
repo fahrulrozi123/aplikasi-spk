@@ -15,6 +15,7 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Admin\User;
 use App\Models\Customer\Customer;
+use App\Models\Payment\Ibank;
 
 use DB;
 use PDF;
@@ -531,7 +532,7 @@ class NotificationController extends Controller
 
     public function ibank_notification (Request $request)
     {
-        
+        Ibank::create($request->all());
     }
 
     public function generate_room_id($id, $date, $roomName)
