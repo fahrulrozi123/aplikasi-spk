@@ -15,7 +15,6 @@ use App\Models\Product\Rsvp as ProductRsvp;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Admin\User;
 use App\Models\Customer\Customer;
-use App\Models\Payment\Ibank;
 
 use DB;
 use PDF;
@@ -530,9 +529,67 @@ class NotificationController extends Controller
         return view('visitor_site.reserve.credit_notification', get_defined_vars());
     }
 
-    public function ibank_notification (Request $request)
+    public function klikpay_notification (Request $request)
     {
-        Ibank::create($request->all());
+        $transaction_id    = $request['trx_id'] ?: null;
+        $data_payment      = Payment::where('transaction_id', $transaction_id)->first();
+
+        $merchant_id	   = config('faspay.merchantId');
+        $merchant_password = config('faspay.merchantPassword');
+        $merchant_user	   = 'bot'.$merchant_id;
+        
+        $bill_no           = $data_payment->booking_id;
+        $from              = $data_payment->from_table;
+        $signature         = sha1(md5($merchant_user.$merchant_password.$bill_no));
+
+        $client = new Client();
+
+        // cek url endpoint production or development
+        if(config('faspay.endpoint') == true) {
+            $url = 'https://web.faspay.co.id/cvr/100004/10';
+        } else if (config('faspay.endpoint') == false) {
+            $url = 'https://dev.faspay.co.id/cvr/100004/10';
+        }
+
+        $response = $client->post($url, [
+            'json' => [
+                'request'     => 'Pengecekan Status Pembayaran',
+                'trx_id'      => $data_payment->transaction_id,
+                'merchant_id' => $merchant_id,
+                'bill_no'     => $data_payment->booking_id,
+                'signature'   => $signature
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if ($data['payment_status_desc'] == 'Belum diproses') {
+            $status_payment = 'pending';
+            $status_rsvp    = 'Waiting for payment';
+        } elseif ($data['payment_status_desc'] == 'Payment Sukses'){
+            $status_payment = 'settlement';
+            $status_rsvp    = 'Payment received';
+        } else {
+            $status_payment = $data['payment_status_desc'];
+            $status_rsvp    = $data['payment_status_desc'];
+        }
+
+        Payment::where('booking_id', $bill_no)->update([
+            'transaction_status' => $status_payment,
+            'fraud_status'       => $data['payment_status_code'],
+            'status_code'        => $data['response_code'],
+            'status_message'     => $data['response_desc']
+        ]);
+
+        if ($value->from_table == "ROOMS") {
+            RoomRsvp::where('booking_id', $bill_no)->update([
+                'rsvp_status' => $status_rsvp
+            ]);
+        } else {
+            ProductRsvp::where('booking_id', $bill_no)->update([
+                'rsvp_status' => $status_rsvp
+            ]);
+        }
     }
 
     public function generate_room_id($id, $date, $roomName)

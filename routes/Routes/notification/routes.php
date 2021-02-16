@@ -6,6 +6,6 @@ Route::group(['middleware' => ['web']], function () {
     //credit notification
     Route::post('/credit-notification', 'Payment\NotificationController@credit_notification')->name('credit.notification');
 
-    //internet banking notification
-    Route::post('/ibank-notification', 'Payment\NotificationController@ibank_notification')->name('ibank.notification');
+    //bca klikpay notification
+    Route::post('/klikpay-notification', 'Payment\NotificationController@klikpay_notification')->name('klikpay.notification');
 });
