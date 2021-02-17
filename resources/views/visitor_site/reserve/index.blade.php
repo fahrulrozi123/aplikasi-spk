@@ -730,11 +730,14 @@
                                                                                     <strong>Rp 0</strong>
                                                                                 </p>
                                                                             @endif
-
-
                                                                         </div>
                                                                     </div>
 
+                                                                    <div class="row" style="margin-top:-20px;">
+                                                                        <div class="col-md-8">
+                                                                            <p> Please finish this <a href="https://www.w3schools.com" id="redirect_url" target="_blank">transaction</a></p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1412,6 +1415,10 @@
 
                         $('.transaction_id').text(data.transaction_id);
                         $('.payment_type').text(data.payment_type);
+
+                        var str =  data.redirect_url;
+                        $("#redirect_url").attr("href", str).css("color", "blue");
+
                         $('.product_total').text("Rp "+formatRupiah(data.product_total));
 
                         var expired = moment(data.bill_expired).format('DD MMMM YYYY HH:mm');

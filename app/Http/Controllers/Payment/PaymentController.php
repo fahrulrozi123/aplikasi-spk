@@ -254,6 +254,7 @@ class PaymentController extends Controller
 
         $data           = json_decode($response->getBody()->getContents(), true);
         $transaction_id = $data['trx_id'];
+        $redirect_url   = $data['redirect_url'];
 
         Payment::create([
             'transaction_id'     => $data['trx_id'],
@@ -286,7 +287,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
-        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "bill_expired" => $bill_expired, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "payment_type" => $result, "bill_expired" => $bill_expired, "redirect_url" => $redirect_url, "href" => "tab2-3"]);
     }
 
     public function reserve_product(Request $request)
@@ -510,6 +511,7 @@ class PaymentController extends Controller
         $data           = json_decode($response->getBody()->getContents(), true);
         $transaction_id = $data['trx_id'];
         $product_total  = $booking->rsvp_grand_total;
+        $redirect_url   = $data['redirect_url'];
 
         Payment::create([
             'transaction_id'     => $data['trx_id'],
@@ -542,7 +544,7 @@ class PaymentController extends Controller
 
         Mail::to($email->cust_email)->send(new CheckoutEmail($data, $payment, $setting));
 
-        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "bill_expired" => $bill_expired, "product_total" => $product_total, "payment_type" => $result, "href" => "tab2-3"]);
+        return response()->json(["status" => 200, "transaction_id" => $transaction_id, "bill_expired" => $bill_expired, "product_total" => $product_total, "payment_type" => $result, "redirect_url" => $redirect_url, "href" => "tab2-3"]);
     }
 
     public function credit(Request $request)
