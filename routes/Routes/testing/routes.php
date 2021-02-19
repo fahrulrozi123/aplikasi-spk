@@ -24,3 +24,6 @@ Route::get('/one-list-payment','Payment\TestingController@onePaymentChannel');
 
 // check payment bca klikpay
 Route::get('/check-payment-klikpay','Payment\TestingController@checkPaymentKlikpay');
+
+// check allotment
+Route::get('/check-allotment','Payment\TestingController@checkAllotment');
