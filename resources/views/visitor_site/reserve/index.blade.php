@@ -735,7 +735,7 @@
 
                                                                     <div class="row" style="margin-top:-20px;">
                                                                         <div class="col-md-8">
-                                                                            <p> Please finish this <a href="https://www.w3schools.com" id="redirect_url" target="_blank">transaction</a></p>
+                                                                            <p><a href="https://www.w3schools.com" id="redirect_url" target="_blank">Click here to complete your payment</a></p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
