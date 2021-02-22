@@ -39,12 +39,12 @@ class CheckAllotment extends Command
      */
     public function handle()
     {
-        // parameter data
+        // check allotment today
         $date = Carbon::Now();
 
-        $allotment_date = Carbon::parse($date)->toDateTimeString();
+        $allotment_date = Carbon::parse($date)->format('Y-m-d');
         $created_at     = Carbon::parse($date)->toDateTimeString();
-        $current_date   = Carbon::parse($date)->toDateTimeString();
+        $current_date   = Carbon::parse($date)->format('Y-m-d');
 
         $sql = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, create_at)
 
@@ -105,6 +105,74 @@ class CheckAllotment extends Command
                 ON roomAvailability.id = todayAllotment.room_id
         WHERE COALESCE(todayAllotment.ID, 0) = 0 ";
 
-        $return = (DB::insert(DB::raw($sql)));
+        DB::insert(DB::raw($sql));
+
+        // check allotment tomorrow
+        $date_t = Carbon::Now();
+        $date_t->addDays(1);
+        $allotment_date_t = Carbon::parse($date_t)->format('Y-m-d');
+        $created_at_t     = Carbon::parse($date_t)->toDateTimeString();
+        $current_date_t   = Carbon::parse($date_t)->format('Y-m-d');
+
+        $sql_t = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, create_at)
+
+        SELECT
+            roomAvailability.id roomID,
+            1,
+            CASE
+                WHEN COALESCE(todayAllotment.ID,0) <> 0 THEN allotment_room
+                ELSE dayAllotment
+            END todayAllotment,
+            CASE
+                WHEN COALESCE(todayAllotment.ID,0) <> 0 THEN allotment_publish_rate
+                ELSE dayPublishRate
+            END todayPublishRate,
+            CASE
+                WHEN COALESCE(todayAllotment.ID,0) <> 0 THEN allotment_ro_rate
+                ELSE dayRoomRate
+            END todayRoomRate,
+            CASE
+                WHEN COALESCE(todayAllotment.ID,0) <> 0 THEN allotment_extrabed_rate
+                ELSE room_extrabed_rate
+            END todayExtraBedRate,
+            '" . $allotment_date_t . "' ,
+            '" . $created_at_t . "' 
+        FROM (
+
+        SELECT
+            id,
+            room_allotment,
+            room_name,
+            CASE
+                WHEN room_future_availability <> 0 AND '" . $allotment_date_t . "'  <= DATE_ADD('" . $current_date_t . "' , INTERVAL room_future_availability MONTH) THEN room_allotment
+                ELSE 0
+            END dayAllotment,
+            CASE
+                WHEN DAYNAME('" . $allotment_date_t . "' ) = 'Friday' OR DAYNAME('" . $allotment_date_t . "' ) = 'Saturday' OR DAYNAME('" . $allotment_date_t . "' ) = 'Sunday' THEN room_weekend_rate
+                ELSE room_publish_rate
+            END dayPublishRate,
+            CASE
+                WHEN DAYNAME('" . $allotment_date_t . "' ) = 'Friday' OR DAYNAME('" . $allotment_date_t . "' ) = 'Saturday' OR DAYNAME('" . $allotment_date_t . "' ) = 'Sunday' THEN room_weekend_ro_rate
+                ELSE room_ro_rate
+            END dayRoomRate,
+            room_extrabed_rate,
+            '" . $allotment_date_t . "' 
+            FROM room_type
+        ) roomAvailability
+
+        LEFT JOIN
+            (SELECT
+                allotment.id,
+                room_id,
+                allotment_room,
+                allotment_publish_rate,
+                allotment_ro_rate,
+                allotment_extrabed_rate
+                FROM allotment
+                WHERE allotment_date = '" . $allotment_date_t . "' ) todayAllotment
+                ON roomAvailability.id = todayAllotment.room_id
+        WHERE COALESCE(todayAllotment.ID, 0) = 0 ";
+
+        DB::insert(DB::raw($sql_t));
     }
 }

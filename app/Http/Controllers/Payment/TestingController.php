@@ -379,9 +379,9 @@ class TestingController extends Controller
         // parameter data
         $date = Carbon::Now();
 
-        $allotment_date = Carbon::parse($date)->toDateTimeString();
+        $allotment_date = Carbon::parse($date)->format('Y-m-d');
         $created_at     = Carbon::parse($date)->toDateTimeString();
-        $current_date   = Carbon::parse($date)->toDateTimeString();
+        $current_date   = Carbon::parse($date)->format('Y-m-d');
 
         $sql = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, create_at)
 
