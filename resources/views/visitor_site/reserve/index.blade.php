@@ -460,7 +460,7 @@
                                                                                     <label class="control-label" for="payment-channel" style="font-size:13px; font-weight:bold;">Choose Bank</label>
                                                                                     <select id="payment-channel" name="payment-channel" class="form-control visitor-input">
                                                                                         @php
-                                                                                            $disablePayment = [801,708,814,408,402,818];
+                                                                                            $disablePayment = [807,814];
 
                                                                                             foreach ($listPaymentChannels as $listPaymentChannel => $item) {
                                                                                                 if (in_array($item['pg_code'], $disablePayment)) {
