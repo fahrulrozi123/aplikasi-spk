@@ -3,7 +3,7 @@
 @section('content')
 @php
 $path = asset('/icon-pack/').'/';
-$stock = 'margarita-drink.png';
+$stock = 'shapes.svg';
 @endphp
 <div class="col-lg-12">
     <input type="hidden" id="activeRow" value="no-edit">
@@ -25,7 +25,8 @@ $stock = 'margarita-drink.png';
                         @foreach($amenitiess as $amenities) <?php $no++ ;?>
                         <div class="col-xs-12 col-lg-4 col-md-4" style="display: flex; margin-bottom: 10px;">
                             <svg width="17px" height="17px" class="horison-icon">
-                                {!! file_get_contents($path.$amenities->amenities_icon, false, stream_context_create($arrContextOptions)) !!}
+                                {!! file_get_contents($path.$amenities->amenities_icon, false,
+                                stream_context_create($arrContextOptions)) !!}
                             </svg>
                             <h5 style="margin:0px!important">&nbsp;&nbsp;{{ $amenities->amenities_name }}</h5>
                         </div>
@@ -35,7 +36,8 @@ $stock = 'margarita-drink.png';
                 @else
                 <div class="row">
                     <div class="center" style="margin-top: 10vh;">
-                        <img src="{{asset('/images/dashboard/amenities_empty_data.png')}}" alt="No Data" class="center" style="margin-top: 0px; margin-bottom: 10px;">
+                        <img src="{{asset('/images/dashboard/amenities_empty_data.png')}}" alt="No Data" class="center"
+                            style="margin-top: 0px; margin-bottom: 10px;">
                         <center>
                             <h4>You don’t have any Amenities to show</h4>
                         </center>
@@ -64,22 +66,26 @@ $stock = 'margarita-drink.png';
                         @foreach($amenitiess as $amenities) <?php $no++ ;?>
                         <div class="col-lg-3 pb">
                             <div class="input-group">
-                            <input type="hidden" name="amenities_id[]" class="form-control" value="{{$amenities->id}}">
-                            <input id="amenities_{{$no}}" type="hidden" name="amenities_status[]" class="form-control" value="1">
+                                <input type="hidden" name="amenities_id[]" class="form-control"
+                                    value="{{$amenities->id}}">
+                                <input id="amenities_{{$no}}" type="hidden" name="amenities_status[]"
+                                    class="form-control" value="1">
                                 <span class="input-group-addon nb" style="width: 40px; min-width: 24px;">
-                                    <svg id = "icon{{$no}}" width="17px" height="17px" class="horison-icon">
-                                        {!! file_get_contents($path.$amenities->amenities_icon, false, stream_context_create($arrContextOptions)) !!}
+                                    <svg id="icon{{$no}}" width="17px" height="17px" class="horison-icon">
+                                        {!! file_get_contents($path.$amenities->amenities_icon, false,
+                                        stream_context_create($arrContextOptions)) !!}
                                     </svg>
                                 </span>
                                 <input type="text" name="amenities_name[]" class="form-control"
-                                    value="{{$amenities->amenities_name}}"
-                                    aria-label="Text input with multiple buttons" maxlength="30" required>
+                                    value="{{$amenities->amenities_name}}" aria-label="Text input with multiple buttons"
+                                    maxlength="30" required>
                                 <div class="input-group-btn pl">
-                                    <button onclick="passData('{{$amenities->amenities_icon}}','{{$no}}');" type="button"
-                                        class="btn btn-amenities gray" aria-label="Help">
+                                    <button onclick="passData('{{$amenities->amenities_icon}}','{{$no}}');"
+                                        type="button" class="btn btn-amenities gray" aria-label="Help">
                                         <span class="fa fa-search"></span>
                                     </button>
-                                    <input type="hidden" id="input{{$no}}" name="amenities_icon[]" value="{{$amenities->amenities_icon}}" />
+                                    <input type="hidden" id="input{{$no}}" name="amenities_icon[]"
+                                        value="{{$amenities->amenities_icon}}" />
                                 </div>
                                 <div class='input-group-btn pl'>
                                     <button type='button' onclick='' class='btn btn-amenities red remove_field'><span
@@ -92,9 +98,11 @@ $stock = 'margarita-drink.png';
                         @else
                         <div class="col-lg-3 pb">
                             <div class="input-group">
-                            <input type="hidden" name="amenities_id[]" class="form-control" value="X">
-                            <input id="amenities_{{$no}}"type="hidden" name="amenities_status[]" class="form-control" value="3">
-                                <span class="input-group-addon nb"><img id = "icon1" src="{{$path.$stock}}" style="height:17px;width:17px;"></span>
+                                <input type="hidden" name="amenities_id[]" class="form-control" value="X">
+                                <input id="amenities_{{$no}}" type="hidden" name="amenities_status[]"
+                                    class="form-control" value="3">
+                                <span class="input-group-addon nb"><img id="icon1" src="{{$path.$stock}}"
+                                        style="height:17px;width:17px;"></span>
                                 <input type="text" name="amenities_name[]" class="form-control"
                                     aria-label="Text input with multiple buttons" maxlength="30" required>
                                 <div class="input-group-btn pl">
