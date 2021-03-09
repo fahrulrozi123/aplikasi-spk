@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use App\Models\Setting\Setting;
+use App\Models\Setting\PageSetting;
 
 class Handler extends ExceptionHandler
 {
@@ -12,6 +13,21 @@ class Handler extends ExceptionHandler
     public function setting()
     {
         return Setting::first();
+    }
+
+    // menu
+    public function menu()
+    {
+        return [
+            'room'         => PageSetting::where('page_code', 'Room')->get(),
+            'recreation'   => PageSetting::where('page_code', 'Recreation')->get(),
+            'spa'          => PageSetting::where('page_code', 'Spa')->get(),
+            'mice'         => PageSetting::where('page_code', 'Mice')->get(),
+            'wedding'      => PageSetting::where('page_code', 'Wedding')->get(),
+            'functionroom' => PageSetting::where('page_code', 'Function')->get(),
+            'newsletter'   => PageSetting::where('page_code', 'Newsletter')->get(),
+            'contact'      => PageSetting::where('page_code', 'Contact')->get()
+        ];
     }
 
     /**
@@ -69,6 +85,7 @@ class Handler extends ExceptionHandler
 
         if ($this->isHttpException($exception)) {
             $setting = $this->setting();
+            $menu    = $this->menu();
             switch ($exception->getStatusCode()) {
 
                 // not authorized
