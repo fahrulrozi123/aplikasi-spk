@@ -4,10 +4,11 @@ namespace App\Models\Room;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Carbon\Carbon;
 
 class Type extends Model
 {
-
+    protected $dateNow;    
     protected $table = 'room_type';
     protected $keyType = 'string';
     public $primaryKey = 'id';
@@ -27,6 +28,11 @@ class Type extends Model
     public function allotment()
     {
         return $this->hasMany('App\Models\Allotment\Allotment', 'room_id', 'id');
+    }
+    public function allotment_day()
+    {
+        $this->dateNow = Carbon::now()->format('Y-m-d');
+        return $this->hasMany('App\Models\Allotment\Allotment', 'room_id', 'id')->where('allotment_date', $this->dateNow);
     }
     public function amenities()
     {

@@ -124,6 +124,13 @@ display: -webkit-box;
     text-decoration: none;
 }
 
+/* VISITOR ROOMS */
+.list-amenities-rooms {
+    display: flex; 
+    margin-bottom: 10px; 
+}
+/* END VISITOR ROOMS */
+
 /* ICON PACK */
 .horison-icon{
     fill: var(--secondary-font-color);
@@ -836,6 +843,12 @@ a > .pull-right{
     }
     .news1-height {
         height: 250px !important;
+    }
+
+    .list-amenities-rooms {
+        display: flex; 
+        margin-bottom: 12px; 
+        height : 30px;
     }
 
 

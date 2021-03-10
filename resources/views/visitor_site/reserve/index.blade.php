@@ -1000,11 +1000,16 @@
                         </div>
                         <div class="d-flex f-align-end">
                             <p style="font-weight: normal;">
-                                {{ $setting->phone }}<br>
+                                {{ $setting->phone }}
+                            </p>
+                            <span style="margin-left: 10px; font-size:18px"><i
+                                    class="entypo-phone"></i></span>
+                        </div>
+                        <div class="d-flex f-align-end">
+                            <p style="font-weight: normal;">
                                 {{ $setting->wa_number }}
                             </p>
-                            <span style="margin-top:7px; margin-left: 10px; font-size:18px"><i
-                                    class="entypo-phone"></i></span>
+                            <span style="margin-left: 15px; font-size:18px"><i class="fa fa-whatsapp" style="padding-right: 5px;"></i></span>
                         </div>
                         <div class="d-flex f-align-end">
                             <p style="font-weight: normal;">

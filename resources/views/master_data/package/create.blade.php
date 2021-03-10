@@ -45,7 +45,11 @@ $category = "1";
                 <div class="col-lg-3 col-sm-6 col-xs-12 ">
                     <div id="category_1" onClick="setActiveCategory(this);" class="contain category">
                         <a>
-                            <img src="{{asset('/images/dashboard/team-build.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
+                            @foreach ($recreations as $recreation)
+                                @foreach($recreation->photo->take(1) as $photo)
+                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $recreation->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                                @endforeach
+                            @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['recreation'][0]['page_name'] }}</strong></h3>
                             </div>
@@ -55,7 +59,11 @@ $category = "1";
                 <div class="col-lg-3 col-sm-6 col-xs-12 ">
                     <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
                         <a>
-                            <img src="{{asset('/images/dashboard/massage-spa-lg.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
+                            @foreach ($spas as $spa)
+                                @foreach($spa->photo->take(1) as $photo)
+                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $spa->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                                @endforeach
+                            @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h3>
                             </div>
@@ -65,7 +73,11 @@ $category = "1";
                 <div class="col-lg-3 col-sm-6 col-xs-12 ">
                     <div id="category_3" onClick="setActiveCategory(this);" class="contain category">
                         <a>
-                            <img src="{{asset('/images/dashboard/meet-room-lg.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
+                            @foreach ($mices as $mice)
+                                @foreach($mice->photo->take(1) as $photo)
+                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $mice->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                                @endforeach
+                            @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['mice'][0]['page_name'] }}</strong></h3>
                             </div>
@@ -75,7 +87,11 @@ $category = "1";
                 <div class="col-lg-3 col-sm-6 col-xs-12 ">
                     <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
                         <a>
-                            <img src="{{asset('/images/dashboard/wedding-celebration.jpg')}}" alt="" class="shadow" style="width:100%; height:100%;">
+                            @foreach ($weddings as $wedding)
+                                @foreach($wedding->photo->take(1) as $photo)
+                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $wedding->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                                @endforeach
+                            @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['wedding'][0]['page_name'] }}</strong></h3>
                             </div>

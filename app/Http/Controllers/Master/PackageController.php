@@ -12,6 +12,7 @@ use App\Models\Product\Product;
 use App\Models\Product\Photos;
 use App\Models\Product\Rsvp;
 use App\Models\Inquiry\Inquiry;
+use App\Models\Setting\PageSetting;
 
 // use App\Models\Admin\LogActivity;
 
@@ -32,7 +33,7 @@ class PackageController extends Controller
     public function index()
     {
         $setting = $this->setting();
-        $packages = Product::orderBy('category')->orderBy('id','DESC')->with('photos')->get();
+        $packages = Product::orderBy('category')->orderBy('product_name','ASC')->with('photos')->get();
 
         //menu code
         $menu = $this->menu();
@@ -50,6 +51,10 @@ class PackageController extends Controller
         $setting = $this->setting();
         //menu code
         $menu = $this->menu();
+        $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
+        $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
+        $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
+        $weddings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
 
         return view('master_data.package.create', get_defined_vars());
     }
@@ -156,6 +161,10 @@ class PackageController extends Controller
 
         //menu code
         $menu = $this->menu();
+        $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
+        $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
+        $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
+        $weddings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
 
         // dd($product);
         return view('master_data.package.create', get_defined_vars());

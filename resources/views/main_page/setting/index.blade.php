@@ -121,7 +121,7 @@
                                     <div class="container">
                                         <label for="wa_number" class="col-sm-2 control-label">WhatsApp<br><small class="text-muted"></small></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="wa_number" id="wa_number" value="{{ $setting->wa_number }}" placeholder="WA Number">
+                                            <input type="text" class="form-control" name="wa_number" id="wa_number" value="{{ $setting->wa_number }}" placeholder="WhatsApp Number">
                                             @error('wa_number')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -139,7 +139,7 @@
                                     <div class="container">
                                         <label for="address" class="col-sm-2 control-label">Address<br><small class="text-muted"></small></label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control" name="address" id="address" value="{{ $setting->address }}" placeholder="Your Address">
+                                            <textarea class="form-control" name="address" id="address" rows="4" cols="50" placeholder="Your Address">{{ old('address', $setting->address) }}</textarea>
                                             @error('address')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

@@ -395,15 +395,15 @@ class ReserveController extends Controller
         }
 
         if ($totalExtrabed == 0) {
-            $rooms = Type::with('bed')->with('allotment')->with('amenities')->with('photo')->get();
+            $rooms = Type::with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_name', 'ASC')->get();
         } else {
-            $rooms = Type::where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->get();
+            $rooms = Type::where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_name', 'ASC')->get();
         }
         foreach ($rooms as $key => $value) {
             $cek = $this->availableDate($checkIn, $totalDays, $totalRoom, $value->id);
 
             if ($cek) {
-                $room = Type::with('bed')->with('amenities')->with('photo')->with(['allotment' => function ($q) use ($checkIn) {
+                $room = Type::with('bed')->with('amenities')->with('photo')->orderBy('room_name', 'ASC')->with(['allotment' => function ($q) use ($checkIn) {
                     // Query the name field in status table
                     $q->where('allotment.allotment_date', '=', $checkIn); // '=' is optional
                 }])

@@ -166,21 +166,21 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                             $path = asset('/icon-pack/').'/';
                             $n = 0;
                             $exp = 1;
-                            $other_amenitites ='<ul style="width: 100%;padding: 0;display: inline-block;list-style: none;">
+                            $other_amenitites ='<ul style="width: 100%;padding: 0;display: flex; flex-wrap: wrap; list-style: none;">
                                 ';
                                 @endphp
                                 <div class="box-amenities">
                                         <ul class="ul-amenities" style="list-style-image:">
                                             @foreach($room['amenities'] as $amenities)@php $n++; @endphp
-                                            @if($n <= 6) @if($n==$exp) <li class="col-xs-6 col-md-4 list-amenities text-horison{{$font_color}}">
+                                            @if($n <= 6) @if($n==$exp) <li class="col-xs-6 col-md-4 list-amenities-rooms text-horison{{$font_color}}">
                                                 @php $exp+= 3; @endphp
                                                 @else
-                                                <li class="col-xs-6 col-md-4 mb-10  text-horison{{$font_color}}" style="display: flex;">
+                                                <li class="col-xs-6 col-md-4 list-amenities-rooms text-horison{{$font_color}}">
                                                     @endif
                                                     <svg width="17px" height="17px" class="horison-icon">
                                                         {!! file_get_contents($path.$color.$amenities->amenities_name[0]->amenities_icon, false, stream_context_create($arrContextOptions)) !!}
                                                     </svg>
-                                                    <p style="margin:0px!important">&nbsp;&nbsp;{{ $amenities->amenities_name[0]->amenities_name }}</p>
+                                                    <p style="margin:0px!important; padding-left: 10px;">{{ $amenities->amenities_name[0]->amenities_name }}</p>
                                                 </li>
                                                 @else
                                                 @php
@@ -192,9 +192,9 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                                     }
                                                     else{
                                                     $other_amenitites.='
-                                                    <li class="col-xs-6 col-md-4 '.$font_color.'"style="display: flex; padding-bottom: 10px;">';
+                                                    <li class="col-xs-6 col-md-4 '.$font_color.'"style="display: flex; padding-bottom: 10px; ">';
                                                     }
-                                                    $other_amenitites.='<svg width="20px" height="20px" class="horison-icon">'.file_get_contents($path.$amenities->amenities_name[0]->amenities_icon, false, stream_context_create($arrContextOptions)).'</svg>'.'<span style="margin-left: 10px"></span>'.$amenities->amenities_name[0]->amenities_name.'
+                                                    $other_amenitites.='<svg width="15px" height="15px" class="horison-icon" style="min-width: 20px;">'.file_get_contents($path.$amenities->amenities_name[0]->amenities_icon, false, stream_context_create($arrContextOptions)).'</svg>'.'<span style="margin-left: 10px">'. $amenities->amenities_name[0]->amenities_name.'</span>
                                                 </li>';
                                                 @endphp
                                                 @endif
@@ -202,7 +202,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                                 @if(count($room['amenities']) > 6)
                                                 @php $other_amenitites.='</ul>'; @endphp
 
-                                        <li class="col-xs-6 col-md-4" style="display: flex;"><button
+                                        <li class="col-xs-12 col-md-4" style="display: flex;"><button
                                                 class="btn text-horison{{$font_color}} hovertools"
                                                 style="background-color: #fff0; margin-left: -15px;" data-toggle="popover"
                                                 data-html="true" data-placement="bottom" data-content='{{$other_amenitites}}'
@@ -216,15 +216,13 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                     </div>
                     <div class="row book-room-row" style="font-size:14px; margin-left: 0px;">
                         <div class="col-md-6 col-xs-12">
-                            @php
-                            if($room->room_ro_rate)
-                            @endphp
                             <span class="text-horison{{$font_color}}"> From<br><strong>
+                                @foreach($room['allotment_day'] as $allotment)
                                     <script>
-                                        document.write("Rp " + formatRupiah("{{$room->room_ro_rate}}"));
-
+                                        document.write("Rp " + formatRupiah("{{ $allotment->allotment_ro_rate }}"));
                                     </script> /
                                 </strong>Night
+                                @endforeach
                             </span>
                         </div>
                         <div class="col-md-6 col-xs-12" align="right">

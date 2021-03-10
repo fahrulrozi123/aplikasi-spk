@@ -21,6 +21,7 @@ use App\Models\Customer\Customer;
 use App\Models\Inquiry\Inquiry;
 use App\Models\Inquiry\OtherRequest;
 use App\Models\Room\Rsvp as RoomRsvp;
+use App\Models\Allotment\Allotment;
 
 class VisitorController extends Controller
 {
@@ -55,7 +56,8 @@ class VisitorController extends Controller
 
         $menu = $this->menu();
         $setting = $this->setting();
-        $rooms = Type::orderBy('id', 'DESC')->with('amenities')->with('photo')->get();
+        $dateNow = Carbon::now()->format('Y-m-d');
+        $rooms = Type::with('allotment_day')->with('amenities')->with('photo')->orderBy('room_name', 'ASC')->get();
         $pagesettings = PageSetting::where('page_code', 'Room')->with('photo')->get();
 
         return view('visitor_site.rooms.index', get_defined_vars());
