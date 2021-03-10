@@ -40,7 +40,7 @@
                             <img class="news1-height news-first" src="{{asset('/user/'.$news->news_photo_path)}}" />
                         </header>
                         <section class="album-info shadow">
-                            <a href="/visitor/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;">
+                            <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;">
                                 <b>{{$news->news_title}}</b></h4>
                             </a>
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
@@ -56,7 +56,7 @@
                         <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news2-height news-second" />
                     </header>
                     <section class="album-info shadow">
-                        <a href="/visitor/news_detail/{{$news->id}}">
+                        <a href="/news_detail/{{$news->id}}">
                             <h4 style="height:45px; line-height: normal;"><b>{{$news->news_title}}</b></h4>
                         </a>
                         <p style="font-size:12px;">{{$news->news_publish_date}}</p>
@@ -76,7 +76,7 @@
                     <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
                 </header>
                 <section class="album-info shadow">
-                    <a href="/visitor/news_detail/{{$news->id}}"><h4 style="height:35px;"><b>{{$news->news_title}}</b></h4></a>
+                    <a href="/news_detail/{{$news->id}}"><h4 style="height:35px;"><b>{{$news->news_title}}</b></h4></a>
 
                     <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                 </section>

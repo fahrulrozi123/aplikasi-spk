@@ -778,7 +778,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="col-md-4" align="right">
-                                                                    <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another Rooms</a>
+                                                                    <a href="/rooms" class="btn btn-horison-dark">Reserve another Rooms</a>
                                                                 </div>
                                                             @else
                                                                 <div class="col-md-12" align="right">

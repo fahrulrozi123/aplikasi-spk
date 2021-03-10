@@ -77,42 +77,42 @@
 
                 <ul class="navbar-nav">
 
-                    <li class="{{ Request::path() === 'visitor/rooms' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'rooms' ? 'active':'' }}">
                         <a href="{{ route('visitor.room') }}">
                             <span class="title">{{ $menu['room'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/recreation' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'recreation' ? 'active':'' }}">
                         <a href="{{ route('visitor.recreation') }}">
                             <span class="title">{{ $menu['recreation'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/allysea_spa' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'wellness' ? 'active':'' }}">
                         <a href="{{ route('visitor.allysea_spa') }}">
                             <span class="title">{{ $menu['spa'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/mice' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'mice' ? 'active':'' }}">
                         <a href="{{ route('visitor.mice_wedding') }}">
                             <span class="title">{{ $menu['mice'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/wedding' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'wedding' ? 'active':'' }}">
                         <a href="{{ route('visitor.wedding') }}">
                             <span class="title">{{ $menu['wedding'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/function_room' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'function_room' ? 'active':'' }}">
                         <a href="{{ route('visitor.function_room') }}">
                             <span class="title">{{ $menu['functionroom'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/newsletter' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'newsletter' ? 'active':'' }}">
                         <a href="{{ route('visitor.newsletter') }}">
                             <span class="title">{{ $menu['newsletter'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'visitor/inquiry' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'inquiry' ? 'active':'' }}">
                         <a href="{{ route('inquiry.index') }}">
                             <span class="title">{{ $menu['contact'][0]['page_name'] }}</span>
                         </a>
@@ -256,7 +256,7 @@
                             </div>
                             <div class="col-xs-12 col-lg-12" style="text-align: center;">
                                 <h4>
-                                    <small class="font-primary">Copyright &copy; 2020 <strong>Tripasyfo Development</strong>. All rights reserved.</small>
+                                    <small class="font-primary">Copyright &copy; 2020 <strong><a class="font-primary" href="https://tripasysfo.com/" target="_blank">Tripasysfo Development</a></strong>. All rights reserved.</small>
                                 </h4>
                             </div>
                         </div>

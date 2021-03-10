@@ -117,7 +117,7 @@
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                             {{substr($mice->product_detail, 0, 100)."..."}}
                     </h5>
-                        <a href="/visitor/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                        <a href="/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                     @else
                         <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                     @endif
@@ -128,7 +128,7 @@
                                 document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
                             </script><span class="pax"> / Pax</span>
                         </p>
-                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
+                        <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                         </form>
@@ -138,7 +138,7 @@
                             $from = "mice";
                         }
                     @endphp
-                        <a href="/visitor/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
+                        <a href="/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                     @endif
                 </section>
                 </article>

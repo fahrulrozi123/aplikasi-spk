@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>
-            <a href="/visitor/newsletter"><span class="entypo-left-open"></span>Back</a>
+            <a href="/newsletter"><span class="entypo-left-open"></span>Back</a>
         </li>
     </ol>
 
@@ -32,7 +32,7 @@
                             <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
                     </header>
                         <section class="album-info shadow">
-                            <a href="/visitor/news_detail/{{$news->id}}"><h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4></a>
+                            <a href="/news_detail/{{$news->id}}"><h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4></a>
 
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                         </section>

@@ -29,7 +29,7 @@
             exhibition and other activities fully equip to accomodate your needs.
         </p>
 
-        <a href="/visitor/inquiry?from=mice" class="btn btn-horison btn-lg" style="margin-top:25px; margin-bottom: 40px;"><b>Reserve Now</b></a>
+        <a href="/inquiry?from=mice" class="btn btn-horison btn-lg" style="margin-top:25px; margin-bottom: 40px;"><b>Reserve Now</b></a>
     </div>
 
     <div class="col-md-6">
@@ -150,7 +150,7 @@
                 <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
                         {{substr($function->func_room_desc, 0, 145)."..."}}
                 </p>
-                    <a href="/visitor/details?from=function_roomA&key={{$function->id}}" style="font-size: 13px; color: #444444; margin-left: 20px;">
+                    <a href="/details?from=function_roomA&key={{$function->id}}" style="font-size: 13px; color: #444444; margin-left: 20px;">
                     <i><u>See more description</u></i>
                     </a>
                 @else
@@ -246,7 +246,7 @@
 
                 <div class="row"> {{-- row button --}}
                 <div class="col-xs-6 col-sm-4 col-md-4">
-                    <a href="/visitor/inquiry?from=mice" class="btn btn-lg btn-horison-gold" style="margin-top:10px; margin-left:10px;"><b>Reserve Now</b></a>
+                    <a href="/inquiry?from=mice" class="btn btn-lg btn-horison-gold" style="margin-top:10px; margin-left:10px;"><b>Reserve Now</b></a>
                 </div>
                 <div class="col-xs-6 col-sm-8 col-md-8">
                     <a href="javascript:;" onclick="show_partition({{($no-1)}});" >
@@ -313,7 +313,7 @@
                             <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                                     {{substr($mice->product_detail, 0, 100)."..."}}
                             </h5>
-                                <a href="/visitor/details?from=function_roomB&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                <a href="/details?from=function_roomB&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                             @else
                                 <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                             @endif
@@ -324,7 +324,7 @@
                                     </script><span class="pax"> / Pax</span>
                                 </p>
                                 <br>
-                                <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
+                                <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
                                     {{ csrf_field() }}
                                     <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                                 </form>
@@ -337,7 +337,7 @@
                                     $from = "wedding";
                                 }
                             @endphp
-                                <a href="/visitor/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
+                                <a href="/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                             @endif
                         </section>
                     </article>

@@ -6,7 +6,7 @@
 
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>
-            <a href="/visitor/{{$from}}"><span class="entypo-left-open"></span>Back</a>
+            <a href="/{{$from}}"><span class="entypo-left-open"></span>Back</a>
         </li>
     </ol>
 

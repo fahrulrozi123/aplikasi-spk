@@ -117,7 +117,7 @@
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                             {{substr($spa->product_detail, 0, 100)."..."}}
                     </h5>
-                        <a href="/visitor/details?from=allysea_spa&key={{$spa->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                        <a href="/details?from=allysea_spa&key={{$spa->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                     @else
                         <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$spa->product_detail}}</h5>
                     @endif
@@ -128,12 +128,12 @@
                                 document.write("Rp " + formatRupiah("{{$spa->product_price}}"));
                             </script><span class="pax"> / Pax</span>
                         </p>
-                        <form method="POST" action="/visitor/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
+                        <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                         </form>
                     @else
-                        <a href="/visitor/inquiry?from=spa" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
+                        <a href="/inquiry?from=spa" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
                     @endif
                 </section>
                 </article>

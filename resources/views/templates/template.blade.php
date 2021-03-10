@@ -134,9 +134,10 @@
 
 			<footer class="footer-office">
                 <center>
-                    <h4>
-                        <small>Copyright &copy; 2020 <strong>Tripasyfo Development</strong>. All rights reserved.</small>
-                    </h4>
+                  <h4>
+                    <small>Copyright &copy; 2020 
+										<strong><a class="font-primary" href="https://tripasysfo.com/" target="_blank">Tripasysfo Development</a></strong>. All rights reserved.</small>
+                  </h4>
                 </center>
 			</footer>
 

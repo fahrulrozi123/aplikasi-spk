@@ -60,7 +60,7 @@
                     <p class="description-lp-white-2">
                         {{ $spa->page_description }}
                     </p>
-                    <a href="visitor/allysea_spa" class="btn btn-horison-visitor"><b>Explore {{ $spa->page_name }}</b></a>
+                    <a href="wellness" class="btn btn-horison-visitor"><b>Explore {{ $spa->page_name }}</b></a>
                     <br><br><br>
                 @endforeach
 
@@ -72,7 +72,7 @@
                     <p class="description-lp-white-2">
                         {{ $functionroom->page_description }}
                     </p>
-                    <a href="visitor/function_room" class="btn btn-horison-visitor"><b>Explore {{ $functionroom->page_name }}</b></a>
+                    <a href="function_room" class="btn btn-horison-visitor"><b>Explore {{ $functionroom->page_name }}</b></a>
                 @endforeach
             </div>
 
@@ -85,7 +85,7 @@
                     <p class="description-lp-white-3">
                         {{ $mice->page_description }}
                     </p>
-                    <a href="visitor/mice_wedding" class="btn btn-horison-visitor"><b>Explore {{ $mice->page_name }}</b></a>
+                    <a href="mice" class="btn btn-horison-visitor"><b>Explore {{ $mice->page_name }}</b></a>
                     <br><br><br>
                 @endforeach
 
@@ -97,7 +97,7 @@
                     <p class="description-lp-white-3">
                         {{ $recreation->page_description }}
                     </p>
-                    <a href="visitor/recreation" class="btn btn-horison-visitor"><b>Explore {{ $recreation->page_name }}</b></a>
+                    <a href="recreation" class="btn btn-horison-visitor"><b>Explore {{ $recreation->page_name }}</b></a>
                 @endforeach
             </div>
         </div>
@@ -126,7 +126,7 @@
                                 <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" />
                         </header>
                         <section class="album-info shadow" style="">
-                            <a href="/visitor/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;"><b>{{$news->news_title}}<b></h4></a>
+                            <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;"><b>{{$news->news_title}}<b></h4></a>
 
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                         </section>
@@ -141,7 +141,7 @@
                         <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" />
                     </header>
                     <section class="album-info shadow">
-                        <a href="/visitor/news_detail/{{$news->id}}">
+                        <a href="/news_detail/{{$news->id}}">
                             <h4 style="height:45px; line-height: normal;"><b>{{$news->news_title}}<b></h4>
                         </a>
                         <p style="font-size:12px; margin-top:0px !important;">{{$news->news_publish_date}}</p>

@@ -299,7 +299,7 @@
                                                         </a>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <a href="/visitor/rooms" class="btn btn-horison-dark">Reserve another
+                                                        <a href="/rooms" class="btn btn-horison-dark">Reserve another
                                                             Rooms</a>
                                                     </div>
                                                 </div>
