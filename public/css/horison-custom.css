@@ -327,7 +327,7 @@ display: -webkit-box;
     text-align: center;
     color: var(--secondary-font-color) !important;
     vertical-align: middle !important;
-    width: 12%;
+    width: auto !important;
 }
 
 #two_day li {

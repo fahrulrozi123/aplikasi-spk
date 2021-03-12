@@ -379,7 +379,7 @@
                                                             </div>
                                                             @endif
                                                             @else
-                                                            <div style="width: 65%; text-align: justify;">
+                                                            <div style="width: 65%;">
                                                                 <p class="product_details" style="font-size:14px; color:black;">
                                                                     0 x {{$data->productName}}</p>
                                                             </div>
