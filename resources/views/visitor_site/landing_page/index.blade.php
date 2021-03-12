@@ -72,7 +72,7 @@
                     <p class="description-lp-white-2">
                         {{ $functionroom->page_description }}
                     </p>
-                    <a href="function_room" class="btn btn-horison-visitor"><b>Explore {{ $functionroom->page_name }}</b></a>
+                    <a href="function-room" class="btn btn-horison-visitor"><b>Explore {{ $functionroom->page_name }}</b></a>
                 @endforeach
             </div>
 

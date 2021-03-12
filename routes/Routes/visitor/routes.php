@@ -13,9 +13,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/rooms/', 'Visitor\VisitorController@rooms')->name('visitor.room');
 
     //FUNCTION ROOM//
-    Route::get('/function_room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');
+    Route::get('/function-room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');
 
-    //MICE & WEDDING//
+    //MICE//
     Route::get('/mice/', 'Visitor\VisitorController@mice')->name('visitor.mice_wedding');
 
     //WEDDING//

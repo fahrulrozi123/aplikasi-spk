@@ -421,7 +421,7 @@
                             <span class="title">{{ $menu['wedding'][0]['page_name'] }}</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'function_room' ? 'active':'' }}">
+                    <li class="{{ Request::path() === 'function-room' ? 'active':'' }}">
                         <a href="{{ route('visitor.function_room') }}">
                             <span class="title">{{ $menu['functionroom'][0]['page_name'] }}</span>
                         </a>
