@@ -90,7 +90,7 @@ class Handler extends ExceptionHandler
 
                 // not authorized
                 case '403':
-                    // return \Response::view('errors.403',array(),403);
+                    // return \Response::view('errors.403', get_defined_vars(),403);
                     break;
 
                 // not found
@@ -100,8 +100,13 @@ class Handler extends ExceptionHandler
 
                 // internal error
                 case '500':
-                    // return \Response::view('errors.500',array(),500);
+                    // return \Response::view('errors.500', get_defined_vars(),500);
                     break;
+
+                // // service unavailable
+                // case '503':
+                //     return \Response::view('errors.503', get_defined_vars(),500);
+                //     break;
 
                 default:
                     // return $this->renderHttpException($e);

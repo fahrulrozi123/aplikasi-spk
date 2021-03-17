@@ -1,4 +1,4 @@
-@extends('templates/visitor_rsv_template')
+@extends('templates/visitor_template')
 @section('content')
 <br><br>
 
@@ -397,5 +397,4 @@
 </div>
 
 <br><br>
-
 @endsection
