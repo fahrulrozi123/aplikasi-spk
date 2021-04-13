@@ -69,7 +69,7 @@
                 <!-- logo -->
                 <div class="navbar-brand" style="padding-top:5px;">
                     <a href="/">
-                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="170" height="50" alt="tirtasanitaresort" />
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="170" height="50" alt="Horison Ultima Bandung" />
                     </a>
                 </div>
 
@@ -188,7 +188,7 @@
                     <div class="row footer-bg-color">
                         <div class="container footer-bg-height">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
-                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="tirtasanitaresort" style="margin-top:55px;" />
+                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Horison Ultima Bandung" style="margin-top:55px;" />
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                                 <div class=row>
