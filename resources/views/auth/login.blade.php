@@ -91,7 +91,7 @@
             <div class="login-content head_logo">
 
                 <a href="/login" class="logo">
-                    <img src="{{ asset('images/logo/' . $setting->logo) }}" width="240" alt="tirtasanitaresort" />
+                    <img src="{{ asset('images/logo/' . $setting->logo) }}" width="240" />
                 </a>
 
 

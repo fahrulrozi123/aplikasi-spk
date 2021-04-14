@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung">
-    <meta name="keywords" content="Horison, Ultima, Banudng, Hotel">
+    <meta name="keywords" content="Horison, Ultima, Bandung, Hotel">
     <meta name="author" content="Horison Ultima Bandung">
     <title>{{ $setting->title }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
@@ -391,7 +391,7 @@
                 <!-- logo -->
                 <div class="navbar-brand" style="padding-top:5px;">
                     <a href="/">
-                        <img src="{{ asset('images/logo/' . $setting->logo) }}" alt="tirtasanitaresort" style="max-height: 50px;"/>
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" alt="Horison Ultima Bandung" style="max-height: 50px;"/>
                     </a>
                 </div>
                 <!-- main menu -->
@@ -501,7 +501,7 @@
                     <div class="row footer-bg-color">
                         <div class="container footer-bg-height">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
-                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="tirtasanitaresort" style="margin-top:55px;" />
+                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Horison Ultima Bandung" style="margin-top:55px;" />
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                                 <div class=row>

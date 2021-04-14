@@ -109,8 +109,8 @@
                     {{-- BOOKING DETAILS - HEADER --}}
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
-                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="tirtasanitaresort">
-                            {{-- <img src="{{ $gambar }}" width="210" alt="tirtasanitaresort"> --}}
+                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Horison Ultima Bandung">
+                            {{-- <img src="{{ $gambar }}" width="210" alt="Horison Ultima Bandung"> --}}
                             <h3 class="font-voucher horison-dark" style="margin-top: -65px; margin-left: 240px;">
                                 <b>RECEIPT</b><br>
                                 #{{$data->payment->transaction_id}}

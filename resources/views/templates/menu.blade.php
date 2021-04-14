@@ -4,7 +4,7 @@
 		<header class="logo-env">
 			<div class="logo">
 				<a href="/dashboard">
-                    <img src="{{ asset('images/logo/' . $setting->logo) }}" width="155" alt="tirtasanitaresort" />
+                    <img src="{{ asset('images/logo/' . $setting->logo) }}" width="155" />
 				</a>
 			</div>
 			<div class="sidebar-collapse">

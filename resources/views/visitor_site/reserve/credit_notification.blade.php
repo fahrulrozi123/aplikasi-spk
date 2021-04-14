@@ -96,7 +96,7 @@
 
                     {{-- HEADER --}}
                     <a href="/">
-                        <img id="logo_horison" class="mt-20 img-reserve" style="position: absolute; top: 0; left: 0;" src="{{ asset('images/logo/' . $setting->logo) }}" width="170" alt="tirtasanitaresort" />
+                        <img id="logo_horison" class="mt-20 img-reserve" style="position: absolute; top: 0; left: 0;" src="{{ asset('images/logo/' . $setting->logo) }}" width="170" alt="Horison Ultima Bandung" />
                     </a>
                     <div class="steps-progress">
                         <div class="progress-indicator-two" style="width: 100% !important;"></div>
@@ -300,7 +300,7 @@
             <div class="row footer-bg-color margin-footer">
                 <div class="container" style="height:185px;">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
-                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="tirtasanitaresort" style="margin-top:55px;" />
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Horison Ultima Bandung" style="margin-top:55px;" />
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                         <div class=row>
