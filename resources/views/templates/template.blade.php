@@ -7,7 +7,7 @@
 	<title>{{ $setting->title }}</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
 
 	<link rel="stylesheet" href="{{ asset('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/font-icons/entypo/css/entypo.css')}}">
@@ -15,11 +15,11 @@
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/neon-core.css')}}">
 	<link rel="stylesheet" href="{{ asset('css/neon-theme.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/neon-forms.css')}}">
-    <link rel="stylesheet" href="{{ asset('js/fullcalendar/fullcalendar.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/neon-forms.css')}}">
+  <link rel="stylesheet" href="{{ asset('js/fullcalendar/fullcalendar.css') }}">
 	<link rel="stylesheet" href="{{ asset('js/selectboxit/jquery.selectBoxIt.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/skins/white.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
+  <link rel="stylesheet" href="{{ asset('css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
 
 	<link rel="stylesheet" href="{{ asset('css/md-tripa.css ') }}">
 	<link rel="stylesheet" href="{{ asset('css/horison-custom.css ') }}">
@@ -28,7 +28,7 @@
 	<link rel="stylesheet" href="{{ asset('js/datatables/datatables.css') }}">
 	<link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
 	<link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
+  <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
 	<link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon"/>
 
 	{{-- <script type="text/javascript" src="{{ asset('js/jquery.hislide.js') }}"></script> --}}

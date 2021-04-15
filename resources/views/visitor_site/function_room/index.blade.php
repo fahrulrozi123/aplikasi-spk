@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Function Room Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Function Room Horison Ultima Bandung, Function Room')
+@section('title', 'Function Room')
+
 @section('content')
 <script>
     /* Fungsi formatRupiah */
@@ -39,7 +44,7 @@
             @foreach($pagesetting->photo as $photo)<?php $i++;?>
             <div class="mySlides2 id_{{$no}}">
                 <div class="numbertext">{{$i}} / 3</div>
-                <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" alt="{{ $pagesetting->page_name }}">
+                <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" alt="{{ $pagesetting->page_name }}" loading="lazy">
             </div>
             @endforeach
         @endforeach
@@ -49,7 +54,7 @@
             <?php $i = 0;?>
                 @foreach($pagesetting->photo->take(3) as $photo)<?php $i++;?>
                     <div class="column">
-                        <img class="demo2 cursor id_{{$no}} height2-fr" src="{{asset('/user/'.$photo->photo_path)}}" onclick="currentSlide2({{$no}}, {{$i}})" alt="{{ $photo->page_name }}">
+                        <img class="demo2 cursor id_{{$no}} height2-fr" src="{{asset('/user/'.$photo->photo_path)}}" onclick="currentSlide2({{$no}}, {{$i}})" alt="{{ $photo->page_name }}" loading="lazy">
                     </div>
                 @endforeach
             @endforeach
@@ -112,7 +117,7 @@
             @foreach($function['photos'] as $photo)<?php $i++;?>
                 <div class="mySlides2 id_{{$no}}">
                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                    <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" style="object-fit: cover !important;">
+                    <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" style="object-fit: cover !important;" loading="lazy">
                 </div>
             @endforeach
 
@@ -129,13 +134,11 @@
             @foreach($function['photos'] as $photo)<?php $i++;?>
             @if($i <= 3)
             <div class="column {{$class}}">
-                <img class="demo2 height2-fr cursor id_{{$no}}" src="{{asset('/user/'.$function['photos'][$i-1]->photo_path)}}" style="width:100%; object-fit: cover;" onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room">
+                <img class="demo2 height2-fr cursor id_{{$no}}" src="{{asset('/user/'.$function['photos'][$i-1]->photo_path)}}" style="width:100%; object-fit: cover;" onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room" loading="lazy">
                 @if($i == 3)
-                <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2 seal-fr"
-                                                style=""><b>+
-                                                    See All</b></a>
+                <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2 seal-fr" style=""><b>+See All</b></a>
                 <img class="bblackfr" src="{{asset('/images/blck.jpg')}}"
-                    style="width:100%; margin-top: -87px;">
+                    style="width:100%; margin-top: -87px;" loading="lazy">
                 @endif
             </div>
             @endif
@@ -277,7 +280,7 @@
                             @foreach($mice['photos'] as $photo)<?php $i++;?>
                                 <div class="mySlides2 id_{{$no}}">
                                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw" style="height:270px;">
+                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw" style="height:270px;" loading="lazy">
                                 </div>
                             @endforeach
 
@@ -294,13 +297,13 @@
                                         <img class="demo2 id_{{$no}}"
                                             src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
                                             style="width:100% ; height:45px!important; object-fit: cover;"
-                                            onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room">
+                                            onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room" loading="lazy">
                                         @if($i == 3)
                                         <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
                                             style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
                                                 See All</b></a>
                                         <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
-                                            style="width:100%; margin-top:-45px; ">
+                                            style="width:100%; margin-top:-45px;" loading="lazy">
                                         @endif
                                 </div>
                                 @endif
@@ -354,37 +357,36 @@
 
 {{-- script untuk image gallery atas --}}
 <script>
+    var slideIndex = 1;
+    showSlides(1, 1);
 
-  var slideIndex = 1;
-  showSlides(1, 1);
+    var function_rooms = JSON.parse($('#function_rooms').val());
+    var mices = JSON.parse($('#mices').val());
 
-  var function_rooms = JSON.parse($('#function_rooms').val());
-  var mices = JSON.parse($('#mices').val());
+    for (let n = 1; n <= function_rooms.length; n++) {
+        // if(n = 1){
+        //   showSlides(n, 1);
+        // }
+            if (function_rooms[n - 1]['photos'].length > 0) {
+                showSlides(n+1, 1);
+            }
+    }
 
-  for (let n = 1; n <= function_rooms.length; n++) {
-      // if(n = 1){
-      //   showSlides(n, 1);
-      // }
-        if (function_rooms[n - 1]['photos'].length > 0) {
-            showSlides(n+1, 1);
-        }
-  }
-  var next_slide = function_rooms.length + 1;
-  for (let n = 1; n <= mices.length; n++) {
-      // if(n = 1){
-      //   showSlides(n, 1);
-      // }
-        if (mices[n - 1]['photos'].length > 0) {
-            showSlides(n+next_slide, 1);
-        }
-  }
+    var next_slide = function_rooms.length + 1;
+    for (let n = 1; n <= mices.length; n++) {
+        // if(n = 1){
+        //   showSlides(n, 1);
+        // }
+            if (mices[n - 1]['photos'].length > 0) {
+                showSlides(n+next_slide, 1);
+            }
+    }
 
+    function currentSlide2(id, n) {
+            showSlides(id, slideIndex = n);
+    }
 
-  function currentSlide2(id, n) {
-        showSlides(id, slideIndex = n);
-  }
-
-  function showSlides(id, n) {
+    function showSlides(id, n) {
         var i;
         var slides = document.getElementsByClassName("mySlides2 id_" + String(id));
         var dots = document.getElementsByClassName("demo2 id_" + String(id));
@@ -403,7 +405,6 @@
         }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
-
     }
 
 
@@ -416,7 +417,6 @@
         var slider_for = "";
         var slider_nav = "";
 
-
         if(id > next_slide){
             id = id - next_slide;
             var photos = mices[id - 1];
@@ -424,13 +424,12 @@
             $('#modal_title').text(photos.product_name);
 
             photos['photos'].forEach(function (data, index) {
-              index++;
+            index++;
 
-
-              slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
-              slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
-                              '</div>';
+            slider_for += '<div align="center"><img loading="lazy" class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
+            slider_nav += '<div class="sub-seeall">'+
+                        '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
+                        '</div>';
             });
         }else{
             var photos = function_rooms[id - 2];
@@ -439,12 +438,11 @@
 
             photos['photos'].forEach(function (data, index) {
 
-              index++;
-              slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
-              slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
-                              '</div>';
-
+            index++;
+            slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
+            slider_nav += '<div class="sub-seeall">'+
+                        '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
+                        '</div>';
             });
         }
 
@@ -462,7 +460,6 @@
             $('.slider-nav').slick('unslick');
         }
         do_slider();
-
     }
 
     function show_partition(index){
@@ -475,15 +472,15 @@
         $('#fr_dimension').text(partition.func_dimension+" Sqm");
         var html = '';
         partition['partition'].forEach(element => {
-            html  += '<tr>'+
-                            '<td class="fr-modal-table-content">'+element.func_name+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_dimension+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_class+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_theatre+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_ushape+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_board+'</td>'+
-                            '<td class="fr-modal-table-content">'+element.func_round+'</td>'+
-                          '</tr>';
+            html += '<tr>'+
+                        '<td class="fr-modal-table-content">'+element.func_name+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_dimension+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_class+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_theatre+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_ushape+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_board+'</td>'+
+                        '<td class="fr-modal-table-content">'+element.func_round+'</td>'+
+                    '</tr>';
             $('#partition_table-body').empty();
             $('#partition_table-body').append(html);
         });
@@ -495,7 +492,4 @@
     });
 
 </script>
-
-
-
 @endsection

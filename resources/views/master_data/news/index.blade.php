@@ -27,7 +27,7 @@
                     <article class="album">
                         <header>
                             <a href="/news_detail/{{$news->id}}" target="_blank" type="button" >
-                                <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}"  />
+                                <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                             </a>
                             <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">
                                 <i class="entypo-cog"></i>
@@ -49,7 +49,7 @@
                         <article class="album">
                             <header>
                                 <a type="button"  href="/news_detail/{{$news->id}}" target="_blank" >
-                                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" />
+                                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" loading="lazy" />
                                 </a>
                                 <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">
                                     <i class="entypo-cog"></i>
@@ -74,7 +74,7 @@
                         <article class="album">
                             <header>
                                 <a type="button"  href="/news_detail/{{$news->id}}" target="_blank">
-                                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
+                                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" loading="lazy" />
                                 </a>
                                 <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">
                                     <i class="entypo-cog"></i>

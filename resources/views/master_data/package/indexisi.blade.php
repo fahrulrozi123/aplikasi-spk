@@ -44,7 +44,7 @@
             <div class="panel-body shadow">
                 <div class="col-lg-3 col-sm-12 mb text-center" >
                     {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow">
+                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                     {{-- </a> --}}
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -79,7 +79,7 @@
             <div class="panel-body shadow">
                 <div class="col-lg-3 col-sm-12 mb text-center" >
                     {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow ">
+                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                     {{-- </a> --}}
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -114,7 +114,7 @@
             <div class="panel-body shadow">
                 <div class="col-lg-3 col-sm-12 mb text-center" >
                     {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow">
+                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                     {{-- </a> --}}
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -149,7 +149,7 @@
             <div class="panel-body shadow">
                 <div class="col-lg-3 col-sm-12 mb text-center" >
                     {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow">
+                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                     {{-- </a> --}}
                 </div>
                 <div class="col-lg-4 col-sm-12">

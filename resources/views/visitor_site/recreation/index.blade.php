@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Recreation Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Recreation Horison Ultima Bandung, Recreation')
+@section('title', 'Recreation')
+
 @section('content')
 
 <script>
@@ -82,7 +87,7 @@
                             <div class="mySlides1 id_{{$no}}">
                                 <div class="numbertext">{{$i}} / {{$total}}</div>
                                 <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
-                                    style="height:270px;">
+                                    style="height:270px;" loading="lazy">
                             </div>
                             @endforeach
                             <div class="bbaris-rec">
@@ -98,13 +103,13 @@
                                     <img class="demo1 id_{{$no}}"
                                         src="{{asset('/user/'.$recreation['photos'][$i-1]->product_photo_path)}}"
                                         style="width:100%!important; height:45px!important;"
-                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Recreation">
+                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Recreation" loading="lazy">
                                     @if($i == 3)
                                     <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
                                         style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
                                             See All</b></a>
                                     <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
-                                        style="width:100%; margin-top:-45px;">
+                                        style="width:100%; margin-top:-45px;" loading="lazy">
                                     @endif
                             </div>
                             @endif
@@ -362,10 +367,10 @@
 
         recreation['photos'].forEach(function (data, index) {
             index++;
-            slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
+            slider_for += '<div align="center"><img loading="lazy" class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
             slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
-                              '</div>';
+                            '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
+                            '</div>';
 
         });
 

@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung')
+@section('keywords', 'Horison Ultima Bandung, Horison, Ultima, Bandung, Hotel')
+@section('title', 'Hotel Terbaik di Bandung')
+
 @section('content')
 
 <br><br><br>
@@ -10,7 +15,7 @@
             @if($banner->banner_status != "4")
             <div class="mySlides">
                 <div class="numbertext">{{$no}} / 3</div>
-                <img src="{{asset('/user/'.$banner->banner_name)}}" class="uwaw height-banner">
+                <img src="{{asset('/user/'.$banner->banner_name)}}" class="uwaw height-banner" loading="lazy">
             </div>
             @endif
         @endforeach
@@ -19,8 +24,7 @@
             @foreach($banners->take(3) as $banner) <?php $no++ ;?>
             @if($banner->banner_status != "4")
             <div class="column">
-                <img class="demo cursor height2-banner" src="{{asset('/user/'.$banner->banner_name)}}" onclick="currentSlide({{$no}})"
-                    alt="Banner">
+                <img class="demo cursor height2-banner" src="{{asset('/user/'.$banner->banner_name)}}" onclick="currentSlide({{$no}})" alt="Horison Ultima Bandung" loading="lazy">
             </div>
             @endif
             @endforeach
@@ -55,7 +59,7 @@
                 {{-- atas --}}
                 @foreach ($spas as $spa)
                     @foreach($spa->photo->take(1) as $photo)
-                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $spa->page_name }}" /></a>
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $spa->page_name }}" loading="lazy" /></a>
                     @endforeach
                     <p class="description-lp-white-2">
                         {{ $spa->page_description }}
@@ -67,7 +71,7 @@
                 {{-- bawah --}}
                 @foreach ($functionrooms as $functionroom)
                     @foreach($functionroom->photo->take(1) as $photo)
-                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $functionroom->page_name }}" /></a>
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $functionroom->page_name }}" loading="lazy" /></a>
                     @endforeach
                     <p class="description-lp-white-2">
                         {{ $functionroom->page_description }}
@@ -80,7 +84,7 @@
                 {{-- atas --}}
                 @foreach ($mices as $mice)
                     @foreach($mice->photo->take(1) as $photo)
-                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $mice->page_name }}" /></a>
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $mice->page_name }}" loading="lazy" /></a>
                     @endforeach
                     <p class="description-lp-white-3">
                         {{ $mice->page_description }}
@@ -92,7 +96,7 @@
                 {{-- bawah --}}
                 @foreach ($recreations as $recreation)
                     @foreach($recreation->photo->take(1) as $photo)
-                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $recreation->page_name }}" /></a>
+                        <a><img src="{{ asset('/user/'.$photo->photo_path) }}" class="news-second shadow" alt="{{ $recreation->page_name }}" loading="lazy" /></a>
                     @endforeach
                     <p class="description-lp-white-3">
                         {{ $recreation->page_description }}
@@ -123,7 +127,7 @@
                 <div class="col-sm-6">
                     <article class="album">
                         <header>
-                                <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" />
+                            <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                         </header>
                         <section class="album-info shadow" style="">
                             <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;"><b>{{$news->news_title}}<b></h4></a>
@@ -138,7 +142,7 @@
             @elseif ($no > 1 && $no <= 5) <div class="col-sm-3">
                 <article class="album">
                     <header>
-                        <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" />
+                        <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" loading="lazy" />
                     </header>
                     <section class="album-info shadow">
                         <a href="/news_detail/{{$news->id}}">

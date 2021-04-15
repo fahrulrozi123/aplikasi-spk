@@ -47,7 +47,7 @@
 
                 <div class="row">
                     <div class="col-lg-3 col-sm-12 mb">
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow">
+                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                         <br><br>
                     </div>
 

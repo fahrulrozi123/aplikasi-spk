@@ -1,4 +1,9 @@
 @extends('templates/visitor_rsv_template')
+
+@section('description', 'Inquiry Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Inquiry Horison Ultima Bandung, Inquiry')
+@section('title', 'Inquiry')
+
 @section('content')
 
 <br><br>
@@ -583,7 +588,7 @@
 </div>
 
 <script>
- $(document).ready(function() {
+$(document).ready(function() {
     const event_type = '{{ old('event_type') }}';
     const spa_other_request = {!! json_encode(old('spa_other_request')) !!};
     const rec_other_request = {!! json_encode(old('rec_other_request')) !!};
@@ -591,20 +596,20 @@
 
     const from = "{{$from}}";
     if(from !== '' && event_type == '') {
-      $('#tab_general').fadeOut();
-      $('#event_type').val('tab_'+from);
-      $('#tab_'+from).fadeIn();
-      $('#wedding_details').removeAttr('required');
-      current_tab = 'tab_'+from;
+        $('#tab_general').fadeOut();
+        $('#event_type').val('tab_'+from);
+        $('#tab_'+from).fadeIn();
+        $('#wedding_details').removeAttr('required');
+        current_tab = 'tab_'+from;
     }
     if(event_type !== '') {
-      $('#tab_general').fadeOut();
-      $('#event_type').val(event_type);
-      $('#'+event_type).fadeIn();
-      $('#wedding_details').removeAttr('required');
+        $('#tab_general').fadeOut();
+        $('#event_type').val(event_type);
+        $('#'+event_type).fadeIn();
+        $('#wedding_details').removeAttr('required');
     }
     if(event_type !== 'tab_general'){
-       $('#general_details').removeAttr('required');
+        $('#general_details').removeAttr('required');
     }
 
     if(wedding_service_request){
@@ -639,7 +644,7 @@
             }
         });
     }
-  });
+});
 
 var element;
 var current_tab = 'tab_general';
@@ -650,52 +655,50 @@ function selectEvent(e) {
     current_tab = e.target.value;
     if(current_tab == "tab_wedding"){
 
-       $('#wedding_details').attr('required','required');
+        $('#wedding_details').attr('required','required');
     }else{
 
-       $('#wedding_details').removeAttr('required');
+        $('#wedding_details').removeAttr('required');
     }
 
     if(current_tab == "tab_general"){
 
-       $('#general_details').attr('required','required');
+        $('#general_details').attr('required','required');
     }else{
-       $('#general_details').removeAttr('required');
+        $('#general_details').removeAttr('required');
     }
 
     $('#'+current_tab).fadeIn();
-
 }
 
 $("input[name=mice_event_type ]").click(function() {
-   element = $(this);
-   if(element.val() == "Others"){
-        $('#other_value').fadeIn();
-        $('#mice_other_value').attr('required', 'required');
+    element = $(this);
+    if(element.val() == "Others"){
+            $('#other_value').fadeIn();
+            $('#mice_other_value').attr('required', 'required');
 
-   }else{
-        $('#mice_other_value').removeAttr('required');
-        $('#other_value').fadeOut();
-   }
+    }else{
+            $('#mice_other_value').removeAttr('required');
+            $('#other_value').fadeOut();
+    }
 });
 
 
 var input = document.querySelector("#phone_number");
     window.intlTelInput(input, {
-      customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+    customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
             return "e.g. " + selectedCountryPlaceholder;
-      },
-      separateDialCode: true,
-      hiddenInput: "phone_number",
-      initialCountry: "auto",
-      geoIpLookup: function(callback) {
+    },
+    separateDialCode: true,
+    hiddenInput: "phone_number",
+    initialCountry: "auto",
+    geoIpLookup: function(callback) {
         $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
-          var countryCode = (resp && resp.country) ? resp.country : "";
-          callback(countryCode);
+        var countryCode = (resp && resp.country) ? resp.country : "";
+        callback(countryCode);
         });
-      },
-      utilsScript: "{{ asset('js/intl-phone/utils.js') }}", // just for formatting/placeholders etc
+    },
+    utilsScript: "{{ asset('js/intl-phone/utils.js') }}", // just for formatting/placeholders etc
     });
 </script>
-
 @endsection

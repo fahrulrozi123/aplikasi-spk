@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung">
-    <meta name="keywords" content="Horison, Ultima, Bandung, Hotel">
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
     <meta name="author" content="Horison Ultima Bandung">
-    <title>{{ $setting->title }}</title>
+    <title>{{ $setting->title }} - @yield("title")</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
     <link rel="stylesheet" href="{{ asset('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')}}">

@@ -16,7 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-body shadow">
                 <div class="col-lg-3 col-sm-12 mb text-center">
-                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow">
+                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-3">
                         <h4 class="mb"><strong>{{ $room->room_name }}</strong></h4>

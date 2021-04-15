@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Rooms Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Rooms Horison Ultima Bandung, Rooms')
+@section('title', 'Rooms')
+
 @section('content')
 
 <script>
@@ -45,8 +50,8 @@
             <ul>
                 @foreach ($pagesettings as $pagesetting)
                     @foreach($pagesetting->photo->take(2) as $photo)
-                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" /></li>
-                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" /></li>
+                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" loading="lazy" /></li>
+                        <li><img src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $pagesetting->page_name }}" loading="lazy" /></li>
                     @endforeach
                 @endforeach
             </ul>
@@ -81,7 +86,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                         <div class="mySlides1 id_{{$no}}">
                             <div class="numbertext">{{$i.'/'.$total}}</div>
                             <img src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}"
-                                class="uwaw img-rooms-mobile">
+                                class="uwaw img-rooms-mobile" loading="lazy">
                         </div>
                         @endif
                         @endforeach
@@ -99,11 +104,11 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                 <div class="column {{$class}}" style="height:80px!important;">
                                 <img class="demo1 id_{{$no}}" src="{{asset('/user/'.$room['photo'][$i-1]->photo_path)}}"
                                     style="width:100% ; heigth:80px!important;" onclick="currentSlide({{$no}}, {{$i}})"
-                                    alt="Room">
+                                    alt="Room" loading="lazy">
                                 @if($i == 3)
                                 <a href="javascript:;" onclick="seeAll({{$no}});" class="seal2"><b>+ See All</b></a>
                                 <img onclick="seeAll({{$no}});" class="bblack2" src="{{asset('/images/blck.jpg')}}"
-                                    style="width:100% ; heigth:80px!important;">
+                                    style="width:100% ; heigth:80px!important;" loading="lazy">
                                 @endif
                         </div>
                         @endif
@@ -378,9 +383,9 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
             room['photo'].forEach(function (data, index) {
 
                 index++;
-                slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
+                slider_for += '<div align="center"><img loading="lazy" class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
                 slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
+                              '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
                               '</div>';
 
 

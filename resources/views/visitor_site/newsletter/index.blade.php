@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Newsletter Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Newsletter Horison Ultima Bandung, Newsletter')
+@section('title', 'Newsletter')
+
 @section('content')
 
 <div class="row bg-secondary" style="padding-top: 30px;">
@@ -6,7 +11,6 @@
         <div class="col-md-4" align="center">
             <p class="black-unset nl-row-dsc" style="margin-top:145px; margin-bottom:20px;">
                 GET TO <br><br><span class="gold">KNOW</span> US</p>
-
             <p class="description-nl-dark">
                 Our latest promo and other exciting event available for you!
             </p>
@@ -14,7 +18,7 @@
         <div class="col-md-8">
             @foreach ($pagesettings as $pagesetting)
                 @foreach($pagesetting->photo->take(1) as $photo)
-                    <img class="" src="{{ asset('/user/'.$photo->photo_path) }}" style="width:100%;" alt="{{ $pagesetting->page_name }}" />
+                    <img class="" src="{{ asset('/user/'.$photo->photo_path) }}" style="width:100%;" alt="{{ $pagesetting->page_name }}" loading="lazy" />
                 @endforeach
             @endforeach
         </div>
@@ -37,7 +41,7 @@
                 <div class="col-sm-6">
                     <article class="album">
                         <header>
-                            <img class="news1-height news-first" src="{{asset('/user/'.$news->news_photo_path)}}" />
+                            <img class="news1-height news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                         </header>
                         <section class="album-info shadow">
                             <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;">
@@ -53,7 +57,7 @@
             @elseif ($no > 1 && $no <= 5) <div class="col-sm-3">
                 <article class="album">
                     <header>
-                        <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news2-height news-second" />
+                        <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news2-height news-second" loading="lazy" />
                     </header>
                     <section class="album-info shadow">
                         <a href="/news_detail/{{$news->id}}">
@@ -73,11 +77,10 @@
         <div class="col-sm-4">
             <article class="album">
                 <header>
-                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
+                    <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" loading="lazy" />
                 </header>
                 <section class="album-info shadow">
                     <a href="/news_detail/{{$news->id}}"><h4 style="height:35px;"><b>{{$news->news_title}}</b></h4></a>
-
                     <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                 </section>
             </article>
@@ -93,7 +96,6 @@
     @break
     @endif
     @endforeach
-
     </div>
 
     <div style="text-align: center;">

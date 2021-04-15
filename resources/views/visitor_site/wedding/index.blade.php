@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Wedding Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Wedding Horison Ultima Bandung, Wedding')
+@section('title', 'Wedding')
+
 @section('content')
 
 <script>
@@ -82,7 +87,7 @@
                             <div class="mySlides1 id_{{$no}}">
                                 <div class="numbertext">{{$i}} / {{$total}}</div>
                                 <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
-                                    style="height:270px;">
+                                    style="height:270px;" loading="lazy">
                             </div>
                             @endforeach
                             <div class="bbaris-rec">
@@ -98,13 +103,13 @@
                                     <img class="demo1 id_{{$no}}"
                                         src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
                                         style="width:100%!important; height:45px!important;"
-                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Mice & Wedding">
+                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Wedding" loading="lazy">
                                     @if($i == 3)
                                     <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
                                         style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
                                             See All</b></a>
                                     <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
-                                        style="width:100%; margin-top:-45px;">
+                                        style="width:100%; margin-top:-45px;" loading="lazy">
                                     @endif
                             </div>
                             @endif
@@ -322,7 +327,6 @@
     var slideIndex = 1;
     var mices = JSON.parse($('#mices').val());
 
-
     // console.log(mices.length);
     for (let n = 1; n <= mices.length; n++) {
         if (mices[n - 1]['photos'].length > 0) {
@@ -353,7 +357,6 @@
         }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
-
     }
 
     var slideIndex3 = 1;
@@ -365,18 +368,16 @@
         var slider_for = "";
         var slider_nav = "";
 
-
         $('#modal_title').text(mice.product_name);
 
         mice['photos'].forEach(function (data, index) {
             index++;
-            slider_for += '<div align="center"><img class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
+            slider_for += '<div align="center"><img loading="lazy" class="gltop" src="' + path + "/" + data.product_photo_path +'"></div>';
             slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
-                              '</div>';
+                            '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
+                            '</div>';
 
         });
-
 
         $('#seeAllModal').modal('show');
 
@@ -399,6 +400,4 @@
     });
 
 </script>
-
-
 @endsection
