@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/user
+/public/images/logo
 /storage/*.key
 /storage/fonts
 /vendor
