@@ -413,6 +413,7 @@
     var first = true;
 
     function seeAll(id) {
+        var path = "{{asset('/user/')}}";
 
         var slider_for = "";
         var slider_nav = "";
@@ -453,13 +454,13 @@
 
         $('.slider-for').append(slider_for);
         $('.slider-nav').append(slider_nav);
-        if(first){
-            first = false;
-        }else{
+
+        do_slider();
+
+        $('#seeAllModal').on('hidden.bs.modal', function () {
             $('.slider-for').slick('unslick');
             $('.slider-nav').slick('unslick');
-        }
-        do_slider();
+        })
     }
 
     function show_partition(index){

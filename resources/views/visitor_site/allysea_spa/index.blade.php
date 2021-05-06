@@ -370,8 +370,6 @@
             slider_nav += '<div class="sub-seeall">'+
                             '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.product_photo_path +'"></div>'+
                             '</div>';
-
-
         });
 
         $('#seeAllModal').modal('show');
@@ -381,14 +379,13 @@
 
         $('.slider-for').append(slider_for);
         $('.slider-nav').append(slider_nav);
-        if(first){
-            first = false;
-        }else{
-            $('.slider-for').slick('unslick');
-            $('.slider-nav').slick('unslick');
-        }
+
         do_slider();
 
+        $('#seeAllModal').on('hidden.bs.modal', function () {
+            $('.slider-for').slick('unslick');
+            $('.slider-nav').slick('unslick');
+        })
     }
 
     $('form').submit(function(){

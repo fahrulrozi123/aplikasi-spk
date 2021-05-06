@@ -387,10 +387,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                 slider_nav += '<div class="sub-seeall">'+
                               '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
                               '</div>';
-
-
             });
-
 
             $('#seeAllModal').modal('show');
             $('.slider-for').empty();
@@ -398,13 +395,14 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
 
             $('.slider-for').append(slider_for);
             $('.slider-nav').append(slider_nav);
-            if(first){
-            first = false;
-            }else{
+
+            do_slider();
+
+            $('#seeAllModal').on('hidden.bs.modal', function () {
                 $('.slider-for').slick('unslick');
                 $('.slider-nav').slick('unslick');
-            }
-            do_slider();
+                // console.log('clear unslick');
+            })
         }
 
     </script>

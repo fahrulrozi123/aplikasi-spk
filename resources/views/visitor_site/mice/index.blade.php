@@ -390,13 +390,13 @@
 
         $('.slider-for').append(slider_for);
         $('.slider-nav').append(slider_nav);
-        if(first){
-            first = false;
-        }else{
+        
+        do_slider();
+
+        $('#seeAllModal').on('hidden.bs.modal', function () {
             $('.slider-for').slick('unslick');
             $('.slider-nav').slick('unslick');
-        }
-        do_slider();
+        })
     }
 
     $('form').submit(function(){
