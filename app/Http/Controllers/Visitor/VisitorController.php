@@ -57,7 +57,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $dateNow = Carbon::now()->format('Y-m-d');
-        $rooms = Type::with('allotment_day')->with('amenities')->with('photo')->orderBy('room_name', 'ASC')->get();
+        $rooms = Type::with('allotment_day')->with('amenities')->with('photo')->orderBy('room_order', 'ASC')->get();
         $pagesettings = PageSetting::where('page_code', 'Room')->with('photo')->get();
 
         return view('visitor_site.rooms.index', get_defined_vars());

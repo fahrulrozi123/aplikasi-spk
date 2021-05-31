@@ -35,6 +35,7 @@ $room_weekend_rate = $room->room_weekend_rate;
 $room_weekend_ro_rate = $room->room_weekend_ro_rate;
 $room_extrabed_rate = $room->room_extrabed_rate;
 $room_future_availability = $room->room_future_availability;
+$room_order = $room->room_order;
 @endphp
 
 @else
@@ -53,6 +54,7 @@ $room_weekend_rate = "1000000";
 $room_weekend_ro_rate = "1000000";
 $room_extrabed_rate = "200000";
 $room_future_availability="0";
+$room_order = "";
 @endphp
 
 @endif
@@ -76,55 +78,51 @@ $room_future_availability="0";
                 </div>
                 <div class="panel-body shadow">
                     <div class="form-group">
-
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-4 col-md-4">
                             <label for="product_name">Room Type Name</label>
                             <input type="text" class="form-control" id="product_name" name="room_name"
-                                value="{{old('room_name', $room_name)}}" placeholder="Type of Room">
+                                value="{{old('room_name', $room_name)}}" placeholder="Room Type Name">
                             @error('room_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <br>
-                            <label for="product_detail">Room Details</label>
-                            <textarea name="room_desc" id="" cols="1" rows="4" style=""
-                                class="form-control" id="product_detail"
-                                placeholder="Describe room details here">{{old('room_desc', $room_desc)}}</textarea>
-                            @error('room_desc')
+
+                            <label for="room_order">Room List Order</label>
+                            <input type="text" class="form-control" id="room_order" name="room_order"
+                                value="{{old('room_order', $room_order)}}" placeholder="Room List Order">
+                            @error('room_order')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                            <br>
                         </div>
 
-                        <div class="col-sm-12 col-lg-3 col-md-3">
+                        <div class="col-lg-8 col-md-8">
                             <div class="col-lg-12">
                                 <label for="" class="control-label">Bed Type</label>
                             </div>
 
-                            <div class="col-lg-6">
-                                <br>
+                            <div class="col-lg-3">
                                 <div class="checkbox checkbox-replace color-primary">
                                     <input type="checkbox" id="rd-1" name="bed_type[]" value="0" {{$bed1}}>
                                     <label>King</label>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <br>
+                            <div class="col-lg-3">
                                 <div class="checkbox checkbox-replace color-primary">
                                     <input type="checkbox" id="rd-2" name="bed_type[]" value="2" {{$bed2}}>
                                     <label>Double</label>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <br>
+                            <div class="col-lg-3">
                                 <div class="checkbox checkbox-replace color-primary">
                                     <input type="checkbox" id="rd-3" name="bed_type[]" value="1" {{$bed3}}>
                                     <label>Queen</label>
                                 </div>
                             </div>
                             <br>
-                        </div>
 
-                        <div class="col-sm-12 col-lg-6 col-md-5">
                             <div class="col-lg-12">
+                                <br>
                                 <label for="" class="control-label">Room Amenities</label>
                             </div>
                             <!-- Set amenities checked -->
@@ -153,8 +151,7 @@ $room_future_availability="0";
                             @endphp
                             @endforeach
                             @endif
-                            <div class="col-lg-6">
-                                <br>
+                            <div class="col-lg-3" style="margin-bottom: 5px;">
                                 <div class="checkbox checkbox-replace color-primary">
                                     <input name="room_amenities[]" value="{{$amenities->id}}" type="checkbox"
                                         id="{{$amenities->id}}" {{$checked}}>
@@ -165,13 +162,22 @@ $room_future_availability="0";
                             @break
                             @endif
                             @endforeach
-                            <div class="col-lg-6">
-                                <br>
+                            <div class="col-lg-3" style="margin-bottom: 10px;">
                                 <a class="other-amenities">
                                     + Other Amenities
                                 </a>
                                 @include('master_data.room.modal')
                             </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12">
+                            <label for="product_detail">Room Details</label>
+                            <textarea name="room_desc" id="" cols="1" rows="4" style=""
+                                class="form-control" id="product_detail"
+                                placeholder="Describe Room Detail">{{old('room_desc', $room_desc)}}</textarea>
+                            @error('room_desc')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>

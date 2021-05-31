@@ -15,7 +15,7 @@ class Type extends Model
     public $timestamps = false;
     protected $fillable = ['id','room_name', 'room_desc', 'room_allotment', 'room_publish_rate',
         'room_ro_rate', 'room_weekend_rate', 'room_weekend_ro_rate',
-        'room_extrabed_rate', 'room_future_availability'];
+        'room_extrabed_rate', 'room_future_availability', 'room_order'];
 
     public function bed()
     {

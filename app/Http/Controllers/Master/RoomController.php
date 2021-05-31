@@ -38,9 +38,9 @@ class RoomController extends Controller
         );
         $setting = $this->setting();
 
-        $room_id = Type::orderBy('id', 'DESC')->pluck('id')->toArray();
+        $room_id = Type::orderBy('room_order', 'ASC')->pluck('id')->toArray();
         // dd($room_id);
-        $rooms = Type::orderBy('room_name')->with('bed')->with('amenities')->with('photo')->get();
+        $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
         // dd($rooms[0]['amenities'][0]->amenities_name);
         if (count($rooms) > 0) {
             return view('master_data.room.indexisi', get_defined_vars());
@@ -50,7 +50,7 @@ class RoomController extends Controller
     }
 
     public function data(){
-        $rooms = Type::orderBy('room_name')->orderBy('id', 'DESC')->with('allotment')->get();
+        $rooms = Type::orderBy('room_order', 'ASC')->with('allotment')->get();
         return $rooms;
     }
 
@@ -76,6 +76,7 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => 'required',
                 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
+                'room_order' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
@@ -96,6 +97,7 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => 'required',
                 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
+                'room_order' => 'required',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048|required'
             ],
@@ -126,6 +128,7 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => $request['room_weekend_ro_rate'],
                 'room_extrabed_rate' => $request['room_extrabed_rate'],
                 'room_future_availability' => $request['room_future_availability'],
+                'room_order' => $request['room_order'],
             ]);
             //UPLOAD FOTO
             if ($request->file('img')) {
@@ -255,6 +258,7 @@ class RoomController extends Controller
             'room_weekend_ro_rate' => $request['room_weekend_ro_rate'],
             'room_extrabed_rate' => $request['room_extrabed_rate'],
             'room_future_availability' => $request['room_future_availability'],
+            'room_order' => $request['room_order'],
         ]);
 
     }
