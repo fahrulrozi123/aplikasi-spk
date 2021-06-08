@@ -76,7 +76,7 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => 'required',
                 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
-                'room_order' => 'required',
+                'room_order' => 'required|integer|min:1|max:100',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
@@ -97,7 +97,7 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => 'required',
                 'room_extrabed_rate' => 'required',
                 'room_future_availability' => 'required',
-                'room_order' => 'required',
+                'room_order' => 'required|integer|min:1|max:100',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048|required'
             ],
