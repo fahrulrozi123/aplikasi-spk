@@ -82,7 +82,8 @@ class RoomController extends Controller
             ],
             [   'img.required_without' => 'Room photo cannot be empty',
                 'img.*.max' => 'Your image size cannot more than 2mb',
-                'img.*.mimes' => 'Your image format is not supported'
+                'img.*.mimes' => 'Your image format is not supported',
+                'room_order.integer' => 'The room list order must be an number.',
             ]);
             $this->update($request);
         } else {
@@ -104,7 +105,8 @@ class RoomController extends Controller
             [
                 'img.required' => 'Room photo cannot be empty',
                 'img.*.mimes' => 'Room photos format is not supported',
-                'img.*.max' => 'Your image size cannot more than 2mb'
+                'img.*.max' => 'Your image size cannot more than 2mb',
+                'room_order.integer' => 'The room list order must be an number.',
             ]);
 
             //CREATE ID
