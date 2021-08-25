@@ -2,7 +2,7 @@
 
 @section('description', 'Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung')
 @section('keywords', 'Horison Ultima Bandung, Horison, Ultima, Bandung, Hotel')
-@section('title', 'Hotel Terbaik di Bandung')
+@section('title', 'World Class Hospitality with Indonesian Authenticity')
 
 @section('content')
 
