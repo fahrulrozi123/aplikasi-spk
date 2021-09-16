@@ -828,11 +828,11 @@
             $('#room_accommodation').text(room_accommodation);
             $('#room_breakfast').text(room_breakfast);
             $('#room_extrabed').text(data.rsvp_total_extrabed);
-            $('#customer_name').text(data.rsvp_cust_name);
+            $('#customer_name').text(escapeHtml(data.rsvp_cust_name));
             $('#customer_id').text(data.rsvp_cust_idtype + " / " + data.rsvp_cust_idnumber);
             $('#customer_phone').text(data.rsvp_cust_phone);
             $('#customer_email').text(data.customer.cust_email);
-            $('#guest_name').text(guest_name);
+            $('#guest_name').text(escapeHtml(guest_name));
             $('#special_request').text(data.rsvp_special_request ?? "");
             $('#payment_status').text(payment_status);
             $('#payment_status').removeClass();
@@ -914,11 +914,11 @@
             $('#room_accommodation').text(room_accommodation);
             $('#room_breakfast').text(room_breakfast);
             $('#room_extrabed').text(data.rsvp_total_extrabed);
-            $('#customer_name').text(data.rsvp_cust_name);
+            $('#customer_name').text(escapeHtml(data.rsvp_cust_name));
             $('#customer_id').text(data.rsvp_cust_idtype + " / " + data.rsvp_cust_idnumber);
             $('#customer_phone').text(data.rsvp_cust_phone);
             $('#customer_email').text(data.customer.cust_email);
-            $('#guest_name').text(guest_name);
+            $('#guest_name').text(escapeHtml(guest_name));
             $('#special_request').text(data.rsvp_special_request ?? "");
             $('#payment_status').text(payment_status);
             $('#payment_status').removeClass();
@@ -1144,7 +1144,7 @@
             $('#online_rsvp_date').text(reservation_date);
             $('#online_rsvp_product_name').text(data.product.product_name);
             $('#online_rsvp_pax').text(data.rsvp_amount_pax + " Pax");
-            $('#online_cust_name').text(data.rsvp_cust_name);
+            $('#online_cust_name').text(escapeHtml(data.rsvp_cust_name));
             $('#online_cust_id').text(data.rsvp_cust_idtype + " / " + data.rsvp_cust_idnumber);
             $('#online_cust_phone').text(data.rsvp_cust_phone);
             $('#online_cust_email').text(data.customer.cust_email);
@@ -1223,7 +1223,7 @@
             $('#online_rsvp_product_name').text(data.product.product_name);
             $('#online_rsvp_pax').text(data.rsvp_amount_pax + " Pax");
 
-            $('#online_cust_name').text(data.rsvp_cust_name);
+            $('#online_cust_name').text(escapeHtml(data.rsvp_cust_name));
             $('#online_cust_id').text(data.rsvp_cust_idtype + " / " + data.rsvp_cust_idnumber);
             $('#online_cust_phone').text(data.rsvp_cust_phone);
             $('#online_cust_email').text(data.customer.cust_email);
@@ -1286,7 +1286,7 @@
             $('.inq_desc').text(data.inq_details);
             $('.inq_event_name').text(data.inq_event_name);
 
-            $('.inq_cust_name').text(data.inq_cust_name);
+            $('.inq_cust_name').text(escapeHtml(data.inq_cust_name));
             $('.inq_cust_email').text(data['customer'].cust_email);
             $('.inq_cust_phone').text(data.inq_cust_phone);
             if (data.other_request.length > 0) {
@@ -1433,7 +1433,7 @@
             $('.inq_desc').text(data.inq_details);
             $('.inq_event_name').text(data.inq_event_name);
 
-            $('.inq_cust_name').text(data.inq_cust_name);
+            $('.inq_cust_name').text(escapeHtml(data.inq_cust_name));
             $('.inq_cust_email').text(data['customer'].cust_email);
             $('.inq_cust_phone').text(data.inq_cust_phone);
             if (data.other_request.length > 0) {
@@ -1603,6 +1603,20 @@
 
         rupiah = "Rp " + rupiah;
         return rupiah;
+    }
+
+    // spesial character
+    function escapeHtml(str)
+    {
+        var map =
+        {
+            '&amp;': '&',
+            '&lt;': '<',
+            '&gt;': '>',
+            '&quot;': '"',
+            '&#039;': "'"
+        };
+        return str.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function(m) {return map[m];});
     }
 
 </script>

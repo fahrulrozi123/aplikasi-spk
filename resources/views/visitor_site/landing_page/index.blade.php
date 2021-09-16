@@ -1,6 +1,6 @@
 @extends('templates/visitor_template')
 
-@section('description', 'Enjoy your experience at Horison Ultima with Bandung View while traveling in Bandung')
+@section('description', 'Commited to your satisfactory, we invite you to have the best experience at Horison Ultima Bandung. While enjoying Bandung view and our occomodation that consist of International TV Chanel, Indonesia native cuisine and other facilities.')
 @section('keywords', 'Horison Ultima Bandung, Horison, Ultima, Bandung, Hotel')
 @section('title', 'World Class Hospitality with Indonesian Authenticity')
 
