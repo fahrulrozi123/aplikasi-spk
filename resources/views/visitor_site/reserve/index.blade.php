@@ -54,6 +54,7 @@
 
     <!-- sweet ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
 
     <script type="text/javascript">
         var home_url = "{{url('/')}}";
@@ -1126,7 +1127,7 @@
 
         // CREATE TIMER
         const timezz = new TimezZ('.timez', {
-            date: moment(new Date("{{$data->expired_at}}")).format("LLL"),
+            date: dayjs("{{$data->expired_at}}"),
             text: {
                 minutes: ' minutes',
                 seconds: ' seconds',
