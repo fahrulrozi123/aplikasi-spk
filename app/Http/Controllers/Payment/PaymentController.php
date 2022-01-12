@@ -275,7 +275,6 @@ class PaymentController extends Controller
 
         RoomRsvp::where('booking_id', $booking_id)->update([
             'rsvp_payment' => $result,
-            'create_at'    => $bill_date,
             'expired_at'   => $bill_expired
         ]);
 
@@ -532,7 +531,6 @@ class PaymentController extends Controller
 
         ProductRsvp::where('booking_id', $booking_id)->update([
             'rsvp_payment' => $result,
-            'create_at'    => $bill_date,
             'expired_at'   => $bill_expired
         ]);
 
