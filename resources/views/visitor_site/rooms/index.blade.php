@@ -31,8 +31,7 @@
 <div class="row rooms-row-1 ipad-rooms">
     <div class="col-md-12 col-lg-6">
         <center>
-            <p class="black rooms-title-1">
-                ROOM FOR <span class="gold">YOUR STAY</span></p>
+            <p class="black rooms-title-1">ROOM FOR <span class="gold">YOUR STAY</span></p>
         </center>
         <center>
             <p class="description-rooms-dark">
@@ -121,10 +120,8 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12 text-left">
-
                             <h2 class="text-horison{{$font_color}} mr-0 title-rooms" style="text-transform: uppercase;">
-                                <strong>
-                                    {{$room->room_name}}</strong>
+                                <strong>{{$room->room_name}}</strong>
                             </h2>
                         </div>
                     </div>
@@ -156,7 +153,9 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
                                             {{substr($room->room_desc, 0, 100)."..."}}
                                         </p>
-                                            <a href="/details?from=rooms&key={{$room->id}}" class="text-horison{{$font_color}}" style="font-size:13px;"><i><u>See more description</u></i></a>
+                                            <a href="/room/{{ $room->room_slug }}" class="text-horison{{$font_color}}" style="font-size:13px;">
+                                                <i><u>See more description</u></i>
+                                            </a>
                                         @else
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
                                         {{$room->room_desc}}
@@ -348,8 +347,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                 function move() {
                     $lis.each(function (index, element) {
                         var state = states[index];
-                        $(element).css('zIndex', state.$zIndex).finish().animate(state, setting
-                            .speed).find('img').css('opacity', state.$opacity);
+                        $(element).css('zIndex', state.$zIndex).finish().animate(state, setting.speed).find('img').css('opacity', state.$opacity);
                     });
                 }
 

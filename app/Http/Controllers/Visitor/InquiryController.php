@@ -115,7 +115,6 @@ class InquiryController extends Controller
                 $data = $request->all();
                 $sanitizer = new Sanitizer($data, $filters);
                 $sanitizer = $sanitizer->sanitize();
-                // dd($sanitizer);
                 $date = Carbon::now();
 
                 $rsvp_id = rand($min = 1, $max = 99999);
@@ -148,7 +147,8 @@ class InquiryController extends Controller
             }
         } else if (isset($request['btn_rec'])) {
 
-            $validator = Validator::make($request->all(), [
+            $validator = Validator::make($request->all(),
+            [
                 'btn_rec' => 'required|numeric|min:1|max:1',
                 'rec_product' => 'required|exists:product,id',
                 'rec_participant' => 'required|min:1|max:9999',
@@ -333,7 +333,6 @@ class InquiryController extends Controller
                         return redirect()->back()->withInput($request->all)->with('warning', "Sorry your Function Room '" . $request['mice_function_room'] . "' is not found ");
                     }
                 }
-                // dd($request->all());
                 $filters = [
                     'btn_mice' => 'digit',
                     'mice_name' => 'trim|escape|capitalize',

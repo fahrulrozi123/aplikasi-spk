@@ -54,8 +54,7 @@
     <div class="container">
         <br>
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR
-                <span class="gold">DESTINATION</span></p>
+            <p class="black" style="margin-top: 20px; margin-bottom: 20px;">YOUR<span class="gold">DESTINATION</span></p>
         </center>
         <center>
             <p class="description-mw-dark">
@@ -119,12 +118,14 @@
                 <section class="album-info shadow" style="height: 19rem;">
                     <h4><b class="line-clamp-1"> {{ $recreation->product_name }}</b></h4>
                     @if(strlen($recreation->product_detail) > 100)
-                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                            {{substr($recreation->product_detail, 0, 100)."..."}}
-                    </h5>
-                        <a href="/details?from=recreation&key={{$recreation->id}}" class="font-secondary" style="font-size: 11px"><i><u>See more description</u></i></a>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
+                                {{ substr($recreation->product_detail, 0, 100)."..." }}
+                        </h5>
+                        <a href="/recreation/{{ $recreation->product_slug }}" class="font-secondary" style="font-size: 11px">
+                            <i><u>See more description</u></i>
+                        </a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$recreation->product_detail}}</h5>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{{ $recreation->product_detail }}</h5>
                     @endif
 
                     @if($recreation->sales_inquiry == "0")
@@ -133,7 +134,7 @@
                                 document.write("Rp " + formatRupiah("{{$recreation->product_price}}"));
                             </script><span class="pax"> / Pax</span>
                         </p>
-                        <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$recreation->id}}">
+                        <form method="POST" action="/product_reservation?date_product={{ $today }}&product_list={{ $recreation->id }}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                         </form>
@@ -381,7 +382,7 @@
 
         $('.slider-for').append(slider_for);
         $('.slider-nav').append(slider_nav);
-        
+
         do_slider();
 
         $('#seeAllModal').on('hidden.bs.modal', function () {

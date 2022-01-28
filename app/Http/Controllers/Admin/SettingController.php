@@ -28,7 +28,6 @@ class SettingController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
         $setting = Setting::where('id', $id)->first();

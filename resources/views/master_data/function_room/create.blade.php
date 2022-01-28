@@ -44,11 +44,12 @@ $func_dimension = "";
                             <h4><b>Function Room Details</b></h4>
 
                             <div class="row">
-                                <label for="field-1" class="col-sm-4 control-label fr-label">Functional Room
-                                    Name<br><small class="text-muted"></small></label>
+                                <label for="field-1" class="col-sm-4 control-label fr-label">Functional Room Name<br><small class="text-muted"></small></label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control " value="{{old('func_name', $func_name)}}" name="func_name"
-                                        id="" placeholder="Input Functional Room Name" autocomplete="off" required>
+                                    <input type="text" class="form-control " value="{{old('func_name', $func_name)}}" name="func_name" id="" placeholder="Input Functional Room Name" autocomplete="off" required>
+                                    @error('func_name')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div><br>
                             <div class="row">
@@ -60,32 +61,6 @@ $func_dimension = "";
                                         required>{{old('func_room_desc', $func_room_desc)}}</textarea>
                                 </div>
                             </div><br><br>
-                            {{-- <div class="row">
-                                <label for="field-1" class="col-sm-4 control-label fr-label">Function Room
-                                    Photos<br><small class="text-muted"></small></label>
-                                <fieldset class="col-sm-6" style="margin:0px;">
-                                    <a class="btn btn-horison-gold shadow" href="javascript:void(0)"
-                                        onclick="$('#pro-image').click()"><i
-                                            class="glyphicon glyphicon-circle-arrow-up"></i>
-                                        Browse Image</a>
-                                    <input type="file" id="pro-image" name="img[]" style="display: none;"
-                                        class="form-control" accept="image/*" multiple required>
-                                </fieldset>
-                                <div class="preview-images-zone">
-                                    @if(isset($function_room))
-                                    @php $n = 0; @endphp
-                                    @foreach($function_room['photos'] as $data_photo)@php $n++; @endphp
-                                    <div class="preview-image preview-show-{{$n}}">
-                                        <input type="hidden" name="oldImg[]" value="{{$data_photo->photo_path}}">
-                                        <div class="image-cancel" data-no="{{$n}}">x</div>
-                                        <div class="image-zone"><img id="pro-img-{{$n}}"
-                                                src="{{asset('/user/'.$data_photo->photo_path)}}"></div>
-                                    </div>
-                                    @endforeach
-                                    @endif
-                                </div>
-                            </div><br><br> --}}
-
                         </div>
 
                         <div class="col-md-6">
@@ -318,26 +293,6 @@ $func_dimension = "";
                                 style="width: 150px; margin-left:3px; font-size:13px;"><b>Save</b></button>
                         </div>
                     </div>
-
-                    {{-- tampilan button saat EDIT --}}
-                    {{-- <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-12" align="left">
-                            <a href="/master_data/function_room/indexisi" class="btn btn-white btn-lg shadow"
-                                style="width: 150px; margin-right:3px; margin-left: 3px; margin-bottom:10px; font-size:13px;">
-                                <b>Cancel<b>
-                            </a>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12" align="right">
-                            <button class="btn btn-delete btn-lg"
-                                style="width: 150px; margin-right:3px; margin-left: 3px; margin-bottom:10px; font-size:13px; color:red;">
-                                <b>Delete</b>
-                            </button>
-                            <a href="/master_data/function_room/indexisi" class="btn btn-horison-gold btn-lg shadow"
-                                style="width: 150px; margin-right:3px; margin-left: 3px; margin-bottom:10px; font-size:13px;">
-                                <b>Save</b>
-                            </a>
-                        </div>
-                    </div> --}}
 
                 </div>
             </div>

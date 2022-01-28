@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenities\Amenities;
 use App\Models\Room\RoomAmenities;
 use Carbon\Carbon;
-// use App\Models\Admin\LogActivity;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class AmenitiesController extends Controller
 {
-
     public function __construct()
     {
         //DEFINISIKAN PATH
@@ -46,18 +43,15 @@ class AmenitiesController extends Controller
 
     public function insert(Request $request)
     {
-
         if (isset($request['amenities_status'])) {
             $data = array();
             $temp = array();
-            // dd($request->all());
 
             $amenities_id = $request['amenities_id'];
             $amenities_name = $request['amenities_name'];
             $amenities_icon = $request['amenities_icon'];
 
             $amenitiess = Amenities::orderBy('id')->get();
-            // dd($amenitiess, $amenities_id, $amenities_name);
 
             foreach ($amenitiess as $amenities) {
                 $check = false;
@@ -94,7 +88,7 @@ class AmenitiesController extends Controller
         return redirect()->route('amenities.index')->with('status', 'Amenities Berhasil di Update');
     }
 
-//UPDATE DATA
+    //UPDATE DATA
     public function edit($id)
     {
         $id = Crypt::decryptString($id);
@@ -104,7 +98,6 @@ class AmenitiesController extends Controller
 
     public function update(Request $request)
     {
-        // dd($request);
         $requestid = $request['id_user'];
         $id = Crypt::decryptString($requestid);
         //UPLOAD FOTO
@@ -140,20 +133,11 @@ class AmenitiesController extends Controller
             'level' => $request['level'],
             'img' => $this->fileName,
         ]);
-        // dd($data);
-
-        //LOGACTIVITY
-        // $logmessage = Auth::User()->username . " Mengupdate Data User : " . $request['username'];
-        // $log = LogActivity::create([
-        //   'created_at' => Carbon::now(),
-        //   'modul' => 'Admin',
-        //   'log' => $logmessage ]);
-        //LOGACTIVITY
 
         return redirect()->route('account.index')->with('status', 'Update Data Berhasil');
     }
 
-//DELETE DATA
+    //DELETE DATA
     public function delete(Request $request)
     {
         $id = Crypt::decryptString($request['id']);
@@ -164,11 +148,7 @@ class AmenitiesController extends Controller
         } else {
             return redirect()->route('banner.index')->with('warning', 'Banner Gagal Dihapus');
         }
-        //hapus data
-
     }
-
-//RATTLETRAP
 
     public function setData($id)
     {

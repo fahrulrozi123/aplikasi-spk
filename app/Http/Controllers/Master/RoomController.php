@@ -13,15 +13,14 @@ use App\Models\Room\Bed;
 use Carbon\Carbon;
 use DB;
 use Faker\Factory as Faker;
-// use App\Models\Admin\LogActivity;
 
 use File;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class RoomController extends Controller
 {
-
     public function __construct()
     {
         //DEFINISIKAN PATH
@@ -39,9 +38,7 @@ class RoomController extends Controller
         $setting = $this->setting();
 
         $room_id = Type::orderBy('room_order', 'ASC')->pluck('id')->toArray();
-        // dd($room_id);
         $rooms = Type::orderBy('room_order', 'ASC')->with('bed')->with('amenities')->with('photo')->get();
-        // dd($rooms[0]['amenities'][0]->amenities_name);
         if (count($rooms) > 0) {
             return view('master_data.room.indexisi', get_defined_vars());
         } else {
@@ -49,7 +46,8 @@ class RoomController extends Controller
         }
     }
 
-    public function data(){
+    public function data()
+    {
         $rooms = Type::orderBy('room_order', 'ASC')->with('allotment')->get();
         return $rooms;
     }
@@ -63,10 +61,9 @@ class RoomController extends Controller
 
     public function insert(Request $request)
     {
-        // dd($request);
         if ($request->id != "") {
             $this->validate($request, [
-                'room_name' => 'required',
+                'room_name' => 'required|unique:room_type,room_name',
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
@@ -83,12 +80,13 @@ class RoomController extends Controller
             [   'img.required_without' => 'Room photo cannot be empty',
                 'img.*.max' => 'Your image size cannot more than 2mb',
                 'img.*.mimes' => 'Your image format is not supported',
+                'room_name.unique' => 'The room type name has already been taken.',
                 'room_order.integer' => 'The room list order must be an number.',
             ]);
             $this->update($request);
         } else {
             $this->validate($request, [
-                'room_name' => 'required',
+                'room_name' => 'required|unique:room_type,room_name',
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
@@ -106,6 +104,7 @@ class RoomController extends Controller
                 'img.required' => 'Room photo cannot be empty',
                 'img.*.mimes' => 'Room photos format is not supported',
                 'img.*.max' => 'Your image size cannot more than 2mb',
+                'room_name.unique' => 'The room type name has already been taken.',
                 'room_order.integer' => 'The room list order must be an number.',
             ]);
 
@@ -122,6 +121,7 @@ class RoomController extends Controller
             Type::create([
                 'id'        => $id,
                 'room_name' => $request['room_name'],
+                'room_slug' => Str::slug($request['room_name']),
                 'room_desc' => $request['room_desc'],
                 'room_allotment' => $request['room_allotment'],
                 'room_publish_rate' => $request['room_publish_rate'],
@@ -179,13 +179,11 @@ class RoomController extends Controller
         $amenitiess = Amenities::orderBy('id')->get();
         $id = Crypt::decryptString($id);
         $room = Type::where('id', $id)->orderBy('room_name')->with('bed')->with('amenities')->with('photo')->first();
-        // dd($room['amenities'][0]['amenities_name']);
         return view('master_data.room.create', get_defined_vars());
     }
 
     private function update($request)
     {
-        // dd($request);
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
         $temp_photo = Photo::where('room_id', $id)->get();
@@ -252,6 +250,7 @@ class RoomController extends Controller
         //UPDATE DATA
         Type::where('id', $id)->update([
             'room_name' => $request['room_name'],
+            'room_slug' => Str::slug($request['room_name']),
             'room_desc' => $request['room_desc'],
             'room_allotment' => $request['room_allotment'],
             'room_publish_rate' => $request['room_publish_rate'],

@@ -26,7 +26,6 @@ class NotificationController extends Controller
 {
     public function payment_notification(Request $request)
     {
-        // dd($request->all());
         // from faspay
         $transaction_id      = $request['trx_id'] ?: null;
         $merchant_id         = $request['merchant_id'] ?: null;
@@ -156,9 +155,9 @@ class NotificationController extends Controller
 
             if($sendEmail == true){
                 $rsvp_id = Payment::where('booking_id', $booking_id)->first();
-                $this->resendEmail($from, $rsvp_id->booking_id);    
+                $this->resendEmail($from, $rsvp_id->booking_id);
             }
-            
+
         }
 
         $date_now           =  Carbon::now()->format('Y-m-d H: i: s');
@@ -323,7 +322,7 @@ class NotificationController extends Controller
 
                 $status = RoomRsvp::where('booking_id', $booking_id)->first();
 
-                if($sendEmail == true){ 
+                if($sendEmail == true){
                     if ($status->rsvp_status == "Payment received") {
                         $rsvp_id = Payment::where('booking_id', $booking_id)->first();
                         $id = $rsvp_id->booking_id;
@@ -344,8 +343,6 @@ class NotificationController extends Controller
                 $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('DD MMMM YYYY');
                 $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('DD MMMM YYYY');
                 $data->total_stay = $totalStay;
-
-                // dd($data);
 
             } else if ($from == "PRODUCTS") {
 
@@ -375,7 +372,7 @@ class NotificationController extends Controller
                 } else {
                     $dataRsvpId = DB::table('product_rsvp')->select('reservation_id')->where('booking_id', $booking_id)->first();
                     $reservation_id = $dataRsvpId->reservation_id;
-                
+
                     $sendEmail = false;
                 }
 
@@ -399,7 +396,6 @@ class NotificationController extends Controller
                 $data = ProductRsvp::where('booking_id', $booking_id)->with('product')->with('customer')->first();
                 $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('DD MMMM YYYY');
 
-                // dd($data);
             }
         } else {
             if ($from == "ROOMS") {

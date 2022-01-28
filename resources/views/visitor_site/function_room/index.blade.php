@@ -153,7 +153,7 @@
                 <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
                         {{substr($function->func_room_desc, 0, 145)."..."}}
                 </p>
-                    <a href="/details?from=function_roomA&key={{$function->id}}" style="font-size: 13px; color: #444444; margin-left: 20px;">
+                    <a href="/function-room/{{ $function->func_room_slug }}" style="font-size: 13px; color: #444444; margin-left: 20px;">
                     <i><u>See more description</u></i>
                     </a>
                 @else
@@ -316,7 +316,7 @@
                             <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                                     {{substr($mice->product_detail, 0, 100)."..."}}
                             </h5>
-                                <a href="/details?from=function_roomB&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                <a href="/mice-wedding/{{ $mice->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                             @else
                                 <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                             @endif

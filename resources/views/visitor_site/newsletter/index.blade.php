@@ -2,7 +2,7 @@
 
 @section('description', 'Newsletter Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
 @section('keywords', 'Newsletter Horison Ultima Bandung, Newsletter')
-@section('title', 'Newsletter')
+@section('title', 'Our Newsletter')
 
 @section('content')
 
@@ -44,7 +44,7 @@
                             <img class="news1-height news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                         </header>
                         <section class="album-info shadow">
-                            <a href="/news_detail/{{$news->id}}"><h4 style="height: 35px; line-height: normal;">
+                            <a href="/newsletter/{{ $news->news_slug }}"><h4 style="height: 35px; line-height: normal;">
                                 <b>{{$news->news_title}}</b></h4>
                             </a>
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
@@ -60,7 +60,7 @@
                         <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news2-height news-second" loading="lazy" />
                     </header>
                     <section class="album-info shadow">
-                        <a href="/news_detail/{{$news->id}}">
+                        <a href="/newsletter/{{ $news->news_slug }}">
                             <h4 style="height:45px; line-height: normal;"><b>{{$news->news_title}}</b></h4>
                         </a>
                         <p style="font-size:12px;">{{$news->news_publish_date}}</p>
@@ -80,7 +80,7 @@
                     <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" loading="lazy" />
                 </header>
                 <section class="album-info shadow">
-                    <a href="/news_detail/{{$news->id}}"><h4 style="height:35px;"><b>{{$news->news_title}}</b></h4></a>
+                    <a href="/newsletter/{{ $news->news_slug }}"><h4 style="height:35px;"><b>{{$news->news_title}}</b></h4></a>
                     <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                 </section>
             </article>

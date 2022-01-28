@@ -36,8 +36,6 @@ class PageSettingController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $this->validate($request, [
             'page_name'                 => 'required',
             'page_description'          => 'required',

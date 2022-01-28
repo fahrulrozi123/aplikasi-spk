@@ -17,11 +17,6 @@ use App\Models\Visitor\News;
 use App\Models\Room\Type;
 use App\Models\Product\Product;
 use App\Models\FunctionRoom\FunctionRoom;
-use App\Models\Customer\Customer;
-use App\Models\Inquiry\Inquiry;
-use App\Models\Inquiry\OtherRequest;
-use App\Models\Room\Rsvp as RoomRsvp;
-use App\Models\Allotment\Allotment;
 
 class VisitorController extends Controller
 {
@@ -63,6 +58,42 @@ class VisitorController extends Controller
         return view('visitor_site.rooms.index', get_defined_vars());
     }
 
+    public function roomDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+
+        $photos = array();
+
+        if (!Type::where('room_slug', $slug)->exists()) {
+            return abort(404);
+        }
+
+        $room = Type::where('room_slug', $slug)->with('photo')->first();
+
+        $data = (object) array(
+            "name" => $room->room_name,
+            "title" => ucwords(strtolower($room->room_name)),
+            "detail" => $room->room_desc
+        );
+
+        foreach ($room['photo'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.rooms.details', get_defined_vars());
+    }
+
     public function recreation()
     {
         $menu = $this->menu();
@@ -72,6 +103,41 @@ class VisitorController extends Controller
         $pagesettings = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
 
         return view('visitor_site.recreation.index', get_defined_vars());
+    }
+
+    public function recreationDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $photos = array();
+
+        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $product = Product::where('product_slug', $slug)->with('photos')->first();
+
+        $data = (object) array(
+            "name" => $product->product_name,
+            "title" => ucwords(strtolower($product->product_name)),
+            "detail" => $product->product_detail
+        );
+
+        foreach ($product['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->product_photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.recreation.details', get_defined_vars());
     }
 
     public function allysea_spa()
@@ -86,6 +152,41 @@ class VisitorController extends Controller
 
     }
 
+    public function allyseaSpaDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $photos = array();
+
+        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $product = Product::where('product_slug', $slug)->with('photos')->first();
+
+        $data = (object) array(
+            "name" => $product->product_name,
+            "title" => ucwords(strtolower($product->product_name)),
+            "detail" => $product->product_detail
+        );
+
+        foreach ($product['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->product_photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.allysea_spa.details', get_defined_vars());
+    }
+
     public function mice()
     {
         $menu = $this->menu();
@@ -97,6 +198,41 @@ class VisitorController extends Controller
         return view('visitor_site.mice.index', get_defined_vars());
     }
 
+    public function miceDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $photos = array();
+
+        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $product = Product::where('product_slug', $slug)->with('photos')->first();
+
+        $data = (object) array(
+            "name" => $product->product_name,
+            "title" => ucwords(strtolower($product->product_name)),
+            "detail" => $product->product_detail
+        );
+
+        foreach ($product['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->product_photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.mice.details', get_defined_vars());
+    }
+
     public function wedding()
     {
         $menu = $this->menu();
@@ -106,6 +242,41 @@ class VisitorController extends Controller
         $pagesettings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
 
         return view('visitor_site.wedding.index', get_defined_vars());
+    }
+
+    public function weddingDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $photos = array();
+
+        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $product = Product::where('product_slug', $slug)->with('photos')->first();
+
+        $data = (object) array(
+            "name" => $product->product_name,
+            "title" => ucwords(strtolower($product->product_name)),
+            "detail" => $product->product_detail
+        );
+
+        foreach ($product['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->product_photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.allysea_spa.details', get_defined_vars());
     }
 
     public function function_room()
@@ -126,9 +297,9 @@ class VisitorController extends Controller
         return view('visitor_site.function_room.index', get_defined_vars());
     }
 
-    public function details()
+    public function functiomRoomDetail($slug)
     {
-        $arrContextOptions =array(
+        $arrContextOptions = array(
             "ssl"=>array(
                 "verify_peer"=>false,
                 "verify_peer_name"=>false,
@@ -137,67 +308,63 @@ class VisitorController extends Controller
 
         $menu = $this->menu();
         $setting = $this->setting();
-        $id = Input::get('key', null);
-        $from = Input::get('from', null);
-
         $photos = array();
 
-        if ($from == "rooms") {
-            if (!Type::where('id', $id)->with('photo')->exists()) {
-                return redirect()->back();
-            }
-            $room = Type::where('id', $id)->with('photo')->first();
-            $data = (object) array("name" => $room->room_name, "detail" => $room->room_desc);
-            foreach ($room['photo'] as $key => $value) {
-                $temp = (object) array(
-                    'photo_path' => $value->photo_path,
-                );
-                array_push($photos, $temp);
-            }
-        } else if ($from == "recreation" || $from == "allysea_spa" || $from == "mice_wedding" || $from == "mice_wedding") {
-            if (!Product::where('id', $id)->with('photos')->exists()) {
-                return redirect()->back();
-            }
-            $product = Product::where('id', $id)->with('photos')->first();
-            $data = (object) array("name" => $product->product_name, "detail" => $product->product_detail);
-            foreach ($product['photos'] as $key => $value) {
-                $temp = (object) array(
-                    'photo_path' => $value->product_photo_path,
-                );
-                array_push($photos, $temp);
-            }
-        } else if ($from == "function_roomA" || $from == "function_roomB") {
-            if ($from == "function_roomA") {
-                if (!FunctionRoom::where('id', $id)->with('photos')->where('func_head', null)->exists()) {
-                    return redirect()->back();
-                }
-                $function = FunctionRoom::where('id', $id)->with('partition')->with('photos')->where('func_head', null)->first();
-                $data = (object) array("name" => $function->func_name, "detail" => $function->func_room_desc, "function" => $function);
-                foreach ($function['photos'] as $key => $value) {
-                    $temp = (object) array(
-                        'photo_path' => $value->photo_path,
-                    );
-                    array_push($photos, $temp);
-                }
-            } else if ($from == "function_roomB") {
-                if (!Product::where('id', $id)->with('photos')->exists()) {
-                    return redirect()->back();
-                }
-                $product = Product::where('id', $id)->with('photos')->first();
-                $data = (object) array("name" => $product->product_name, "detail" => $product->product_detail);
-                foreach ($product['photos'] as $key => $value) {
-                    $temp = (object) array(
-                        'photo_path' => $value->product_photo_path,
-                    );
-                    array_push($photos, $temp);
-                }
-            }
-            $from = "function_room";
-
-        } else {
-            return redirect()->back();
+        if (!FunctionRoom::where('func_room_slug', $slug)->with('photos')->where('func_head', null)->exists()) {
+            return abort(404);
         }
-        return view('visitor_site.details', get_defined_vars());
+
+        $function = FunctionRoom::where('func_room_slug', $slug)->with('partition')->with('photos')->where('func_head', null)->first();
+
+        $data = (object) array(
+            "name" => $function->func_name,
+            "title" => ucwords(strtolower($function->func_name)),
+            "detail" => $function->func_room_desc,
+            "function" => $function);
+
+        foreach ($function['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.function_room.details', get_defined_vars());
+    }
+
+    public function functiomRoomMiceWeddingDetail($slug)
+    {
+        $arrContextOptions = array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $photos = array();
+
+        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $product = Product::where('product_slug', $slug)->with('photos')->first();
+
+        $data = (object) array(
+            "name" => $product->product_name,
+            "title" => ucwords(strtolower($product->product_name)),
+            "detail" => $product->product_detail
+        );
+
+        foreach ($product['photos'] as $key => $value) {
+            $temp = (object) array(
+                'photo_path' => $value->product_photo_path,
+            );
+            array_push($photos, $temp);
+        }
+
+        return view('visitor_site.allysea_spa.details', get_defined_vars());
     }
 
     public function newsletter()
@@ -214,16 +381,21 @@ class VisitorController extends Controller
 
     }
 
-    public function news_detail($id)
+    public function news_detail($slug)
     {
         $menu = $this->menu();
         $setting = $this->setting();
-        $news = News::where('id', $id)->first();
+
+        if (!News::where('news_slug', $slug)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        $news = News::where('news_slug', $slug)->first();
         $news->news_publish_date = Carbon::parse($news->news_publish_date)->format('l d F Y');
-        $other_news = News::where('id', '<>', $id)->orderBy("news_sticky_state", "DESC")->orderBy("news_publish_date", "DESC")->get();
+        $other_news = News::where('news_slug', '<>', $slug)->orderBy("news_sticky_state", "DESC")->orderBy("news_publish_date", "DESC")->get();
         foreach ($other_news as $key => $value) {
             $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
         }
-        return view('visitor_site.newsletter.news_detail', get_defined_vars());
+        return view('visitor_site.newsletter.details', get_defined_vars());
     }
 }

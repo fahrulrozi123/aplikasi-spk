@@ -7,7 +7,6 @@ use App\Models\Allotment\Allotment;
 use App\Models\Room\Type;
 use Auth;
 use Carbon\Carbon;
-// use App\Models\Admin\LogActivity;
 
 use DateTime;
 use File;
@@ -29,7 +28,6 @@ class AllotmentController extends Controller
     {
         $setting = $this->setting();
         $rooms = Type::orderBy('room_name')->with('photo')->get();
-        // dd($rooms);
         if (count($rooms) > 0) {
             return view('main_page.allotment.index', ['rooms' => $rooms, 'setting' => $setting]);
         } else {
@@ -180,7 +178,6 @@ class AllotmentController extends Controller
 
     public function update($request)
     {
-        // dd($request);
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
         $user = User::where('id', $id)->first();
@@ -218,15 +215,6 @@ class AllotmentController extends Controller
             'email' => $request['email'],
             'level' => $request['level'],
         ]);
-        // dd($data);
-
-        //LOGACTIVITY
-        // $logmessage = Auth::User()->username . " Mengupdate Data User : " . $request['username'];
-        // $log = LogActivity::create([
-        //   'created_at' => Carbon::now(),
-        //   'modul' => 'Admin',
-        //   'log' => $logmessage ]);
-        //LOGACTIVITY
 
         return redirect()->route('account.index')->with('status', 'Update Data Berhasil');
     }
@@ -240,14 +228,6 @@ class AllotmentController extends Controller
         File::delete($this->path . '/' . $userdata->img);
         //hapus data
         $unit = User::findOrFail($id)->forceDelete();
-
-        //LOGACTIVITY
-        // $logmessage = Auth::User()->username . " Menghapus Data User : " . $userdata['username'];
-        // $log = LogActivity::create([
-        //   'created_at' => Carbon::now(),
-        //   'modul' => 'Admin',
-        //   'log' => $logmessage ]);
-        //LOGACTIVITY
 
         return redirect()->route('account.index')->with('status', 'Data User Berhasil Dihapus !');
     }

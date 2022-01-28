@@ -452,9 +452,6 @@ class ReserveController extends Controller
 
     public function room_reservation(Request $request)
     {
-        // dd($request->all());
-        // Session::forget('roomSnapToken');
-
         $data = $request['reserve_data'];
         $data = json_decode($data);
 
@@ -489,7 +486,6 @@ class ReserveController extends Controller
         $listPaymentChannels = $list['payment_channel'];
 
         return view('visitor_site.reserve.index', get_defined_vars());
-
     }
 
     public function get_product()
@@ -507,7 +503,6 @@ class ReserveController extends Controller
 
     public function product_reservation(Request $request)
     {
-        // Session::forget('productSnapToken');
         $id = $request['product_list'];
         $date = $request['date_product'];
         $date = Carbon::parse($date)->format('d F Y');

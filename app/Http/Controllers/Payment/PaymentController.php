@@ -55,7 +55,6 @@ class PaymentController extends Controller
 
     public function reserve_room(Request $request)
     {
-        // dd($request->all());
         $input = $request->all();
         $booking_id = $input['booking_id'];
         $rsvp = RoomRSvp::where('booking_id', $input['booking_id'])->first();
@@ -144,8 +143,6 @@ class PaymentController extends Controller
                 'rsvp_special_request' => $sanitizer['additional_request'],
             ]);
 
-            // dd($rsvp);
-
             return response()->json(["status" => 200, "href" => "tab2-2", "customer_name" => $sanitizer['cust_name'], "customer_email" => $sanitizer['cust_email'], "booking_id" => $input['booking_id'], "tab" => "2", "text" => "Payment Information"]);
 
         } else {
@@ -155,7 +152,6 @@ class PaymentController extends Controller
 
     public function room_checkout(Request $request)
     {
-        // dd($request->all());
         $input               = $request->all();
         $data                = $input['data'];
         $booking_id          = $input['booking_id'];
@@ -431,7 +427,6 @@ class PaymentController extends Controller
 
     public function product_checkout(Request $request)
     {
-        // dd($request->all());
         $input               = $request->all();
         $data                = $input['data'];
         $booking_id          = $input['booking_id'];
@@ -547,7 +542,6 @@ class PaymentController extends Controller
 
     public function credit(Request $request)
     {
-        // dd($request->all());
         $data        = $request['reserve_data'];
         $data        = json_decode($data);
 
@@ -571,7 +565,6 @@ class PaymentController extends Controller
 
             //order description room
             $room_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s)";
-            // dd($order_desc);
 
             //order description room plus extrabed
             $extrabed_desc   = $data->total_rooms . "x " . $data->room_name . " x " . $data->total_days . " day(s) | " . $data->total_extrabed . "x " . "Additional Extra Bed" . " x " . $data->total_days . " day(s)";

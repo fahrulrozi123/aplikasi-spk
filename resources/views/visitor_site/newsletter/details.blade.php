@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', $news->news_title . ' Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', $news->news_title . ' Horison Ultima Bandung')
+@section('title', $news->news_title)
+
 @section('content')
 <br><br>
 
@@ -6,7 +11,7 @@
 
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>
-            <a href="/newsletter"><span class="entypo-left-open"></span>Back</a>
+            <a href="{{ route('visitor.newsletter') }}"><span class="entypo-left-open"></span>Back</a>
         </li>
     </ol>
 
@@ -32,7 +37,9 @@
                             <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" />
                     </header>
                         <section class="album-info shadow">
-                            <a href="/news_detail/{{$news->id}}"><h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4></a>
+                            <a href="/newsletter/{{ $news->news_slug }}">
+                                <h4 class="line-clamp-1" style="margin-top: 0px;"><b>{{$news->news_title}}<b></h4>
+                            </a>
 
                             <p style="font-size:12px;">{{$news->news_publish_date}}</p>
                         </section>

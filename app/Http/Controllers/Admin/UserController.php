@@ -41,8 +41,6 @@ class UserController extends Controller
 
     public function insert(Request $request)
     {
-        // dd($request->all());
-        //  check for passing to update function
         if($request['id']!= ""){
             $this->validate($request, [
                 'name'          => 'required',
@@ -84,7 +82,6 @@ class UserController extends Controller
             }
         }else{
             bcrypt($request->password);
-            // dd($request->all());
             $this->validate($request, [
             'name'          => 'required',
             'username'      => 'required',
@@ -157,17 +154,9 @@ class UserController extends Controller
 
     public function update($request)
     {
-        // dd($request);
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
         $user = User::where('id', $id)->first();
-
-        // $this->validate($request, [
-        //     'email' => 'unique:users,email',
-        // ],
-        // [
-        //     'email.unique' => 'Email has already been taken 3'
-        // ]);
 
         //UPLOAD FOTO
         if($request->file('img')){

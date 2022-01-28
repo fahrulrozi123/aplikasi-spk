@@ -54,8 +54,7 @@
     <div class="container">
         <br>
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR
-                <span class="gold">THERAPY, SAUNA & VOLCANIC</span> BATH</p>
+            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR<span class="gold">THERAPY, SAUNA & VOLCANIC</span> BATH</p>
         </center>
         <center>
             <p class="description-mw-dark">
@@ -122,9 +121,11 @@
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                             {{substr($spa->product_detail, 0, 100)."..."}}
                     </h5>
-                        <a href="/details?from=allysea_spa&key={{$spa->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                        <a href="/wellness/{{ $spa->product_slug }}" class="font-secondary" style="font-size: 11px;">
+                            <i><u>See more description</u></i>
+                        </a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$spa->product_detail}}</h5>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{{$spa->product_detail}}</h5>
                     @endif
 
                     @if($spa->sales_inquiry == "0")

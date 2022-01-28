@@ -18,7 +18,6 @@ use App\Models\Setting\Setting;
 use Carbon\Carbon;
 use DataTables;
 use DateTime;
-// use App\Models\Admin\LogActivity;
 
 use DB;
 use Illuminate\Http\Request;
@@ -29,7 +28,6 @@ use PDF;
 
 class ReservationController extends Controller
 {
-
     public function __construct()
     {
         //DEFINISIKAN PATH
@@ -145,11 +143,8 @@ class ReservationController extends Controller
 
     public function room_data()
     {
-        //   $reservation = RoomRsvp::orderBy('id')->orderBy('rsvp_date_reserve')->orderBy('rsvp_status', 'DESC')->with('room')->get();
-        //   return $reservation;
-
         $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
-                    where rsvp_payment <> '' or customer_id not in (null, '') order by create_at DESC ;";
+                where rsvp_payment <> '' or customer_id not in (null, '') order by create_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -253,7 +248,6 @@ class ReservationController extends Controller
 
     public function product_inquiry_data()
     {
-
         $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('create_at', 'DESC')->get();
 
         foreach ($data as $key => $value) {
@@ -265,8 +259,7 @@ class ReservationController extends Controller
             }
         }
 
-        return Datatables::of($data)
-            ->make(true);
+        return Datatables::of($data)->make(true);
     }
 
     public function product_inquiry_today()
@@ -288,8 +281,8 @@ class ReservationController extends Controller
 
             }
         }
-        return Datatables::of($data)
-            ->make(true);
+
+        return Datatables::of($data)->make(true);
     }
 
     public function inquiry_data_success($start_date = NULL, $end_date = NULL)
@@ -324,7 +317,6 @@ class ReservationController extends Controller
         $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
             ->orderBy('create_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
-
     }
 
     public function product_reservation_today()
@@ -438,7 +430,6 @@ class ReservationController extends Controller
         }
 
         return redirect()->route('reservation.index')->with('status', $msg);
-
     }
 
     public function room_refundReschedule(Request $request)
@@ -575,7 +566,6 @@ class ReservationController extends Controller
         }
 
         return 'Voucher send to ' . $to . ' success';
-
     }
 
     public function template_voucher($data, $setting)
@@ -614,7 +604,6 @@ class ReservationController extends Controller
         $data['rooms'] = json_decode(json_encode($rooms), true);
         $data['products'] = json_decode(json_encode($products), true);
         $data['inquiry'] = json_decode(json_encode($inquiry), true);
-        // dd($data['inquiry']);
         $export = new ReservationReportExport($data);
         $today = Carbon::parse(Carbon::now())->isoFormat('MMMM Do YYYY');
         $name = "reservation_report-" . $today . ".xlsx";
@@ -637,13 +626,7 @@ class ReservationController extends Controller
     public function allotment_export_excel(Request $request)
     {
         $allotment = json_decode($request['allotment_data'], true);
-        // dd($data);
-        // $start_date = Carbon::parse($request['date_start'])->format('Y-m-d');
-        // $end_date = Carbon::parse($request['date_end'])->format('Y-m-d');
-        // $rooms = $this->room_data_success($start_date, $end_date);
-        // $products = $this->product_data_success($start_date, $end_date);
         $data['allotment'] = $allotment;
-        // $data['products'] = json_decode(json_encode($products), true);
         $export = new AllotmentExport($data);
         $today = Carbon::parse(Carbon::now())->isoFormat('MMMM Do YYYY');
         $name = "allotment_report-" . $today . ".xlsx";

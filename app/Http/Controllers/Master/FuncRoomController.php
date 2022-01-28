@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\FunctionRoom\FunctionPhotos;
 use App\Models\FunctionRoom\FunctionRoom;
 use App\Models\Inquiry\Inquiry;
+
 use Carbon\Carbon;
 use File;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -53,15 +55,17 @@ class FuncRoomController extends Controller
 
     public function insert(Request $request)
     {
-        // dd($request->all());
         if ($request['form_action'] == "update") {
             $this->validate($request, [
+                'func_name' => 'required|unique:function_room,func_name',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
-            [       'img.required_without' => 'Function Room photos cannot be empty',
-                    'img.*.mimes' => 'Your image format is not supported',
-                    'img.*.max' => 'Your image size cannot more than 2mb'
+            [
+                'func_name.unique' => 'The function room name has already been taken',
+                'img.required_without' => 'Function Room photos cannot be empty',
+                'img.*.mimes' => 'Your image format is not supported',
+                'img.*.max' => 'Your image size cannot more than 2mb'
             ]);
 
             $this->update($request);
@@ -70,15 +74,16 @@ class FuncRoomController extends Controller
             $this->delete($request);
             return redirect()->route('function_room.index')->with('status', 'Data Function Room Berhasil Dihapus');
         } else if ($request['form_action'] == "create") {
-            // dd($request);
             $this->validate($request, [
+                'func_name' => 'required|unique:function_room,func_name',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048'
             ],
             [
-                    'img.required' => 'Function Room photo cannot be empty.',
-                    'img.*.mimes' => 'Your image format is not supported.',
-                    'img.*.max' => 'Your image size cannot more than 2mb.'
+                'func_name.unique' => 'The function room name has already been taken',
+                'img.required' => 'Function Room photo cannot be empty.',
+                'img.*.mimes' => 'Your image format is not supported.',
+                'img.*.max' => 'Your image size cannot more than 2mb.'
             ]);
 
             //CREATE ID
@@ -97,6 +102,7 @@ class FuncRoomController extends Controller
             FunctionRoom::create([
                 'id' => $id,
                 'func_name' => $request['func_name'],
+                'func_room_slug' => Str::slug($request['func_name']),
                 'func_room_desc' => $request['func_room_desc'],
                 'func_dimension' => $request['func_dimension'],
                 'func_class' => $request['func_class'],
@@ -171,13 +177,11 @@ class FuncRoomController extends Controller
 
         $id = Crypt::decryptString($id);
         $function_room = FunctionRoom::with('partition')->with('photos')->where('id', $id)->first();
-        // dd($product);
         return view('master_data.function_room.create', get_defined_vars());
     }
 
     public function update($request)
     {
-        // dd($request);
         $id = Crypt::decryptString($request['id']);
         $temp_photo = FunctionPhotos::where('function_room_id', $id)->get();
         FunctionPhotos::where('function_room_id', $id)->forceDelete();
@@ -218,6 +222,7 @@ class FuncRoomController extends Controller
         }
         FunctionRoom::where('id', $id)->update([
             'func_name' => $request['func_name'],
+            'func_room_slug' => Str::slug($request['func_name']),
             'func_room_desc' => $request['func_room_desc'],
             'func_dimension' => $request['func_dimension'],
             'func_class' => $request['func_class'],

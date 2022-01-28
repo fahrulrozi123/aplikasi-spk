@@ -53,8 +53,7 @@
     <div class="container">
         <br>
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:20px;">NOT <span class="gold">ONLY A PLACES</span>
-            </p>
+            <p class="black" style="margin-top:20px; margin-bottom:20px;">NOT <span class="gold">ONLY A PLACES</span></p>
         </center>
         <center>
             <p class="description-mw-dark">
@@ -122,9 +121,9 @@
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
                             {{substr($mice->product_detail, 0, 100)."..."}}
                     </h5>
-                        <a href="/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                        <a href="/mice/{{ $mice->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{{$mice->product_detail}}</h5>
                     @endif
 
                     @if($mice->sales_inquiry == "0")
@@ -390,7 +389,7 @@
 
         $('.slider-for').append(slider_for);
         $('.slider-nav').append(slider_nav);
-        
+
         do_slider();
 
         $('#seeAllModal').on('hidden.bs.modal', function () {
