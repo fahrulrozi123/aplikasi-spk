@@ -6,7 +6,7 @@ Route::group(['middleware' => ['web']], function () {
     //ROOM//
     Route::get('/rooms/', 'Visitor\VisitorController@rooms')->name('visitor.room');
     //ROOM DETAIL//
-    Route::get('/room/{slug}', 'Visitor\VisitorController@roomDetail');
+    Route::get('/rooms/{slug}', 'Visitor\VisitorController@roomDetail');
 
     //RECREATION//
     Route::get('/recreation/', 'Visitor\VisitorController@recreation')->name('visitor.recreation');
