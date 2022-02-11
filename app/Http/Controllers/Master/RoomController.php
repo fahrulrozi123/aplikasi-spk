@@ -63,7 +63,7 @@ class RoomController extends Controller
     {
         if ($request->id != "") {
             $this->validate($request, [
-                'room_name' => 'required|unique:room_type,room_name',
+                'room_name' => 'required',
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
@@ -80,13 +80,12 @@ class RoomController extends Controller
             [   'img.required_without' => 'Room photo cannot be empty',
                 'img.*.max' => 'Your image size cannot more than 2mb',
                 'img.*.mimes' => 'Your image format is not supported',
-                'room_name.unique' => 'The room type name has already been taken.',
                 'room_order.integer' => 'The room list order must be an number.',
             ]);
             $this->update($request);
         } else {
             $this->validate($request, [
-                'room_name' => 'required|unique:room_type,room_name',
+                'room_name' => 'required',
                 'room_desc' => 'required',
                 'bed_type' => 'required',
                 'room_allotment' => 'required',
@@ -104,7 +103,6 @@ class RoomController extends Controller
                 'img.required' => 'Room photo cannot be empty',
                 'img.*.mimes' => 'Room photos format is not supported',
                 'img.*.max' => 'Your image size cannot more than 2mb',
-                'room_name.unique' => 'The room type name has already been taken.',
                 'room_order.integer' => 'The room list order must be an number.',
             ]);
 
@@ -118,10 +116,12 @@ class RoomController extends Controller
                 $id = $hex;
             }
 
+            $slug = $this->createSlug(($request['room_name']));
+
             Type::create([
                 'id'        => $id,
                 'room_name' => $request['room_name'],
-                'room_slug' => Str::slug($request['room_name']),
+                'room_slug' => $slug,
                 'room_desc' => $request['room_desc'],
                 'room_allotment' => $request['room_allotment'],
                 'room_publish_rate' => $request['room_publish_rate'],
@@ -248,9 +248,12 @@ class RoomController extends Controller
         }
 
         //UPDATE DATA
+        Type::where('id', $id)->update(['room_slug' => null]);
+        $slug = $this->createSlug(($request['room_name']));
+
         Type::where('id', $id)->update([
             'room_name' => $request['room_name'],
-            'room_slug' => Str::slug($request['room_name']),
+            'room_slug' => $slug,
             'room_desc' => $request['room_desc'],
             'room_allotment' => $request['room_allotment'],
             'room_publish_rate' => $request['room_publish_rate'],
@@ -290,6 +293,32 @@ class RoomController extends Controller
         $id = Crypt::decryptString($id);
         $user = User::where('id', $id)->first();
         return response()->json($user);
+    }
+
+    //CREATE SLUG
+    public function createSlug($title)
+    {
+        $slug = str_slug($title);
+        $allSlugs = $this->getRelatedSlugs($slug);
+        if (! $allSlugs->contains('room_slug', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('room_slug', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
+    }
+
+    protected function getRelatedSlugs($slug)
+    {
+        return Type::select('room_slug')->where('room_slug', 'like', $slug.'%')->get();
     }
 
 }

@@ -63,13 +63,12 @@ class NewsController extends Controller
 
         if ($request['id'] != "") {
             $this->validate($request, [
-                'news_title' => 'required|unique:visitor_news,news_title',
+                'news_title' => 'required',
                 'news_content' => 'required',
                 'news_publish_date' => 'required',
                 'img' => 'mimes:jpeg,png,jpg|max:2048'
             ],
             [
-                'news_title.unique' => 'The news title has already been taken',
                 'img.mimes' => 'Your image format is not supported',
                 'img.max' => 'Your image size cannot more than 2mb'
             ]);
@@ -90,10 +89,13 @@ class NewsController extends Controller
             }
 
             $publish_date = Carbon::parse($request['news_publish_date'])->format('Y-m-d');
+            News::where('id', $id)->update(['news_slug' => null]);
+            $slug = $this->createSlug(($request['news_title']));
+
             News::where('id', $id)->update([
                 'user_id' => Auth::id(),
                 'news_title' => $request['news_title'],
-                'news_slug' => Str::slug($request['news_title']),
+                'news_slug' => $slug,
                 'news_content' => $request['news_content'],
                 'news_photo_path' => $this->fileName,
                 'news_sticky_state' => $this->news_sticky_state,
@@ -104,13 +106,12 @@ class NewsController extends Controller
             return redirect()->route('news.index')->with('status', 'News Berhasil di Update');
         } else {
             $this->validate($request, [
-                'news_title' => 'required|unique:visitor_news,news_title',
+                'news_title' => 'required',
                 'news_content' => 'required',
                 'news_publish_date' => 'required',
                 'img' => 'required|mimes:jpeg,png,jpg|max:2048'
             ],
             [
-                'news_title.unique' => 'The news title has already been taken',
                 'img.max' => 'Your image size cannot more than 2mb.',
                 'img.mimes' => 'Your image format is not supported.',
                 'img.required' => 'News photos cannot be empty.'
@@ -138,12 +139,13 @@ class NewsController extends Controller
             }
 
             $publish_date = Carbon::parse($request['news_publish_date'])->format('Y-m-d');
+            $slug = $this->createSlug(($request['news_title']));
 
             News::create([
                 'id'    => $id,
                 'user_id' => Auth::id(),
                 'news_title' => $request['news_title'],
-                'news_slug' => Str::slug($request['news_title']),
+                'news_slug' => $slug,
                 'news_content' => $request['news_content'],
                 'news_photo_path' => $this->fileName,
                 'news_sticky_state' => $this->news_sticky_state,
@@ -272,6 +274,32 @@ class NewsController extends Controller
         $id = Crypt::decryptString($id);
         $user = User::where('id', $id)->first();
         return response()->json($user);
+    }
+
+    // CREATE SLUG
+    public function createSlug($title)
+    {
+        $slug = str_slug($title);
+        $allSlugs = $this->getRelatedSlugs($slug);
+        if (! $allSlugs->contains('news_slug', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('news_slug', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
+    }
+
+    protected function getRelatedSlugs($slug)
+    {
+        return News::select('news_slug')->where('news_slug', 'like', $slug.'%')->get();
     }
 
 }

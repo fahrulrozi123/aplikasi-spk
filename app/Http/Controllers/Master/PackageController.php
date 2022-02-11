@@ -60,14 +60,13 @@ class PackageController extends Controller
     {
         if($request['id'] != ""){
             $this->validate($request, [
-                'product_name' => 'required|unique:product,product_name',
+                'product_name' => 'required',
                 'product_detail' => 'required',
                 // 'product_price' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
             [
-                'product_name.unique' => 'The package/product name has already been taken',
                 'img.required_without' => 'Product photos cannot be empty.',
                 'img.*.mimes' => 'Your image format is not supported.',
                 'img.*.max' => 'Your image size cannot more than 2mb.',
@@ -85,14 +84,13 @@ class PackageController extends Controller
             $this->update($request);
         } else {
             $this->validate($request, [
-                'product_name' => 'required|unique:product,product_name',
+                'product_name' => 'required',
                 'product_detail' => 'required',
                 // 'product_price' => 'required|not_in:0',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048'
             ],
             [
-                'product_name.unique' => 'The package/product name has already been taken',
                 'img.*.mimes' => 'Your image format is not supported.',
                 'img.required' => 'Package photos cannot be empty.',
                 'img.*.max' => 'Your image size cannot more than 2mb.',
@@ -118,10 +116,12 @@ class PackageController extends Controller
                 $id = $hex;
             }
 
+            $slug = $this->createSlug(($request['product_name']));
+
             Product::create([
                 'id'          =>  $id,
                 'product_name' => $request['product_name'],
-                'product_slug' => Str::slug($request['product_name']),
+                'product_slug' => $slug,
                 'product_detail' => $request['product_detail'],
                 'product_price' => $request['product_price'],
                 'sales_inquiry' => $request['salesStatus'],
@@ -210,9 +210,14 @@ class PackageController extends Controller
             }
             Photos::insert($data);
         }
+
+        //UPDATE DATA
+        Product::where('id', $id)->update(['product_slug' => null]);
+        $slug = $this->createSlug(($request['product_name']));
+
         Product::where('id', $id)->update([
             'product_name' => $request['product_name'],
-            'product_slug' => Str::slug($request['product_name']),
+            'product_slug' => $slug,
             'product_detail' => $request['product_detail'],
             'product_price' => $request['product_price'],
             'sales_inquiry' => $request['salesStatus'],
@@ -251,5 +256,31 @@ class PackageController extends Controller
         $id = Crypt::decryptString($id);
         $user = User::where('id', $id)->first();
         return response()->json($user);
+    }
+
+    //CREATE SLUG
+    public function createSlug($title)
+    {
+        $slug = str_slug($title);
+        $allSlugs = $this->getRelatedSlugs($slug);
+        if (! $allSlugs->contains('product_slug', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('product_slug', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
+    }
+
+    protected function getRelatedSlugs($slug)
+    {
+        return Product::select('product_slug')->where('product_slug', 'like', $slug.'%')->get();
     }
 }

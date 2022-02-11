@@ -57,12 +57,11 @@ class FuncRoomController extends Controller
     {
         if ($request['form_action'] == "update") {
             $this->validate($request, [
-                'func_name' => 'required|unique:function_room,func_name',
+                'func_name' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
             [
-                'func_name.unique' => 'The function room name has already been taken',
                 'img.required_without' => 'Function Room photos cannot be empty',
                 'img.*.mimes' => 'Your image format is not supported',
                 'img.*.max' => 'Your image size cannot more than 2mb'
@@ -75,12 +74,11 @@ class FuncRoomController extends Controller
             return redirect()->route('function_room.index')->with('status', 'Data Function Room Berhasil Dihapus');
         } else if ($request['form_action'] == "create") {
             $this->validate($request, [
-                'func_name' => 'required|unique:function_room,func_name',
+                'func_name' => 'required',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048'
             ],
             [
-                'func_name.unique' => 'The function room name has already been taken',
                 'img.required' => 'Function Room photo cannot be empty.',
                 'img.*.mimes' => 'Your image format is not supported.',
                 'img.*.max' => 'Your image size cannot more than 2mb.'
@@ -98,11 +96,12 @@ class FuncRoomController extends Controller
             }
 
             $create_at = Carbon::now();
+            $slug = $this->createSlug(($request['func_name']));
 
             FunctionRoom::create([
                 'id' => $id,
                 'func_name' => $request['func_name'],
-                'func_room_slug' => Str::slug($request['func_name']),
+                'func_room_slug' => $slug,
                 'func_room_desc' => $request['func_room_desc'],
                 'func_dimension' => $request['func_dimension'],
                 'func_class' => $request['func_class'],
@@ -220,9 +219,14 @@ class FuncRoomController extends Controller
             }
             FunctionPhotos::insert($data);
         }
+
+        //UPDATE DATA
+        FunctionRoom::where('id', $id)->update(['func_room_slug' => null]);
+        $slug = $this->createSlug(($request['func_name']));
+
         FunctionRoom::where('id', $id)->update([
             'func_name' => $request['func_name'],
-            'func_room_slug' => Str::slug($request['func_name']),
+            'func_room_slug' => $slug,
             'func_room_desc' => $request['func_room_desc'],
             'func_dimension' => $request['func_dimension'],
             'func_class' => $request['func_class'],
@@ -282,6 +286,32 @@ class FuncRoomController extends Controller
         }
 
         return redirect()->route('function_room.index')->with('status', 'Data Function Room Berhasil Dihapus');
+    }
+
+    //CREATE SLUG
+    public function createSlug($title)
+    {
+        $slug = str_slug($title);
+        $allSlugs = $this->getRelatedSlugs($slug);
+        if (! $allSlugs->contains('func_room_slug', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('func_room_slug', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
+    }
+
+    protected function getRelatedSlugs($slug)
+    {
+        return FunctionRoom::select('func_room_slug')->where('func_room_slug', 'like', $slug.'%')->get();
     }
 
 }
