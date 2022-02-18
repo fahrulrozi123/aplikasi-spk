@@ -1,6 +1,7 @@
 @extends('templates/template')
 @section("header_title") FUNCTION ROOM @endsection
 @section('content')
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
 @php
 if(isset($function_room)){
@@ -31,7 +32,8 @@ $func_dimension = "";
 <div class="col-lg-12">
     <div class="row">
 
-        <form id="function_form" method="POST" action="{{ route('function_room.insert') }}" enctype="multipart/form-data" autocomplete="off">
+        <form id="function_form" method="POST" action="{{ route('function_room.insert') }}"
+            enctype="multipart/form-data" autocomplete="off">
             {{csrf_field()}}
             <input type="hidden" name="form_action" id="form_action" value="{{$action}}">
             <input type="hidden" name="id" value="{{$id}}">
@@ -39,43 +41,55 @@ $func_dimension = "";
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
 
                             <h4><b>Function Room Details</b></h4>
 
-                            <div class="row">
-                                <label for="field-1" class="col-sm-4 control-label fr-label">Functional Room Name<br><small class="text-muted"></small></label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control " value="{{old('func_name', $func_name)}}" name="func_name" id="" placeholder="Input Functional Room Name" autocomplete="off" required>
-                                    @error('func_name')
+                            <div class="form-group">
+                                <div class="row">
+                                    <label for="field-1" class="col-sm-4 control-label fr-label">Functional Room
+                                        Name<br><small class="text-muted"></small></label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control " value="{{old('func_name', $func_name)}}"
+                                            name="func_name" id="" placeholder="Input Functional Room Name"
+                                            autocomplete="off" required>
+                                        @error('func_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label for="field-1" class="col-sm-4 control-label fr-label">Function Room
-                                    Description<br><small class="text-muted"></small></label>
-                                <div class="col-sm-6">
-                                    <textarea class="form-control" name="func_room_desc" id="" cols="30" rows="4"
-                                        MAXLENGTH="" placeholder="Input Function Room Description"
-                                        required>{{old('func_room_desc', $func_room_desc)}}</textarea>
+                                        @enderror
+                                    </div>
+                                </div><br>
+                                <div class="row">
+                                    <label for="field-1" class="col-sm-4 control-label fr-label">Function Room
+                                        Description<br><small class="text-muted"></small></label>
+                                    <div class="col-sm-6">
+                                        <textarea
+                                            name="func_room_desc">{{old('func_room_desc', $func_room_desc)}}</textarea>
+                                        <script>
+                                            CKEDITOR.replace( 'func_room_desc', {
+                                                removePlugins: ['image', 'uploadimage']
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
                             </div><br><br>
                         </div>
 
-                        <div class="col-md-6">
-
-                            <h4 style="margin-bottom: 0px;"><b>Function Room Capacity</b></h4>
+                        <div class="col-md-12">
+                            <h4 style="margin-bottom: 0px;">
+                                <b>Function Room Capacity</b>
+                            </h4>
 
                             <div class="row">
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg'),
+                                            false, stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">Class Room</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input type="text" class="form-control numberValidation" oninput="ambilRupiah(this);" value="{{old('func_class', $func_class)}}"
+                                            <input type="text" class="form-control numberValidation"
+                                                oninput="ambilRupiah(this);" value="{{old('func_class', $func_class)}}"
                                                 id="func_class" placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_class" id="func_class_value"
                                                 value="{{$func_class}}" />
@@ -83,44 +97,52 @@ $func_dimension = "";
                                         <p class="fr-pax-input">Pax</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg'), false,
+                                            stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">Theatre</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input type="text" class="form-control numberValidation" oninput="ambilRupiah(this);" value="{{old('func_theatre', $func_theatre)}}"
-                                                id="func_theatre" placeholder="0" autocomplete="off" required>
+                                            <input type="text" class="form-control numberValidation"
+                                                oninput="ambilRupiah(this);"
+                                                value="{{old('func_theatre', $func_theatre)}}" id="func_theatre"
+                                                placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_theatre" id="func_theatre_value"
                                                 value="{{$func_theatre}}" />
                                         </div>
                                         <p class="fr-pax-input">Pax</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-UShape.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-UShape.svg'), false,
+                                            stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">U-Shape</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input type="text" class="form-control numberValidation" oninput="ambilRupiah(this);" value="{{old('func_ushape', $func_ushape)}}"
-                                                id="func_ushape" placeholder="0" autocomplete="off" required>
+                                            <input type="text" class="form-control numberValidation"
+                                                oninput="ambilRupiah(this);"
+                                                value="{{old('func_ushape', $func_ushape)}}" id="func_ushape"
+                                                placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_ushape" id="func_ushape_value"
                                                 value="{{$func_ushape}}" />
                                         </div>
                                         <p class="fr-pax-input">Pax</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg'),
+                                            false, stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">Board Room</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input type="text" class="form-control numberValidation" oninput="ambilRupiah(this);" value="{{old('func_board', $func_board)}}"
+                                            <input type="text" class="form-control numberValidation"
+                                                oninput="ambilRupiah(this);" value="{{old('func_board', $func_board)}}"
                                                 id="func_board" placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_board" id="func_board_value"
                                                 value="{{$func_board}}" />
@@ -128,14 +150,16 @@ $func_dimension = "";
                                         <p class="fr-pax-input">Pax</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg'),
+                                            false, stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">Round Table</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input type="text" class="form-control numberValidation" oninput="ambilRupiah(this);" value="{{old('func_round', $func_round)}}"
+                                            <input type="text" class="form-control numberValidation"
+                                                oninput="ambilRupiah(this);" value="{{old('func_round', $func_round)}}"
                                                 id="func_round" placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_round" id="func_round_value"
                                                 value="{{$func_round}}" />
@@ -143,16 +167,17 @@ $func_dimension = "";
                                         <p class="fr-pax-input">Pax</p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-4 col-md-4" style="margin-top: 20px;">
+                                <div class="col-xs-6 col-sm-2 col-md-2" style="margin-top: 20px;">
                                     <div class="row fr-icon-box" align="center">
                                         <div class="fr-icon horison-icon" style="text-align: center; padding-top: 0px;">
-                                            {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg'), false, stream_context_create($arrContextOptions)) !!}
+                                            {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg'),
+                                            false, stream_context_create($arrContextOptions)) !!}
                                         </div>
                                         <p class="fr-modal-name">Dimension</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input oninput="clear_partition();ambilRupiah(this);" type="text" class="form-control"
-                                                value="{{old('func_dimension', $func_dimension)}}" id="func_dimension"
-                                                placeholder="0" autocomplete="off" required>
+                                            <input oninput="clear_partition();ambilRupiah(this);" type="text"
+                                                class="form-control" value="{{old('func_dimension', $func_dimension)}}"
+                                                id="func_dimension" placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_dimension" id="func_dimension_value"
                                                 value="{{$func_dimension}}" />
                                         </div>
@@ -160,14 +185,11 @@ $func_dimension = "";
                                     </div>
                                 </div>
                             </div>
-
                         </div><br><br>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12">
-                            {{-- <label for="field-1" class="col-sm-4 control-label fr-label">Function Room
-                                Photos<br><small class="text-muted"></small></label> --}}
                             <h4><b>Function Room Photos</b></h4>
                             <fieldset class="col-sm-6">
                                 <a class="btn btn-horison-gold shadow" href="javascript:void(0)"
@@ -175,7 +197,8 @@ $func_dimension = "";
                                         class="glyphicon glyphicon-circle-arrow-up"></i>
                                     Browse Image</a>
                                 <input type="file" id="pro-image" name="img[]" style="display: none;"
-                                    class="form-control validateImage" accept="image/*" multiple onchange="fileValidation();">
+                                    class="form-control validateImage" accept="image/*" multiple
+                                    onchange="fileValidation();">
                             </fieldset>
                             <div class="preview-images-zone">
                                 @if(isset($function_room))
@@ -190,9 +213,8 @@ $func_dimension = "";
                                 @endforeach
                                 @endif
                             </div>
-
                             @error('img')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -218,56 +240,61 @@ $func_dimension = "";
                             </a>
 
                             <div style="overflow-x:auto;">
-                            <table id="table_partition" class="table table-bordered responsive {{$table_class}}">
-                                <thead>
-                                    <tr>
-                                        <th class="fr-modal-table-title">Partition Name</th>
-                                        <th class="fr-modal-table-title">Dimension (Sqm)</th>
-                                        <th class="fr-modal-table-title">Class Room (Pax)</th>
-                                        <th class="fr-modal-table-title">Theatre (Pax)</th>
-                                        <th class="fr-modal-table-title">U-Shape (Pax)</th>
-                                        <th class="fr-modal-table-title">Board Room (Pax)</th>
-                                        <th class="fr-modal-table-title">Round Table (Pax)</th>
-                                        <th class="fr-modal-table-title">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table_partition-body">
-                                    @if(isset($function_room))
-                                    @php $no = 0; @endphp
-                                    @foreach($function_room['partition'] as $partition)@php $no++; @endphp
-                                    <tr id="partition_row_{{$no}}">
-                                        <td class="fr-modal-table-content"><input type="text" class="form-control"
-                                                value="{{$partition->func_name}}" name="partition_name[]" id=""
-                                                placeholder="" required=""></td>
-                                        <td class="fr-modal-table-content"><input oninput="check_dimension(this);"
-                                                type="text" class="form-control partition_dimension"
-                                                value="{{$partition->func_dimension}}" name="partition_dimension[]"
-                                                id="" placeholder="" required=""></td>
-                                        <td class="fr-modal-table-content"><input oninput="numberVal(this);" type="text" class="form-control numberValidation"
-                                                value="{{$partition->func_class}}" name="partition_class[]" id=""
-                                                placeholder="" required=""></td>
-                                        <td class="fr-modal-table-content"><input oninput="numberVal(this);" type="text" class="form-control numberValidation"
-                                                value="{{$partition->func_theatre}}" name="partition_theatre[]" id=""
-                                                placeholder="" required="">
-                                        </td>
-                                        <td class="fr-modal-table-content"><input oninput="numberVal(this);" type="text" class="form-control numberValidation"
-                                                value="{{$partition->func_ushape}}" name="partition_ushape[]" id=""
-                                                placeholder="" required="">
-                                        </td>
-                                        <td class="fr-modal-table-content"><input oninput="numberVal(this);" type="text" class="form-control numberValidation"
-                                                value="{{$partition->func_board}}" name="partition_board[]" id=""
-                                                placeholder="" required=""></td>
-                                        <td class="fr-modal-table-content"><input oninput="numberVal(this);" type="text" class="form-control numberValidation"
-                                                value="{{$partition->func_round}}" name="partition_round[]" id=""
-                                                placeholder="" required=""></td>
-                                        <td class="fr-modal-table-content"><button onclick="remove_partition({{$no}});"
-                                                type="button" class="btn btn-danger"><i
-                                                    class="entypo-trash"></i></button></td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
+                                <table id="table_partition" class="table table-bordered responsive {{$table_class}}">
+                                    <thead>
+                                        <tr>
+                                            <th class="fr-modal-table-title">Partition Name</th>
+                                            <th class="fr-modal-table-title">Dimension (Sqm)</th>
+                                            <th class="fr-modal-table-title">Class Room (Pax)</th>
+                                            <th class="fr-modal-table-title">Theatre (Pax)</th>
+                                            <th class="fr-modal-table-title">U-Shape (Pax)</th>
+                                            <th class="fr-modal-table-title">Board Room (Pax)</th>
+                                            <th class="fr-modal-table-title">Round Table (Pax)</th>
+                                            <th class="fr-modal-table-title">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table_partition-body">
+                                        @if(isset($function_room))
+                                        @php $no = 0; @endphp
+                                        @foreach($function_room['partition'] as $partition)@php $no++; @endphp
+                                        <tr id="partition_row_{{$no}}">
+                                            <td class="fr-modal-table-content"><input type="text" class="form-control"
+                                                    value="{{$partition->func_name}}" name="partition_name[]" id=""
+                                                    placeholder="" required=""></td>
+                                            <td class="fr-modal-table-content"><input oninput="check_dimension(this);"
+                                                    type="text" class="form-control partition_dimension"
+                                                    value="{{$partition->func_dimension}}" name="partition_dimension[]"
+                                                    id="" placeholder="" required=""></td>
+                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
+                                                    type="text" class="form-control numberValidation"
+                                                    value="{{$partition->func_class}}" name="partition_class[]" id=""
+                                                    placeholder="" required=""></td>
+                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
+                                                    type="text" class="form-control numberValidation"
+                                                    value="{{$partition->func_theatre}}" name="partition_theatre[]"
+                                                    id="" placeholder="" required="">
+                                            </td>
+                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
+                                                    type="text" class="form-control numberValidation"
+                                                    value="{{$partition->func_ushape}}" name="partition_ushape[]" id=""
+                                                    placeholder="" required="">
+                                            </td>
+                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
+                                                    type="text" class="form-control numberValidation"
+                                                    value="{{$partition->func_board}}" name="partition_board[]" id=""
+                                                    placeholder="" required=""></td>
+                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
+                                                    type="text" class="form-control numberValidation"
+                                                    value="{{$partition->func_round}}" name="partition_round[]" id=""
+                                                    placeholder="" required=""></td>
+                                            <td class="fr-modal-table-content"><button
+                                                    onclick="remove_partition({{$no}});" type="button"
+                                                    class="btn btn-danger"><i class="entypo-trash"></i></button></td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
 
                             <a onClick="add_partition();" id="btn_partition-add" class="{{$table_class}}">

@@ -1,7 +1,7 @@
 @extends('templates/template')
 @section("header_title") ROOMS @endsection
 @section('content')
-
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 @if(isset($room))
 @php
 $room_amenitites = $room['amenitites'];
@@ -172,9 +172,12 @@ $room_order = "";
 
                         <div class="col-lg-12 col-md-12">
                             <label for="product_detail">Room Details</label>
-                            <textarea name="room_desc" id="" cols="1" rows="4" style=""
-                                class="form-control" id="product_detail"
-                                placeholder="Describe Room Detail">{{old('room_desc', $room_desc)}}</textarea>
+                            <textarea name="room_desc">{{old('room_desc', $room_desc)}}</textarea>
+                            <script>
+                                CKEDITOR.replace( 'room_desc', {
+                                    removePlugins: ['image', 'uploadimage']
+                                });
+                            </script>
                             @error('room_desc')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -328,8 +331,6 @@ $room_order = "";
         </form>
     </div>
 </div>
-
-
 <script type="text/javascript">
     if ("{{$room_publish_rate}}" != "") {
             var e = document.getElementById("weekday_rate");
@@ -358,6 +359,7 @@ $room_order = "";
         hiddenInput.value = e.value.match(/\d/g).join("");
         e.value = formatRupiah(e, e.value);
     }
+
     /* Fungsi formatRupiah */
     function formatRupiah(rupiah, angka, prefix) {
         var number_string = angka.replace(/[^0-9]*/g, '').toString(),
@@ -426,13 +428,9 @@ $room_order = "";
             e.click();
        }
     }
-
 </script>
 
 <script>
-
-
-
     // set future availibility
     var selectedAvailability = document.getElementById("future_availability");
     selectedAvailability.value = "{{$room_future_availability}}";
@@ -452,8 +450,6 @@ $room_order = "";
     }
 
     $(document).ready(function () {
-
-
         document.getElementById('pro-image').addEventListener('change', readImage, false);
 
         $(".preview-images-zone").sortable();
@@ -477,6 +473,7 @@ $room_order = "";
             $(".preview-image.preview-show-" + i).remove();
         }
     }
+
     function readImage() {
         if (window.File && window.FileList && window.FileReader) {
             delete_image();
@@ -521,5 +518,4 @@ $room_order = "";
     });
 
 </script>
-
 @endsection

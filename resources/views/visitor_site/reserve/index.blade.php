@@ -152,8 +152,7 @@
 
                                                         <div class="row">
 
-                                                            <div class="col-md-6">
-
+                                                            {{-- <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label" for=""
                                                                         style="font-size:12px; font-weight:normal;">Identification
@@ -175,7 +174,7 @@
                                                                         id="id_number" maxlength="30"
                                                                         placeholder="Ex : 321815648126132" >
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">

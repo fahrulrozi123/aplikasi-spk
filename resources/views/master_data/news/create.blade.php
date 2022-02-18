@@ -113,7 +113,7 @@ $news_publish_date = date('Y/m/d');
         <!-- CKEditor - Content Editor -->
         <div class="row">
             <div class="col-sm-12">
-                <textarea name="news_content">{{$news_content}}</textarea>
+                <textarea name="news_content">{{old('news_content', $news_content)}}</textarea>
                 <script>
                     CKEDITOR.replace( 'news_content', {
                         filebrowserUploadUrl: "{{route('news.upload', ['_token' => csrf_token() ])}}",

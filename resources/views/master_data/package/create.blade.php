@@ -1,6 +1,7 @@
 @extends('templates/template')
 @section("header_title") PACKAGE/PRODUCT @endsection
 @section('content')
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
 @if(isset($product))
 @php
@@ -111,7 +112,7 @@ $category = "1";
                 </div>
                 <div class="panel-body shadow form-horizontal" style="display: block;">
                     <div class="form-group">
-                        <div class="col-lg-4" style="margin-left:20px">
+                        <div class="col-lg-4 col-md-4">
                             <label for="product_name">Package/Product Name</label>
                             <input type="text" class="form-control" name="product_name" maxlength="255"
                                 placeholder="Nama Package/Product" value="{{old('product_name', $product_name)}}">
@@ -119,12 +120,15 @@ $category = "1";
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <br>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
                             <label for="product_detail">Package/Product Detail</label>
-                            <!-- <input type="text" name="product_detail" class="form-control" cols="30"
-                                placeholder="Detail Package/Product" value="{{$product_detail}}"> -->
-                                <textarea name="product_detail" id="" cols="30" rows="4"
-                                class="form-control" id="product_detail"
-                                placeholder="Describe product details here">{{old('product_detail', $product_detail)}}</textarea><br>
+                            <textarea name="product_detail">{{old('product_detail', $product_detail)}}</textarea>
+                            <script>
+                                CKEDITOR.replace( 'product_detail', {
+                                    removePlugins: ['image', 'uploadimage']
+                                });
+                            </script>
                             @error('product_detail')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

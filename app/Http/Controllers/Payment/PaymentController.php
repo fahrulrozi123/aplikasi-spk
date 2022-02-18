@@ -64,8 +64,8 @@ class PaymentController extends Controller
         if ($data['type'] == "customer") {
             $validator = Validator::make($data, [
                 'cust_name' => 'required|string|max:50',
-                'cust_id_type' => 'required|string',
-                'cust_id_num' => 'required|string|max:30',
+                // 'cust_id_type' => 'required|string',
+                // 'cust_id_num' => 'required|string|max:30',
                 'cust_email' => 'required|email|max:50',
                 'cust_phone' => 'required|numeric',
                 'guest_name' => 'string',
@@ -80,19 +80,19 @@ class PaymentController extends Controller
                 'cust_email.email' => 'Email field only can fill with Email',
                 'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
                 'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
-                'cust_id_type.required' => 'Identification Card field is required',
-                'cust_id_num.required' => 'Identification Number field is required',
-                'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
-                'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
+                // 'cust_id_type.required' => 'Identification Card field is required',
+                // 'cust_id_num.required' => 'Identification Number field is required',
+                // 'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
+                // 'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
             ]);
 
             if ($validator->fails()) {
                 return response()->json(["status" => 422, "msg" => $validator->messages()->first()]);
             }
 
-            if (!in_array($data['cust_id_type'], $id_type)) {
-                return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
-            }
+            // if (!in_array($data['cust_id_type'], $id_type)) {
+            //     return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
+            // }
 
             $filters = [
                 'cust_name' => 'trim|escape|capitalize',
@@ -137,8 +137,8 @@ class PaymentController extends Controller
                 'customer_id' => $customer_id,
                 'rsvp_cust_name' => $sanitizer['cust_name'],
                 'rsvp_cust_phone' => $sanitizer['cust_phone'],
-                'rsvp_cust_idtype' => $sanitizer['cust_id_type'],
-                'rsvp_cust_idnumber' => $sanitizer['cust_id_num'],
+                // 'rsvp_cust_idtype' => $sanitizer['cust_id_type'],
+                // 'rsvp_cust_idnumber' => $sanitizer['cust_id_num'],
                 'rsvp_guest_name' => $sanitizer['guest_name'],
                 'rsvp_special_request' => $sanitizer['additional_request'],
             ]);
@@ -300,8 +300,8 @@ class PaymentController extends Controller
 
         $validator = Validator::make($data, [
             'cust_name' => 'required|string|max:50',
-            'cust_id_type' => 'required|string',
-            'cust_id_num' => 'required|string|max:30',
+            // 'cust_id_type' => 'required|string',
+            // 'cust_id_num' => 'required|string|max:30',
             'cust_email' => 'required|email|max:50',
             'cust_phone' => 'required|numeric',
             'product_id' => 'required|exists:product,id',
@@ -319,10 +319,10 @@ class PaymentController extends Controller
             'cust_email.email' => 'Email field only can fill with Email',
             'cust_phone.numeric' => 'Phone Number field only can fill with numeric',
             'cust_phone.digits_between' => 'Phone Number field length Maximal 30',
-            'cust_id_type.required' => 'Identification Card field is required',
-            'cust_id_num.required' => 'Identification Number field is required',
-            'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
-            'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
+            // 'cust_id_type.required' => 'Identification Card field is required',
+            // 'cust_id_num.required' => 'Identification Number field is required',
+            // 'cust_id_num.numeric' => 'Identification Number field only can contain numeric',
+            // 'cust_id_num.digits_between' => 'Identification Number field length Maximal 30',
             'product_id.required' => 'Product is required',
             'product_id.exists' => 'Product is not found',
             'amount_pax.required' => 'Amount Pax field is required',
@@ -338,9 +338,9 @@ class PaymentController extends Controller
             return response()->json(["status" => 422, "msg" => $validator->messages()->first()]);
         }
 
-        if (!in_array($data['cust_id_type'], $id_type)) {
-            return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
-        }
+        // if (!in_array($data['cust_id_type'], $id_type)) {
+        //     return response()->json(["status" => 422, "msg" => "Identification Card not found !"]);
+        // }
 
         $data['time_reserve'] = Carbon::parse($data['time_reserve'])->isoFormat('h:mm A');
         if ($data['type'] == "customer") {
@@ -406,8 +406,8 @@ class PaymentController extends Controller
                 'rsvp_arrive_time' => $data['time_reserve'],
                 'rsvp_cust_name' => $sanitizer['cust_name'],
                 'rsvp_cust_phone' => $sanitizer['cust_phone'],
-                'rsvp_cust_idtype' => $sanitizer['cust_id_type'],
-                'rsvp_cust_idnumber' => $sanitizer['cust_id_num'],
+                // 'rsvp_cust_idtype' => $sanitizer['cust_id_type'],
+                // 'rsvp_cust_idnumber' => $sanitizer['cust_id_num'],
                 'rsvp_special_request' => $sanitizer['additional_request'],
                 'rsvp_amount_pax' => $rsvp_amount_pax,
                 'rsvp_pax_price' => $rsvp_pax_price,

@@ -1,71 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>{{ $setting->title }}</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ $setting->title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
 
-	<link rel="stylesheet" href="{{ asset('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/font-icons/entypo/css/entypo.css')}}">
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-	<link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/neon-core.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/neon-theme.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/neon-forms.css')}}">
-  <link rel="stylesheet" href="{{ asset('js/fullcalendar/fullcalendar.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/selectboxit/jquery.selectBoxIt.css') }}">
-	<link rel="stylesheet" href="{{ asset('css/skins/white.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
+    <link rel="stylesheet" href="{{ asset('js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/font-icons/entypo/css/entypo.css')}}">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/neon-core.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/neon-theme.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/neon-forms.css')}}">
+    <link rel="stylesheet" href="{{ asset('js/fullcalendar/fullcalendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/selectboxit/jquery.selectBoxIt.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/skins/white.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
 
-	<link rel="stylesheet" href="{{ asset('css/md-tripa.css ') }}">
-	<link rel="stylesheet" href="{{ asset('css/horison-custom.css ') }}">
-	<link rel="stylesheet" href="{{ asset('css/404-custom.css ') }}">
+    <link rel="stylesheet" href="{{ asset('css/md-tripa.css ') }}">
+    <link rel="stylesheet" href="{{ asset('css/horison-custom.css ') }}">
+    <link rel="stylesheet" href="{{ asset('css/404-custom.css ') }}">
 
-	<link rel="stylesheet" href="{{ asset('js/datatables/datatables.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-  <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
-	<link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ asset('js/datatables/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
+    <link rel="shortcut icon" href="{{ asset('/images/logo/'.$setting->favicon) }}" type="image/x-icon" />
 
-	{{-- <script type="text/javascript" src="{{ asset('js/jquery.hislide.js') }}"></script> --}}
-	<script src="{{ asset('js/datatables/datatables.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/jquery.hislide.js') }}"></script> --}}
+    <script src="{{ asset('js/datatables/datatables.js') }}"></script>
 
-	<script src="{{ asset('js/jquery-1.11.3-admin.min.js ') }}"></script>
+    <script src="{{ asset('js/jquery-1.11.3-admin.min.js ') }}"></script>
 
-	<script src="{{ asset('js/numeral/numeral.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/numeral/numeral.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 
-	<!-- AmChart -->
-	{{-- <script src="{{ asset('js/amcharts/core.js') }}"></script>
+    <!-- AmChart -->
+    {{-- <script src="{{ asset('js/amcharts/core.js') }}"></script>
     <script src="{{ asset('js/amcharts/charts.js') }}"></script> --}}
 
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 
-	<script src="{{ asset('js/amcharts/animated.js') }}"></script>
-	<!-- Imask -->
-	<script src="https://unpkg.com/imask"></script>
+    <script src="{{ asset('js/amcharts/animated.js') }}"></script>
+    <!-- Imask -->
+    <script src="https://unpkg.com/imask"></script>
 
-	<!-- sweet ALERT -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- sweet ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-	<!-- <link href="{{ asset('js/fullcalendar4/packages/core/main.css') }}" rel='stylesheet' />
+    <!-- <link href="{{ asset('js/fullcalendar4/packages/core/main.css') }}" rel='stylesheet' />
 	<link href="{{ asset('js/fullcalendar4/packages/daygrid/main.css') }}" rel='stylesheet' />
 
 
 	<script src="{{ asset('js/fullcalendar4/packages/core/main.js') }}"></script>
 	<script src="{{ asset('js/fullcalendar4/packages/daygrid/main.js') }}"></script> -->
 
-	{{-- CUSTOM DATEPICKER --}}
-	<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+    {{-- CUSTOM DATEPICKER --}}
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/litepicker-module-ranges/dist/index.js"></script>
-	<script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 
@@ -86,30 +87,22 @@
 
     <meta name="csrf_token" content="{{ csrf_token() }}">
 
-	<div class="page-container">
+    <div class="page-container">
 
-			@include('templates/menu')
+        @include('templates/menu')
 
-		<div class="main-content">
+        <div class="main-content">
 
-			<div class="containerheader">
-				<img src="{{ asset('/images/dashboard/header.png') }}" class="img-responsive">
-				<div class="bottom-left">
+            <div class="containerheader">
+                <img src="{{ asset('/images/dashboard/header.png') }}" class="img-responsive">
+                <div class="bottom-left">
                     <h2><strong>@yield('header_title')</strong></h2>
                 </div>
-			</div>
-			<br>
-			{{-- @if (count($errors) > 0)
-			<div class="alert alert-dismissible alert-danger" style="text-align:center">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-					@foreach ($errors->all() as $error)<br>
-					{{ $error }}
-					@endforeach
-			</div>
-			@endif --}}
-		  @if (session('status'))
+            </div>
+            <br>
+            @if (session('status'))
             <script>
-                 $(document).ready(function() {
+                $(document).ready(function() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
@@ -120,7 +113,7 @@
             @endif
             @if (session('warning'))
             <script>
-                 $(document).ready(function() {
+                $(document).ready(function() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Warning',
@@ -130,141 +123,111 @@
             </script>
             @endif
 
-			@yield('content')
+            @yield('content')
 
-			<footer class="footer-office">
+            <footer class="footer-office">
                 <center>
-                  <h4>
-                    <small>Copyright &copy; 2020 
-										<strong><a class="font-primary" href="https://tripasysfo.com/" target="_blank">Tripasysfo Development</a></strong>. All rights reserved.</small>
-                  </h4>
+                    <h4>
+                        <small>Copyright &copy; 2020
+                            <strong><a class="font-primary" href="https://tripasysfo.com/" target="_blank">Tripasysfo
+                                    Development</a></strong>. All rights reserved.</small>
+                    </h4>
                 </center>
-			</footer>
-
-		</div>
-
+            </footer>
+        </div>
     </div>
 
+    <link rel="stylesheet" href="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+    {{--
+    <link rel="stylesheet" href="{{ asset('js/rickshaw/rickshaw.min.css') }}"> --}}
+    <script src="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
 
-	<link rel="stylesheet" href="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.css') }}">
-	{{-- <link rel="stylesheet" href="{{ asset('js/rickshaw/rickshaw.min.css') }}"> --}}
-	<script src="{{ asset('js/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+    <script src="{{ asset('js/daterangepicker/daterangepicker.js') }}"></script>
 
-	<script src="{{ asset('js/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/fullcalendar.js') }}"></script>
+    <script src="{{ asset('js/neon-calendar.js') }}"></script>
+    {{-- <script src="{{asset('assets/js/neon-charts.js') }}"></script> --}}
 
-	<script src="{{ asset('js/fullcalendar/fullcalendar.js') }}"></script>
-	<script src="{{ asset('js/neon-calendar.js') }}"></script>
-	{{-- <script src="{{asset('assets/js/neon-charts.js') }}"></script> --}}
+    <script src="{{ asset('js/jvectormap/jquery-jvectormap-europe-merc-en.js') }}"></script>
+    <script src="{{ asset('js/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('js/rickshaw/vendor/d3.v3.js') }}"></script>
+    {{-- <script src="{{ asset('js/rickshaw/rickshaw.min.js') }}"></script> --}}
+    <script src="{{ asset('js/raphael-min.js') }}"></script>
+    {{-- <script src="{{ asset('js/morris.min.js') }}"></script> --}}
 
-	<script src="{{ asset('js/jvectormap/jquery-jvectormap-europe-merc-en.js') }}"></script>
-	<script src="{{ asset('js/jquery.sparkline.min.js') }}"></script>
-	<script src="{{ asset('js/rickshaw/vendor/d3.v3.js') }}"></script>
-	{{-- <script src="{{ asset('js/rickshaw/rickshaw.min.js') }}"></script> --}}
-	<script src="{{ asset('js/raphael-min.js') }}"></script>
-	{{-- <script src="{{ asset('js/morris.min.js') }}"></script> --}}
+    <script src="{{ asset('js/toastr.js') }}"></script>
 
-	<script src="{{ asset('js/toastr.js') }}"></script>
+    <script src="{{ asset('js/gsap/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/joinable.js') }}"></script>
+    <script src="{{ asset('js/resizeable.js') }}"></script>
+    <script src="{{ asset('js/neon-api.js') }}"></script>
 
-	<script src="{{ asset('js/gsap/TweenMax.min.js') }}"></script>
-	<script src="{{ asset('js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.js') }}"></script>
-	<script src="{{ asset('js/joinable.js') }}"></script>
-	<script src="{{ asset('js/resizeable.js') }}"></script>
-	<script src="{{ asset('js/neon-api.js') }}"></script>
-
-	<script src="{{ asset('js/select2/select2.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
-	<script src="{{ asset('js/typeahead.min.js') }}"></script>
-	<script src="{{ asset('js/selectboxit/jquery.selectBoxIt.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-timepicker.min.js') }}"></script>
-	<script src="{{ asset('js/jquery.bootstrap.wizard.min.js') }}"></script>
-	<!-- JavaScripts initializations and stuff -->
-	<script src="{{ asset('js/neon-custom.js') }}"></script>
-	<script src="{{ asset('js/jquery.validate.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-switch.min.js') }}"></script>
+    <script src="{{ asset('js/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('js/typeahead.min.js') }}"></script>
+    <script src="{{ asset('js/selectboxit/jquery.selectBoxIt.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.bootstrap.wizard.min.js') }}"></script>
+    <!-- JavaScripts initializations and stuff -->
+    <script src="{{ asset('js/neon-custom.js') }}"></script>
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-switch.min.js') }}"></script>
 
 
     <script src="{{ asset('js/jquery.multi-select.js') }}"></script>
-	<script src="{{ asset('js/icheck/icheck.min.js') }}"></script>
-	<script src="{{ asset('js/jquery.inputmask.bundle.js')}}"></script>
+    <script src="{{ asset('js/icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.inputmask.bundle.js')}}"></script>
 
-	<!-- Text Editor WYSIWYG -->
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ asset('js/wysihtml5/bootstrap-wysihtml5.css') }}">
+    <!-- Text Editor WYSIWYG -->
+    <!-- Imported styles on this page -->
+    <link rel="stylesheet" href="{{ asset('js/wysihtml5/bootstrap-wysihtml5.css') }}">
 
-	<!-- Bottom scripts (common) -->
-	<script src="{{ asset('js/wysihtml5/wysihtml5-0.4.0pre.min.js') }}"></script>
+    <!-- Bottom scripts (common) -->
+    <script src="{{ asset('js/wysihtml5/wysihtml5-0.4.0pre.min.js') }}"></script>
+    <!-- Imported scripts on this page -->
+    <script src="{{ asset('js/wysihtml5/bootstrap-wysihtml5.js') }}"></script>
+    <script src="{{ asset('js/fileinput.js') }}"></script>
+    <script src="{{ asset('js/neon-chat.js') }}"></script>
+    <!-- Text Editor CKEditor -->
+    <script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
+    <!-- Imported styles on this page -->
+    <link rel="stylesheet" href="{{ asset('js/codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/uikit/css/uikit.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/uikit/addons/css/markdownarea.css') }}">
 
+    <!-- Bottom scripts (common) -->
 
-	<!-- Imported scripts on this page -->
-	<script src="{{ asset('js/wysihtml5/bootstrap-wysihtml5.js') }}"></script>
-	<script src="{{ asset('js/fileinput.js') }}"></script>
-	<script src="{{ asset('js/neon-chat.js') }}"></script>
+    <!-- Imported scripts on this page -->
+    <script src="{{ asset('js/uikit/js/uikit.min.js') }}"></script>
+    <script src="{{ asset('js/codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('js/marked.js') }}"></script>
+    <script src="{{ asset('js/uikit/addons/js/markdownarea.min.js') }}"></script>
+    <script src="{{ asset('js/codemirror/mode/markdown/markdown.js') }}"></script>
+    <script src="{{ asset('js/codemirror/addon/mode/overlay.js') }}"></script>
+    <script src="{{ asset('js/codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('js/codemirror/mode/gfm/gfm.js') }}"></script>
 
-
-
-
-	<!-- Text Editor CKEditor -->
-	<script src="{{ asset('vendor/unisharp/laravel-ckeditor/ckeditor.js') }}"></script>
-
-
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ asset('js/codemirror/lib/codemirror.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/uikit/css/uikit.min.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/uikit/addons/css/markdownarea.css') }}">
-
-	<!-- Bottom scripts (common) -->
-
-
-	<!-- Imported scripts on this page -->
-	<script src="{{ asset('js/uikit/js/uikit.min.js') }}"></script>
-	<script src="{{ asset('js/codemirror/lib/codemirror.js') }}"></script>
-	<script src="{{ asset('js/marked.js') }}"></script>
-	<script src="{{ asset('js/uikit/addons/js/markdownarea.min.js') }}"></script>
-	<script src="{{ asset('js/codemirror/mode/markdown/markdown.js') }}"></script>
-	<script src="{{ asset('js/codemirror/addon/mode/overlay.js') }}"></script>
-	<script src="{{ asset('js/codemirror/mode/xml/xml.js') }}"></script>
-	<script src="{{ asset('js/codemirror/mode/gfm/gfm.js') }}"></script>
-
-
-
-	<!-- Advanced Plugins -->
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="{{ asset('js/icheck/skins/minimal/_all.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/icheck/skins/square/_all.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/icheck/skins/flat/_all.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/icheck/skins/futurico/futurico.css') }}">
-	<link rel="stylesheet" href="{{ asset('js/icheck/skins/polaris/polaris.css') }}">
-
-	<!-- Bottom scripts (common) -->
-
-	<!-- Imported scripts on this page -->
-	<script src="{{ asset('js/bootstrap-colorpicker.min.js') }}"></script>
+    <!-- Advanced Plugins -->
+    <!-- Imported styles on this page -->
+    <link rel="stylesheet" href="{{ asset('js/icheck/skins/minimal/_all.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/icheck/skins/square/_all.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/icheck/skins/flat/_all.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/icheck/skins/futurico/futurico.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/icheck/skins/polaris/polaris.css') }}">
+    <!-- Imported scripts on this page -->
+    <script src="{{ asset('js/bootstrap-colorpicker.min.js') }}"></script>
+    <!-- Imported scripts on this page -->
+    <script src="{{ asset('js/jquery.peity.min.js') }}"></script>
+    <script src="{{ asset('js/neon-charts.js') }}"></script>
+    <!-- Demo Settings -->
+    <script src="{{ asset('js/neon-demo.js') }}"></script>
+    <script src="{{ asset('js/jquery number/jquery.number.min.js')}}"></script>
 
 
-
-	<!-- Charts -->
-	<!-- Imported styles on this page -->
-
-	<!-- Bottom scripts (common) -->
-
-
-	<!-- Imported scripts on this page -->
-	<script src="{{ asset('js/jquery.peity.min.js') }}"></script>
-	<script src="{{ asset('js/neon-charts.js') }}"></script>
-
-
-
-	<!-- Demo Settings -->
-	<script src="{{ asset('js/neon-demo.js') }}"></script>
-	<script src="{{ asset('js/jquery number/jquery.number.min.js')}}"></script>
-
-
-	<script type="text/javascript">
-
-
-		function fileValidation(){
-
+    <script type="text/javascript">
+        function fileValidation(){
 			let fi = document.getElementsByClassName('validateImage');
 			fi = fi[0];
 			// Check if any file is selected.
@@ -286,9 +249,7 @@
 
 		$(function(){
 			$(".numbers").number(true,0);
-
 		});
-
 
 		$('.numberValidation').keyup(function () {
 				this.value = this.value.replace(/[^0-9\.]/g,'');
@@ -305,8 +266,8 @@
 				}
 			});
 
-		 /* Fungsi formatRupiah */
-		 function formatRibuanTyping(rupiah, angka, prefix) {
+		/* Fungsi formatRupiah */
+		function formatRibuanTyping(rupiah, angka, prefix) {
 			var number_string = angka.replace(/[^0-9]*/g, '').toString(),
 				split = number_string.split(','),
 				sisa = split[0].length % 3,
@@ -322,22 +283,8 @@
 		}
 		//END
 
-	</script>
+    </script>
 
-
-	<script type="text/javascript" src="{{ asset('js/slick.min.js')}}"></script>
-	{{-- <!--Start of Tawk.to Script-->
-	<script type="text/javascript">
-		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-		(function(){
-		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-		s1.async=true;
-		s1.src='https://embed.tawk.to/5ee84aca4a7c6258179aac18/default';
-		s1.charset='UTF-8';
-		s1.setAttribute('crossorigin','*');
-		s0.parentNode.insertBefore(s1,s0);
-		})();
-	</script>
-		<!--End of Tawk.to Script--> --}}
+    <script type="text/javascript" src="{{ asset('js/slick.min.js')}}"></script>
 </body>
 </html>

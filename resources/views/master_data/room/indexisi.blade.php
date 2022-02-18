@@ -20,7 +20,12 @@
                 </div>
                 <div class="col-lg-3">
                         <h4 class="mb"><strong>{{ $room->room_name }}</strong></h4>
-                        <p class="mt line-clamp-8" style="text-align:justify;">{{ $room->room_desc }}</p>
+                        @if(strlen($room->room_desc) > 350)
+                            <p class="mt line-clamp-8" style="text-align:justify;">{!! substr($room->room_desc, 0, 350)."..." !!}</p>
+                        @else
+                            <p class="mt line-clamp-8" style="text-align:justify;">{!! $room->room_desc !!}</p>
+                        @endif
+
                         <h4 class="mb"><strong>Bed Type(s)</strong></h4>
                         <p class="mt"><i class="glyphicon glyphicon-bed"></i>
                         @foreach($room['bed'] as $bed)
@@ -54,11 +59,7 @@
                     $other_amenitites ='<ul style="width: 100%;padding: 0;display: inline-block;list-style: none;">';
                     @endphp
                     <div>
-                    <ul style="
-                            width: 100%;
-                            padding: 0;
-                            display: inline-block;
-                            list-style: none;">
+                    <ul style="width: 100%; padding: 0; display: inline-block; list-style: none;">
                     @foreach($room['amenities'] as $amenities)@php $n++; @endphp
                     @if($n <= 6)
                         @if($n == $exp)
@@ -70,12 +71,10 @@
                         @else
                         <li class="col-xs-6 col-md-4 col-md-4" style="display: flex; padding-bottom: 10px;">
                         @endif
-
                         <svg width="17px" height="17px" class="horison-icon">
                             {!! file_get_contents($path.$amenities->amenities_name[0]->amenities_icon, false, stream_context_create($arrContextOptions)) !!}
                         </svg>
                         <p style="margin:0px!important">&nbsp;&nbsp;{{ $amenities->amenities_name[0]->amenities_name }}</p>
-
                     </li>
                     @else
                         @php
@@ -93,10 +92,10 @@
                     @if(count($room['amenities']) > 6)
                     @php $other_amenitites.='</ul>'; @endphp
 
-                    <li class="col-md-6" style="
-                            clear: both; padding-left:0;"><button class="btn text-horison hovertools" style="background-color: #fff0;" data-toggle="popover"
-                        data-html="true" data-placement="bottom" data-content='{{$other_amenitites}}' data-original-title="Other amenities">
-                        + other amenities</button></li>
+                    <li class="col-md-6" style="clear: both; padding-left:0;">
+                        <button class="btn text-horison hovertools" style="background-color: #fff0;" data-toggle="popover" data-html="true" data-placement="bottom" data-content='{{$other_amenitites}}' data-original-title="Other amenities">
+                        + other amenities</button>
+                    </li>
                     @endif
                         </ul>
                     </div>
@@ -115,5 +114,4 @@
         @endforeach
     </div>
 </div>
-
 @endsection

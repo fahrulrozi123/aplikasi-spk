@@ -136,7 +136,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-lg-3"><strong>Customer Name</strong></th>
-                                                <th class="col-lg-3"><strong>Customer Identification Number</strong></th>
+                                                {{-- <th class="col-lg-3"><strong>Customer Identification Number</strong></th> --}}
+                                                <th class="col-lg-3"><strong>Guest Name</strong></th>
                                                 <th class="col-lg-3"><strong>Customer Phone Number</strong></th>
                                                 <th class="col-lg-3"><strong>Customer E-mail</strong></th>
                                             </tr>
@@ -144,14 +145,15 @@
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3" id="customer_name">Arlene Wilson</td>
-                                                <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td>
+                                                {{-- <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td> --}}
+                                                <td class="col-lg-3" id="guest_name">Darlene Flores</td>
                                                 <td class="col-lg-3" id="customer_phone">(207) 555-0119</td>
                                                 <td class="col-lg-3" id="customer_email">donald.phillips@example.com</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-lg-12">
+                                {{-- <div class="col-lg-12">
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
@@ -164,7 +166,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> --}}
                             </div>
                             {{-- tutup customer detail room --}}
 
@@ -174,16 +176,16 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Customer Name</strong></th>
-                                                <th class="col-lg-3"><strong>Customer Identification Number</strong></th>
-                                                <th class="col-lg-3"><strong>Customer Phone Number</strong></th>
-                                                <th class="col-lg-3"><strong>Customer E-mail</strong></th>
+                                                <th class="col-lg-4"><strong>Customer Name</strong></th>
+                                                {{-- <th class="col-lg-3"><strong>Customer Identification Number</strong></th> --}}
+                                                <th class="col-lg-4"><strong>Customer Phone Number</strong></th>
+                                                <th class="col-lg-4"><strong>Customer E-mail</strong></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td id="online_cust_name">Arlene Grande</td>
-                                                <td id="online_cust_id">KTP/4012336593085502</td>
+                                                {{-- <td id="online_cust_id">KTP/4012336593085502</td> --}}
                                                 <td id="online_cust_phone">(207) 555-0119</td>
                                                 <td id="online_cust_email">donald.phillips@example.com</td>
                                             </tr>
