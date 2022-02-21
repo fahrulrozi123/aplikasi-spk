@@ -30,7 +30,8 @@ class Type extends Model
         'room_weekend_ro_rate',
         'room_extrabed_rate',
         'room_future_availability',
-        'room_order'
+        'room_order',
+        'room_publish_status'
     ];
 
     protected $hidden = [

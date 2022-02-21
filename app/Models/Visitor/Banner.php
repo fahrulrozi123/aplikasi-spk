@@ -6,13 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Banner extends Model
 {
+    protected $table = 'visitor_banner';
 
-  protected $table = 'visitor_banner';
-  public $primaryKey = 'id';
-  public $timestamps = false;
-  protected $fillable = ['banner_name', 'banner_status','uploaded_at'];
+    public $primaryKey = 'id';
 
-//   public function keluhan() {
-//       return $this->belongsTo('App\Models\Finance\Keluhan', 'id_keluhan');
-//   }
+    public $timestamps = false;
+
+    protected $fillable = [
+        'banner_name',
+        'banner_status',
+        'uploaded_at'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

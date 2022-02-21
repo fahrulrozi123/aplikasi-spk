@@ -130,8 +130,9 @@ class RoomController extends Controller
                 'room_weekend_ro_rate' => $request['room_weekend_ro_rate'],
                 'room_extrabed_rate' => $request['room_extrabed_rate'],
                 'room_future_availability' => $request['room_future_availability'],
-                'room_order' => $request['room_order'],
+                'room_order' => $request['room_order']
             ]);
+
             //UPLOAD FOTO
             if ($request->file('img')) {
                 $data = array();
@@ -147,6 +148,7 @@ class RoomController extends Controller
                 }
                 Photo::insert($data);
             }
+
             if ($request['room_amenities']) {
                 $data = array();
                 $temp = array();
@@ -157,6 +159,7 @@ class RoomController extends Controller
                 }
                 RoomAmenities::insert($data);
             }
+
             if ($request['bed_type']) {
                 $data = array();
                 $temp = array();
@@ -167,6 +170,7 @@ class RoomController extends Controller
                 }
                 Bed::insert($data);
             }
+
             return redirect()->route('room.index')->with('status', 'Room Baru Berhasil di Tambahkan');
         }
         return redirect()->route('room.index')->with('status', 'Update Data Room Berhasil');
@@ -251,6 +255,12 @@ class RoomController extends Controller
         Type::where('id', $id)->update(['room_slug' => null]);
         $slug = $this->createSlug(($request['room_name']));
 
+        if (isset($request['room_publish_status'])) {
+            $this->room_publish_status = '1';
+        } else {
+            $this->room_publish_status = '0';
+        }
+
         Type::where('id', $id)->update([
             'room_name' => $request['room_name'],
             'room_slug' => $slug,
@@ -263,6 +273,7 @@ class RoomController extends Controller
             'room_extrabed_rate' => $request['room_extrabed_rate'],
             'room_future_availability' => $request['room_future_availability'],
             'room_order' => $request['room_order'],
+            'room_publish_status' =>  $this->room_publish_status
         ]);
 
     }

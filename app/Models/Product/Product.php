@@ -21,7 +21,13 @@ class Product extends Model
         'product_detail',
         'product_price',
         'sales_inquiry',
-        'category'
+        'category',
+        'product_publish_status'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     public function photos() {

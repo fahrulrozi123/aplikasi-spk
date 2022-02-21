@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bed extends Model
 {
+    protected $table = 'room_bed';
 
-  protected $table = 'room_bed';
-//   public $primaryKey = 'id';
-  public $timestamps = false;
-  protected $fillable = ['room_id', 'bed_id'];  
+    //   public $primaryKey = 'id';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'room_id',
+        'bed_id'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

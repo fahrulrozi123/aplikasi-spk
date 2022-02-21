@@ -12,11 +12,12 @@ $product_detail = $product->product_detail;
 $product_price = $product->product_price;
 $sales_inquiry = $product->sales_inquiry;
 if($sales_inquiry == 1){
-    $sales_class = "hidden";
+$sales_class = "hidden";
 }else{
-    $sales_class = "";
+$sales_class = "";
 }
 $category = $product->category;
+$product_publish_status = $product->product_publish_status == 1 ? "checked" : "";
 @endphp
 
 @else
@@ -47,12 +48,14 @@ $category = "1";
                     <div id="category_1" onClick="setActiveCategory(this);" class="contain category">
                         <a>
                             @foreach ($recreations as $recreation)
-                                @foreach($recreation->photo->take(1) as $photo)
-                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $recreation->page_name }}" style="width:100%; height:100%; object-fit: cover;">
-                                @endforeach
+                            @foreach($recreation->photo->take(1) as $photo)
+                            <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow"
+                                alt="{{ $recreation->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                            @endforeach
                             @endforeach
                             <div class="centered">
-                                <h3 class="font-tertiary"><strong>{{ $menu['recreation'][0]['page_name'] }}</strong></h3>
+                                <h3 class="font-tertiary"><strong>{{ $menu['recreation'][0]['page_name'] }}</strong>
+                                </h3>
                             </div>
                         </a>
                     </div>
@@ -61,9 +64,10 @@ $category = "1";
                     <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
                         <a>
                             @foreach ($spas as $spa)
-                                @foreach($spa->photo->take(1) as $photo)
-                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $spa->page_name }}" style="width:100%; height:100%; object-fit: cover;">
-                                @endforeach
+                            @foreach($spa->photo->take(1) as $photo)
+                            <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow"
+                                alt="{{ $spa->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                            @endforeach
                             @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h3>
@@ -75,9 +79,10 @@ $category = "1";
                     <div id="category_3" onClick="setActiveCategory(this);" class="contain category">
                         <a>
                             @foreach ($mices as $mice)
-                                @foreach($mice->photo->take(1) as $photo)
-                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $mice->page_name }}" style="width:100%; height:100%; object-fit: cover;">
-                                @endforeach
+                            @foreach($mice->photo->take(1) as $photo)
+                            <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow"
+                                alt="{{ $mice->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                            @endforeach
                             @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['mice'][0]['page_name'] }}</strong></h3>
@@ -89,9 +94,10 @@ $category = "1";
                     <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
                         <a>
                             @foreach ($weddings as $wedding)
-                                @foreach($wedding->photo->take(1) as $photo)
-                                    <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow" alt="{{ $wedding->page_name }}" style="width:100%; height:100%; object-fit: cover;">
-                                @endforeach
+                            @foreach($wedding->photo->take(1) as $photo)
+                            <img src="{{ asset('/user/'.$photo->photo_path) }}" class="shadow"
+                                alt="{{ $wedding->page_name }}" style="width:100%; height:100%; object-fit: cover;">
+                            @endforeach
                             @endforeach
                             <div class="centered">
                                 <h3 class="font-tertiary"><strong>{{ $menu['wedding'][0]['page_name'] }}</strong></h3>
@@ -117,10 +123,23 @@ $category = "1";
                             <input type="text" class="form-control" name="product_name" maxlength="255"
                                 placeholder="Nama Package/Product" value="{{old('product_name', $product_name)}}">
                             @error('product_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <br>
                         </div>
+                        @if(isset($product))
+                        <div class="col-lg-12 col-md-12">
+                            <div class="input-group">
+                                <label for="product_publish_status">Status</label>
+                                <br>
+                                <div class="make-switch switch-small">
+                                    <input name="product_publish_status" type="checkbox" id="product_publish_status" {{
+                                        $product_publish_status }}>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                        @endif
                         <div class="col-lg-12 col-md-12">
                             <label for="product_detail">Package/Product Detail</label>
                             <textarea name="product_detail">{{old('product_detail', $product_detail)}}</textarea>
@@ -130,9 +149,10 @@ $category = "1";
                                 });
                             </script>
                             @error('product_detail')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -149,13 +169,14 @@ $category = "1";
                         <h5><strong>Package/Product Photos</strong></h5>
                         <h5>Upload your Package Photos, the first uploaded photos will be treated as Main Photos</h5>
                         <fieldset class="form-group">
-                            <a class="btn btn-horison-gold" href="javascript:void(0)" onclick="$('#pro-image').click()"><i
-                                    class="glyphicon glyphicon-circle-arrow-up"></i>
+                            <a class="btn btn-horison-gold" href="javascript:void(0)"
+                                onclick="$('#pro-image').click()"><i class="glyphicon glyphicon-circle-arrow-up"></i>
                                 Browse Image</a>
-                            <input type="file" id="pro-image" name="img[]" style="display: none;" class="form-control validateImage"
-                                accept="image/*" onchange="fileValidation();" multiple>
+                            <input type="file" id="pro-image" name="img[]" style="display: none;"
+                                class="form-control validateImage" accept="image/*" onchange="fileValidation();"
+                                multiple>
                             @error('img')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </fieldset>
                         <div class="preview-images-zone">
@@ -188,23 +209,27 @@ $category = "1";
                         <h5>Is this package / product require further assist from the Sales Team?</h5>
 
                         <input type="hidden" name="salesStatus" id="salesStatus" value="{{$sales_inquiry}}" />
-                            <button id="status_1" type="button" onclick="setSalesStatus(this)" class="btn btn-horison" style="padding:1em 4em">YES</button>
-                            <button id="status_0" type="button" onclick="setSalesStatus(this)" class="btn btn-horison" style="padding:1em 4em">NO</button>
+                        <button id="status_1" type="button" onclick="setSalesStatus(this)" class="btn btn-horison"
+                            style="padding:1em 4em">YES</button>
+                        <button id="status_0" type="button" onclick="setSalesStatus(this)" class="btn btn-horison"
+                            style="padding:1em 4em">NO</button>
                         <br>
                         <br>
                     </div>
                     {{-- <label for="product_detail" class="col-md-12">Package/Product Price (Pax)</label> --}}
-                <div class="col-xs-8 col-lg-4 {{$sales_class}}" id="input-group">
-                    <label for="product_detail" class="col-md-12" style="padding-left:0px;">Package/Product Price (Pax)</label>
+                    <div class="col-xs-8 col-lg-4 {{$sales_class}}" id="input-group">
+                        <label for="product_detail" class="col-md-12" style="padding-left:0px;">Package/Product Price
+                            (Pax)</label>
                         <div class="input-group" id="input-group">
                             <span class="input-group-addon">Rp.</span>
-                            <input type="text" class="form-control currency-format package_price" name="product_price" id="product_price"
-                                oninput="ambilRupiah(this);" placeholder="Harga /pax" value="{{old('product_price', $product_price)}}" autocomplete="off" />
+                            <input type="text" class="form-control currency-format package_price" name="product_price"
+                                id="product_price" oninput="ambilRupiah(this);" placeholder="Harga /pax"
+                                value="{{old('product_price', $product_price)}}" autocomplete="off" />
                             <input type="hidden" name="product_price" id="product_price_value"
                                 value="{{$product_price}}" autocomplete="off" />
                         </div>
                         @error('product_price')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -212,8 +237,8 @@ $category = "1";
             <div class="pull-right">
                 @if(isset($product))
                 <button type="button" onclick="if(confirm('Are you sure?')) deletePackage();"
-                class="btn btn-delete btn-padding">
-                Delete
+                    class="btn btn-delete btn-padding">
+                    Delete
                 </button>
                 <a class="btn btn-white btn-padding" href="{{route('package.index')}}">
                     Cancel

@@ -8,21 +8,22 @@ $room_amenitites = $room['amenitites'];
 $id = Crypt::encryptString($room->id);
 $room_name = $room->room_name;
 $room_desc = $room->room_desc;
+$room_publish_status = $room->room_publish_status == 1 ? "checked" : "";
 $bed1 = "";
 $bed2 = "";
 $bed3 = "";
 foreach($room['bed'] as $bed_type){
-    switch($bed_type->bed_id){
-        case "0":
-        $bed1 = "checked";
-        break;
-        case "1":
-        $bed3 = "checked";
-        break;
-        case "2":
-        $bed2 = "checked";
-        break;
-    }
+switch($bed_type->bed_id){
+case "0":
+$bed1 = "checked";
+break;
+case "1":
+$bed3 = "checked";
+break;
+case "2":
+$bed2 = "checked";
+break;
+}
 }
 
 if(!isset($amenities)){
@@ -61,7 +62,8 @@ $room_order = "";
 
 <div class="col-lg-12">
     <div class="row">
-        <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST" action="{{ route('room.delete') }}" enctype="multipart/form-data" autocomplete="off">
+        <form id="delete_room" onsubmit="return confirm('Are you sure ?')" method="POST"
+            action="{{ route('room.delete') }}" enctype="multipart/form-data" autocomplete="off">
             <input type="hidden" name="id" id="room-id" value="{{$id}}">
             {{csrf_field()}}
         </form>
@@ -83,7 +85,7 @@ $room_order = "";
                             <input type="text" class="form-control" id="product_name" name="room_name"
                                 value="{{old('room_name', $room_name)}}" placeholder="Room Type Name">
                             @error('room_name')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <br>
 
@@ -91,8 +93,18 @@ $room_order = "";
                             <input type="text" class="form-control" id="room_order" name="room_order"
                                 value="{{old('room_order', $room_order)}}" placeholder="Room List Order">
                             @error('room_order')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+
+                            @if(isset($room))
+                                <div class="input-group">
+                                    <label for="room_publish_status" style="margin-top: 20px;">Status</label>
+                                    <br>
+                                    <div class="make-switch switch-small">
+                                        <input name="room_publish_status" type="checkbox" id="room_publish_status" {{ $room_publish_status }}>
+                                    </div>
+                                </div>
+                            @endif
                             <br>
                         </div>
 
@@ -127,7 +139,8 @@ $room_order = "";
                             </div>
                             <!-- Set amenities checked -->
                             <?php $no = 0; ?>
-                            @foreach($amenitiess as $amenities)<?php $no++; ?>
+                            @foreach($amenitiess as $amenities)
+                            <?php $no++; ?>
                             @php
                             $id = $amenities->id;
                             @endphp
@@ -179,7 +192,7 @@ $room_order = "";
                                 });
                             </script>
                             @error('room_desc')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -202,17 +215,19 @@ $room_order = "";
                             <a class="btn btn-horison-gold shadow" href="javascript:void(0)"
                                 onclick="$('#pro-image').click()"><i class="glyphicon glyphicon-circle-arrow-up"></i>
                                 Browse Image</a>
-                            <input type="file" id="pro-image" name="img[]" style="display: none;" class="form-control validateImage"
-                                accept="image/*" onchange="fileValidation();" multiple>
+                            <input type="file" id="pro-image" name="img[]" style="display: none;"
+                                class="form-control validateImage" accept="image/*" onchange="fileValidation();"
+                                multiple>
                         </fieldset>
                         <div class="preview-images-zone">
                             @if(isset($room))
                             @php $n = 0; @endphp
                             @foreach($room['photo'] as $data_photo)@php $n++; @endphp
                             <div class="preview-image preview-show-{{$n}}">
-                                <input type="hidden" style="width:auto" name="oldImg[]" value="{{$data_photo->photo_path}}">
+                                <input type="hidden" style="width:auto" name="oldImg[]"
+                                    value="{{$data_photo->photo_path}}">
                                 <div class="image-cancel" data-no="{{$n}}">x</div>
-                                <div class="image-zone" ><img id="pro-img-{{$n}}"
+                                <div class="image-zone"><img id="pro-img-{{$n}}"
                                         src="{{asset('/user/'.$data_photo->photo_path)}}"></div>
                             </div>
                             @endforeach
@@ -220,7 +235,7 @@ $room_order = "";
                         </div>
                     </div>
                     @error('img')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
@@ -237,14 +252,19 @@ $room_order = "";
                         <div class="col-lg-12">
                             <h5 class="mb"><strong>Future Availabilty</strong></h5>
                             <p class="mt mb">Future availability used <strong>Automatic Allotment</strong> based on
-                                <strong>Base Allotment on each type of Room</strong></p>
+                                <strong>Base Allotment on each type of Room</strong>
+                            </p>
                             <p class="mt">Note that this availability can be change <strong>Manually</strong> if
                                 necessary.</p>
                             <input type="hidden" id="future_availability" name="room_future_availability">
-                            <a id="availability_0" onclick="setAvailability('0');" class="btn btn-horison-gold btn-padding">None </a>
-                            <a id="availability_6" onclick="setAvailability('6');" class="btn btn-horison-gold btn-padding">6 Month </a>
-                            <a id="availability_12" onclick="setAvailability('12');" class="btn btn-horison-gold btn-padding">1 Year </a>
-                            <a id="availability_24" onclick="setAvailability('24');" class="btn btn-horison-gold btn-padding">2 Year </a>
+                            <a id="availability_0" onclick="setAvailability('0');"
+                                class="btn btn-horison-gold btn-padding">None </a>
+                            <a id="availability_6" onclick="setAvailability('6');"
+                                class="btn btn-horison-gold btn-padding">6 Month </a>
+                            <a id="availability_12" onclick="setAvailability('12');"
+                                class="btn btn-horison-gold btn-padding">1 Year </a>
+                            <a id="availability_24" onclick="setAvailability('24');"
+                                class="btn btn-horison-gold btn-padding">2 Year </a>
                             <br>
                             <br>
                         </div>
@@ -252,7 +272,7 @@ $room_order = "";
                             <label for="" class="">Base Allotment</label>
                             <div class="input-group col-lg-1">
                                 <input type="number" min="0" class="form-control" name="room_allotment"
-                                    value="{{$room_allotment}}" >
+                                    value="{{$room_allotment}}">
                             </div>
                             <br>
                         </div>
@@ -261,8 +281,9 @@ $room_order = "";
                             <label for="weekday_rate" class="">Base Weekday Publish Rate</label>
                             <div class="input-group col-lg-12">
                                 <span class="input-group-addon">Rp.</span>
-                                <input type="text" name="Base Weekday Publish Rate" class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
-                                    id="weekday_rate" value="{{$room_publish_rate}}"  />
+                                <input type="text" name="Base Weekday Publish Rate"
+                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                    id="weekday_rate" value="{{$room_publish_rate}}" />
                                 <input type="hidden" name="room_publish_rate" id="weekday_rate_input"
                                     value="{{$room_publish_rate}}" />
                             </div>
@@ -270,7 +291,8 @@ $room_order = "";
                             <label for="weekday_room_rate" class="">Base Weekday Room Only Rate</label>
                             <div class="input-group col-lg-12">
                                 <span class="input-group-addon">Rp.</span>
-                                <input type="text" name="Base Weekday Room Only Rate" class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                <input type="text" name="Base Weekday Room Only Rate"
+                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                     id="weekday_room_rate" value="{{$room_ro_rate}}" />
                                 <input type="hidden" name="room_ro_rate" id="weekday_room_rate_input"
                                     value="{{$room_ro_rate}}" />
@@ -280,7 +302,8 @@ $room_order = "";
                             <label for="weekend_rate">Base Weekend Publish Rate</label>
                             <div class="input-group col-lg-12">
                                 <span class="input-group-addon">Rp.</span>
-                                <input type="text" name="Base Weekend Publish Rate" class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                <input type="text" name="Base Weekend Publish Rate"
+                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                     id="weekend_rate" value="{{$room_weekend_rate}}" />
                                 <input type="hidden" name="room_weekend_rate" id="weekend_rate_input"
                                     value="{{$room_weekend_rate}}" />
@@ -289,7 +312,8 @@ $room_order = "";
                             <label for="weekend_room_rate">Base Weekend Room Only Rate</label>
                             <div class="input-group col-lg-12">
                                 <span class="input-group-addon">Rp.</span>
-                                <input type="text" name="Base Weekend Room Only Rate" class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
+                                <input type="text" name="Base Weekend Room Only Rate"
+                                    class="form-control room_price thousandSeperator" oninput="ambilRupiah(this);"
                                     id="weekend_room_rate" value="{{$room_weekend_ro_rate}}" />
                                 <input type="hidden" name="room_weekend_ro_rate" id="weekend_room_rate_input"
                                     value="{{$room_weekend_ro_rate}}" />
@@ -299,10 +323,11 @@ $room_order = "";
                             <label for="bed_price">Extra Bed Rate</label>
                             <div class="input-group col-lg-12">
                                 <span class="input-group-addon">Rp.</span>
-                                <input type="text" name="Extra Bed Rate" class="form-control room_price thousandSeperator"
-                                    id="bed_price" value="{{$room_extrabed_rate}}" />
+                                <input type="text" name="Extra Bed Rate"
+                                    class="form-control room_price thousandSeperator" id="bed_price"
+                                    value="{{$room_extrabed_rate}}" />
                                 <input type="hidden" name="room_extrabed_rate" id="bed_price_input"
-                                    value="{{$room_extrabed_rate}}"  />
+                                    value="{{$room_extrabed_rate}}" />
                             </div>
                             <br>
                         </div>
@@ -311,9 +336,8 @@ $room_order = "";
             </div>
             <div class="pull-right">
                 @if(isset($room))
-                <button type="submit" form = "delete_room"
-                class="btn btn-delete btn-padding">
-                Delete
+                <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
+                    Delete
                 </button>
                 <a class="btn btn-white btn-padding" href="{{route('room.index')}}">
                     Cancel

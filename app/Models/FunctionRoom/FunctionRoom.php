@@ -26,7 +26,13 @@ class FunctionRoom extends Model
         'func_board',
         'func_round',
         'func_head',
-        'create_at'
+        'create_at',
+        'func_publish_status'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     public function partition()

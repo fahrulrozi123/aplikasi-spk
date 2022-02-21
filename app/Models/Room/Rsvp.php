@@ -7,19 +7,55 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rsvp extends Model
 {
-
     // use HasPushSubscriptions;
 
     protected $table = 'room_rsvp';
+
     public $primaryKey = 'id';
+
     public $timestamps = false;
-    protected $fillable = ['reservation_id','booking_id','customer_id', 'room_id',
-        'rsvp_cust_name', 'rsvp_cust_phone', 'rsvp_cust_idtype', 'rsvp_cust_idnumber', 'rsvp_guest_name',
-        'rsvp_special_request', 'rsvp_date_reserve', 'rsvp_adult','rsvp_child','rsvp_breakfast',
-        'rsvp_publish_rate', 'rsvp_total_room', 'rsvp_total_amount_room',
-        'rsvp_extrabed_rate', 'rsvp_total_extrabed', 'rsvp_total_amount_extrabed',
-        'rsvp_tax', 'rsvp_service', 'rsvp_tax_total',
-        'rsvp_payment', 'rsvp_convenience_fee', 'rsvp_grand_total', 'rsvp_status', 'cancellation_date', 'reschedule_date', 'endpoint', 'public_key', 'auth_token', 'create_at','expired_at'];
+
+    protected $fillable = [
+        'reservation_id',
+        'booking_id',
+        'customer_id',
+        'room_id',
+        'rsvp_cust_name',
+        'rsvp_cust_phone',
+        'rsvp_cust_idtype',
+        'rsvp_cust_idnumber',
+        'rsvp_guest_name',
+        'rsvp_special_request',
+        'rsvp_date_reserve',
+        'rsvp_adult',
+        'rsvp_child',
+        'rsvp_breakfast',
+        'rsvp_publish_rate',
+        'rsvp_total_room',
+        'rsvp_total_amount_room',
+        'rsvp_extrabed_rate',
+        'rsvp_total_extrabed',
+        'rsvp_total_amount_extrabed',
+        'rsvp_tax',
+        'rsvp_service',
+        'rsvp_tax_total',
+        'rsvp_payment',
+        'rsvp_convenience_fee',
+        'rsvp_grand_total',
+        'rsvp_status',
+        'cancellation_date',
+        'reschedule_date',
+        'endpoint',
+        'public_key',
+        'auth_token',
+        'create_at',
+        'expired_at'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
     public function customer()
     {

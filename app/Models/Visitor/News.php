@@ -12,7 +12,7 @@ class News extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'id',
@@ -23,7 +23,12 @@ class News extends Model
         'news_photo_path',
         'news_sticky_state',
         'news_publish_status',
-        'news_publish_date'
+        'news_publish_date',
+        'news_status'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

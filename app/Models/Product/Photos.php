@@ -6,11 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photos extends Model
 {
+    protected $table = 'product_photos';
 
-  protected $table = 'product_photos';
-  // public $primaryKey = 'id';
-  public $timestamps = false;
-  protected $fillable = ['product_id', 'product_photo_path'];
+    // public $primaryKey = 'id';
 
+    public $timestamps = false;
 
+    protected $fillable =
+    [
+        'product_id',
+        'product_photo_path'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

@@ -6,14 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    protected $table = 'customer';
 
-  protected $table = 'customer';
-  public $primaryKey = 'id';
-  protected $keyType = 'string';
-  public $timestamps = false;
-  protected $fillable = ['id','cust_email'];
+    public $primaryKey = 'id';
 
-//   public function keluhan() {
-//       return $this->belongsTo('App\Models\Finance\Keluhan', 'id_keluhan');
-//   }
+    protected $keyType = 'string';
+
+    public $timestamps = false;
+
+    protected $fillable =
+    [
+        'id',
+        'cust_email'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

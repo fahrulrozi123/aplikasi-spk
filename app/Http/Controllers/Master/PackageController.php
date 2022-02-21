@@ -215,13 +215,20 @@ class PackageController extends Controller
         Product::where('id', $id)->update(['product_slug' => null]);
         $slug = $this->createSlug(($request['product_name']));
 
+        if (isset($request['product_publish_status'])) {
+            $this->product_publish_status = '1';
+        } else {
+            $this->product_publish_status = '0';
+        }
+
         Product::where('id', $id)->update([
             'product_name' => $request['product_name'],
             'product_slug' => $slug,
             'product_detail' => $request['product_detail'],
             'product_price' => $request['product_price'],
             'sales_inquiry' => $request['salesStatus'],
-            'category' => $request['selectedCategory']
+            'category' => $request['selectedCategory'],
+            'product_publish_status' =>  $this->product_publish_status
         ]);
     }
 
