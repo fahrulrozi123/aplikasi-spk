@@ -52,10 +52,8 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $dateNow = Carbon::now()->format('Y-m-d');
-        $rooms = Type::with('allotment_day')->with('amenities')->with('photo')->orderBy('room_order', 'ASC')->get();
+        $rooms = Type::where('room_publish_status', 1)->with('allotment_day')->with('amenities')->with('photo')->orderBy('room_order', 'ASC')->get();
         $pagesettings = PageSetting::where('page_code', 'Room')->with('photo')->get();
-
-        // dd($rooms);
 
         return view('visitor_site.rooms.index', get_defined_vars());
     }
@@ -101,7 +99,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
-        $recreations = Product::where('category', '1')->orderBy('id', 'DESC')->with('photos')->get();
+        $recreations = Product::where('product_publish_status', 1)->where('category', '1')->orderBy('id', 'DESC')->with('photos')->get();
         $pagesettings = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
 
         return view('visitor_site.recreation.index', get_defined_vars());
@@ -147,7 +145,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
-        $spas = Product::where('category', '2')->orderBy('id', 'DESC')->with('photos')->get();
+        $spas = Product::where('product_publish_status', 1)->where('category', '2')->orderBy('id', 'DESC')->with('photos')->get();
         $pagesettings = PageSetting::where('page_code', 'Spa')->with('photo')->get();
 
         return view('visitor_site.allysea_spa.index', get_defined_vars());
@@ -194,7 +192,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
-        $mices = Product::where('category', '3')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
+        $mices = Product::where('product_publish_status', 1)->where('category', '3')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
         $pagesettings = PageSetting::where('page_code', 'Mice')->with('photo')->get();
 
         return view('visitor_site.mice.index', get_defined_vars());
@@ -240,7 +238,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
-        $mices = Product::where('category', '4')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
+        $mices = Product::where('product_publish_status', 1)->where('category', '4')->orderBy('category')->orderBy('id', 'DESC')->with('photos')->get();
         $pagesettings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
 
         return view('visitor_site.wedding.index', get_defined_vars());
@@ -293,8 +291,10 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
         $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
-        $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('func_name')->get();
-        $mices = Product::where('category', '3')->orWhere('category', '4')->orderBy('category')->orderBy('category', 'DESC')->with('photos')->get();
+        $function_rooms = FunctionRoom::where('func_publish_status', 1)->with('partition')->with('photos')->where('func_head', null)
+                        ->orderBy('func_name')->get();
+        $mices = Product::where('product_publish_status', 1)->where('category', '3')->orWhere('category', '4')->orderBy('category')
+                ->orderBy('category', 'DESC')->with('photos')->get();
         $pagesettings = PageSetting::where('page_code', 'Function')->with('photo')->get();
         return view('visitor_site.function_room.index', get_defined_vars());
     }

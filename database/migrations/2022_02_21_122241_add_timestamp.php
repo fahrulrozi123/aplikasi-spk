@@ -30,7 +30,7 @@ class AddTimestamp extends Migration
         });
 
         Schema::table('function_room', function (Blueprint $table) {
-            $table->integer('func_publish_status');
+            $table->integer('func_publish_status')->default('1');
             $table->timestamps();
         });
 
@@ -63,7 +63,7 @@ class AddTimestamp extends Migration
         });
 
         Schema::table('product', function (Blueprint $table) {
-            $table->integer('product_publish_status');
+            $table->integer('product_publish_status')->default('1');
             $table->timestamps();
         });
 
@@ -98,7 +98,7 @@ class AddTimestamp extends Migration
         });
 
         Schema::table('room_type', function (Blueprint $table) {
-            $table->integer('room_publish_status');
+            $table->integer('room_publish_status')->default('1');
             $table->timestamps();
         });
 

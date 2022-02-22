@@ -146,7 +146,7 @@ $category = "1";
                             <script>
                                 CKEDITOR.replace( 'product_detail', {
                                     removePlugins: ['image', 'uploadimage'],
-                                    removeButtons: 'Anchor,Table',
+                                    removeButtons: 'Anchor,Table,HorizontalLine',
                                     height: 300
                                 });
                             </script>
