@@ -26,7 +26,6 @@ class FunctionRoom extends Model
         'func_board',
         'func_round',
         'func_head',
-        'create_at',
         'func_publish_status'
     ];
 

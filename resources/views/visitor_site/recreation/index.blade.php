@@ -119,13 +119,13 @@
                     <h4><b class="line-clamp-1"> {{ $recreation->product_name }}</b></h4>
                     @if(strlen($recreation->product_detail) > 100)
                         <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                                {{ substr($recreation->product_detail, 0, 100)."..." }}
+                                {!! substr($recreation->product_detail, 0, 100)."..." !!}
                         </h5>
                         <a href="/recreation/{{ $recreation->product_slug }}" class="font-secondary" style="font-size: 11px">
                             <i><u>See more description</u></i>
                         </a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{{ $recreation->product_detail }}</h5>
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{!! $recreation->product_detail !!}</h5>
                     @endif
 
                     @if($recreation->sales_inquiry == "0")

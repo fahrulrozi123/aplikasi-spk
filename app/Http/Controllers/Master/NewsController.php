@@ -61,12 +61,6 @@ class NewsController extends Controller
             $this->news_publish_status = '1';
         }
 
-        if (isset($request['news_status'])) {
-            $this->news_status = '1';
-        } else {
-            $this->news_status = '0';
-        }
-
         if ($request['id'] != "") {
             $this->validate($request, [
                 'news_title' => 'required',
@@ -106,8 +100,7 @@ class NewsController extends Controller
                 'news_photo_path' => $this->fileName,
                 'news_sticky_state' => $this->news_sticky_state,
                 'news_publish_status' => $this->news_publish_status,
-                'news_publish_date' => $publish_date,
-                'news_status' =>  $this->news_status
+                'news_publish_date' => $publish_date
             ]);
 
             return redirect()->route('news.index')->with('status', 'News Berhasil di Update');

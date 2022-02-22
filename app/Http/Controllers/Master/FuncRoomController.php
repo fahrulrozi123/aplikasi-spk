@@ -95,7 +95,6 @@ class FuncRoomController extends Controller
                 $id = $hex;
             }
 
-            $create_at = Carbon::now();
             $slug = $this->createSlug(($request['func_name']));
 
             FunctionRoom::create([
@@ -110,7 +109,7 @@ class FuncRoomController extends Controller
                 'func_board' => $request['func_board'],
                 'func_round' => $request['func_round'],
                 'func_head' => null,
-                'create_at' => $create_at
+                'func_publish_status' =>  1
             ]);
 
             if (isset($request['partition_name'])) {
@@ -136,7 +135,7 @@ class FuncRoomController extends Controller
                         'func_board' => $request['partition_board'][$index],
                         'func_round' => $request['partition_round'][$index],
                         'func_head' => $id,
-                        'create_at' => $create_at
+                        'func_publish_status' =>  0
                     );
                     array_push($partition_data, $row);
                 }
@@ -201,6 +200,7 @@ class FuncRoomController extends Controller
                 }
             }
         }
+
         if ($request['oldImg']) {
             $data = array();
             $temp = array();
@@ -224,6 +224,12 @@ class FuncRoomController extends Controller
         FunctionRoom::where('id', $id)->update(['func_room_slug' => null]);
         $slug = $this->createSlug(($request['func_name']));
 
+        if (isset($request['func_publish_status'])) {
+            $this->func_publish_status = '1';
+        } else {
+            $this->func_publish_status = '0';
+        }
+
         FunctionRoom::where('id', $id)->update([
             'func_name' => $request['func_name'],
             'func_room_slug' => $slug,
@@ -235,6 +241,7 @@ class FuncRoomController extends Controller
             'func_board' => $request['func_board'],
             'func_round' => $request['func_round'],
             'func_head' => null,
+            'func_publish_status' =>  $this->func_publish_status
         ]);
 
         if (isset($request['partition_name'])) {
@@ -261,6 +268,7 @@ class FuncRoomController extends Controller
                     'func_board' => $request['partition_board'][$index],
                     'func_round' => $request['partition_round'][$index],
                     'func_head' => $id,
+                    'func_publish_status' =>  0
                 );
                 array_push($partition_data, $row);
             }

@@ -38,7 +38,6 @@ $img = $news->news_photo_path;
 $news_sticky_state = $news->news_sticky_state == 1 ? "checked" : "";
 $news_publish_status = $news->news_publish_status == 0 ? "checked" : "";
 $news_publish_date = $news->news_publish_date;
-$news_status = $news->news_status == 1 ? "checked" : "";
 @endphp
 
 @else
@@ -51,7 +50,6 @@ $img = "insert-image.jpg";
 $news_sticky_state = "";
 $news_publish_status = "";
 $news_publish_date = date('Y/m/d');
-$news_status = "";
 @endphp
 
 @endif
@@ -122,7 +120,7 @@ $news_status = "";
                     CKEDITOR.replace( 'news_content', {
                     filebrowserUploadUrl: "{{route('news.upload', ['_token' => csrf_token() ])}}",
                     filebrowserUploadMethod: 'form',
-                    height: 400
+                    height: 300
                 });
                 </script>
                 @error('news_content')
@@ -208,15 +206,6 @@ $news_status = "";
                                 <a href="#"><i class="entypo-calendar"></i></a>
                             </div>
                         </div>
-
-                        @if($id != "")
-                        <p><b>Status</b></p>
-                        <div class="input-group">
-                            <div class="make-switch switch-small">
-                                <input name="news_status" type="checkbox" id="news_status" {{ $news_status }}>
-                            </div>
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>

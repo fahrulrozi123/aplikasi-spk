@@ -42,18 +42,25 @@
         @endphp
         <div class="panel panel-default">
             <div class="panel-body shadow">
-                <div class="col-lg-3 col-sm-12 mb text-center" >
-                    {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
-                    {{-- </a> --}}
+                <div class="col-lg-3 col-sm-12 mb text-center">
+                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-4 col-sm-12">
-                        <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
-                        <p class="mt line-clamp-8">{{$products[$i]->product_detail}}</p>
+                    <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
+                    @if(strlen($products[$i]->product_detail) > 500)
+                    <p class="mt line-clamp-8">
+                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                    </p>
+                    @else
+                    <p class="mt line-clamp-8">
+                        {!! $products[$i]->product_detail !!}</p>
+                    @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     @if($products[$i]->sales_inquiry == 0)
-                    <h4 class="mb"><strong>Package Price : <script>document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));</script></strong></h4>
+                    <h4 class="mb"><strong>Package Price : <script>
+                                document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));
+                            </script></strong></h4>
                     @endif
                     <p class="mt">Sales Inquiry : {{$products[$i]->sales_inquiry == 1 ? "Yes" : "No"}}</p>
                 </div>
@@ -77,18 +84,25 @@
         @endphp
         <div class="panel panel-default">
             <div class="panel-body shadow">
-                <div class="col-lg-3 col-sm-12 mb text-center" >
-                    {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
-                    {{-- </a> --}}
+                <div class="col-lg-3 col-sm-12 mb text-center">
+                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-4 col-sm-12">
-                        <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
-                        <p class="mt line-clamp-8">{{$products[$i]->product_detail}}</p>
+                    <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
+                    @if(strlen($products[$i]->product_detail) > 500)
+                    <p class="mt line-clamp-8">
+                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                    </p>
+                    @else
+                    <p class="mt line-clamp-8">
+                        {!! $products[$i]->product_detail !!}</p>
+                    @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     @if($products[$i]->sales_inquiry == 0)
-                    <h4 class="mb"><strong>Package Price : <script>document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));</script></strong></h4>
+                    <h4 class="mb"><strong>Package Price : <script>
+                                document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));
+                            </script></strong></h4>
                     @endif
                     <p class="mt">Sales Inquiry : {{$products[$i]->sales_inquiry == 1 ? "Yes" : "No"}}</p>
                 </div>
@@ -112,18 +126,25 @@
         @endphp
         <div class="panel panel-default">
             <div class="panel-body shadow">
-                <div class="col-lg-3 col-sm-12 mb text-center" >
-                    {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
-                    {{-- </a> --}}
+                <div class="col-lg-3 col-sm-12 mb text-center">
+                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-4 col-sm-12">
-                        <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
-                        <p class="mt line-clamp-8">{{$products[$i]->product_detail}}</p>
+                    <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
+                    @if(strlen($products[$i]->product_detail) > 500)
+                    <p class="mt line-clamp-8">
+                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                    </p>
+                    @else
+                    <p class="mt line-clamp-8">
+                        {!! $products[$i]->product_detail !!}</p>
+                    @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     @if($products[$i]->sales_inquiry == 0)
-                    <h4 class="mb"><strong>Package Price : <script>document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));</script></strong></h4>
+                    <h4 class="mb"><strong>Package Price : <script>
+                                document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));
+                            </script></strong></h4>
                     @endif
                     <p class="mt">Sales Inquiry : {{$products[$i]->sales_inquiry == 1 ? "Yes" : "No"}}</p>
                 </div>
@@ -147,18 +168,25 @@
         @endphp
         <div class="panel panel-default">
             <div class="panel-body shadow">
-                <div class="col-lg-3 col-sm-12 mb text-center" >
-                    {{-- <a href="/master_data/package/edit/{{Crypt::encryptString($products[$i]->id)}}"> --}}
-                        <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
-                    {{-- </a> --}}
+                <div class="col-lg-3 col-sm-12 mb text-center">
+                    <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-4 col-sm-12">
-                        <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
-                        <p class="mt line-clamp-8">{{$products[$i]->product_detail}}</p>
+                    <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
+                    @if(strlen($products[$i]->product_detail) > 500)
+                    <p class="mt line-clamp-8">
+                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                    </p>
+                    @else
+                    <p class="mt line-clamp-8">
+                        {!! $products[$i]->product_detail !!}</p>
+                    @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
                     @if($products[$i]->sales_inquiry == 0)
-                    <h4 class="mb"><strong>Package Price : <script>document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));</script></strong></h4>
+                    <h4 class="mb"><strong>Package Price : <script>
+                                document.write("Rp "+formatRupiah("{{$products[$i]->product_price}}"));
+                            </script></strong></h4>
                     @endif
                     <p class="mt">Sales Inquiry : {{$products[$i]->sales_inquiry == 1 ? "Yes" : "No"}}</p>
                 </div>

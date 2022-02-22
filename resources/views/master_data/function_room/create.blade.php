@@ -15,6 +15,7 @@ $func_ushape = $function_room->func_ushape;
 $func_board = $function_room->func_board;
 $func_round = $function_room->func_round;
 $func_dimension = $function_room->func_dimension;
+$func_publish_status = $function_room->func_publish_status == 1 ? "checked" : "";
 
 }else{
 $action = "create";
@@ -27,51 +28,63 @@ $func_ushape = "";
 $func_board = "";
 $func_round = "";
 $func_dimension = "";
+$func_publish_status = "";
 }
 @endphp
 <div class="col-lg-12">
     <div class="row">
-
         <form id="function_form" method="POST" action="{{ route('function_room.insert') }}"
             enctype="multipart/form-data" autocomplete="off">
             {{csrf_field()}}
             <input type="hidden" name="form_action" id="form_action" value="{{$action}}">
             <input type="hidden" name="id" value="{{$id}}">
+
             <div class="panel panel-default shadow">
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-12">
-
-                            <h4><b>Function Room Details</b></h4>
-
+                        <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                <div class="row">
-                                    <label for="field-1" class="col-sm-4 control-label fr-label">Functional Room
-                                        Name<br><small class="text-muted"></small></label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control " value="{{old('func_name', $func_name)}}"
-                                            name="func_name" id="" placeholder="Input Functional Room Name"
-                                            autocomplete="off" required>
-                                        @error('func_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div><br>
-                                <div class="row">
-                                    <label for="field-1" class="col-sm-4 control-label fr-label">Function Room
-                                        Description<br><small class="text-muted"></small></label>
-                                    <div class="col-sm-6">
-                                        <textarea
-                                            name="func_room_desc">{{old('func_room_desc', $func_room_desc)}}</textarea>
-                                        <script>
-                                            CKEDITOR.replace( 'func_room_desc', {
-                                                removePlugins: ['image', 'uploadimage']
-                                            });
-                                        </script>
-                                    </div>
+                                <label class="control-label">
+                                    <h5>
+                                        <b>FUNCTIONAL ROOM NAME</b>
+                                    </h5>
+                                </label>
+                                <input type="text" class="form-control " value="{{old('func_name', $func_name)}}"
+                                    name="func_name" id="" placeholder="Input Functional Room Name" autocomplete="off"
+                                    required>
+                                @error('func_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <br>
+                            </div>
+
+                            @if($id != "")
+                            <p><b>Status</b></p>
+                            <div class="input-group">
+                                <div class="make-switch switch-small">
+                                    <input name="func_publish_status" type="checkbox" id="func_publish_status" {{ $func_publish_status }}>
                                 </div>
-                            </div><br><br>
+                            </div><br>
+                            @endif
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    <h5>
+                                        <b>FUNCTION ROOM DESCRIPTION</b>
+                                    </h5>
+                                </label>
+                                <textarea name="func_room_desc">{{old('func_room_desc', $func_room_desc)}}</textarea>
+                                <script>
+                                    CKEDITOR.replace( 'func_room_desc', {
+                                            removePlugins: ['image', 'uploadimage'],
+                                            height: 300
+                                        });
+                                </script>
+                                <br>
+                            </div>
                         </div>
 
                         <div class="col-md-12">
@@ -184,8 +197,8 @@ $func_dimension = "";
                                         <p class="fr-sqm-input">Sqm</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div><br><br>
+                            </div><br>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -323,9 +336,7 @@ $func_dimension = "";
 
                 </div>
             </div>
-
         </form>
-
     </div>
 </div>
 

@@ -29,9 +29,9 @@
     <div class="slider-custom" id="slider1">
         <!-- Slides -->
         @foreach ($pagesettings as $pagesetting)
-            @foreach($pagesetting->photo->take(2) as $photo)
-                <div style="background-image:url('{{ asset('/user/'.$photo->photo_path) }}'); opacity:0.5;"></div>
-            @endforeach
+        @foreach($pagesetting->photo->take(2) as $photo)
+        <div style="background-image:url('{{ asset('/user/'.$photo->photo_path) }}'); opacity:0.5;"></div>
+        @endforeach
         @endforeach
         <!-- The Arrows -->
         <i class="left" class="arrows" style="z-index:2; position:absolute;">
@@ -54,7 +54,8 @@
     <div class="container">
         <br>
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR<span class="gold">THERAPY, SAUNA & VOLCANIC</span> BATH</p>
+            <p class="black" style="margin-top:20px; margin-bottom:20px;">YOUR<span class="gold">THERAPY, SAUNA &
+                    VOLCANIC</span> BATH</p>
         </center>
         <center>
             <p class="description-mw-dark">
@@ -74,80 +75,84 @@
                 {{-- PUT DATA IN HIDDEN FOR TRANSFER TO JS --}}
                 <input id="spas" type="hidden" value='@json($spas)'>
                 <?php $no = 0; $row = 0;?>
-                @foreach($spas as $spa)<?php $no++; $row++;?>
+                @foreach($spas as $spa)
+                <?php $no++; $row++;?>
                 @if($row == 1)
                 <div class="row">
-                @endif
-                <div class="col-sm-6 col-md-4">
-                    <article class="album">
-                        <header>
-                            <?php $i = 0;$total = count($spa['photos']);?>
-                            @foreach($spa['photos'] as $photo)<?php $i++;?>
-                            <div class="mySlides1 id_{{$no}}">
-                                <div class="numbertext">{{$i}} / {{$total}}</div>
-                                <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
-                                    style="height:270px;" loading="lazy">
-                            </div>
-                            @endforeach
-                            <div class="bbaris-rec">
-                                @php $i = 0; $total = count($spa['photos']);
-                                if($total == 1)
-                                {
-                                $class = "hidden";
-                                }else{
-                                $class="";
-                                }@endphp
-                                @foreach($spa['photos'] as $photo)@php $i++;@endphp
-                                @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
-                                    <img class="demo1 id_{{$no}}"
-                                        src="{{asset('/user/'.$spa['photos'][$i-1]->product_photo_path)}}"
-                                        style="width:100%!important; height:45px!important;"
-                                        onclick="currentSlide({{$no}}, {{$i}});" alt="Wellness" loading="lazy">
-                                    @if($i == 3)
-                                    <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
-                                        style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
-                                            See All</b></a>
-                                    <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
-                                        style="width:100%; margin-top:-45px;" loading="lazy">
-                                    @endif
-                            </div>
-                            @endif
-                            @endforeach
-                </div>
-                </header>
-                <section class="album-info shadow" style="height: 19rem;">
-                    <h4><b class="line-clamp-1"> {{ $spa->product_name }}</b></h4>
-                    @if(strlen($spa->product_detail) > 100)
-                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                            {{substr($spa->product_detail, 0, 100)."..."}}
-                    </h5>
+                    @endif
+                    <div class="col-sm-6 col-md-4">
+                        <article class="album">
+                            <header>
+                                <?php $i = 0;$total = count($spa['photos']);?>
+                                @foreach($spa['photos'] as $photo)
+                                <?php $i++;?>
+                                <div class="mySlides1 id_{{$no}}">
+                                    <div class="numbertext">{{$i}} / {{$total}}</div>
+                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}"
+                                        class="height-package uwaw" style="height:270px;" loading="lazy">
+                                </div>
+                                @endforeach
+                                <div class="bbaris-rec">
+                                    @php $i = 0; $total = count($spa['photos']);
+                                    if($total == 1)
+                                    {
+                                    $class = "hidden";
+                                    }else{
+                                    $class="";
+                                    }@endphp
+                                    @foreach($spa['photos'] as $photo)@php $i++;@endphp
+                                    @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
+                                        <img class="demo1 id_{{$no}}"
+                                            src="{{asset('/user/'.$spa['photos'][$i-1]->product_photo_path)}}"
+                                            style="width:100%!important; height:45px!important;"
+                                            onclick="currentSlide({{$no}}, {{$i}});" alt="Wellness" loading="lazy">
+                                        @if($i == 3)
+                                        <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
+                                            style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
+                                                See All</b></a>
+                                        <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
+                                            style="width:100%; margin-top:-45px;" loading="lazy">
+                                        @endif
+                                </div>
+                                @endif
+                                @endforeach
+                    </div>
+                    </header>
+                    <section class="album-info shadow" style="height: 19rem;">
+                        <h4><b class="line-clamp-1"> {{ $spa->product_name }}</b></h4>
+                        @if(strlen($spa->product_detail) > 100)
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
+                            {!! substr($spa->product_detail, 0, 100)."..." !!}
+                        </h5>
                         <a href="/wellness/{{ $spa->product_slug }}" class="font-secondary" style="font-size: 11px;">
                             <i><u>See more description</u></i>
                         </a>
-                    @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{{$spa->product_detail}}</h5>
-                    @endif
+                        @else
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{!! $spa->product_detail !!}</h5>
+                        @endif
 
-                    @if($spa->sales_inquiry == "0")
+                        @if($spa->sales_inquiry == "0")
                         <p class="price">
                             <script>
                                 document.write("Rp " + formatRupiah("{{$spa->product_price}}"));
                             </script><span class="pax"> / Pax</span>
                         </p>
-                        <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
+                        <form method="POST"
+                            action="/product_reservation?date_product={{$today}}&product_list={{$spa->id}}">
                             {{ csrf_field() }}
-                            <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
+                            <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;"
+                                value="Book Now" />
                         </form>
-                    @else
+                        @else
                         <a href="/inquiry?from=spa" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
-                    @endif
-                </section>
-                </article>
-            </div>
-            @if($row == 3 || $no == count($spas))
+                        @endif
+                    </section>
+                    </article>
+                </div>
+                @if($row == 3 || $no == count($spas))
             </div>
             @php
-                $row = 0;
+            $row = 0;
             @endphp
             @endif
             @endforeach

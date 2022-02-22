@@ -1,6 +1,7 @@
 @extends('templates/visitor_template')
 
-@section('description', $data->title . ' Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('description', $data->title . ' Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga
+terbaik!')
 @section('keywords', $data->title . ' Horison Ultima Bandung')
 @section('title', $data->title)
 
@@ -20,26 +21,27 @@
     <br>
     <div class="slider-for">
         @foreach ($photos as $photo)
-            <div align="center">
-                <img class="imgslide1-roomsdetail" src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $data->title }}">
-            </div>
+        <div align="center">
+            <img class="imgslide1-roomsdetail" src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $data->title }}">
+        </div>
         @endforeach
     </div>
     <br>
     <div class="slider-nav" style="padding: 20px;">
         @if(count($photos) > 1)
-            @foreach ($photos as $photo)
-                <div align="center">
-                    <img class="imgslide2-roomsdetail" src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $data->title }}">
-                </div>
-            @endforeach
+        @foreach ($photos as $photo)
+        <div align="center">
+            <img class="imgslide2-roomsdetail" src="{{ asset('/user/'.$photo->photo_path) }}" alt="{{ $data->title }}">
+        </div>
+        @endforeach
         @endif
     </div>
     <br>
 
     {{-- DESCRIPTION --}}
     <p class="font-primary" style="text-transform: uppercase; font-weight: bold;">Description</p>
-    <p>{{$data->detail}}<p>
+    <p>{!! $data->detail !!}
+    <p>
 </div>
 
 <script type="text/javascript">

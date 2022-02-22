@@ -27,36 +27,43 @@
 <div class="container" style="margin-top:20px; margin-bottom:80px;">
     <div class="col-md-6">
         <p class="black-fr fr-row-dsc" style="margin-top:75px; margin-bottom:0px;">
-        OUR <span class="gold">FUNCTION</span> ROOMS</p>
+            OUR <span class="gold">FUNCTION</span> ROOMS</p>
 
         <p class="description-lp-dark2">
             9 Elegant MInimalist Meetings Rooms that ideal for your ideas. Conference, seminar,
             exhibition and other activities fully equip to accomodate your needs.
         </p>
 
-        <a href="/inquiry?from=mice" class="btn btn-horison btn-lg" style="margin-top:25px; margin-bottom: 40px;"><b>Reserve Now</b></a>
+        <a href="/inquiry?from=mice" class="btn btn-horison btn-lg"
+            style="margin-top:25px; margin-bottom: 40px;"><b>Reserve Now</b></a>
     </div>
 
     <div class="col-md-6">
         <?php $no = 0;?>
-        @foreach($pagesettings as $pagesetting)<?php $no++ ;?>
+        @foreach($pagesettings as $pagesetting)
+        <?php $no++ ;?>
         <?php $i = 0;?>
-            @foreach($pagesetting->photo as $photo)<?php $i++;?>
-            <div class="mySlides2 id_{{$no}}">
-                <div class="numbertext">{{$i}} / 3</div>
-                <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" alt="{{ $pagesetting->page_name }}" loading="lazy">
-            </div>
-            @endforeach
+        @foreach($pagesetting->photo as $photo)
+        <?php $i++;?>
+        <div class="mySlides2 id_{{$no}}">
+            <div class="numbertext">{{$i}} / 3</div>
+            <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr"
+                alt="{{ $pagesetting->page_name }}" loading="lazy">
+        </div>
+        @endforeach
         @endforeach
         <div class="bbaris3">
             <?php $no = 0;?>
-            @foreach($pagesettings as $pagesetting)<?php $no++ ;?>
+            @foreach($pagesettings as $pagesetting)
+            <?php $no++ ;?>
             <?php $i = 0;?>
-                @foreach($pagesetting->photo->take(3) as $photo)<?php $i++;?>
-                    <div class="column">
-                        <img class="demo2 cursor id_{{$no}} height2-fr" src="{{asset('/user/'.$photo->photo_path)}}" onclick="currentSlide2({{$no}}, {{$i}})" alt="{{ $photo->page_name }}" loading="lazy">
-                    </div>
-                @endforeach
+            @foreach($pagesetting->photo->take(3) as $photo)
+            <?php $i++;?>
+            <div class="column">
+                <img class="demo2 cursor id_{{$no}} height2-fr" src="{{asset('/user/'.$photo->photo_path)}}"
+                    onclick="currentSlide2({{$no}}, {{$i}})" alt="{{ $photo->page_name }}" loading="lazy">
+            </div>
+            @endforeach
             @endforeach
         </div>
     </div>
@@ -67,37 +74,43 @@
     <div class="container">
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">Class Room</p>
         </div>
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">Theatre</p>
         </div>
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-UShape.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-UShape.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">U-Shape</p>
         </div>
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">Board Room</p>
         </div>
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">Round Table</p>
         </div>
         <div class="col-xs-4 col-md-2">
             <div class="fr-icon horison-icon" style="text-align: center;">
-                {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg', false, stream_context_create($arrContextOptions))) !!}
+                {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg', false,
+                stream_context_create($arrContextOptions))) !!}
             </div>
             <p class="fr-name" align="center">Dimension</p>
         </div>
@@ -109,64 +122,74 @@
 <input id="function_rooms" type="hidden" value='@json($function_rooms)'>
 {{-- function room type detail --}}
 <?php $no = 1;?>
-@foreach($function_rooms as $function)<?php $no++; ?>
+@foreach($function_rooms as $function)
+<?php $no++; ?>
 <div class="row bg-secondary" style="padding-top:65px;">
     <div class="container">
         <div class="col-md-6" style="margin-bottom:40px;"> {{-- slide image --}}
             <?php $i = 0;$total = count($function['photos']);?>
-            @foreach($function['photos'] as $photo)<?php $i++;?>
-                <div class="mySlides2 id_{{$no}}">
-                    <div class="numbertext">{{$i}} / {{$total}}</div>
-                    <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr" style="object-fit: cover !important;" loading="lazy">
-                </div>
+            @foreach($function['photos'] as $photo)
+            <?php $i++;?>
+            <div class="mySlides2 id_{{$no}}">
+                <div class="numbertext">{{$i}} / {{$total}}</div>
+                <img src="{{asset('/user/'.$photo->photo_path)}}" class="uwaw2 height-fr"
+                    style="object-fit: cover !important;" loading="lazy">
+            </div>
             @endforeach
 
             <div class="bbaris3">
-            <?php $i = 0;$total = count($function['photos']);?>
-            @php
-            if($total == 1)
-            {
+                <?php $i = 0;$total = count($function['photos']);?>
+                @php
+                if($total == 1)
+                {
                 $class = "hidden";
-            }else{
+                }else{
                 $class="";
-            }
-            @endphp
-            @foreach($function['photos'] as $photo)<?php $i++;?>
-            @if($i <= 3)
-            <div class="column {{$class}}">
-                <img class="demo2 height2-fr cursor id_{{$no}}" src="{{asset('/user/'.$function['photos'][$i-1]->photo_path)}}" style="width:100%; object-fit: cover;" onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room" loading="lazy">
-                @if($i == 3)
-                <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2 seal-fr" style=""><b>+See All</b></a>
-                <img class="bblackfr" src="{{asset('/images/blck.jpg')}}"
-                    style="width:100%; margin-top: -87px;" loading="lazy">
-                @endif
+                }
+                @endphp
+                @foreach($function['photos'] as $photo)
+                <?php $i++;?>
+                @if($i <= 3) <div class="column {{$class}}">
+                    <img class="demo2 height2-fr cursor id_{{$no}}"
+                        src="{{asset('/user/'.$function['photos'][$i-1]->photo_path)}}"
+                        style="width:100%; object-fit: cover;" onclick="currentSlide2({{$no}}, {{$i}})"
+                        alt="Function Room" loading="lazy">
+                    @if($i == 3)
+                    <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2 seal-fr" style=""><b>+See All</b></a>
+                    <img class="bblackfr" src="{{asset('/images/blck.jpg')}}" style="width:100%; margin-top: -87px;"
+                        loading="lazy">
+                    @endif
             </div>
             @endif
             @endforeach
-            </div>
         </div>
+    </div>
 
-        <div class="col-md-6"> {{-- fr type desc --}}
-            <div class="row"> {{-- title & description fr --}}
-                <h2 class="line-clamp-1" style="margin-top:0px; margin-left:22px; margin-right:22px;"><b>{{$function->func_name}}</b></h2>
-                @if(strlen($function->func_room_desc) > 100)
-                <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
-                        {{substr($function->func_room_desc, 0, 145)."..."}}
-                </p>
-                    <a href="/function-room/{{ $function->func_room_slug }}" style="font-size: 13px; color: #444444; margin-left: 20px;">
-                    <i><u>See more description</u></i>
-                    </a>
-                @else
-                <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;"> {{$function->func_room_desc}}</p>
-                @endif
-                </div><br>
+    <div class="col-md-6"> {{-- fr type desc --}}
+        <div class="row"> {{-- title & description fr --}}
+            <h2 class="line-clamp-1" style="margin-top:0px; margin-left:22px; margin-right:22px;">
+                <b>{{$function->func_name}}</b></h2>
+            @if(strlen($function->func_room_desc) > 100)
+            <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
+                {!! substr($function->func_room_desc, 0, 145)."..."!!}
+            </p>
+            <a href="/function-room/{{ $function->func_room_slug }}"
+                style="font-size: 13px; color: #444444; margin-left: 20px;">
+                <i><u>See more description</u></i>
+            </a>
+            @else
+            <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
+                {!! $function->func_room_desc !!}</p>
+            @endif
+        </div><br>
 
-                <div class="row"> {{-- list type fr --}}
-                <div class="col-sm-6 col-md-6">
-                    <div class="row">
+        <div class="row"> {{-- list type fr --}}
+            <div class="col-sm-6 col-md-6">
+                <div class="row">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -175,11 +198,12 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_class}} Pax</p>
                     </div>
-                    </div>
-                    <div class="row" style="margin-top:10px;">
+                </div>
+                <div class="row" style="margin-top:10px;">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -188,11 +212,12 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_theatre}} Pax</p>
                     </div>
-                    </div>
-                    <div class="row" style="margin-top:10px; margin-bottom:10px;">
+                </div>
+                <div class="row" style="margin-top:10px; margin-bottom:10px;">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-UShape.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-UShape.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -201,14 +226,15 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_ushape}} Pax</p>
                     </div>
-                    </div>
                 </div>
+            </div>
 
-                <div class="col-sm-6 col-md-6">
-                    <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="row">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -217,11 +243,12 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_board}} Pax</p>
                     </div>
-                    </div>
-                    <div class="row" style="margin-top:10px;">
+                </div>
+                <div class="row" style="margin-top:10px;">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -230,11 +257,12 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_round}} Pax</p>
                     </div>
-                    </div>
-                    <div class="row" style="margin-top:10px; margin-bottom:10px;">
+                </div>
+                <div class="row" style="margin-top:10px; margin-bottom:10px;">
                     <div class="col-xs-3 col-md-3"> {{-- icon --}}
                         <div class="fr-icon-2 horison-icon">
-                            {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg', false, stream_context_create($arrContextOptions))) !!}
+                            {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg', false,
+                            stream_context_create($arrContextOptions))) !!}
                         </div>
                     </div>
                     <div class="col-xs-5 col-md-5"> {{-- fr name --}}
@@ -243,22 +271,24 @@
                     <div class="col-xs-4 col-md-4"> {{-- fr pax total --}}
                         <p class="fr-pax">{{$function->func_dimension}} Sqm</p>
                     </div>
-                    </div>
-                </div>
-                </div>
-
-                <div class="row"> {{-- row button --}}
-                <div class="col-xs-6 col-sm-4 col-md-4">
-                    <a href="/inquiry?from=mice" class="btn btn-lg btn-horison-gold" style="margin-top:10px; margin-left:10px;"><b>Reserve Now</b></a>
-                </div>
-                <div class="col-xs-6 col-sm-8 col-md-8">
-                    <a href="javascript:;" onclick="show_partition({{($no-1)}});" >
-                    <p class="fr-link-text" align="right">See {{$function->func_name}} Layout Details<span class="entypo-right-open"></span></p>
-                    </a>
                 </div>
             </div>
         </div>
+
+        <div class="row"> {{-- row button --}}
+            <div class="col-xs-6 col-sm-4 col-md-4">
+                <a href="/inquiry?from=mice" class="btn btn-lg btn-horison-gold"
+                    style="margin-top:10px; margin-left:10px;"><b>Reserve Now</b></a>
+            </div>
+            <div class="col-xs-6 col-sm-8 col-md-8">
+                <a href="javascript:;" onclick="show_partition({{($no-1)}});">
+                    <p class="fr-link-text" align="right">See {{$function->func_name}} Layout Details<span
+                            class="entypo-right-open"></span></p>
+                </a>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 @endforeach
 
@@ -266,22 +296,26 @@
 <div class="row" style="margin-top:55px;">
     <div class="container">
         <center>
-            <p class="black" style="margin-top:20px; margin-bottom:40px;">EXPLORE <span class="gold">MICE & Wedding</span></p>
+            <p class="black" style="margin-top:20px; margin-bottom:40px;">EXPLORE <span class="gold">MICE &
+                    Wedding</span></p>
         </center>
 
         <div class="gallery-env">
             <div class="">
-            <?php $no = count($function_rooms) + 1;?>
-                @foreach($mices->take(6) as $mice)<?php $no++; ?>
+                <?php $no = count($function_rooms) + 1;?>
+                @foreach($mices->take(6) as $mice)
+                <?php $no++; ?>
                 <div class="col-sm-6 col-md-4">
                     <article class="album">
                         <header>
                             <?php $i = 0;$total = count($mice['photos']);?>
-                            @foreach($mice['photos'] as $photo)<?php $i++;?>
-                                <div class="mySlides2 id_{{$no}}">
-                                    <div class="numbertext">{{$i}} / {{$total}}</div>
-                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw" style="height:270px;" loading="lazy">
-                                </div>
+                            @foreach($mice['photos'] as $photo)
+                            <?php $i++;?>
+                            <div class="mySlides2 id_{{$no}}">
+                                <div class="numbertext">{{$i}} / {{$total}}</div>
+                                <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package uwaw"
+                                    style="height:270px;" loading="lazy">
+                            </div>
                             @endforeach
 
                             <div class="bbaris-rec">
@@ -293,62 +327,65 @@
                                 $class="";
                                 }@endphp
                                 @foreach($mice['photos'] as $photo)@php $i++;@endphp
-                                        @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
-                                        <img class="demo2 id_{{$no}}"
-                                            src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
-                                            style="width:100% ; height:45px!important; object-fit: cover;"
-                                            onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room" loading="lazy">
-                                        @if($i == 3)
-                                        <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
-                                            style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
-                                                See All</b></a>
-                                        <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
-                                            style="width:100%; margin-top:-45px;" loading="lazy">
-                                        @endif
-                                </div>
-                                @endif
-                                @endforeach
+                                @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
+                                    <img class="demo2 id_{{$no}}"
+                                        src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
+                                        style="width:100% ; height:45px!important; object-fit: cover;"
+                                        onclick="currentSlide2({{$no}}, {{$i}})" alt="Function Room" loading="lazy">
+                                    @if($i == 3)
+                                    <a href="javascript:;" onclick=" seeAll({{$no}})" class="seal2"
+                                        style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
+                                            See All</b></a>
+                                    <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
+                                        style="width:100%; margin-top:-45px;" loading="lazy">
+                                    @endif
                             </div>
-                        </header>
-                        <section class="album-info shadow" style="height: 19rem;">
-                            <h4><b class="line-clamp-1">{{$mice->product_name}}</b></h4>
-                            @if(strlen($mice->product_detail) > 100)
-                            <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                                    {{substr($mice->product_detail, 0, 100)."..."}}
-                            </h5>
-                                <a href="/mice-wedding/{{ $mice->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
-                            @else
-                                <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                             @endif
-                            @if($mice->sales_inquiry == "0")
-                                <p class="price">
-                                    <script>
-                                            document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
-                                    </script><span class="pax"> / Pax</span>
-                                </p>
-                                <br>
-                                <form method="POST" action="/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
-                                    {{ csrf_field() }}
-                                    <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;" value="Book Now" />
-                                </form>
-                            @else
-                                <br><br><br><br>
-                            @php
-                                if($mice->category == 3){
-                                    $from = "mice";
-                                }else if($mice->category == 4){
-                                    $from = "wedding";
-                                }
-                            @endphp
-                                <a href="/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
-                            @endif
-                        </section>
-                    </article>
+                            @endforeach
                 </div>
-                @endforeach
+                </header>
+                <section class="album-info shadow" style="height: 19rem;">
+                    <h4><b class="line-clamp-1">{{$mice->product_name}}</b></h4>
+                    @if(strlen($mice->product_detail) > 100)
+                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
+                        {!! substr($mice->product_detail, 0, 100)."..." !!}
+                    </h5>
+                    <a href="/mice-wedding/{{ $mice->product_slug }}" class="font-secondary"
+                        style="font-size: 11px;"><i><u>See more description</u></i></a>
+                    @else
+                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{!! $mice->product_detail !!}</h5>
+                    @endif
+                    @if($mice->sales_inquiry == "0")
+                    <p class="price">
+                        <script>
+                            document.write("Rp " + formatRupiah("{{$mice->product_price}}"));
+                        </script><span class="pax"> / Pax</span>
+                    </p>
+                    <br>
+                    <form method="POST"
+                        action="/product_reservation?date_product={{$today}}&product_list={{$mice->id}}">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-horison-gold book-reserve" style="font-weight:bold;"
+                            value="Book Now" />
+                    </form>
+                    @else
+                    <br><br><br><br>
+                    @php
+                    if($mice->category == 3){
+                    $from = "mice";
+                    }else if($mice->category == 4){
+                    $from = "wedding";
+                    }
+                    @endphp
+                    <a href="/inquiry?from={{$from}}" class="btn btn-horison-gold book-reserve"><b>Reserve Now</b></a>
+                    @endif
+                </section>
+                </article>
             </div>
+            @endforeach
         </div>
     </div>
+</div>
 </div>
 
 @include('visitor_site.modal_product')

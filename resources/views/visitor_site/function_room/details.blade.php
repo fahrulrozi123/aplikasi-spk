@@ -39,7 +39,7 @@
 
     {{-- DESCRIPTION --}}
     <p class="font-primary" style="text-transform: uppercase; font-weight: bold;">Description</p>
-    <p>{{$data->detail}}<p>
+    <p>{!! $data->detail !!}<p>
 </div>
 
 <script type="text/javascript">
