@@ -120,6 +120,7 @@ $news_publish_date = date('Y/m/d');
                     CKEDITOR.replace( 'news_content', {
                     filebrowserUploadUrl: "{{route('news.upload', ['_token' => csrf_token() ])}}",
                     filebrowserUploadMethod: 'form',
+                    removeButtons: 'Anchor,Table',
                     height: 300
                 });
                 </script>

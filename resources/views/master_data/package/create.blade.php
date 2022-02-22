@@ -145,7 +145,9 @@ $category = "1";
                             <textarea name="product_detail">{{old('product_detail', $product_detail)}}</textarea>
                             <script>
                                 CKEDITOR.replace( 'product_detail', {
-                                    removePlugins: ['image', 'uploadimage']
+                                    removePlugins: ['image', 'uploadimage'],
+                                    removeButtons: 'Anchor,Table',
+                                    height: 300
                                 });
                             </script>
                             @error('product_detail')

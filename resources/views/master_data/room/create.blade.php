@@ -188,7 +188,9 @@ $room_order = "";
                             <textarea name="room_desc">{{old('room_desc', $room_desc)}}</textarea>
                             <script>
                                 CKEDITOR.replace( 'room_desc', {
-                                    removePlugins: ['image', 'uploadimage']
+                                    removePlugins: ['image','uploadimage'],
+                                    removeButtons: 'Anchor,Table',
+                                    height: 300
                                 });
                             </script>
                             @error('room_desc')
