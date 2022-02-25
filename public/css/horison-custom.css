@@ -126,8 +126,8 @@ display: -webkit-box;
 
 /* VISITOR ROOMS */
 .list-amenities-rooms {
-    display: flex; 
-    margin-bottom: 10px; 
+    display: flex;
+    margin-bottom: 10px;
 }
 /* END VISITOR ROOMS */
 
@@ -846,8 +846,8 @@ a > .pull-right{
     }
 
     .list-amenities-rooms {
-        display: flex; 
-        margin-bottom: 12px; 
+        display: flex;
+        margin-bottom: 12px;
         height : 30px;
     }
 
@@ -2510,7 +2510,7 @@ fieldset[disabled] .btn-horison2.focus {
     color: var(--secondary-font-color);
 }
 
-.hmh
+.modal-rsvp
 {
     position: static;
     width: auto;

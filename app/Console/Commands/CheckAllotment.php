@@ -46,7 +46,7 @@ class CheckAllotment extends Command
         $created_at     = Carbon::parse($date)->toDateTimeString();
         $current_date   = Carbon::parse($date)->format('Y-m-d');
 
-        $sql = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, create_at)
+        $sql = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, created_at)
 
         SELECT
             roomAvailability.id roomID,
@@ -68,7 +68,7 @@ class CheckAllotment extends Command
                 ELSE room_extrabed_rate
             END todayExtraBedRate,
             '" . $allotment_date . "' ,
-            '" . $created_at . "' 
+            '" . $created_at . "'
         FROM (
 
         SELECT
@@ -88,7 +88,7 @@ class CheckAllotment extends Command
                 ELSE room_ro_rate
             END dayRoomRate,
             room_extrabed_rate,
-            '" . $allotment_date . "' 
+            '" . $allotment_date . "'
             FROM room_type
         ) roomAvailability
 
@@ -114,7 +114,7 @@ class CheckAllotment extends Command
         $created_at_t     = Carbon::parse($date_t)->toDateTimeString();
         $current_date_t   = Carbon::parse($date_t)->format('Y-m-d');
 
-        $sql_t = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, create_at)
+        $sql_t = "INSERT INTO allotment(room_id, user_id, allotment_room, allotment_publish_rate, allotment_ro_rate, allotment_extrabed_rate,  allotment_date, created_at)
 
         SELECT
             roomAvailability.id roomID,
@@ -136,7 +136,7 @@ class CheckAllotment extends Command
                 ELSE room_extrabed_rate
             END todayExtraBedRate,
             '" . $allotment_date_t . "' ,
-            '" . $created_at_t . "' 
+            '" . $created_at_t . "'
         FROM (
 
         SELECT
@@ -156,7 +156,7 @@ class CheckAllotment extends Command
                 ELSE room_ro_rate
             END dayRoomRate,
             room_extrabed_rate,
-            '" . $allotment_date_t . "' 
+            '" . $allotment_date_t . "'
             FROM room_type
         ) roomAvailability
 

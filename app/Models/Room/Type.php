@@ -16,8 +16,6 @@ class Type extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable = [
         'id',
         'room_name',

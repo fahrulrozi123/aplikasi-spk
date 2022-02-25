@@ -10,8 +10,6 @@ class Amenities extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable =
     [
         'amenities_name',

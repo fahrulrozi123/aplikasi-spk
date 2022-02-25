@@ -8,9 +8,7 @@ class Bed extends Model
 {
     protected $table = 'room_bed';
 
-    //   public $primaryKey = 'id';
-
-    public $timestamps = false;
+    public $primaryKey = 'id';
 
     protected $fillable = [
         'room_id',

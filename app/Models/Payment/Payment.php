@@ -12,8 +12,6 @@ class Payment extends Model
 
     protected $keyType  = 'string';
 
-    public $timestamps  = false;
-
     protected $fillable =
     [
         'transaction_id',

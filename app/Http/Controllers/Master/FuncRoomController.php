@@ -32,7 +32,7 @@ class FuncRoomController extends Controller
         );
         $setting = $this->setting();
 
-        $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('create_at', 'DESC')->get();
+        $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('created_at', 'DESC')->get();
         if (count($function_rooms) > 0) {
             return view('master_data.function_room.indexisi', get_defined_vars());
         } else {

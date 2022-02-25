@@ -102,7 +102,6 @@ class AllotmentController extends Controller
         $days = $interval->format('%a');
         $requestid = $request['room_id'];
         $room_id = $requestid;
-        $create_at = Carbon::now();
 
         if ($dateStart == $dateEnd) {
             $temp = array('room_id' => $room_id,
@@ -111,8 +110,7 @@ class AllotmentController extends Controller
                 'allotment_publish_rate' => $request['room_publish_rate'],
                 'allotment_ro_rate' => $request['room_ro_rate'],
                 'allotment_extrabed_rate' => $request['room_extrabed_rate'],
-                'allotment_date' => $dateStart,
-                'create_at' => $create_at);
+                'allotment_date' => $dateStart);
             array_push($data, $temp);
 
         } else {
@@ -125,8 +123,7 @@ class AllotmentController extends Controller
                     'allotment_publish_rate' => $request['room_publish_rate'],
                     'allotment_ro_rate' => $request['room_ro_rate'],
                     'allotment_extrabed_rate' => $request['room_extrabed_rate'],
-                    'allotment_date' => $newDate,
-                    'create_at' => $create_at);
+                    'allotment_date' => $newDate);
                 array_push($data, $temp);
             }
         }

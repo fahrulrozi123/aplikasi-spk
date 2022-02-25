@@ -3,17 +3,12 @@
 namespace App\Models\Room;
 
 use Illuminate\Database\Eloquent\Model;
-// use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class Rsvp extends Model
 {
-    // use HasPushSubscriptions;
-
     protected $table = 'room_rsvp';
 
     public $primaryKey = 'id';
-
-    public $timestamps = false;
 
     protected $fillable = [
         'reservation_id',
@@ -48,7 +43,6 @@ class Rsvp extends Model
         'endpoint',
         'public_key',
         'auth_token',
-        'create_at',
         'expired_at'
     ];
 

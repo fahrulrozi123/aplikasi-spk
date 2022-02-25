@@ -72,15 +72,15 @@ class ReservationController extends Controller
             SUBSTR(MAX(cust_phone),
             20) last_phone_number,
             COUNT(customer_id) AS total_reservation,
-            MAX(create_at) AS last_reserve
+            MAX(created_at) AS last_reserve
         FROM
             (
             SELECT
                 customer_id,
                 customer.cust_email,
-                CONCAT(create_at, ' ', rsvp_cust_name) AS cust_name,
-                CONCAT(create_at, ' ', rsvp_cust_phone) AS cust_phone,
-                create_at
+                CONCAT(created_at, ' ', rsvp_cust_name) AS cust_name,
+                CONCAT(created_at, ' ', rsvp_cust_phone) AS cust_phone,
+                created_at
             FROM
                 room_reservation
             JOIN customer ON customer_id = customer.id
@@ -94,9 +94,9 @@ class ReservationController extends Controller
         SELECT
             customer_id,
             customer.cust_email,
-            CONCAT(create_at, ' ', rsvp_cust_name) AS cust_name,
-            CONCAT(create_at, ' ', rsvp_cust_phone) AS cust_phone,
-            create_at
+            CONCAT(created_at, ' ', rsvp_cust_name) AS cust_name,
+            CONCAT(created_at, ' ', rsvp_cust_phone) AS cust_phone,
+            created_at
         FROM
             product_rsvp
         JOIN customer ON customer_id = customer.id
@@ -110,16 +110,16 @@ class ReservationController extends Controller
         SELECT
             customer_id,
             customer.cust_email,
-            CONCAT(create_at, ' ', inq_cust_name) AS cust_name,
-            CONCAT(create_at, ' ', inq_cust_phone) AS cust_phone,
-            create_at
+            CONCAT(created_at, ' ', inq_cust_name) AS cust_name,
+            CONCAT(created_at, ' ', inq_cust_phone) AS cust_phone,
+            created_at
         FROM
             inquiry
         JOIN customer ON customer_id = customer.id
         WHERE
             customer_id IS NOT NULL
         ) a
-        WHERE create_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'
+        WHERE created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'
         GROUP BY
             customer_id,cust_email";
         $data = DB::select(DB::raw($query));
@@ -131,7 +131,7 @@ class ReservationController extends Controller
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
         $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.booking_id = payment.booking_id
-        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by create_at DESC ;";
+        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by created_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -144,7 +144,7 @@ class ReservationController extends Controller
     public function room_data()
     {
         $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
-                where rsvp_payment <> '' or customer_id not in (null, '') order by create_at DESC ;";
+                where rsvp_payment <> '' or customer_id not in (null, '') order by created_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -203,14 +203,14 @@ class ReservationController extends Controller
                                 AND
                                 rsvp_date_reserve BETWEEN '" . $start_date . "' AND '" . $end_date . "'
                                 GROUP BY `booking_id`
-                                -- ORDER BY create_at DESC
+                                -- ORDER BY created_at DESC
                             ) totalroom
                         ON room_reservation.booking_id = totalroom.booking_id
                         WHERE
                         rsvp_status IN ('Payment received' ,'Cancellation fee')
                         AND
                         rsvp_checkin BETWEEN '" . $start_date . "' AND '" . $end_date . "'
-                        ORDER BY create_at ASC";
+                        ORDER BY created_at ASC";
 
         $rsvp = DB::select(DB::raw($query));
         $data['rsvp'] = $rsvp;
@@ -248,7 +248,7 @@ class ReservationController extends Controller
 
     public function product_inquiry_data()
     {
-        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('create_at', 'DESC')->get();
+        $data = Inquiry::where('customer_id', '<>', 'NULL')->with('customer')->with('product')->with('function_room')->with('other_request')->orderBy('created_at', 'DESC')->get();
 
         foreach ($data as $key => $value) {
             if ($value['inq_type'] == 0) {
@@ -270,7 +270,7 @@ class ReservationController extends Controller
                 ->with('product')
                 ->with('function_room')
                 ->with('other_request')
-                ->orderBy('create_at', 'DESC')
+                ->orderBy('created_at', 'DESC')
                 ->get();
 
         foreach ($data as $key => $value) {
@@ -315,13 +315,13 @@ class ReservationController extends Controller
     public function product_data()
     {
         $reservations = ProductRsvp::where('booking_id', '!=', '')->whereNotIn('customer_id', ['', 'NULL'])
-            ->orderBy('create_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
+            ->orderBy('created_at', 'DESC')->with('product')->with('customer')->with('payment')->get();
         return Datatables::of($reservations)->make(true);
     }
 
     public function product_reservation_today()
     {
-        $reservations = ProductRsvp::where('customer_id', '<>', 'NULL')->where('rsvp_date_reserve', DB::raw("CURDATE()"))->where('rsvp_status', "Payment received")->with('product')->with('customer')->orderBy('create_at', 'DESC')->get();
+        $reservations = ProductRsvp::where('customer_id', '<>', 'NULL')->where('rsvp_date_reserve', DB::raw("CURDATE()"))->where('rsvp_status', "Payment received")->with('product')->with('customer')->orderBy('created_at', 'DESC')->get();
         return Datatables::of($reservations)->make(true);
     }
 
@@ -417,14 +417,17 @@ class ReservationController extends Controller
 
     public function refundReschedule(Request $request)
     {
+        // dd($request->all());
         if ($request['reservation_type'] == "Room") {
             $msg = $this->room_refundReschedule($request);
-        } elseif ($request['reservation_type'] == "Product") {
+        } else if ($request['reservation_type'] == "Product") {
             $msg = $this->product_refundReschedule($request);
-        } elseif ($request['reservation_type'] == "Email") {
+        } else if ($request['reservation_type'] == "Email") {
             $msg = $this->resendEmail($request);
             return response()->json(["status" => 200, "msg" => $msg]);
-
+        } else if ($request['reservation_type'] == "Print") {
+            $msg = $this->printVoucher($request);
+            return response()->json(["status" => 200, "msg" => $msg]);
         } else {
             return redirect()->route('reservation.index')->with('warning', '404 Not Found :(');
         }
@@ -566,6 +569,100 @@ class ReservationController extends Controller
         }
 
         return 'Voucher send to ' . $to . ' success';
+    }
+
+    public function printVoucher(Request $request)
+    {
+        // dd($request->all());
+        $from = $request['reservation_from'];
+        $id = $request['reservation_id'];
+        $booking_id = $request['booking_id'];
+
+        // $from =  "ROOMS";
+        // $id = "80273RSVRMII2022";
+        // $booking_id = "3f130bc10079efa5";
+
+        if ($from == "ROOMS") {
+            $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
+            $data = $query[0];
+
+            $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
+            $data->room = $query[0];
+
+            $query = DB::select('select * from customer where id = ?', [$data->customer_id]);
+            $data->customer = $query[0];
+
+            $query = DB::select('select * from room_photo where room_id = ? LIMIT 1', [$data->room_id]);
+            $data->room->photo = $query;
+
+            $start = Carbon::parse($data->rsvp_checkin);
+            $end = Carbon::parse($data->rsvp_checkout);
+            $totalStay = $start->diffInDays($end);
+            $data->rsvp_checkin = Carbon::parse($data->rsvp_checkin)->isoFormat('dddd, DD MMMM YYYY');
+            $data->rsvp_checkout = Carbon::parse($data->rsvp_checkout)->isoFormat('dddd, DD MMMM YYYY');
+            $data->total_stay = $totalStay;
+
+        } elseif ($from == "PRODUCTS") {
+            $data = ProductRsvp::where('reservation_id', $id)->with('product')->with('customer')->first();
+            $data->rsvp_date_reserve = Carbon::parse($data->rsvp_date_reserve)->isoFormat('dddd, DD MMMM YYYY');
+            $to = $data['customer']->cust_email;
+            switch ($data['product']->category) {
+                case '1':
+                    $data['product']->category = "Recreation";
+                    break;
+                case '2':
+                    $data['product']->category = "AllySea a SPA";
+                    break;
+                case '3':
+                    $data['product']->category = "MICE";
+                    break;
+                case '4':
+                    $data['product']->category = "Wedding";
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+        }
+
+        $query = DB::select('select * from payment where booking_id = ?', [$booking_id]);
+        $data->payment = $query[0];
+
+        $data->payment->transaction_time = Carbon::parse($data->payment->transaction_time)->isoFormat('LLLL');
+        switch ($data->payment->payment_type) {
+            case 'credit_card':
+                $data->payment->payment_type = "Credit Card";
+                break;
+            case 'bank_transfer':
+                $data->payment->payment_type = "Bank Transfer";
+                break;
+            case 'bca_clickpay':
+                $data->payment->payment_type = "Bca KlikPay";
+                break;
+            case 'cimb_clicks':
+                $data->payment->payment_type = "CIMB Clicks";
+                break;
+            case 'danamon_online':
+                $data->payment->payment_type = "Danamon Online Banking";
+                break;
+            case 'echannel':
+                $data->payment->payment_type = "Mandiri Bill Payment";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $setting = Setting::first();
+        $data->from = $from;
+        $data->voucher_attachment = $this->template_voucher($data, $setting);
+        $data->receipt_attachment = $this->template_receipt($data, $setting);
+
+        // $pdf = PDF::loadview('templates.template_voucher2');
+        $pdf = PDF::loadview('templates.template_voucher', get_defined_vars());
+        return $pdf->download('voucher_template.pdf');
+        // return $pdf->stream();
     }
 
     public function template_voucher($data, $setting)

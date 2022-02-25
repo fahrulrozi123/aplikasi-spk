@@ -12,8 +12,6 @@ class News extends Model
 
     public $primaryKey = 'id';
 
-    // public $timestamps = false;
-
     protected $fillable = [
         'id',
         'user_id',

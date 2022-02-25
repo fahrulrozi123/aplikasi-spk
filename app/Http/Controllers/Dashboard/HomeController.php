@@ -75,7 +75,7 @@ class HomeController extends Controller
                 ON rsvp.product_id = product.id
         WHERE  rsvp.rsvp_date_reserve = Curdate()
                 AND rsvp.rsvp_status = 'Payment received'
-        ORDER  BY create_at DESC;";
+        ORDER  BY rsvp.created_at DESC;";
 
         $products = DB::select(DB::raw($query));
 
@@ -91,7 +91,7 @@ class HomeController extends Controller
                 LEFT JOIN customer
                 ON inq.customer_id = customer.id
         WHERE  inq.inq_event_start = Curdate()
-        ORDER BY create_at DESC;";
+        ORDER BY product.created_at DESC;";
 
         $inquiry = DB::select(DB::raw($query));
 
@@ -104,7 +104,7 @@ class HomeController extends Controller
                             rsvp.rsvp_guest_name, rsvp.reservation_id,
                             rsvp.rsvp_adult, rsvp.rsvp_child,
                             rsvp.customer_id, rsvp.rsvp_status,
-                            rsvp.create_at,
+                            rsvp.created_at,
                             Concat(rsvp.rsvp_total_room, 'x ', room.room_name) AS
                             rsvp_reserved_room,
                             (SELECT b.rsvp_date_reserve
@@ -135,7 +135,7 @@ class HomeController extends Controller
                     WHERE  b.reservation_id = rsvp.reservation_id
                     ORDER  BY b.rsvp_date_reserve
                     LIMIT  1)
-                    ORDER  BY rsvp.create_at DESC;";
+                    ORDER  BY rsvp.created_at DESC;";
 
         $rooms = DB::select(DB::raw($query));
         return $rooms;

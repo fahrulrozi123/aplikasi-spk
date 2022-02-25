@@ -10,8 +10,6 @@ class Allotment extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable =
     [
         'room_id',
@@ -23,8 +21,8 @@ class Allotment extends Model
         'allotment_date'
     ];
 
-    // protected $hidden = [
-    //     'created_at',
-    //     'updated_at',
-    // ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

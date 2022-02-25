@@ -8,9 +8,7 @@ class FunctionPhotos extends Model
 {
     protected $table = 'function_room_photos';
 
-    //   public $primaryKey = 'id';
-
-    public $timestamps = false;
+    public $primaryKey = 'id';
 
     protected $fillable =
     [

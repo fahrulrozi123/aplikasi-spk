@@ -10,8 +10,6 @@ class Rsvp extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable =
     [
         'reservation_id',
@@ -38,7 +36,6 @@ class Rsvp extends Model
         'rsvp_status',
         'cancellation_date',
         'reschedule_date',
-        'create_at',
         'expired_at'
     ];
 

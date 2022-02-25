@@ -1,4 +1,4 @@
-<div class="modal " id="modal-1" tabindex="-1" role="dialog" >
+<div class="modal " id="modal-1" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header mh-horison">
@@ -12,7 +12,7 @@
                 {{csrf_field()}}
                 <div class="modal-body">
                     <div class="general_cust-detail">
-                        <div class="hmh">
+                        <div class="modal-rsvp">
                             <center>General</center>
                         </div>
                         <div class="row">
@@ -66,7 +66,8 @@
                                     <tbody>
                                         <tr>
                                             <td id="room_extrabed">Saturday, 21 December 2019</td>
-                                            <td id="special_request">Room with visible mountain view and near breakfast place</td>
+                                            <td id="special_request">Room with visible mountain view and near breakfast
+                                                place</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -78,8 +79,8 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3" ><strong>Reservation Number</strong></th>
-                                                <th class="col-lg-3" ><strong>Booking ID</strong></th>
+                                                <th class="col-lg-3"><strong>Reservation Number</strong></th>
+                                                <th class="col-lg-3"><strong>Booking ID</strong></th>
                                                 <th class="col-lg-6"><strong>Date</strong></th>
                                             </tr>
                                         </thead>
@@ -116,7 +117,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td id="product_special_request">Room with visible mountain view and near breakfast place</td>
+                                                <td id="product_special_request">Room with visible mountain view and
+                                                    near breakfast place</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -125,7 +127,7 @@
                             {{-- Tutup general online --}}
                         </div>
                         <br>
-                        <div class="hmh">
+                        <div class="modal-rsvp">
                             <center>Customer Details</center>
                         </div>
                         <div class="row">
@@ -136,7 +138,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-lg-3"><strong>Customer Name</strong></th>
-                                                {{-- <th class="col-lg-3"><strong>Customer Identification Number</strong></th> --}}
+                                                {{-- <th class="col-lg-3"><strong>Customer Identification
+                                                        Number</strong></th> --}}
                                                 <th class="col-lg-3"><strong>Guest Name</strong></th>
                                                 <th class="col-lg-3"><strong>Customer Phone Number</strong></th>
                                                 <th class="col-lg-3"><strong>Customer E-mail</strong></th>
@@ -145,10 +148,12 @@
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3" id="customer_name">Arlene Wilson</td>
-                                                {{-- <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td> --}}
+                                                {{-- <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td>
+                                                --}}
                                                 <td class="col-lg-3" id="guest_name">Darlene Flores</td>
                                                 <td class="col-lg-3" id="customer_phone">(207) 555-0119</td>
-                                                <td class="col-lg-3" id="customer_email">donald.phillips@example.com</td>
+                                                <td class="col-lg-3" id="customer_email">donald.phillips@example.com
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -177,7 +182,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-lg-4"><strong>Customer Name</strong></th>
-                                                {{-- <th class="col-lg-3"><strong>Customer Identification Number</strong></th> --}}
+                                                {{-- <th class="col-lg-3"><strong>Customer Identification
+                                                        Number</strong></th> --}}
                                                 <th class="col-lg-4"><strong>Customer Phone Number</strong></th>
                                                 <th class="col-lg-4"><strong>Customer E-mail</strong></th>
                                             </tr>
@@ -198,7 +204,7 @@
                     </div>
                     <br>
                     <div class="payment-detail">
-                        <div class="hmh ">
+                        <div class="modal-rsvp ">
                             <center>Booking Details</center>
                         </div>
                         <div class="row">
@@ -244,7 +250,8 @@
                                                 <td class="col-lg-3" id="product_booking_price">Rp 0</td>
                                                 <td class="" id="product_payment_status">Payment Received
                                                     via Credit Card Payment</td>
-                                                <td class="col-lg-3" id="product_payment_date">18 December 2019 9:12 AM</td>
+                                                <td class="col-lg-3" id="product_payment_date">18 December 2019 9:12 AM
+                                                </td>
                                                 <td class="col-lg-3" id="product_paid_amount">Rp 0</td>
                                             </tr>
                                         </tbody>
@@ -256,7 +263,7 @@
                     </div>
                     {{-- ISI MODAL INQUIRY START HERE --}}
                     <div class="inquiry-detail">
-                        <div class="hmh ">
+                        <div class="modal-rsvp ">
                             <center>Inquiry Details</center>
                         </div>
                         <div class="row">
@@ -273,9 +280,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_number" >0001/INQ/GI/XXI/19</td>
-                                                <td class="col-lg-3 inq_type" >General Inquiry</td>
-                                                <td class="col-lg-3 inq_at" >Thursday, 19 December 2019</td>
+                                                <td class="col-lg-3 inq_number">0001/INQ/GI/XXI/19</td>
+                                                <td class="col-lg-3 inq_type">General Inquiry</td>
+                                                <td class="col-lg-3 inq_at">Thursday, 19 December 2019</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -287,7 +294,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_desc" >Kalo untuk 20 orang aja bisa ga ya</td>
+                                                <td class="col-lg-3 inq_desc">Kalo untuk 20 orang aja bisa ga ya</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -307,9 +314,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_number" >0001/INQ/GI/XXI/19</td>
-                                                <td class="col-lg-3 inq_type" >General Inquiry</td>
-                                                <td class="col-lg-3 inq_at" >Thursday, 19 December 2019</td>
+                                                <td class="col-lg-3 inq_number">0001/INQ/GI/XXI/19</td>
+                                                <td class="col-lg-3 inq_type">General Inquiry</td>
+                                                <td class="col-lg-3 inq_at">Thursday, 19 December 2019</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -323,9 +330,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_product" >Table Manner Package</td>
+                                                <td class="col-lg-3 inq_product">Table Manner Package</td>
                                                 <td class="col-lg-3 inq_participant" id="">100</td>
-                                                <td class="col-lg-3 inq_date" >Saturday, 01 January 2020</td>
+                                                <td class="col-lg-3 inq_date">Saturday, 01 January 2020</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -337,10 +344,18 @@
                                         </thead>
                                         <tbody id="body_recreational">
                                             <tr>
-                                                <td class="col-lg-3"><li>Accommodation</li></td>
-                                                <td class="col-lg-3"><li>Swimming Pool Access</li></td>
-                                                <td class="col-lg-3"><li>Wedding Ceremony</li></td>
-                                                <td class="col-lg-3"><li>Welcome Dinner</li></td>
+                                                <td class="col-lg-3">
+                                                    <li>Accommodation</li>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <li>Swimming Pool Access</li>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <li>Wedding Ceremony</li>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <li>Welcome Dinner</li>
+                                                </td>
                                             </tr>
 
 
@@ -354,7 +369,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_desc" >Kalo untuk 20 orang aja bisa ga ya</td>
+                                                <td class="col-lg-3 inq_desc">Kalo untuk 20 orang aja bisa ga ya</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -404,22 +419,46 @@
                                         </thead>
                                         <tbody id="body_wedding">
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Accommodation</li></td>
-                                                <td class="col-lg-3" id=""><li>Swimming Pool Access</li></td>
-                                                <td class="col-lg-3" id=""><li>Wedding Ceremony</li></td>
-                                                <td class="col-lg-3" id=""><li>Welcome Dinner</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Accommodation</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Swimming Pool Access</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Wedding Ceremony</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Welcome Dinner</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Dinner</li></td>
-                                                <td class="col-lg-3" id=""><li>Lunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Dinner Reception</li></td>
-                                                <td class="col-lg-3" id=""><li>Flowers</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Lunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner Reception</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Flowers</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Breakfast</li></td>
-                                                <td class="col-lg-3" id=""><li>Leisure Activity</li></td>
-                                                <td class="col-lg-3" id=""><li>After Wedding Brunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Videography</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Breakfast</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Leisure Activity</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>After Wedding Brunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Videography</li>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -431,7 +470,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_desc" id="">Kalo untuk 20 orang aja bisa ga ya</td>
+                                                <td class="col-lg-3 inq_desc" id="">Kalo untuk 20 orang aja bisa ga ya
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -474,14 +514,16 @@
                                             <tr>
                                                 <th class="col-lg-3"><strong>Event Date</strong></th>
                                                 <th class="col-lg-3"><strong>Alternate Event Date</strong></th>
-                                                <th class="col-lg-3"><strong></strong></th> {{--jangan di delete, ini biar positionnya rapih--}}
+                                                <th class="col-lg-3"><strong></strong></th> {{--jangan di delete, ini
+                                                biar positionnya rapih--}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3" id="">Saturday, 01 January 2020</td>
                                                 <td class="col-lg-3" id="">Sunday, 02 January 2020</td>
-                                                <td class="col-lg-3" id=""></td> {{--jangan di delete, ini biar positionnya rapih--}}
+                                                <td class="col-lg-3" id=""></td> {{--jangan di delete, ini biar
+                                                positionnya rapih--}}
                                             </tr>
                                         </tbody>
                                     </table>
@@ -493,22 +535,46 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Accommodation</li></td>
-                                                <td class="col-lg-3" id=""><li>Swimming Pool Access</li></td>
-                                                <td class="col-lg-3" id=""><li>Wedding Ceremony</li></td>
-                                                <td class="col-lg-3" id=""><li>Welcome Dinner</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Accommodation</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Swimming Pool Access</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Wedding Ceremony</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Welcome Dinner</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Dinner</li></td>
-                                                <td class="col-lg-3" id=""><li>Lunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Dinner Reception</li></td>
-                                                <td class="col-lg-3" id=""><li>Flowers</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Lunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner Reception</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Flowers</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Breakfast</li></td>
-                                                <td class="col-lg-3" id=""><li>Leisure Activity</li></td>
-                                                <td class="col-lg-3" id=""><li>After Wedding Brunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Videography</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Breakfast</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Leisure Activity</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>After Wedding Brunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Videography</li>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -540,8 +606,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_number" >0001/INQ/GI/XXI/19</td>
-                                                <td class="col-lg-3 inq_type" >General Inquiry</td>
+                                                <td class="col-lg-3 inq_number">0001/INQ/GI/XXI/19</td>
+                                                <td class="col-lg-3 inq_type">General Inquiry</td>
                                                 <td class="col-lg-3 inq_at">Thursday, 19 December 2019</td>
                                             </tr>
                                         </tbody>
@@ -556,7 +622,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_event_name" >Star Galaxy 2020</td>
+                                                <td class="col-lg-3 inq_event_name">Star Galaxy 2020</td>
                                                 <td class="col-lg-3 inq_participant">50</td>
                                                 <td class="col-lg-3 inq_function_room">Subagdja Ballroom I</td>
                                             </tr>
@@ -567,14 +633,16 @@
                                             <tr>
                                                 <th class="col-lg-3"><strong>Event Date</strong></th>
                                                 <th class="col-lg-3"><strong>Alternate Event Date</strong></th>
-                                                <th class="col-lg-3"><strong>Event Type</strong></th> {{--jangan di delete, ini biar positionnya rapih / OKE SIAP--}}
+                                                <th class="col-lg-3"><strong>Event Type</strong></th> {{--jangan di
+                                                delete, ini biar positionnya rapih / OKE SIAP--}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3 inq_date" >Saturday, 01 January 2020</td>
-                                                <td class="col-lg-3 inq_alt_date" >Sunday, 02 January 2020</td>
-                                                <td class="col-lg-3 inq_event_type" >-</td> {{--jangan di delete, ini biar positionnya rapih / OKE SIAP--}}
+                                                <td class="col-lg-3 inq_date">Saturday, 01 January 2020</td>
+                                                <td class="col-lg-3 inq_alt_date">Sunday, 02 January 2020</td>
+                                                <td class="col-lg-3 inq_event_type">-</td> {{--jangan di delete, ini
+                                                biar positionnya rapih / OKE SIAP--}}
                                             </tr>
                                         </tbody>
                                     </table>
@@ -586,22 +654,46 @@
                                         </thead>
                                         <tbody id="body_mice">
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Accommodation</li></td>
-                                                <td class="col-lg-3" id=""><li>Swimming Pool Access</li></td>
-                                                <td class="col-lg-3" id=""><li>Wedding Ceremony</li></td>
-                                                <td class="col-lg-3" id=""><li>Welcome Dinner</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Accommodation</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Swimming Pool Access</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Wedding Ceremony</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Welcome Dinner</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Dinner</li></td>
-                                                <td class="col-lg-3" id=""><li>Lunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Dinner Reception</li></td>
-                                                <td class="col-lg-3" id=""><li>Flowers</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Lunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Dinner Reception</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Flowers</li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td class="col-lg-3" id=""><li>Breakfast</li></td>
-                                                <td class="col-lg-3" id=""><li>Leisure Activity</li></td>
-                                                <td class="col-lg-3" id=""><li>After Wedding Brunch</li></td>
-                                                <td class="col-lg-3" id=""><li>Videography</li></td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Breakfast</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Leisure Activity</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>After Wedding Brunch</li>
+                                                </td>
+                                                <td class="col-lg-3" id="">
+                                                    <li>Videography</li>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -621,7 +713,7 @@
                             </div>
                             {{-- penutup inquiry details / MICE 2 --}}
                         </div>
-                        <div class="hmh ">
+                        <div class="modal-rsvp ">
                             <center>Customer Details</center>
                         </div>
                         <div class="row">
@@ -654,38 +746,48 @@
                 <div class="modal-footer" style="background-color: #F8F8F8;">
                     {{-- OPTION BUTTON AWAL --}}
                     <div class="row" id="room_cancel_reschedule_btn">
+                        <div class="col-xs-6 col-md-6" align="left">
+                            <span id="room_cancel_reschedule_left">
+                                <button type="button" id="btn_cancel" onclick="show_room(1);"
+                                    class="btn btn-link danger" style="height: 40px;">
+                                    <b>Cancel</b>
+                                </button>
+                                <button type="button" id="btn_reschedule" onclick="show_room(2);"
+                                    class="btn btn-link muted" style="height: 40px;">
+                                    <b>Reschedule</b>
+                                </button>
+                            </span>
+                        </div>
                         <div class="col-xs-6 col-md-6" align="right">
-                            <button type="button" id="btn_reschedule" onclick="resendEmail(this);" class="btn btn-horison-gold"
-                                style="height: 40px;">
+                            <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
+                                class="btn btn-horison-gold" style="height: 40px;">
                                 <b>Resend Email Booking</b>
                             </button>
-                            <button type="button" id="btn_cancel" onclick="show_room(1);" class="btn btn-link danger"
-                                style="height: 40px;">
-                                <b>Cancel Booking</b>
-                            </button>
-                        </div>
-                        <div class="col-xs-6 col-md-2" align="left">
-                            <button type="button" id="btn_reschedule" onclick="show_room(2);" class="btn btn-horison-gold"
-                                style="height: 40px;">
-                                <b>Reschedule Booking</b>
+                            <button type="button" id="btn_reschedule" onclick="printVoucher();" target="_blank"
+                                class="btn btn-horison-gold" style="height: 40px;">
+                                <b>Print Voucher</b>
                             </button>
                         </div>
                     </div>
                     <div class="row" id="product_cancel_reschedule_btn">
-                        <div class="col-xs-6 col-md-6" align="right">
-                            <button type="button" id="btn_reschedule" onclick="resendEmail(this);" class="btn btn-horison-gold"
-                                style="height: 40px;">
-                                <b>Resend Email Booking</b>
-                            </button>
-                            <button type="button" id="btn_product_cancel" onclick="show_product(1);" class="btn btn-link danger"
-                                style="height: 40px;">
+                        <div class="col-xs-6 col-md-6" align="left">
+                            <button type="button" id="btn_product_cancel" onclick="show_product(1);"
+                                class="btn btn-link danger" style="height: 40px;">
                                 <b>Cancel Booking</b>
                             </button>
-                        </div>
-                        <div class="col-xs-6 col-md-2" align="left">
-                            <button type="button" id="btn_product_reschedule" onclick="show_product(2);" class="btn btn-horison-gold"
-                                style="height: 40px;">
+                            <button type="button" id="btn_product_reschedule" onclick="show_product(2);"
+                                class="btn btn-horison-gold" style="height: 40px;">
                                 <b>Reschedule Booking</b>
+                            </button>
+                        </div>
+                        <div class="col-xs-6 col-md-6" align="right">
+                            <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
+                                class="btn btn-horison-gold" style="height: 40px;">
+                                <b>Resend Email Booking</b>
+                            </button>
+                            <button type="button" id="btn_reschedule" onclick="printVoucher();" target="_blank"
+                                class="btn btn-horison-gold" style="height: 40px;">
+                                <b>Print Voucher</b>
                             </button>
                         </div>
                     </div>
@@ -709,39 +811,42 @@
                             <ol id="two_day"></ol>
                         </div>
                         <div class="row">
-                            <p class="rsv-box rsv-box-content">Cancellation Fee<br><span class="rsv-box-price" id="cancellation_fee">Rp
-                                    1.000.000</span></p>
+                            <p class="rsv-box rsv-box-content">Cancellation Fee<br><span class="rsv-box-price"
+                                    id="cancellation_fee">Rp 1.000.000</span></p>
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-md-10" align="right">
-                                <button type="button" onclick="show_room(3);" class="btn btn-white" style="height: 40px; width: 140px;">
+                                <button type="button" onclick="show_room(3);" class="btn btn-white"
+                                    style="height: 40px; width: 140px;">
                                     <b>Back</b>
                                 </button>
                             </div>
                             <div class="col-xs-6 col-md-2" align="left">
-
                                 <input type="button" name="btn_cancel" onclick="confirmBox(this);"
-                                    class="danger btn btn-link" style="height: 40px; font-weight: bold;" value="Cancel Booking" >
+                                    class="danger btn btn-link" style="height: 40px; font-weight: bold;"
+                                    value="Cancel Booking">
                             </div>
                         </div>
                     </div>
                     <div id="cancel_booking_package_tab" style="display:none;">
                         <div class="row" align="left">
                             <p class="rsv-notice">Notice</p>
-                            <p class="rsv-point">1. <b>No sales</b> are counted from this reservation as this reservation
+                            <p class="rsv-point">1. <b>No sales</b> are counted from this reservation as this
+                                reservation
                                 is cancelled.</p>
                             <p class="rsv-point">2. This action cannot be undone.</p>
                         </div>
                         <div class="row">
                             <div class="col-xs-6 col-md-10" align="right">
-                                <button type="button" onclick="show_product(3);" class="btn btn-white" style="height: 40px; width: 140px;">
+                                <button type="button" onclick="show_product(3);" class="btn btn-white"
+                                    style="height: 40px; width: 140px;">
                                     <b>Back</b>
                                 </button>
                             </div>
                             <div class="col-xs-6 col-md-2" align="left">
-
                                 <input type="button" name="btn_cancel" onclick="confirmBox(this);"
-                                    class="danger btn btn-link" style="height: 40px; font-weight: bold;" value="Cancel Booking" >
+                                    class="danger btn btn-link" style="height: 40px; font-weight: bold;"
+                                    value="Cancel Booking">
                             </div>
                         </div>
                     </div>
@@ -750,42 +855,52 @@
                     <div id="reschedule_booking_tab" style="display:none;">
                         <div class="row" align="left">
                             <p class="rsv-notice">Notice</p>
-                            <p class="rsv-point">1. You will need to make the rescheduled reservation <b>manually by
-                                    Emerald</b>.</p>
-                            <p class="rsv-point">2. All Allotment will be returned.</p>
-                            <p class="rsv-point">3. <b>No Sales</b> are counted from this reservation as this
+                            <p class="rsv-point">1. This will only mark the booking as rescheduled. NO automatic
+                                refund/settlement made to the hotel by the payment provider will be affected.</p>
+                            <p class="rsv-point">2. You’ll need to do reschedule manually.</p>
+                            <p class="rsv-point">3. Allotment from this booking returned (if the date has not been
+                                closed)</p>
+                            <p class="rsv-point">4. <b>No Sales</b> are counted from this reservation as this
                                 reservation is rescheduled.</p>
-                            <p class="rsv-point">4. This action cannot be undone.</p>
+                            <p class="rsv-point">5. This action cannot be undone.</p>
                         </div>
                         <div class="row" style="margin-top:20px; margin-right:20px;">
                             <div class="col-xs-6 col-md-10" align="right">
-                                <button type="button" onclick="show_room(3);" class="btn btn-white" style="height: 40px; width: 140px;">
+                                <button type="button" onclick="show_room(3);" class="btn btn-white"
+                                    style="height: 40px; width: 140px;">
                                     <b>Back</b>
                                 </button>
                             </div>
                             <div class="col-xs-6 col-md-2" align="left">
                                 <input type="button" name="btn_reschedule" onclick="confirmBox(this);"
-                                    class="btn btn-horison-gold" style="height: 40px; font-weight: bold;" value="Reschedule Booking">
+                                    class="btn btn-horison-gold" style="height: 40px; font-weight: bold;"
+                                    value="Reschedule Booking">
                             </div>
                         </div>
                     </div>
                     <div id="reschedule_booking_package_tab" style="display:none;">
                         <div class="row" align="left">
                             <p class="rsv-notice">Notice</p>
-                            <p class="rsv-point">1. You will need to make the rescheduled reservation <b>manually</b>.</p>
-                            <p class="rsv-point">2. <b>No Sales</b> are counted from this reservation as this
+                            <p class="rsv-point">1. This will only mark the booking as rescheduled. NO automatic
+                                refund/settlement made to the hotel by the payment provider will be affected.
+                            </p>
+                            <p class="rsv-point">2. You will need to make the rescheduled reservation manually.
+                            </p>
+                            <p class="rsv-point">3. <b>No Sales</b> are counted from this reservation as this
                                 reservation is rescheduled.</p>
-                            <p class="rsv-point">3. This action cannot be undone.</p>
+                            <p class="rsv-point">4. This action cannot be undone.</p>
                         </div>
                         <div class="row" style="margin-top:20px; margin-right:20px;">
                             <div class="col-xs-6 col-md-10" align="right">
-                                <button type="button" onclick="show_product(3);" class="btn btn-white" style="height: 40px; width: 140px;">
+                                <button type="button" onclick="show_product(3);" class="btn btn-white"
+                                    style="height: 40px; width: 140px;">
                                     <b>Back</b>
                                 </button>
                             </div>
                             <div class="col-xs-6 col-md-2" align="left">
                                 <input type="button" name="btn_reschedule" onclick="confirmBox(this);"
-                                    class="btn btn-horison-gold" style="height: 40px; font-weight: bold;" value="Reschedule Booking">
+                                    class="btn btn-horison-gold" style="height: 40px; font-weight: bold;"
+                                    value="Reschedule Booking">
                             </div>
                         </div>
                     </div>
@@ -796,8 +911,6 @@
 
 <script>
     function show_room(n) {
-        // $('#reschedule_booking_tab').removeClass();
-        // $('#reschedule_booking_tab').addClass("hidden");
         $('#room_cancel_reschedule_btn').fadeOut();
         if (n == 1) {
             $('#cancel_booking_tab').fadeIn();
@@ -805,12 +918,10 @@
         } else if (n == 2) {
             $('#reschedule_booking_tab').fadeIn();
             $('#cancel_booking_tab').fadeOut();
-            // $('#reschedule_booking_tab').addClass("hidden");
         }else if(n == 3){
             $('#cancel_booking_tab').fadeOut();
             $('#reschedule_booking_tab').fadeOut();
             $('#room_cancel_reschedule_btn').fadeIn();
-
         }
     }
 
@@ -822,18 +933,14 @@
         } else if (n == 2) {
             $('#reschedule_booking_package_tab').fadeIn();
             $('#cancel_booking_package_tab').fadeOut();
-            // $('#reschedule_booking_package_tab').addClass("hidden");
         }else if(n == 3){
             $('#cancel_booking_package_tab').fadeOut();
             $('#reschedule_booking_package_tab').fadeOut();
             $('#product_cancel_reschedule_btn').fadeIn();
-
         }
-
     }
 
     function confirmBox(e) {
-
         Swal.fire({
             title: 'Are you sure?',
             text: 'This is cannot be undone!',
@@ -846,8 +953,6 @@
                 e.setAttribute('type','submit');
                 e.setAttribute('onclick','');
                 e.click();
-            // For more information about handling dismissals please visit
-            // https://sweetalert2.github.io/#handling-dismissals
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
                 'Cancelled',
@@ -861,7 +966,6 @@
     function resendEmail(e) {
         var reservation_id = $('#modal_reservation_id').val();
         (async () => {
-
             const { value: formValues } = await Swal.fire({
             title: 'Please Input email',
             html:
@@ -879,7 +983,6 @@
             if (formValues) {
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formValues[1]))
                 {
-
                     var reservaion_id = $('#modal_reservation_id').val();
                     var booking_id = $('#modal_booking_id').val();
                     var reservation_type = "Email";
@@ -904,19 +1007,53 @@
                     url: url,
                     success: function (data) {
                         Swal.fire(
-                                'Success',
-                                data.msg,
-                                'success'
-                            );
+                            'Success',
+                            data.msg,
+                            'success'
+                        );
                     }
                 });
-                }else{
-                    alert("You have entered an invalid email address!");
-                }
+            } else {
+                alert("You have entered an invalid email address!");
             }
-
-            })()
-
+        }
+        })()
     }
 
+    function printVoucher() {
+        var reservation_id = $('#modal_reservation_id').val();
+        (async () => {
+            var reservaion_id = $('#modal_reservation_id').val();
+            var booking_id = $('#modal_booking_id').val();
+            var reservation_from = $('#modal_reservation_from').val();
+
+            var url = "{{ route('reservation.print_voucher') }}";
+            $.ajax({
+                type: "GET",
+                data: {
+                    // "_token": "{{ csrf_token() }}",
+                    "reservation_id": reservation_id,
+                    "booking_id": booking_id,
+                    "reservation_from": reservation_from
+                },
+                url: url,
+                success: function (data) {
+                    // window.open('http://horison-ultima.test/main_page/reservation/print-voucher?reservation_id=89193RSVRMII2022&booking_id=c24aec426f73c7fa&reservation_type=Print&reservation_from=ROOMS', '_blank').focus();
+
+                    // var text = res.responseText;
+                    // console.log(data);
+
+                    $this.attr("href", url);
+                    $this.attr("target", "_blank");
+
+                    Swal.fire(
+                        'Success',
+                        data.msg,
+                        'success'
+                    );
+                }
+            });
+
+        })()
+    }
 </script>

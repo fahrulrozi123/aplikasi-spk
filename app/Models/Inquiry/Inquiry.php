@@ -12,8 +12,6 @@ class Inquiry extends Model
 
     public $keyType = 'string';
 
-    public $timestamps = false;
-
     protected $fillable =
     [
         'reservation_id',
@@ -34,7 +32,6 @@ class Inquiry extends Model
         'inq_arrive_time',
         'inq_budget',
         'inq_details',
-        'create_at'
     ];
 
     protected $hidden = [

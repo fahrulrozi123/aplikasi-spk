@@ -8,9 +8,7 @@ class OtherRequest extends Model
 {
     protected $table = 'inquiry_other_request';
 
-    //   public $primaryKey = 'id';
-
-    public $timestamps = false;
+    public $primaryKey = 'id';
 
     protected $fillable =
     [

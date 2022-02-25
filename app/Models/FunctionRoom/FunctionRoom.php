@@ -12,8 +12,6 @@ class FunctionRoom extends Model
 
     public $primaryKey = 'id';
 
-    public $timestamps = false;
-
     protected $fillable = [
         'id',
         'func_name',
@@ -36,7 +34,7 @@ class FunctionRoom extends Model
 
     public function partition()
     {
-        return $this->hasMany('App\Models\FunctionRoom\FunctionRoom', 'func_head', 'id')->orderBy('create_at')->orderBy('func_name');
+        return $this->hasMany('App\Models\FunctionRoom\FunctionRoom', 'func_head', 'id')->orderBy('created_at')->orderBy('func_name');
     }
 
     public function photos()

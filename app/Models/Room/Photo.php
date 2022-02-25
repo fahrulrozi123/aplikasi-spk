@@ -8,9 +8,7 @@ class Photo extends Model
 {
     protected $table = 'room_photo';
 
-    // public $primaryKey = 'id';
-
-    public $timestamps = false;
+    public $primaryKey = 'id';
 
     protected $fillable = [
         'room_id',

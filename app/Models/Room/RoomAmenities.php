@@ -8,9 +8,7 @@ class RoomAmenities extends Model
 {
     protected $table = 'room_amenities';
 
-    //   public $primaryKey = 'id';
-
-    public $timestamps = false;
+    public $primaryKey = 'id';
 
     protected $fillable = [
         'room_id',

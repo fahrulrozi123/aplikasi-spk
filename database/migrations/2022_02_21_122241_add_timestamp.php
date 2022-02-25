@@ -22,6 +22,7 @@ class AddTimestamp extends Migration
         });
 
         Schema::table('bed_type', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
         });
 

@@ -2,6 +2,11 @@
 @section("header_title") RESERVATION @endsection
 @section('content')
 <div class="col-lg-12">
+
+    <div class="row">
+        <a href="{{ route('reservation.print_voucher') }}" class="btn btn-primary" target="_blank">CETAK PDF</a>
+    </div>
+
     <div class="row">
         <div class="panel minimal minimal-gray" style="margin-bottom: 0px">
             <div class="panel-heading">
@@ -793,7 +798,7 @@
             var checkin = moment(data.rsvp_checkin).format('DD MMMM YYYY');
             var checkout = moment(data.rsvp_checkout).format('DD MMMM YYYY');
             var room_accommodation = data.rsvp_adult + " Adult, " + data.rsvp_child + " Children";
-            var reservation_date = moment(data.create_at).format('LLLL');
+            var reservation_date = moment(data.created_at).format('LLLL');
             var room_breakfast = data.rsvp_breakfast == 1 ? "Yes" : "No";
 
             if (data.rsvp_guest_name == '') {
@@ -866,7 +871,7 @@
             var checkin = moment(data.rsvp_checkin).format('DD MMMM YYYY');
             var checkout = moment(data.rsvp_checkout).format('DD MMMM YYYY');
             var room_accommodation = data.rsvp_adult + " Adult, " + data.rsvp_child + " Children";
-            var reservation_date = moment(data.create_at).format('LLLL');
+            var reservation_date = moment(data.created_at).format('LLLL');
             var room_breakfast = data.rsvp_breakfast == 1 ? "Yes" : "No";
 
             if (data.rsvp_guest_name == '') {
@@ -1066,12 +1071,13 @@
                 }
             }
 
-            else if (data.rsvp_status == "Failed") {
-                $('#room_cancel_reschedule_btn').fadeOut();
+            else if (data.rsvp_status == "Failed" || data.rsvp_status == "Payment Expired") {
+                $('#room_cancel_reschedule_btn').hide();
             }
 
             else {
                 $('#room_cancel_reschedule_btn').fadeIn();
+                $('#room_cancel_reschedule_left').hide();
                 $('#modal_reservation_id').val(data.reservation_id);
                 $('#modal_booking_id').val(data.booking_id);
                 $('#modal_booking_id').val(data.booking_id);
@@ -1274,7 +1280,7 @@
 
             var data = $table5.DataTable().row(this).data();
 
-            var inq_at = moment(data.create_at).format('dddd, DD MMMM YYYY');
+            var inq_at = moment(data.created_at).format('dddd, DD MMMM YYYY');
             var date = moment(data.inq_event_start).format('dddd, DD MMMM YYYY');
             var inq_alt_date = moment(data.inq_alt_start).format('dddd, DD MMMM YYYY')
 
@@ -1421,7 +1427,7 @@
             var data = $table6.DataTable().row(this).data();
 
 
-            var inq_at = moment(data.create_at).format('dddd, DD MMMM YYYY');
+            var inq_at = moment(data.created_at).format('dddd, DD MMMM YYYY');
             var date = moment(data.inq_event_start).format('dddd, DD MMMM YYYY');
             var inq_alt_date = moment(data.inq_alt_start).format('dddd, DD MMMM YYYY')
 
