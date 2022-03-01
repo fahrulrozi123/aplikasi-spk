@@ -4,10 +4,6 @@
 <div class="col-lg-12">
 
     <div class="row">
-        <a href="{{ route('reservation.print_voucher') }}" class="btn btn-primary" target="_blank">CETAK PDF</a>
-    </div>
-
-    <div class="row">
         <div class="panel minimal minimal-gray" style="margin-bottom: 0px">
             <div class="panel-heading">
                 <div class="panel-title"></div>
@@ -258,7 +254,6 @@
 
     @include('main_page.reservation.modal')
 </div>
-
 
 <script type="text/javascript">
     // data table reservation
@@ -1253,6 +1248,7 @@
 
             } else {
                 $('#product_cancel_reschedule_btn').fadeOut();
+                $('#product_cancel_reschedule_left').hide();
             }
 
             if ("{{Auth::user()->level}}" == "2") {

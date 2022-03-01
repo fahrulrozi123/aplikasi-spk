@@ -771,14 +771,16 @@
                     </div>
                     <div class="row" id="product_cancel_reschedule_btn">
                         <div class="col-xs-6 col-md-6" align="left">
-                            <button type="button" id="btn_product_cancel" onclick="show_product(1);"
-                                class="btn btn-link danger" style="height: 40px;">
-                                <b>Cancel Booking</b>
-                            </button>
-                            <button type="button" id="btn_product_reschedule" onclick="show_product(2);"
-                                class="btn btn-horison-gold" style="height: 40px;">
-                                <b>Reschedule Booking</b>
-                            </button>
+                            <span id="product_cancel_reschedule_left">
+                                <button type="button" id="btn_product_cancel" onclick="show_product(1);"
+                                    class="btn btn-link danger" style="height: 40px;">
+                                    <b>Cancel Booking</b>
+                                </button>
+                                <button type="button" id="btn_product_reschedule" onclick="show_product(2);"
+                                    class="btn btn-horison-gold" style="height: 40px;">
+                                    <b>Reschedule Booking</b>
+                                </button>
+                            </span>
                         </div>
                         <div class="col-xs-6 col-md-6" align="right">
                             <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
