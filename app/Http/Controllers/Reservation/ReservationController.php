@@ -573,14 +573,9 @@ class ReservationController extends Controller
 
     public function printVoucher(Request $request)
     {
-        // dd($request->all());
         $from = $request['reservation_from'];
         $id = $request['reservation_id'];
         $booking_id = $request['booking_id'];
-
-        // $from =  "ROOMS";
-        // $id = "80273RSVRMII2022";
-        // $booking_id = "3f130bc10079efa5";
 
         if ($from == "ROOMS") {
             $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
@@ -654,15 +649,14 @@ class ReservationController extends Controller
                 # code...
                 break;
         }
+
         $setting = Setting::first();
         $data->from = $from;
         $data->voucher_attachment = $this->template_voucher($data, $setting);
         $data->receipt_attachment = $this->template_receipt($data, $setting);
 
-        // $pdf = PDF::loadview('templates.template_voucher2');
         $pdf = PDF::loadview('templates.template_voucher', get_defined_vars());
-        return $pdf->download('voucher_template.pdf');
-        // return $pdf->stream();
+        return $pdf->download('voucher' . $id .'.pdf');
     }
 
     public function template_voucher($data, $setting)

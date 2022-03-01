@@ -1022,38 +1022,16 @@
 
     function printVoucher() {
         var reservation_id = $('#modal_reservation_id').val();
-        (async () => {
-            var reservaion_id = $('#modal_reservation_id').val();
-            var booking_id = $('#modal_booking_id').val();
-            var reservation_from = $('#modal_reservation_from').val();
+        var booking_id = $('#modal_booking_id').val();
+        var reservation_from = $('#modal_reservation_from').val();
+        var url = "{{ route('reservation.print_voucher') }}";
 
-            var url = "{{ route('reservation.print_voucher') }}";
-            $.ajax({
-                type: "GET",
-                data: {
-                    // "_token": "{{ csrf_token() }}",
-                    "reservation_id": reservation_id,
-                    "booking_id": booking_id,
-                    "reservation_from": reservation_from
-                },
-                url: url,
-                success: function (data) {
-                    // window.open('http://horison-ultima.test/main_page/reservation/print-voucher?reservation_id=89193RSVRMII2022&booking_id=c24aec426f73c7fa&reservation_type=Print&reservation_from=ROOMS', '_blank').focus();
+        window.open('' + url +'?reservation_id=' + reservation_id +'&booking_id=' + booking_id +'&reservation_from=' + reservation_from +'', '_blank').focus();
 
-                    // var text = res.responseText;
-                    // console.log(data);
-
-                    $this.attr("href", url);
-                    $this.attr("target", "_blank");
-
-                    Swal.fire(
-                        'Success',
-                        data.msg,
-                        'success'
-                    );
-                }
-            });
-
-        })()
+        Swal.fire(
+            'Success',
+            data.msg,
+            'success'
+        );
     }
 </script>
