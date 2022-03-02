@@ -55,6 +55,8 @@ class FuncRoomController extends Controller
 
     public function insert(Request $request)
     {
+        $created_at = Carbon::now();
+
         if ($request['form_action'] == "update") {
             $this->validate($request, [
                 'func_name' => 'required',
@@ -151,7 +153,11 @@ class FuncRoomController extends Controller
                     $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
                     if ($file->move($this->path, $this->fileName)) {
-                        $temp = array('function_room_id' => $id, 'photo_path' => $this->fileName);
+                        $temp = array(
+                            'function_room_id' => $id,
+                            'photo_path' => $this->fileName,
+                            'created_at' => $created_at,
+                        );
                         array_push($data, $temp);
                     }
                 }

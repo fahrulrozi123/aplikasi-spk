@@ -43,6 +43,8 @@ class AmenitiesController extends Controller
 
     public function insert(Request $request)
     {
+        $created_at = Carbon::now();
+
         if (isset($request['amenities_status'])) {
             $data = array();
             $temp = array();
@@ -70,12 +72,17 @@ class AmenitiesController extends Controller
 
             foreach ($request['amenities_status'] as $key => $value) {
                 if ($value == "3") {
-                    $temp = array('amenities_name' => $amenities_name[$key], 'amenities_icon' => $amenities_icon[$key]);
+                    $temp = array(
+                        'amenities_name' => $amenities_name[$key],
+                        'amenities_icon' => $amenities_icon[$key],
+                        'created_at' => $created_at,
+                    );
                     array_push($data, $temp);
                 } elseif ($value == "1") {
                     Amenities::where('id', $amenities_id[$key])->update([
                         'amenities_name' => $amenities_name[$key],
                         'amenities_icon' => $amenities_icon[$key],
+                        'created_at' => $created_at,
                     ]);
                 }
             }

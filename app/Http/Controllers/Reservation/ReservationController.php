@@ -131,7 +131,7 @@ class ReservationController extends Controller
         $today = Carbon::parse(Carbon::now())->format("Y-m-d");
 
         $query = "SELECT * FROM `room_reservation` left join payment on room_reservation.booking_id = payment.booking_id
-        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by created_at DESC ;";
+        WHERE rsvp_checkin = CURDATE() and rsvp_status = 'Payment received' order by room_reservation.created_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -144,7 +144,7 @@ class ReservationController extends Controller
     public function room_data()
     {
         $query = "SELECT *, payment.* from room_reservation left join payment on room_reservation.booking_id = payment.booking_id
-                where rsvp_payment <> '' or customer_id not in (null, '') order by created_at DESC ;";
+                where rsvp_payment <> '' or customer_id not in (null, '') order by room_reservation.created_at DESC ;";
 
         $reservations = DB::select(DB::raw($query));
         foreach ($reservations as $key => $value) {
@@ -656,7 +656,7 @@ class ReservationController extends Controller
         $data->receipt_attachment = $this->template_receipt($data, $setting);
 
         $pdf = PDF::loadview('templates.template_voucher', get_defined_vars());
-        return $pdf->download('voucher' . $id .'.pdf');
+        return $pdf->download('voucher-' . $id .'.pdf');
     }
 
     public function template_voucher($data, $setting)

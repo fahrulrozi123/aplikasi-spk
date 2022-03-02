@@ -118,7 +118,7 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+        if (!Product::where('product_slug', $slug)->where('product_publish_status', 1)->with('photos')->exists()) {
             return abort(404);
         }
 
@@ -165,7 +165,7 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+        if (!Product::where('product_slug', $slug)->where('product_publish_status', 1)->with('photos')->exists()) {
             return abort(404);
         }
 
@@ -211,7 +211,7 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+        if (!Product::where('product_slug', $slug)->where('product_publish_status', 1)->with('photos')->exists()) {
             return abort(404);
         }
 
@@ -257,7 +257,7 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+        if (!Product::where('product_slug', $slug)->where('product_publish_status', 1)->with('photos')->exists()) {
             return abort(404);
         }
 
@@ -312,7 +312,7 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!FunctionRoom::where('func_room_slug', $slug)->with('photos')->where('func_head', null)->exists()) {
+        if (!FunctionRoom::where('func_room_slug', $slug)->where('func_publish_status', 1)->with('photos')->where('func_head', null)->exists()) {
             return abort(404);
         }
 
@@ -347,7 +347,11 @@ class VisitorController extends Controller
         $setting = $this->setting();
         $photos = array();
 
-        if (!Product::where('product_slug', $slug)->with('photos')->exists()) {
+        if (!Product::where('product_slug', $slug)->where('product_publish_status', 1)->with('photos')->exists()) {
+            return abort(404);
+        }
+
+        if (Product::where('product_publish_status', 0)) {
             return abort(404);
         }
 
@@ -388,7 +392,7 @@ class VisitorController extends Controller
         $menu = $this->menu();
         $setting = $this->setting();
 
-        if (!News::where('news_slug', $slug)->with('photos')->exists()) {
+        if (!News::where('news_slug', $slug)->where('news_publish_status', 1)->with('photos')->exists()) {
             return abort(404);
         }
 

@@ -90,7 +90,6 @@ class ReserveController extends Controller
 
     public function input_rsvp($id, $request)
     {
-        $nowDate = Carbon::now();
         if (!isset($request->totalDays) || !isset($request->totalRooms) || !isset($request->totalExtrabed) || !isset($request->type)
             || !isset($request->adultTotal) || !isset($request->childTotal)) {
             return false;
@@ -133,7 +132,7 @@ class ReserveController extends Controller
         $allExtrabedAmount = 0;
         $allGrandTotal = 0;
         $data = array();
-        $create_at = Carbon::now();
+        $created_at = Carbon::now();
         $expired_at = Carbon::now()->addMinutes(20);
         for ($j = 0; $j < ($totalDays); $j++) {
             $rsvpDateReserve = Carbon::parse($checkIn)->addDays($j)->format('Y-m-d');
@@ -171,9 +170,7 @@ class ReserveController extends Controller
             $allExtrabedAmount += $totalAmountExtrabed + $serviceBed + $taxBed;
 
             $temp = (object) array(
-                // 'reservation_id' => "",
                 'booking_id' => $booking_id,
-                // 'customer_id' => '',
                 'room_id' => $roomId,
                 'rsvp_date_reserve' => $rsvpDateReserve,
                 'rsvp_adult' => $adultTotal,
@@ -188,12 +185,9 @@ class ReserveController extends Controller
                 'rsvp_tax' => $rsvpTax,
                 'rsvp_service' => $rsvpService,
                 'rsvp_tax_total' => ($rsvpTax + $rsvpService),
-                // 'rsvp_payment' => '',
-                // 'rsvp_payment_card_number' => '',
-                // 'rsvp_unique' => '',
                 'rsvp_grand_total' => $grandTotal,
                 'rsvp_status' => 'Waiting for payment',
-                'create_at' => $create_at,
+                'created_at' => $created_at,
                 'expired_at' => $expired_at,
             );
             array_push($data, $temp);
@@ -231,7 +225,7 @@ class ReserveController extends Controller
                             'rsvp_tax_total' => $element_data->rsvp_tax_total,
                             'rsvp_grand_total' => $element_data->room_id,
                             'rsvp_status' => 'Waiting for payment',
-                            'create_at' => $element_data->create_at,
+                            'created_at' => $element_data->created_at,
                             'expired_at' => $element_data->expired_at,
                         ]);
                     }
@@ -263,7 +257,7 @@ class ReserveController extends Controller
                             'rsvp_tax_total' => $element_data->rsvp_tax_total,
                             'rsvp_grand_total' => $element_data->room_id,
                             'rsvp_status' => 'Waiting for payment',
-                            'create_at' => $element_data->create_at,
+                            'created_at' => $element_data->created_at,
                             'expired_at' => $element_data->expired_at,
                         ]);
                     }
@@ -306,7 +300,7 @@ class ReserveController extends Controller
             "extrabedTotal" => $extrabedTotal,
             "extrabedPrice" => $extrabedPrice,
             "totalPrice" => $totalPrice,
-            'create_at' => $create_at,
+            'created_at' => $created_at,
             'expired_at' => $expired_at);
 
         Session::put('room_booking_id', $booking_id);
@@ -552,7 +546,7 @@ class ReserveController extends Controller
 
     public function input_product($booking_id, $product, $date)
     {
-        $create_at = Carbon::now();
+        $created_at = Carbon::now();
         $expired_at = Carbon::now()->addMinutes(20);
 
         if (!$booking_id) {
@@ -564,11 +558,12 @@ class ReserveController extends Controller
                 $hex = bin2hex($bytes);
                 $booking_id = $hex;
             }
+
             ProductRsvp::create([
                 'booking_id' => $booking_id,
                 'product_id' => $product->id,
                 'rsvp_status' => "Waiting for payment",
-                'create_at' => $create_at,
+                'created_at' => $created_at,
                 'expired_at' => $expired_at,
 
             ]);
@@ -576,10 +571,11 @@ class ReserveController extends Controller
             ProductRsvp::where('booking_id', $booking_id)->update([
                 'product_id' => $product->id,
                 'rsvp_status' => "Waiting for payment",
-                'create_at' => $create_at,
+                'created_at' => $created_at,
                 'expired_at' => $expired_at,
             ]);
         }
+
         $data = (object) array(
             'type' => 'Product',
             'reserveDate' => $date,
@@ -594,14 +590,10 @@ class ReserveController extends Controller
             'extrabedTotal' => 0,
             'extrabedPrice' => 0,
             'totalPrice' => 0,
-            'create_at' => $create_at,
+            'created_at' => $created_at,
             'expired_at' => $expired_at,
         );
-        return $data;
-    }
 
-    public function custinfo()
-    {
-        return view('visitor_site.cust_info.index', get_defined_vars());
+        return $data;
     }
 }

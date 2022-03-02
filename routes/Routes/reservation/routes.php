@@ -1,6 +1,4 @@
 <?php
-//Start Reservation //
-Route::get('/custinfo/', 'Payment\ReserveController@custinfo')->name('visitor.reserve');
 //Reserve Room//
 Route::post('/reserve_room/', 'Payment\PaymentController@reserve_room')->name('visitor.reserve_room');
 //Reserve Product//

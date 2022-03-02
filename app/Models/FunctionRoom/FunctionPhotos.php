@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\FunctionRoom;
+namespace App\ModelsFunctionPhotos;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -10,6 +10,8 @@ class Allotment extends Model
 
     public $primaryKey = 'id';
 
+    public $timestamps = true;
+
     protected $fillable =
     [
         'room_id',
