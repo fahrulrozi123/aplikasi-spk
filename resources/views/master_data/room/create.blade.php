@@ -67,6 +67,7 @@ $room_order = "";
             <input type="hidden" name="id" id="room-id" value="{{$id}}">
             {{csrf_field()}}
         </form>
+
         <form method="POST" action="{{ route('room.insert') }}" enctype="multipart/form-data" autocomplete="off">
             {{csrf_field()}}
             <input type="hidden" name="id" id="room-id" value="{{$id}}">
@@ -338,20 +339,20 @@ $room_order = "";
             </div>
             <div class="pull-right">
                 @if(isset($room))
-                <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
-                    Delete
-                </button>
-                <a class="btn btn-white btn-padding" href="{{route('room.index')}}">
-                    Cancel
-                </a>
-                <button type="button" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this)">
-                    Update
-                </button>
+                    <button type="submit" form="delete_room" class="btn btn-delete btn-padding">
+                        Delete
+                    </button>
+                    <a class="btn btn-white btn-padding" href="{{route('room.index')}}">
+                        Cancel
+                    </a>
+                    <button type="button" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this)">
+                        Update
+                    </button>
                 @else
-                <a class="btn btn-white btn-padding" href="{{route('room.index')}}">
-                    Cancel
-                </a>
-                <button type="button" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this);">Save</button>
+                    <a class="btn btn-white btn-padding" href="{{route('room.index')}}">
+                        Cancel
+                    </a>
+                    <button type="button" class="btn btn-horison-gold btn-padding" onclick="confirmBox(this);">Save</button>
                 @endif
             </div>
         </form>
@@ -417,7 +418,7 @@ $room_order = "";
                 }else{
                     msg += ', '+element.name;
                 }
-               cek = false;
+                cek = false;
             }
             console.log(msg);
             if(msg != ''){
@@ -448,11 +449,11 @@ $room_order = "";
 
         }
 
-       if(cek){
+        if(cek){
             e.setAttribute('type','submit');
             e.setAttribute('onclick','');
             e.click();
-       }
+        }
     }
 </script>
 
@@ -487,11 +488,11 @@ $room_order = "";
     });
 
     @if(isset($room['photo']))
-    var num = {{count($room['photo'])}} + 1;
-    var start = {{count($room['photo'])}} + 1;
+        var num = {{count($room['photo'])}} + 1;
+        var start = {{count($room['photo'])}} + 1;
     @else
-    var num = 0;
-    var start = 0;
+        var num = 0;
+        var start = 0;
     @endif
 
     function delete_image() {

@@ -166,11 +166,11 @@
     </div>
 
     <div class="col-md-6"> {{-- fr type desc --}}
-        <div class="row"> {{-- title & description fr --}}
-            <h2 class="line-clamp-1" style="margin-top:0px; margin-left:22px; margin-right:22px;">
+        <div class="row" style="margin-left: 10px; margin-right: 22px; margin-left: 22px; margin-right: 22px; "> {{-- title & description fr --}}
+            <h2 class="line-clamp-1" style="margin-top:0px;">
                 <b>{{$function->func_name}}</b></h2>
             @if(strlen($function->func_room_desc) > 100)
-            <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
+            <p class="line-clamp-3" style="margin-bottom: 5px;">
                 {!! substr($function->func_room_desc, 0, 145)."..."!!}
             </p>
             <a href="/function-room/{{ $function->func_room_slug }}"
@@ -178,7 +178,7 @@
                 <i><u>See more description</u></i>
             </a>
             @else
-            <p class="line-clamp-3" style="margin-left:22px; margin-right:22px; margin-bottom: 5px;">
+            <p class="line-clamp-3" style="margin-bottom: 5px;">
                 {!! $function->func_room_desc !!}</p>
             @endif
         </div><br>

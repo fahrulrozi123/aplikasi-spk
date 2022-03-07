@@ -72,7 +72,7 @@ class VisitorController extends Controller
 
         $photos = array();
 
-        if (!Type::where('room_slug', $slug)->exists()) {
+        if (!Type::where('room_slug', $slug)->where('room_publish_status', 1)->exists()) {
             return abort(404);
         }
 

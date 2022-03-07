@@ -383,8 +383,8 @@
             <img src="{{ asset('/images/rooms/room_empty.svg') }}" alt="No rooms available on this date" class="center-img" style="padding: 35px;">
         </div>
 
-        <center>
-            <h4>No rooms available on this date</h4>
+        <center style="margin-bottom: 50px;">
+            <h3>No rooms available on this date</h3>
         </center>
     </div>
 </div>

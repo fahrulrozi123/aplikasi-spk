@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Allotment\Allotment;
 use App\Models\Amenities\Amenities;
 use App\Models\Room\Photo;
 use App\Models\Room\RoomAmenities;
@@ -12,7 +11,6 @@ use App\Models\Room\Rsvp;
 use App\Models\Room\Bed;
 use Carbon\Carbon;
 use DB;
-use Faker\Factory as Faker;
 
 use File;
 use Illuminate\Support\Str;
@@ -135,40 +133,37 @@ class RoomController extends Controller
 
             //UPLOAD FOTO
             if ($request->file('img')) {
-                $data = array();
-                $temp = array();
                 foreach ($request->file('img') as $file) {
                     //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
                     $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
                     if ($file->move($this->path, $this->fileName)) {
-                        $temp = array('room_id' => $id, 'photo_path' => $this->fileName);
-                        array_push($data, $temp);
+                        Photo::create([
+                            'room_id' => $id,
+                            'photo_path' => $this->fileName
+                        ]);
                     }
                 }
-                Photo::insert($data);
             }
 
             if ($request['room_amenities']) {
-                $data = array();
-                $temp = array();
                 $amenitiess = $request['room_amenities'];
                 foreach ($amenitiess as $amenities) {
-                    $temp = array('room_id' => $id, 'amenities_id' => $amenities);
-                    array_push($data, $temp);
+                    RoomAmenities::create([
+						'room_id' => $id,
+                        'amenities_id' => $amenities
+					]);
                 }
-                RoomAmenities::insert($data);
             }
 
             if ($request['bed_type']) {
-                $data = array();
-                $temp = array();
                 $bed_types = $request['bed_type'];
                 foreach ($bed_types as $bed_type) {
-                    $temp = array('room_id' => $id, 'bed_id' => $bed_type);
-                    array_push($data, $temp);
+                    Bed::create([
+						'room_id' => $id,
+                        'bed_id' => $bed_type
+					]);
                 }
-                Bed::insert($data);
             }
 
             return redirect()->route('room.index')->with('status', 'Room Baru Berhasil di Tambahkan');
@@ -192,28 +187,43 @@ class RoomController extends Controller
         $id = Crypt::decryptString($requestid);
         $temp_photo = Photo::where('room_id', $id)->get();
         Photo::where('room_id', $id)->forceDelete();
-        RoomAmenities::where('room_id', $id)->forceDelete();
-        Bed::where('room_id', $id)->forceDelete();
 
         if ($request['room_amenities']) {
-            $data = array();
-            $temp = array();
             $amenitiess = $request['room_amenities'];
             foreach ($amenitiess as $amenities) {
-                $temp = array('room_id' => $id, 'amenities_id' => $amenities);
-                array_push($data, $temp);
+                $checkAmenities =  RoomAmenities::where('amenities_id', $amenities)->first();
+
+                if($checkAmenities != null){
+                    RoomAmenities::where('amenities_id', $amenities)->update([
+                        'room_id' => $id,
+                        'amenities_id' => $amenities
+                    ]);
+                } else {
+                    RoomAmenities::create([
+						'room_id' => $id,
+                        'amenities_id' => $amenities
+					]);
+                }
             }
-            RoomAmenities::insert($data);
         }
+
         if ($request['bed_type']) {
-            $data = array();
-            $temp = array();
             $bed_types = $request['bed_type'];
             foreach ($bed_types as $bed_type) {
-                $temp = array('room_id' => $id, 'bed_id' => $bed_type);
-                array_push($data, $temp);
+                $checkBedTypes =  Bed::where('bed_id', $bed_type)->first();
+
+                if($checkBedTypes != null){
+                    Bed::where('bed_id', $amenities)->update([
+                        'room_id' => $id,
+                        'bed_id' => $bed_type
+                    ]);
+                } else {
+                    Bed::create([
+                        'room_id' => $id,
+                        'bed_id' => $bed_type
+                    ]);
+                }
             }
-            Bed::insert($data);
         }
 
         if ($request['oldImg']) {
@@ -232,6 +242,7 @@ class RoomController extends Controller
                 }
             }
         }
+
         if ($request['oldImg']) {
             $data = array();
             $temp = array();
@@ -290,6 +301,7 @@ class RoomController extends Controller
         Photo::where('room_id', $id)->forceDelete();
         RoomAmenities::where('room_id', $id)->forceDelete();
         Type::where('id', $id)->forceDelete();
+        Bed::where('room_id', $id)->forceDelete();
 
         foreach ($temp_photo as $img) {
             File::delete($this->path . '/' . $img->photo_path);

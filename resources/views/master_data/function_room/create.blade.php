@@ -43,7 +43,7 @@ $func_publish_status = "";
                 <div class="panel-body">
 
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-8 col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">
                                     <h5>
@@ -368,6 +368,7 @@ $func_publish_status = "";
         hiddenInput.value = e.value.match(/\d/g).join("");
         e.value = formatRupiah(e, e.value);
     }
+
     /* Fungsi formatRupiah */
     function formatRupiah(rupiah, angka, prefix) {
         var number_string = angka.replace(/[^0-9]*/g, '').toString(),
@@ -393,20 +394,21 @@ $func_publish_status = "";
         var form = $('#function_form');
 
         Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-        if (result.value) {
-            $('#form_action').val('delete');
-            form.submit();
-        }
+            if (result.value) {
+                $('#form_action').val('delete');
+                form.submit();
+            }
         })
     });
+
     var partition_total = parseInt("{{$total_partition}}");
 
     function clear_partition() {
@@ -430,7 +432,6 @@ $func_publish_status = "";
             partition += parseInt(element.value);
         });
 
-
         var dimension = $('#func_dimension_value').val() == "" ? 0 : $('#func_dimension_value').val();
         dimension = parseInt(dimension);
         partition = parseInt(partition);
@@ -439,8 +440,6 @@ $func_publish_status = "";
             e.value = 0;
         }
     }
-
-
 
     function create_partition() {
         $('#table_partition').removeClass('hidden');
@@ -493,12 +492,12 @@ $func_publish_status = "";
             $('#btn_partition-create').removeClass('hidden');
         }
     }
+
     function numberVal(e){
         e.value = e.value.replace(/[^0-9\.]/g,'');
     }
 
     $(document).ready(function () {
-
         document.getElementById('pro-image').addEventListener('change', readImage, false);
 
         $(".preview-images-zone").sortable();
@@ -511,11 +510,11 @@ $func_publish_status = "";
     });
 
     @if(isset($function_room['photos']))
-    var num = {{count($function_room['photos'])}} + 1;
-    var start = {{count($function_room['photos'])}} + 1;
+        var num = {{count($function_room['photos'])}} + 1;
+        var start = {{count($function_room['photos'])}} + 1;
     @else
-    var num = 0;
-    var start = 0;
+        var num = 0;
+        var start = 0;
     @endif
 
     function delete_image() {

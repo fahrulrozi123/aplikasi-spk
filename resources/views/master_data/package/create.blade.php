@@ -36,6 +36,12 @@ $category = "1";
 
 <div class="col-lg-12">
     <div class="row">
+        <form id="delete_product" onsubmit="return confirm('Are you sure ?')" method="POST"
+            action="{{ route('package.delete') }}" enctype="multipart/form-data" autocomplete="off">
+            <input type="hidden" name="id" id="product-id" value="{{$id}}">
+            {{csrf_field()}}
+        </form>
+
         <form method="POST" action="{{ route('package.insert') }}" enctype="multipart/form-data" autocomplete="off">
             {{csrf_field()}}
             <input type="hidden" id="package-id" name="id" value="{{$id}}">
@@ -118,7 +124,7 @@ $category = "1";
                 </div>
                 <div class="panel-body shadow form-horizontal" style="display: block;">
                     <div class="form-group">
-                        <div class="col-lg-4 col-md-4">
+                        <div class="col-lg-8 col-md-8">
                             <label for="product_name">Package/Product Name</label>
                             <input type="text" class="form-control" name="product_name" maxlength="255"
                                 placeholder="Nama Package/Product" value="{{old('product_name', $product_name)}}">
@@ -238,21 +244,20 @@ $category = "1";
             </div>
             <div class="pull-right">
                 @if(isset($product))
-                <button type="button" onclick="if(confirm('Are you sure?')) deletePackage();"
-                    class="btn btn-delete btn-padding">
-                    Delete
-                </button>
-                <a class="btn btn-white btn-padding" href="{{route('package.index')}}">
-                    Cancel
-                </a>
-                <button type="button" onclick="confirmBox(this)" class="btn btn-horison-gold btn-padding">
-                    Update
-                </button>
+                    <button type="submit" form="delete_product" class="btn btn-delete btn-padding">
+                        Delete
+                    </button>
+                    <a class="btn btn-white btn-padding" href="{{route('package.index')}}">
+                        Cancel
+                    </a>
+                    <button type="button" onclick="confirmBox(this)" class="btn btn-horison-gold btn-padding">
+                        Update
+                    </button>
                 @else
-                <a class="btn btn-white btn-padding" href="{{route('package.index')}}">
-                    Cancel
-                </a>
-                <button type="button" onclick="confirmBox(this)" class="btn btn-horison-gold btn-padding">Save</button>
+                    <a class="btn btn-white btn-padding" href="{{route('package.index')}}">
+                        Cancel
+                    </a>
+                    <button type="button" onclick="confirmBox(this)" class="btn btn-horison-gold btn-padding">Save</button>
                 @endif
             </div>
         </form>
@@ -260,10 +265,6 @@ $category = "1";
 </div>
 
 <script type="text/javascript">
-    window.onload = function () {
-
-    }
-
     if ("{{$product_price}}" != "") {
         var e = document.getElementById("product_price");
         e.value = formatRupiah(e, e.value);
@@ -275,6 +276,7 @@ $category = "1";
         hiddenInput.value = e.value.match(/\d/g).join("");
         e.value = formatRupiah(e, e.value);
     }
+
     /* Fungsi formatRupiah */
     function formatRupiah(rupiah, angka, prefix) {
         var number_string = angka.replace(/[^0-9]*/g, '').toString(),
@@ -306,7 +308,7 @@ $category = "1";
                 }else{
                     msg += ', '+element.name;
                 }
-               cek = false;
+                cek = false;
             }
 
             if(msg != ''){
@@ -337,11 +339,11 @@ $category = "1";
 
         }
 
-       if(cek){
+        if(cek){
             e.setAttribute('type','submit');
             e.setAttribute('onclick','');
             e.click();
-       }
+        }
     }
 
 </script>
@@ -361,7 +363,6 @@ $category = "1";
     });
 
     $("#category_{{$category}}").addClass("active");
-
 
     if ("{{$sales_inquiry}}" == "1") {
         $("#status_{{$sales_inquiry}}").removeClass("btn-horison");
@@ -383,8 +384,6 @@ $category = "1";
         e.classList.add("active");
         //set new product active as activeProduct value
         selectedCategory.value = e.id.substr(e.id.length - 1);
-
-
     }
 
     function setSalesStatus(e) {
@@ -415,11 +414,11 @@ $category = "1";
     }
 
     @if(isset($product['photos']))
-    var num = {{count($product['photos'])}} + 1;
-    var start = {{count($product['photos'])}} + 1;
+        var num = {{count($product['photos'])}} + 1;
+        var start = {{count($product['photos'])}} + 1;
     @else
-    var num = 0;
-    var start = 0;
+        var num = 0;
+        var start = 0;
     @endif
 
     function delete_image() {
@@ -427,6 +426,7 @@ $category = "1";
             $(".preview-image.preview-show-" + i).remove();
         }
     }
+
     function readImage() {
         if (window.File && window.FileList && window.FileReader) {
             delete_image();
@@ -458,30 +458,6 @@ $category = "1";
             console.log('Browser not support');
         }
     }
-
-    function deletePackage() {
-
-        var id = document.getElementById("package-id").value;
-
-        $.ajax({
-            type: "POST",
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": id
-            },
-            url: "{{ route('package.delete') }}",
-            success: function (data) {
-                if(data.status == 422){
-                    alert(data.msg);
-                }else if(data.status == 200){
-                    alert("Package Berhasil Dihapus!");
-                    window.location.replace("{{ route('package.index') }}");
-                }
-            }
-        });
-    };
-
-
 </script>
 
 @endsection

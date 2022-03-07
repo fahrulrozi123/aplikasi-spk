@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Str;
 
 use App\Models\Product\Product;
@@ -18,7 +17,6 @@ use App\Models\Setting\PageSetting;
 use Carbon\Carbon;
 use Image;
 use File;
-use Auth;
 
 class PackageController extends Controller
 {
@@ -62,15 +60,13 @@ class PackageController extends Controller
             $this->validate($request, [
                 'product_name' => 'required',
                 'product_detail' => 'required',
-                // 'product_price' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048',
                 'img' => 'required_without:oldImg'
             ],
             [
                 'img.required_without' => 'Product photos cannot be empty.',
                 'img.*.mimes' => 'Your image format is not supported.',
-                'img.*.max' => 'Your image size cannot more than 2mb.',
-                // 'product_price.not_in' => 'The Package/Product Price Cannot be 0',
+                'img.*.max' => 'Your image size cannot more than 2mb.'
             ]);
 
             if ($request->has('product_price') != "") {
@@ -86,15 +82,13 @@ class PackageController extends Controller
             $this->validate($request, [
                 'product_name' => 'required',
                 'product_detail' => 'required',
-                // 'product_price' => 'required|not_in:0',
                 'img' => 'required',
                 'img.*' => 'mimes:jpeg,png,jpg|max:2048'
             ],
             [
                 'img.*.mimes' => 'Your image format is not supported.',
                 'img.required' => 'Package photos cannot be empty.',
-                'img.*.max' => 'Your image size cannot more than 2mb.',
-                // 'product_price.not_in' => 'The Package/Product Price Cannot be 0',
+                'img.*.max' => 'Your image size cannot more than 2mb.'
             ]);
 
             if ($request->has('product_price') != "") {
@@ -138,11 +132,12 @@ class PackageController extends Controller
                     $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
                     if($file->move($this->path, $this->fileName)){
-                        $temp = array('product_id' => $id, 'product_photo_path' => $this->fileName);
-                        array_push($data, $temp);
+                        Photos::create([
+                            'product_id' => $id,
+                            'product_photo_path' => $this->fileName
+                        ]);
                     }
                 }
-                Photos::insert($data);
             }
 
             return redirect()->route('package.index')->with('status', 'Product Baru Berhasil di Tambahkan');
@@ -254,7 +249,7 @@ class PackageController extends Controller
             File::delete($this->path . '/'. $img->product_photo_path);
         }
 
-        return response()->json(["status" => 200, "msg"=> 'Data Package Berhasil Dihapus']);
+        return redirect()->route('package.index')->with('status', 'Data Package Berhasil Dihapus');
     }
 
     //SET DATA

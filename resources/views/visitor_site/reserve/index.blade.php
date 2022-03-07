@@ -12,7 +12,7 @@
     <meta name="author" content="Horison Ultima Bandung" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $setting->title }}</title>
+    <title>{{ $setting->title }} - Reservation</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
