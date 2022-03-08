@@ -404,4 +404,50 @@ class VisitorController extends Controller
         }
         return view('visitor_site.newsletter.details', get_defined_vars());
     }
+
+    public function details()
+    {
+        $arrContextOptions =array(
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
+        );
+
+        $menu = $this->menu();
+        $setting = $this->setting();
+        $id = Input::get('key', null);
+        $from = Input::get('from', null);
+
+        $photos = array();
+
+        if ($from == "rooms") {
+            $room = Type::where('id', $id)->first();
+
+            return redirect(route('room.slug', $room->room_slug), 301);
+        } else if ($from == "recreation") {
+            $product = Product::where('id', $id)->first();
+
+            return redirect(route('recreation.slug', $product->product_slug), 301);
+        } else if ($from == "allysea_spa") {
+            $spa = Product::where('id', $id)->first();
+
+            return redirect(route('allysea_spa.slug', $spa->product_slug), 301);
+        } else if ($from == "mice_wedding") {
+            $miceWedding = Product::where('id', $id)->first();
+
+            return redirect(route('mice_wedding.slug', $miceWedding->product_slug), 301);
+        } else if ($from == "function_roomA") {
+
+            $functionroom = functiomRoom::where('id', $id)->first();
+
+            return redirect(route('functionroom.slug', $functionroom->product_slug), 301);
+
+        } else if ($from == "function_roomB") {
+            $miceWedding = Product::where('id', $id)->first();
+
+            return redirect(route('micewedding.slug', $miceWedding->product_slug), 301);
+        }
+
+    }
 }
