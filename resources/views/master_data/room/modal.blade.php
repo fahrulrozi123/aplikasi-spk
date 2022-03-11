@@ -17,16 +17,16 @@
                         @php
                             $id = $amenities->id;
                         @endphp
-                        @if ($no < 6) 
-                            @continue; 
-                        @else 
-                            @if(!isset($room)) 
-                                @php 
-                                    $checked="" ; 
-                                @endphp 
+                        @if ($no < 6)
+                            @continue;
+                        @else
+                            @if(!isset($room))
+                                @php
+                                    $checked="" ;
+                                @endphp
                             @else
-                                @foreach($room['amenities'] as $data_amenitites) 
-                                @php 
+                                @foreach($room['amenities'] as $data_amenitites)
+                                @php
                                     $id_amenitites = $data_amenitites->amenities_id;
                                     if($id_amenitites == $id){
                                         $checked = "checked";
@@ -37,12 +37,12 @@
                                 @endphp
                                 @endforeach
                             @endif
-                                        <div class="col-xs-12 col-md-6 col-lg-6">
-                                            <div class="checkbox checkbox-replace color-primary" style="margin-bottom: 10px">
-                                            <input name ="room_amenities[]" value ="{{$amenities->id}}" type="checkbox" id="chk-20" {{$checked}}>
-                                                <label>{{$amenities->amenities_name}}</label>
-                                            </div>
-                                        </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                    <div class="checkbox checkbox-replace color-primary" style="margin-bottom: 10px">
+                                    <input name ="room_amenities[]" value ="{{ $amenities->id }}" type="checkbox" id="chk-20" {{ $checked }}>
+                                        <label>{{ $amenities->amenities_name }}</label>
+                                    </div>
+                                </div>
                         @endif
                     @endforeach
                     </div>

@@ -166,44 +166,27 @@ class PackageController extends Controller
     {
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
-        $temp_photo = Photos::where('product_id', $id)->get();
-        Photos::where('product_id', $id)->forceDelete();
 
-        if($request['oldImg']){
-            foreach($temp_photo as $img){
-            $check = FALSE;
-            foreach($request['oldImg'] as $oldImg){
-                if($oldImg == $img->product_photo_path){
-                $check = TRUE;
-                break;
+        if ($request['oldImg']) {
+            foreach ($request['oldImg'] as $img) {
+                $this->fileName = $img;
+                $checkPhotoTypes =  Photos::where('product_photo_path', $this->fileName)->first();
+
+                if($checkPhotoTypes != null){
+                    Photos::where('product_photo_path', $this->fileName)->update([
+                        'product_id' => $id,
+                        'product_photo_path' => $this->fileName
+                    ]);
                 }
             }
-            if(!$check){
-                if(file_exists($this->path.'/'.$img->product_photo_path)){
-                File::delete($this->path . '/'.$img->product_photo_path);
-                }
-            }
-            }
-        }
 
-        if($request['oldImg']){
-            $data = array();
-            $temp = array();
-            $no = 0;
-            foreach($request['oldImg'] as $img){
-                if($img == "new"){
-                    $file = $request->file('img')[$no];
-                    $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->move($this->path, $this->fileName);
-                    $no++;
-                }else{
-                    $this->fileName = $img;
-                }
-
-                $temp = array('product_id' => $id, 'product_photo_path' => $this->fileName);
-                array_push($data, $temp);
+            $imgPhotoOld = $request['oldImg'];
+            $imgPhoto = Photos::where('product_id', $id)->pluck('product_photo_path')->toArray();
+            $array = array_diff($imgPhoto, $imgPhotoOld);
+            foreach ($array as $img) {
+                File::delete($this->path . '/' . $img);
             }
-            Photos::insert($data);
+            Photos::where('product_id', $id)->whereNotIn('product_photo_path', $request['oldImg'])->forceDelete();
         }
 
         //UPDATE DATA
@@ -234,11 +217,15 @@ class PackageController extends Controller
         $id = Crypt::decryptString($request['id']);
 
         if(Rsvp::where('product_id', $id)->exists()){
-            return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has reservation']);
+            // return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has reservation']);
+            return redirect()->route('package.index')->with('warning', 'Product cannot be delete because it has reservation');
+            // return response()->with('status', 'Product cannot be delete because it has reservation');
         }
 
         if(Inquiry::where('product_id', $id)->exists()){
-            return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has inquiry']);
+            // return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has inquiry']);
+            return redirect()->route('package.index')->with('warning', 'Product cannot be delete because it has inquiry');
+            // return response()->with('status', 'Product cannot be delete because it has reservation');
         }
 
         $temp_photo = Photos::where('product_id', $id)->get();

@@ -49,8 +49,8 @@ class BannerController extends Controller
             //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
                 if($file->move($this->path,$this->fileName)){
                     Banner::create([
-                    'banner_name' => $this->fileName,
-                    'banner_status' => '4'
+                        'banner_name' => $this->fileName,
+                        'banner_status' => '4'
                     ]);
             }else{
                 return redirect()->route('banner.index')->with('warning', 'gagal');
@@ -77,11 +77,11 @@ class BannerController extends Controller
         $banner_status = $request['banner_status'];
 
         Banner::where('banner_status', $banner_status)->update([
-        'banner_status'      => "4"
+            'banner_status'      => "4"
         ]);
 
         Banner::where('id', $id)->update([
-        'banner_status'      => $request['banner_status']
+            'banner_status'      => $request['banner_status']
         ]);
 
         return redirect()->route('banner.index')->with('status', 'Update Data Berhasil');

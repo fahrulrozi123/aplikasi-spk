@@ -49,12 +49,10 @@ class InquiryController extends Controller
     {
         $other_request = ['1', '2', '3', '4', '5'];
         $mice_other_request = ['1', '2', '3', '4', '5', '6'];
-        $wedding_other_request = ['7', '8', '9',
-        '10', '11', '12', '13', '14', '15', '16', '17', '18'];
+        $wedding_other_request = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'];
 
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:50',
-            // 'email' => 'required|email|unique:customer,cust_email',
             'email' => 'required|email',
             'phone_number' => 'required|numeric',
         ]);
@@ -89,18 +87,15 @@ class InquiryController extends Controller
                 $customer_id = $hex;
             }
 
-            $customer = [
+            Customer::create([
                 'id' => $customer_id,
                 'cust_email' => $cust_email,
-            ];
-
-            Customer::insert($customer);
+            ]);
         }
 
         if (isset($request['btn_general'])) {
             $validator = Validator::make($request->all(), [
                 'btn_general' => 'required|numeric|min:0|max:0',
-                // 'email' => 'required|email|unique:customer,cust_email',
                 'general_details' => 'required',
             ],[
                 'general_details.required' => 'Inquiry Details is required'
@@ -136,7 +131,7 @@ class InquiryController extends Controller
                     'inq_details' => $sanitizer['general_details']
                 ];
 
-                Inquiry::insert($inquiry);
+                Inquiry::create($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -186,7 +181,7 @@ class InquiryController extends Controller
                         if (!in_array($value, $other_request)) {
                             return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request is not found ");
                         } else {
-                            OtherRequest::insert([
+                            OtherRequest::create([
                                 "inquiry_id" => $reservation_id,
                                 "other_request_id" => $value,
                             ]);
@@ -208,7 +203,8 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date,
                     'inq_details' => isset($sanitizer['rec_details']) ? $sanitizer['rec_details'] : "",
                 ];
-                Inquiry::insert($inquiry);
+
+                Inquiry::create($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -264,7 +260,7 @@ class InquiryController extends Controller
                         if (!in_array($value, $other_request)) {
                             return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request is not found ");
                         } else {
-                            OtherRequest::insert([
+                            OtherRequest::create([
                                 "inquiry_id" => $reservation_id,
                                 "other_request_id" => $value,
                             ]);
@@ -272,7 +268,7 @@ class InquiryController extends Controller
                     }
                 }
 
-                $inquiry = [
+                Inquiry::create([
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
@@ -286,9 +282,8 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date,
                     'inq_arrive_time' => $data['spa_time'],
                     'inq_details' => isset($sanitizer['spa_details']) ? $sanitizer['spa_details'] : "",
-                ];
+                ]);
 
-                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -363,7 +358,7 @@ class InquiryController extends Controller
                         if (!in_array($value, $mice_other_request)) {
                             return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request '" . $value . "' is not found ");
                         } else {
-                            OtherRequest::insert([
+                            OtherRequest::create([
                                 "inquiry_id" => $reservation_id,
                                 "other_request_id" => $value,
                             ]);
@@ -371,7 +366,7 @@ class InquiryController extends Controller
                     }
                 }
 
-                $inquiry = [
+                Inquiry::create([
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
@@ -388,9 +383,8 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date_alt,
                     'inq_budget' => isset($data['mice_budget']) ? $data['mice_budget'] : 0,
                     'inq_details' => isset($sanitizer['mice_details']) ? $sanitizer['mice_details'] : "",
-                ];
+                ]);
 
-                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -451,7 +445,7 @@ class InquiryController extends Controller
                     if (!in_array($value, $wedding_other_request)) {
                         return redirect()->back()->withInput($request->all)->with('warning', "Sorry your Other request '" . $value . "' is not found ");
                     } else {
-                        OtherRequest::insert([
+                        OtherRequest::create([
                             "inquiry_id" => $reservation_id,
                             "other_request_id" => $value,
                         ]);
@@ -459,7 +453,7 @@ class InquiryController extends Controller
                 }
             }
 
-            $inquiry = [
+            Inquiry::create([
                 'reservation_id' => $reservation_id,
                 'customer_id' => $customer_id,
                 'inq_cust_name' => $cust_name,
@@ -473,9 +467,8 @@ class InquiryController extends Controller
                 'inq_alt_start' => $date_alt,
                 'inq_alt_end' => $date_alt,
                 'inq_details' => isset($sanitizer['wedding_details']) ? $sanitizer['wedding_details'] : "",
-            ];
+            ]);
 
-            Inquiry::insert($inquiry);
             $from = "INQUIRY";
             $rsvp_id = $inquiry['reservation_id'];
             $this->resendEmail($from, $rsvp_id);

@@ -19,16 +19,16 @@
                     <img src="{{asset('/user/'.$img)}}" alt="" class="containerBox shadow" loading="lazy">
                 </div>
                 <div class="col-lg-3">
-                        <h4 class="mb"><strong>{{ $room->room_name }}</strong></h4>
-                        @if(strlen($room->room_desc) > 350)
-                            <p class="mt line-clamp-8" style="text-align:justify;">{!! substr($room->room_desc, 0, 350)."..." !!}</p>
-                        @else
-                            <p class="mt line-clamp-8" style="text-align:justify;">{!! $room->room_desc !!}</p>
-                        @endif
+                    <h4 class="mb"><strong>{{ $room->room_name }}</strong></h4>
+                    @if(strlen($room->room_desc) > 350)
+                        <p class="mt line-clamp-8" style="text-align:justify;">{!! substr($room->room_desc, 0, 350)."..." !!}</p>
+                    @else
+                        <p class="mt line-clamp-8" style="text-align:justify;">{!! $room->room_desc !!}</p>
+                    @endif
 
-                        <h4 class="mb"><strong>Bed Type(s)</strong></h4>
-                        <p class="mt"><i class="glyphicon glyphicon-bed"></i>
-                        @foreach($room['bed'] as $bed)
+                    <h4 class="mb"><strong>Bed Type(s)</strong></h4>
+                    <p class="mt"><i class="glyphicon glyphicon-bed"></i>
+                    @foreach($room['bed'] as $bed)
                         @php
                         switch($bed->bed_id){
                             case "0":
@@ -46,8 +46,8 @@
                         }
                         @endphp
                         {{$bed_type}}
-                        @endforeach
-                        </p>
+                    @endforeach
+                    </p>
                 </div>
                 <div class="col-lg-6">
                     <h4><strong>Room Amenities</strong></h4>
@@ -63,10 +63,7 @@
                     @foreach($room['amenities'] as $amenities)@php $n++; @endphp
                     @if($n <= 6)
                         @if($n == $exp)
-                        <li class="col-md-4" style="
-                                margin-bottom: 10px;
-                                clear: both;
-                                display: flex;">
+                        <li class="col-md-4" style="margin-bottom: 10px; clear: both; display: flex;">
                         @php $exp+= 3; @endphp
                         @else
                         <li class="col-xs-6 col-md-4 col-md-4" style="display: flex; padding-bottom: 10px;">

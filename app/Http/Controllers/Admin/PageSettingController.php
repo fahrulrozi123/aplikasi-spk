@@ -47,43 +47,41 @@ class PageSettingController extends Controller
         ]);
 
         $id = $request['id'];
-        $temp_photo = PagePhoto::where('page_id', $id)->get();
-        PagePhoto::where('page_id', $id)->forceDelete();
-
         if ($request['oldImg']) {
-            foreach ($temp_photo as $img) {
-                $check = false;
-                foreach ($request['oldImg'] as $oldImg) {
-                    if ($oldImg == $img->photo_path) {
-                        $check = true;
-                        break;
-                    }
-                }
-                if (!$check) {
-                    if (file_exists($this->path . '/' . $img->photo_path)) {
-                        File::delete($this->path . '/' . $img->photo_path);
-                    }
+            foreach ($request['oldImg'] as $img) {
+                $this->fileName = $img;
+                $checkPhotoTypes =  PagePhoto::where('photo_path', $this->fileName)->first();
+
+                if($checkPhotoTypes != null){
+                    PagePhoto::where('photo_path', $this->fileName)->update([
+                        'page_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
             }
+
+            $imgPhotoOld = $request['oldImg'];
+            $imgPhoto = PagePhoto::where('page_id', $id)->pluck('photo_path')->toArray();
+            $array = array_diff($imgPhoto, $imgPhotoOld);
+            foreach ($array as $img) {
+                File::delete($this->path . '/' . $img);
+            }
+            PagePhoto::where('page_id', $id)->whereNotIn('photo_path', $request['oldImg'])->forceDelete();
         }
 
-        if ($request['oldImg']) {
-            $data = array();
-            $temp = array();
-            $no = 0;
-            foreach ($request['oldImg'] as $img) {
-                if ($img == "new") {
-                    $file = $request->file('img')[$no];
-                    $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->move($this->path, $this->fileName);
-                    $no++;
-                } else {
-                    $this->fileName = $img;
+        //UPLOAD FOTO
+        if ($request->file('img')) {
+            foreach ($request->file('img') as $file) {
+                //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+                $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+                if ($file->move($this->path, $this->fileName)) {
+                    PagePhoto::create([
+                        'page_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
-                $temp = array('page_id' => $id, 'photo_path' => $this->fileName);
-                array_push($data, $temp);
             }
-            PagePhoto::insert($data);
         }
 
         PageSetting::where('id', $id)->update([

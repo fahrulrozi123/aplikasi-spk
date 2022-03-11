@@ -185,16 +185,15 @@ class RoomController extends Controller
     {
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
-        $temp_photo = Photo::where('room_id', $id)->get();
-        Photo::where('room_id', $id)->forceDelete();
 
         if ($request['room_amenities']) {
             $amenitiess = $request['room_amenities'];
             foreach ($amenitiess as $amenities) {
                 $checkAmenities =  RoomAmenities::where('amenities_id', $amenities)->first();
+                // dd($checkAmenities);
 
                 if($checkAmenities != null){
-                    RoomAmenities::where('amenities_id', $amenities)->update([
+                    RoomAmenities::where('room_id', $id)->orWhere('amenities_id', $amenities)->update([
                         'room_id' => $id,
                         'amenities_id' => $amenities
                     ]);
@@ -213,7 +212,7 @@ class RoomController extends Controller
                 $checkBedTypes =  Bed::where('bed_id', $bed_type)->first();
 
                 if($checkBedTypes != null){
-                    Bed::where('bed_id', $amenities)->update([
+                    Bed::where('bed_id', $bed_type)->update([
                         'room_id' => $id,
                         'bed_id' => $bed_type
                     ]);
@@ -227,39 +226,40 @@ class RoomController extends Controller
         }
 
         if ($request['oldImg']) {
-            foreach ($temp_photo as $img) {
-                $check = false;
-                foreach ($request['oldImg'] as $oldImg) {
-                    if ($oldImg == $img->photo_path) {
-                        $check = true;
-                        break;
-                    }
-                }
-                if (!$check) {
-                    if (file_exists($this->path . '/' . $img->photo_path)) {
-                        File::delete($this->path . '/' . $img->photo_path);
-                    }
+            foreach ($request['oldImg'] as $img) {
+                $this->fileName = $img;
+                $checkPhotoTypes =  Photo::where('photo_path', $this->fileName)->first();
+
+                if($checkPhotoTypes != null){
+                    Photo::where('photo_path', $this->fileName)->update([
+                        'room_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
             }
+
+            $imgPhotoOld = $request['oldImg'];
+            $imgPhoto = Photo::where('room_id', $id)->pluck('photo_path')->toArray();
+            $array = array_diff($imgPhoto, $imgPhotoOld);
+            foreach ($array as $img) {
+                File::delete($this->path . '/' . $img);
+            }
+            Photo::where('room_id', $id)->whereNotIn('photo_path', $request['oldImg'])->forceDelete();
         }
 
-        if ($request['oldImg']) {
-            $data = array();
-            $temp = array();
-            $no = 0;
-            foreach ($request['oldImg'] as $img) {
-                if ($img == "new") {
-                    $file = $request->file('img')[$no];
-                    $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->move($this->path, $this->fileName);
-                    $no++;
-                } else {
-                    $this->fileName = $img;
+        //UPLOAD FOTO
+        if ($request->file('img')) {
+            foreach ($request->file('img') as $file) {
+                //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+                $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+                if ($file->move($this->path, $this->fileName)) {
+                    Photo::create([
+                        'room_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
-                $temp = array('room_id' => $id, 'photo_path' => $this->fileName);
-                array_push($data, $temp);
             }
-            Photo::insert($data);
         }
 
         //UPDATE DATA

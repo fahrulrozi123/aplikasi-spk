@@ -148,9 +148,9 @@ $room_order = "";
                             @if(!isset($room))
                             @php
                             if($no % 2 != 0)
-                            $checked = "";
+                                $checked = in_array($amenities->id, old('room_amenities', [])) ? 'checked' : '';
                             else
-                            $checked = "";
+                                $checked = in_array($amenities->id, old('room_amenities', [])) ? 'checked' : '';
                             @endphp
                             @else
                             @foreach($room['amenities'] as $data_amenitites)
@@ -161,7 +161,7 @@ $room_order = "";
                             break;
                             }
                             else
-                            $checked = "";
+                            $checked = in_array($amenities->id, old('room_amenities', [])) ? 'checked' : '';
                             @endphp
                             @endforeach
                             @endif
@@ -460,8 +460,8 @@ $room_order = "";
 <script>
     // set future availibility
     var selectedAvailability = document.getElementById("future_availability");
-    selectedAvailability.value = "{{$room_future_availability}}";
-    document.getElementById("availability_{{$room_future_availability}}").classList.add("active");
+    selectedAvailability.value = "{{ old('room_future_availability', $room_future_availability) }}";
+    document.getElementById("availability_{{ old('room_future_availability', $room_future_availability) }}").classList.add("active");
 
     function setAvailability(value) {
         //find recently active product

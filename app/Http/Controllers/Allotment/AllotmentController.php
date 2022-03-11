@@ -29,9 +29,9 @@ class AllotmentController extends Controller
         $setting = $this->setting();
         $rooms = Type::orderBy('room_name')->with('photo')->get();
         if (count($rooms) > 0) {
-            return view('main_page.allotment.index', ['rooms' => $rooms, 'setting' => $setting]);
+            return view('main_page.allotment.index', get_defined_vars());
         } else {
-            return view('main_page.allotment.index');
+            return view('main_page.allotment.index', get_defined_vars());
         }
     }
 
@@ -140,7 +140,7 @@ class AllotmentController extends Controller
                             ->update($value);
                         }
                 } else {
-                    Allotment::insert($data);
+                    Allotment::create($data);
                 }
             } else {
                 foreach ($data as $key => $row) {
@@ -152,13 +152,13 @@ class AllotmentController extends Controller
                             ->where('allotment_date', $row['allotment_date'])
                             ->update($row);
                     } else {
-                        Allotment::insert($row);
+                        Allotment::create($row);
                     }
                 }
             }
 
         } else {
-            Allotment::insert($data);
+            Allotment::create($data);
             // return redirect()->route('allotment.index')->with('status', 'Allotment Baru Berhasil di Tambahkan');
         }
         // return redirect()->route('allotment.index')->with('status', 'Allotment Baru Berhasil di Tambahkan');
