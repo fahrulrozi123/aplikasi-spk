@@ -185,43 +185,26 @@ class RoomController extends Controller
     {
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
+        RoomAmenities::where('room_id', $id)->forceDelete();
+        Bed::where('room_id', $id)->forceDelete();
 
         if ($request['room_amenities']) {
             $amenitiess = $request['room_amenities'];
             foreach ($amenitiess as $amenities) {
-                $checkAmenities =  RoomAmenities::where('amenities_id', $amenities)->first();
-                // dd($checkAmenities);
-
-                if($checkAmenities != null){
-                    RoomAmenities::where('room_id', $id)->orWhere('amenities_id', $amenities)->update([
-                        'room_id' => $id,
-                        'amenities_id' => $amenities
-                    ]);
-                } else {
-                    RoomAmenities::create([
-						'room_id' => $id,
-                        'amenities_id' => $amenities
-					]);
-                }
+                RoomAmenities::create([
+                    'room_id' => $id,
+                    'amenities_id' => $amenities
+                ]);
             }
         }
 
         if ($request['bed_type']) {
             $bed_types = $request['bed_type'];
             foreach ($bed_types as $bed_type) {
-                $checkBedTypes =  Bed::where('bed_id', $bed_type)->first();
-
-                if($checkBedTypes != null){
-                    Bed::where('bed_id', $bed_type)->update([
-                        'room_id' => $id,
-                        'bed_id' => $bed_type
-                    ]);
-                } else {
-                    Bed::create([
-                        'room_id' => $id,
-                        'bed_id' => $bed_type
-                    ]);
-                }
+                Bed::create([
+                    'room_id' => $id,
+                    'bed_id' => $bed_type
+                ]);
             }
         }
 

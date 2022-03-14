@@ -217,15 +217,11 @@ class PackageController extends Controller
         $id = Crypt::decryptString($request['id']);
 
         if(Rsvp::where('product_id', $id)->exists()){
-            // return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has reservation']);
             return redirect()->route('package.index')->with('warning', 'Product cannot be delete because it has reservation');
-            // return response()->with('status', 'Product cannot be delete because it has reservation');
         }
 
         if(Inquiry::where('product_id', $id)->exists()){
-            // return response()->json(["status" => 422, "msg"=> 'Product cannot be delete because it has inquiry']);
             return redirect()->route('package.index')->with('warning', 'Product cannot be delete because it has inquiry');
-            // return response()->with('status', 'Product cannot be delete because it has reservation');
         }
 
         $temp_photo = Photos::where('product_id', $id)->get();
