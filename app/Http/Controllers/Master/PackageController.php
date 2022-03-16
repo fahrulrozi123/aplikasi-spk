@@ -125,8 +125,6 @@ class PackageController extends Controller
 
             //UPLOAD FOTO
             if($request->file('img')){
-                $data = array();
-                $temp = array();
                 foreach ($request->file('img') as $file) {
                     //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
                     $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -187,6 +185,21 @@ class PackageController extends Controller
                 File::delete($this->path . '/' . $img);
             }
             Photos::where('product_id', $id)->whereNotIn('product_photo_path', $request['oldImg'])->forceDelete();
+        }
+
+        //UPLOAD FOTO
+        if ($request->file('img')) {
+            foreach ($request->file('img') as $file) {
+                //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+                $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+                if ($file->move($this->path, $this->fileName)) {
+                    Photos::create([
+                        'product_id' => $id,
+                        'product_photo_path' => $this->fileName
+                    ]);
+                }
+            }
         }
 
         //UPDATE DATA

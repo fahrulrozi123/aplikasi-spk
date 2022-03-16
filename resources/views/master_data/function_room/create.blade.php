@@ -63,7 +63,8 @@ $func_publish_status = "";
                             <p><b>Status</b></p>
                             <div class="input-group">
                                 <div class="make-switch switch-small">
-                                    <input name="func_publish_status" type="checkbox" id="func_publish_status" {{ $func_publish_status }}>
+                                    <input name="func_publish_status" type="checkbox" id="func_publish_status" {{
+                                        $func_publish_status }}>
                                 </div>
                             </div><br>
                             @endif
@@ -188,9 +189,9 @@ $func_publish_status = "";
                                         </div>
                                         <p class="fr-modal-name">Dimension</p>
                                         <div class="col-xs-9 col-sm-9 input-box">
-                                            <input oninput="clear_partition();ambilRupiah(this);" type="text"
-                                                class="form-control" value="{{old('func_dimension', $func_dimension)}}"
-                                                id="func_dimension" placeholder="0" autocomplete="off" required>
+                                            <input oninput="ambilRupiah(this);" type="text" class="form-control"
+                                                value="{{old('func_dimension', $func_dimension)}}" id="func_dimension"
+                                                placeholder="0" autocomplete="off" required>
                                             <input type="hidden" name="func_dimension" id="func_dimension_value"
                                                 value="{{$func_dimension}}" />
                                         </div>
@@ -271,35 +272,51 @@ $func_publish_status = "";
                                         @php $no = 0; @endphp
                                         @foreach($function_room['partition'] as $partition)@php $no++; @endphp
                                         <tr id="partition_row_{{$no}}">
-                                            <td class="fr-modal-table-content"><input type="text" class="form-control"
-                                                    value="{{$partition->func_name}}" name="partition_name[]" id=""
-                                                    placeholder="" required=""></td>
-                                            <td class="fr-modal-table-content"><input oninput="check_dimension(this);"
-                                                    type="text" class="form-control partition_dimension"
-                                                    value="{{$partition->func_dimension}}" name="partition_dimension[]"
-                                                    id="" placeholder="" required=""></td>
-                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
-                                                    type="text" class="form-control numberValidation"
-                                                    value="{{$partition->func_class}}" name="partition_class[]" id=""
-                                                    placeholder="" required=""></td>
-                                            <td class="fr-modal-table-content"><input oninput="numberVal(this);"
-                                                    type="text" class="form-control numberValidation"
-                                                    value="{{$partition->func_theatre}}" name="partition_theatre[]"
-                                                    id="" placeholder="" required="">
+                                            <input type="hidden" id="partition_id"
+                                                name="partition[{{$no}}][partition_id] " value="{{ $partition->id }}">
+                                            <td class="fr-modal-table-content">
+                                                <input type="text" class="form-control"
+                                                    value="{{ $partition->func_name }}"
+                                                    name="partition[{{$no}}][partition_name]" id="" placeholder=""
+                                                    required="">
+                                            </td>
+                                            <td class="fr-modal-table-content">
+                                                <input oninput="check_dimension(this);" type="text"
+                                                    class="form-control partition_dimension"
+                                                    value="{{$partition->func_dimension}}"
+                                                    name="partition[{{$no}}][partition_dimension]" id="" placeholder=""
+                                                    required="">
+                                            </td>
+                                            <td class="fr-modal-table-content">
+                                                <input oninput="numberVal(this);" type="text"
+                                                    class="form-control numberValidation"
+                                                    value="{{$partition->func_class}}"
+                                                    name="partition[{{$no}}][partition_class]" id="" placeholder=""
+                                                    required="">
+                                            </td>
+                                            <td class="fr-modal-table-content">
+                                                <input oninput="numberVal(this);" type="text"
+                                                    class="form-control numberValidation"
+                                                    value="{{$partition->func_theatre}}"
+                                                    name="partition[{{$no}}][partition_theatre]" id="" placeholder=""
+                                                    required="">
                                             </td>
                                             <td class="fr-modal-table-content"><input oninput="numberVal(this);"
                                                     type="text" class="form-control numberValidation"
-                                                    value="{{$partition->func_ushape}}" name="partition_ushape[]" id=""
-                                                    placeholder="" required="">
+                                                    value="{{$partition->func_ushape}}"
+                                                    name="partition[{{$no}}][partition_ushape]" id="" placeholder=""
+                                                    required="">
                                             </td>
                                             <td class="fr-modal-table-content"><input oninput="numberVal(this);"
                                                     type="text" class="form-control numberValidation"
-                                                    value="{{$partition->func_board}}" name="partition_board[]" id=""
-                                                    placeholder="" required=""></td>
+                                                    value="{{$partition->func_board}}"
+                                                    name="partition[{{$no}}][partition_board]" id="" placeholder=""
+                                                    required=""></td>
                                             <td class="fr-modal-table-content"><input oninput="numberVal(this);"
                                                     type="text" class="form-control numberValidation"
-                                                    value="{{$partition->func_round}}" name="partition_round[]" id=""
-                                                    placeholder="" required=""></td>
+                                                    value="{{$partition->func_round}}"
+                                                    name="partition[{{$no}}][partition_round]" id="" placeholder=""
+                                                    required=""></td>
                                             <td class="fr-modal-table-content"><button
                                                     onclick="remove_partition({{$no}});" type="button"
                                                     class="btn btn-danger"><i class="entypo-trash"></i></button></td>
@@ -451,27 +468,27 @@ $func_publish_status = "";
         partition_total++;
         var html = '<tr id="partition_row_' + partition_total + '"+num>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control" value="" name="partition_name[]" id="" placeholder="" required></td>' +
+            '<input type="text" class="form-control" value="" name="partition[' + partition_total + '][partition_name]" id="" placeholder="TES" required></td>' +
             '<td class="fr-modal-table-content">' +
-            '<input oninput="check_dimension(this);" type="text" class="form-control partition_dimension numberValidation" value="" name="partition_dimension[]" id="" placeholder="" required></td>' +
+            '<input oninput="check_dimension(this);" type="text" class="form-control partition_dimension numberValidation" value="" name="partition[' + partition_total + '][partition_dimension]" id="" placeholder="TES2" required></td>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control" oninput="numberVal(this);" value="" name="partition_class[]"' +
+            '<input type="text" class="form-control" oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_class]"' +
             'id="" placeholder="" required>' +
             '</td>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition_theatre[]"' +
+            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_theatre]"' +
             'id="" placeholder="" required>' +
             '</td>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition_ushape[]"' +
+            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_ushape]"' +
             'id="" placeholder="" required>' +
             '</td>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition_board[]"' +
+            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_board]"' +
             'id="" placeholder="" required>' +
             '</td>' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition_round[]"' +
+            '<input type="text" class="form-control " oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_round]"' +
             'id="" placeholder="" required>' +
             '</td>' +
             '<td class="fr-modal-table-content">' +

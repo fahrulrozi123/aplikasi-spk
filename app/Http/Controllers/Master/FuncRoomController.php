@@ -33,6 +33,7 @@ class FuncRoomController extends Controller
         $setting = $this->setting();
 
         $function_rooms = FunctionRoom::with('partition')->with('photos')->where('func_head', null)->orderBy('created_at', 'DESC')->get();
+        // dd($function_rooms);
         if (count($function_rooms) > 0) {
             return view('master_data.function_room.indexisi', get_defined_vars());
         } else {
@@ -55,8 +56,7 @@ class FuncRoomController extends Controller
 
     public function insert(Request $request)
     {
-        $created_at = Carbon::now();
-
+        // dd($request->all());
         if ($request['form_action'] == "update") {
             $this->validate($request, [
                 'func_name' => 'required',
@@ -114,9 +114,10 @@ class FuncRoomController extends Controller
                 'func_publish_status' =>  1
             ]);
 
-            if (isset($request['partition_name'])) {
-                $partition_data = array();
-                for ($index = 0; $index < count($request['partition_name']); $index++) {
+            if (isset($request['partition'])) {
+                $resultPartitions = $request['partition'];
+
+                foreach ($resultPartitions as $resultPartition) {
                     //CREATE ID
                     $partition_id = rand($min = 1, $max = 9999);
                     $cek = FunctionRoom::where('id', $partition_id)->get();
@@ -126,42 +127,36 @@ class FuncRoomController extends Controller
                         $partition_id = rand($min = 1, $max = 9999);
                         $cek = FunctionRoom::where('id', $partition_id)->get();
                     }
-                    $row = array(
+
+                    FunctionRoom::create([
                         'id' => $partition_id,
-                        'func_name' => $request['partition_name'][$index],
+                        'func_name' => $resultPartition['partition_name'],
                         'func_room_desc' => "",
-                        'func_dimension' => $request['partition_dimension'][$index],
-                        'func_class' => $request['partition_class'][$index],
-                        'func_theatre' => $request['partition_theatre'][$index],
-                        'func_ushape' => $request['partition_ushape'][$index],
-                        'func_board' => $request['partition_board'][$index],
-                        'func_round' => $request['partition_round'][$index],
+                        'func_dimension' => $resultPartition['partition_dimension'],
+                        'func_class' => $resultPartition['partition_class'],
+                        'func_theatre' => $resultPartition['partition_theatre'],
+                        'func_ushape' => $resultPartition['partition_ushape'],
+                        'func_board' => $resultPartition['partition_board'],
+                        'func_round' => $resultPartition['partition_round'],
                         'func_head' => $id,
-                        'func_publish_status' =>  0
-                    );
-                    array_push($partition_data, $row);
+                        'func_publish_status' =>  1
+                    ]);
                 }
-                FunctionRoom::insert($partition_data);
             }
 
             //UPLOAD FOTO
             if ($request->file('img')) {
-                $data = array();
-                $temp = array();
                 foreach ($request->file('img') as $file) {
                     //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
                     $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                     //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
                     if ($file->move($this->path, $this->fileName)) {
-                        $temp = array(
+                        FunctionPhotos::create([
                             'function_room_id' => $id,
                             'photo_path' => $this->fileName,
-                            'created_at' => $created_at,
-                        );
-                        array_push($data, $temp);
+                        ]);
                     }
                 }
-                FunctionPhotos::insert($data);
             }
 
             return redirect()->route('function_room.index')->with('status', 'Function Room Baru Berhasil di Tambahkan');
@@ -186,44 +181,45 @@ class FuncRoomController extends Controller
 
     public function update($request)
     {
+        // dd($request->all());
         $id = Crypt::decryptString($request['id']);
         $temp_photo = FunctionPhotos::where('function_room_id', $id)->get();
-        FunctionPhotos::where('function_room_id', $id)->forceDelete();
 
         if ($request['oldImg']) {
-            foreach ($temp_photo as $img) {
-                $check = false;
-                foreach ($request['oldImg'] as $oldImg) {
-                    if ($oldImg == $img->photo_path) {
-                        $check = true;
-                        break;
-                    }
-                }
-                if (!$check) {
-                    if (file_exists($this->path . '/' . $img->photo_path)) {
-                        File::delete($this->path . '/' . $img->photo_path);
-                    }
+            foreach ($request['oldImg'] as $img) {
+                $this->fileName = $img;
+                $checkPhotoTypes =  FunctionPhotos::where('photo_path', $this->fileName)->first();
+
+                if($checkPhotoTypes != null){
+                    FunctionPhotos::where('photo_path', $this->fileName)->update([
+                        'function_room_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
             }
+
+            $imgPhotoOld = $request['oldImg'];
+            $imgPhoto = FunctionPhotos::where('function_room_id', $id)->pluck('photo_path')->toArray();
+            $array = array_diff($imgPhoto, $imgPhotoOld);
+            foreach ($array as $img) {
+                File::delete($this->path . '/' . $img);
+            }
+            FunctionPhotos::where('function_room_id', $id)->whereNotIn('photo_path', $request['oldImg'])->forceDelete();
         }
 
-        if ($request['oldImg']) {
-            $data = array();
-            $temp = array();
-            $no = 0;
-            foreach ($request['oldImg'] as $img) {
-                if ($img == "new") {
-                    $file = $request->file('img')[$no];
-                    $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $file->move($this->path, $this->fileName);
-                    $no++;
-                } else {
-                    $this->fileName = $img;
+        //UPLOAD FOTO
+        if ($request->file('img')) {
+            foreach ($request->file('img') as $file) {
+                //MEMBUAT NAME FILE DARI GABUNGAN TIMESTAMP DAN UNIQID()
+                $this->fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
+                if ($file->move($this->path, $this->fileName)) {
+                    FunctionPhotos::create([
+                        'function_room_id' => $id,
+                        'photo_path' => $this->fileName
+                    ]);
                 }
-                $temp = array('function_room_id' => $id, 'photo_path' => $this->fileName);
-                array_push($data, $temp);
             }
-            FunctionPhotos::insert($data);
         }
 
         //UPDATE DATA
@@ -250,37 +246,57 @@ class FuncRoomController extends Controller
             'func_publish_status' =>  $this->func_publish_status
         ]);
 
-        if (isset($request['partition_name'])) {
-            FunctionRoom::where('func_head', $id)->forceDelete();
-            $partition_data = array();
-            for ($index = 0; $index < count($request['partition_name']); $index++) {
-                //CREATE ID
-                $partition_id = rand($min = 1, $max = 9999);
-                $cek = FunctionRoom::where('id', $partition_id)->get();
+        if (isset($request['partition'])) {
+            $resultPartitions = $request['partition'];
+            // dd($partitionNames);
 
-                //GENERATE NEW ID IF EXIST
-                while (count($cek) > 0) {
-                    $partition_id = rand($min = 1, $max = 9999);
-                    $cek = FunctionRoom::where('id', $partition_id)->get();
+            foreach ($resultPartitions as $resultPartition) {
+                // dd($resultPartition['partition_id']);
+                $checkPartitionName =  FunctionRoom::where('id', $resultPartition['partition_id'])->first();
+
+                if($checkPartitionName != null){
+                    FunctionRoom::where('id', $resultPartition['partition_id'])->update([
+                        'func_name' => $resultPartition['partition_name'],
+                        'func_room_desc' => "",
+                        'func_dimension' => $resultPartition['partition_dimension'],
+                        'func_class' => $resultPartition['partition_class'],
+                        'func_theatre' => $resultPartition['partition_theatre'],
+                        'func_ushape' => $resultPartition['partition_ushape'],
+                        'func_board' => $resultPartition['partition_board'],
+                        'func_round' => $resultPartition['partition_round'],
+                        'func_head' => $id,
+                        'func_publish_status' =>  $this->func_publish_status
+                    ]);
+
+                } else {
+                    for ($index = 0; $index < count($request['partition_name']); $index++) {
+                        //CREATE ID
+                        $partition_id = rand($min = 1, $max = 9999);
+                        $cek = FunctionRoom::where('id', $partition_id)->get();
+
+                        //GENERATE NEW ID IF EXIST
+                        while (count($cek) > 0) {
+                            $partition_id = rand($min = 1, $max = 9999);
+                            $cek = FunctionRoom::where('id', $partition_id)->get();
+                        }
+
+                        FunctionRoom::create([
+                            'id' => $partition_id,
+                            'func_name' => $request['partition_name'][$index],
+                            'func_room_desc' => "",
+                            'func_dimension' => $request['partition_dimension'][$index],
+                            'func_class' => $request['partition_class'][$index],
+                            'func_theatre' => $request['partition_theatre'][$index],
+                            'func_ushape' => $request['partition_ushape'][$index],
+                            'func_board' => $request['partition_board'][$index],
+                            'func_round' => $request['partition_round'][$index],
+                            'func_head' => $id,
+                            'func_publish_status' =>  $this->func_publish_status
+                        ]);
+                    }
                 }
-                $row = array(
-                    'id' => $partition_id,
-                    'func_name' => $request['partition_name'][$index],
-                    'func_room_desc' => "",
-                    'func_dimension' => $request['partition_dimension'][$index],
-                    'func_class' => $request['partition_class'][$index],
-                    'func_theatre' => $request['partition_theatre'][$index],
-                    'func_ushape' => $request['partition_ushape'][$index],
-                    'func_board' => $request['partition_board'][$index],
-                    'func_round' => $request['partition_round'][$index],
-                    'func_head' => $id,
-                    'func_publish_status' =>  0
-                );
-                array_push($partition_data, $row);
             }
-            FunctionRoom::insert($partition_data);
         }
-
     }
 
     //DELETE DATA
@@ -294,6 +310,7 @@ class FuncRoomController extends Controller
         $temp_photo = FunctionPhotos::where('function_room_id', $id)->get();
         FunctionPhotos::where('function_room_id', $id)->forceDelete();
         FunctionRoom::where('id', $id)->forceDelete();
+        FunctionRoom::where('func_head', $id)->forceDelete();
 
         foreach ($temp_photo as $img) {
             File::delete($this->path . '/' . $img->product_photo_path);

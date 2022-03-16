@@ -140,7 +140,9 @@ class AllotmentController extends Controller
                             ->update($value);
                         }
                 } else {
-                    Allotment::create($data);
+                    foreach ($data as $key => $value) {
+                        Allotment::create($value);
+                    }
                 }
             } else {
                 foreach ($data as $key => $row) {

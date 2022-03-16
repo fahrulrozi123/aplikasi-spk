@@ -185,26 +185,48 @@ class RoomController extends Controller
     {
         $requestid = $request['id'];
         $id = Crypt::decryptString($requestid);
-        RoomAmenities::where('room_id', $id)->forceDelete();
-        Bed::where('room_id', $id)->forceDelete();
 
         if ($request['room_amenities']) {
             $amenitiess = $request['room_amenities'];
+             // Delete Amenities
+            RoomAmenities::where('room_id', $id)->whereNotIn('amenities_id', $amenitiess)->forceDelete();
+
             foreach ($amenitiess as $amenities) {
-                RoomAmenities::create([
-                    'room_id' => $id,
-                    'amenities_id' => $amenities
-                ]);
+                $checkAmenities =  RoomAmenities::where('room_id', $id)->where('amenities_id', $amenities)->first();
+
+                if($checkAmenities != null){
+                    RoomAmenities::where('room_id', $id)->where('amenities_id', $amenities)->update([
+                        'room_id' => $id,
+                        'amenities_id' => $amenities
+                    ]);
+                } else {
+                    RoomAmenities::create([
+						'room_id' => $id,
+                        'amenities_id' => $amenities
+					]);
+                }
             }
         }
 
         if ($request['bed_type']) {
             $bed_types = $request['bed_type'];
+            // Delete Bed
+            Bed::where('room_id', $id)->where('bed_id', $bed_types)->forceDelete();
+
             foreach ($bed_types as $bed_type) {
-                Bed::create([
-                    'room_id' => $id,
-                    'bed_id' => $bed_type
-                ]);
+                $checkBedTypes =  Bed::where('room_id', $id)->where('bed_id', $bed_type)->first();
+
+                if($checkBedTypes != null){
+                    Bed::where('bed_id', $bed_type)->update([
+                        'room_id' => $id,
+                        'bed_id' => $bed_type
+                    ]);
+                } else {
+                    Bed::create([
+                        'room_id' => $id,
+                        'bed_id' => $bed_type
+                    ]);
+                }
             }
         }
 

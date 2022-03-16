@@ -484,7 +484,7 @@ class ReserveController extends Controller
 
     public function get_product()
     {
-        $products = Product::select(DB::raw('DISTINCT category'))->orderBy('category')->get();
+        $products = Product::where('product_publish_status', 1)->select(DB::raw('DISTINCT category'))->orderBy('category')->get();
 
         foreach ($products as $key => $value) {
             $value['product'] = [];

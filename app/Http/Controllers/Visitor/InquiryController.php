@@ -38,7 +38,7 @@ class InquiryController extends Controller
         $spas = Product::select('id', 'product_name')->where('category', '2')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
         $mices = Product::select('id', 'product_name')->where('category', '3')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
         $weddings = Product::select('id', 'product_name')->where('category', '4')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
-        $function_rooms = FunctionRoom::orderBy('func_name')->get();
+        $function_rooms = FunctionRoom::where('func_publish_status', 1)->orderBy('func_name')->get();
 
         $menu = $this->menu();
         $setting = $this->setting();
