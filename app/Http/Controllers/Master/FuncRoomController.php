@@ -248,10 +248,24 @@ class FuncRoomController extends Controller
 
         if (isset($request['partition'])) {
             $resultPartitions = $request['partition'];
-            // dd($partitionNames);
+            // dd($resultPartitions);
+            $collectPartition = [];
 
             foreach ($resultPartitions as $resultPartition) {
-                // dd($resultPartition['partition_id']);
+                if($resultPartition['partition_id'] != null) {
+                    array_push($collectPartition, $resultPartition['partition_id']);
+                }
+            }
+
+            // Delete Function Partition
+            FunctionRoom::whereNotNull('func_head')->whereNotIn('id', $collectPartition)->forceDelete();
+
+            foreach ($resultPartitions as $resultPartition) {
+
+                // if($resultPartition['partition_id'] != null) {
+                //     array_push($collectPartition, $resultPartition['partition_id']);
+                // }
+
                 $checkPartitionName =  FunctionRoom::where('id', $resultPartition['partition_id'])->first();
 
                 if($checkPartitionName != null){
@@ -267,35 +281,35 @@ class FuncRoomController extends Controller
                         'func_head' => $id,
                         'func_publish_status' =>  $this->func_publish_status
                     ]);
-
                 } else {
-                    for ($index = 0; $index < count($request['partition_name']); $index++) {
-                        //CREATE ID
+                    // dd('masuk sini');
+                    //CREATE ID
+                    $partition_id = rand($min = 1, $max = 9999);
+                    $cek = FunctionRoom::where('id', $partition_id)->get();
+
+                    //GENERATE NEW ID IF EXIST
+                    while (count($cek) > 0) {
                         $partition_id = rand($min = 1, $max = 9999);
                         $cek = FunctionRoom::where('id', $partition_id)->get();
-
-                        //GENERATE NEW ID IF EXIST
-                        while (count($cek) > 0) {
-                            $partition_id = rand($min = 1, $max = 9999);
-                            $cek = FunctionRoom::where('id', $partition_id)->get();
-                        }
-
-                        FunctionRoom::create([
-                            'id' => $partition_id,
-                            'func_name' => $request['partition_name'][$index],
-                            'func_room_desc' => "",
-                            'func_dimension' => $request['partition_dimension'][$index],
-                            'func_class' => $request['partition_class'][$index],
-                            'func_theatre' => $request['partition_theatre'][$index],
-                            'func_ushape' => $request['partition_ushape'][$index],
-                            'func_board' => $request['partition_board'][$index],
-                            'func_round' => $request['partition_round'][$index],
-                            'func_head' => $id,
-                            'func_publish_status' =>  $this->func_publish_status
-                        ]);
                     }
+
+                    FunctionRoom::create([
+                        'id' => $partition_id,
+                        'func_name' => $resultPartition['partition_name'],
+                        'func_room_desc' => "",
+                        'func_dimension' => $resultPartition['partition_dimension'],
+                        'func_class' => $resultPartition['partition_class'],
+                        'func_theatre' => $resultPartition['partition_theatre'],
+                        'func_ushape' => $resultPartition['partition_ushape'],
+                        'func_board' => $resultPartition['partition_board'],
+                        'func_round' => $resultPartition['partition_round'],
+                        'func_head' => $id,
+                        'func_publish_status' =>  1
+                    ]);
                 }
             }
+        } else {
+            FunctionRoom::where('func_head', $id)->forceDelete();
         }
     }
 
@@ -313,7 +327,7 @@ class FuncRoomController extends Controller
         FunctionRoom::where('func_head', $id)->forceDelete();
 
         foreach ($temp_photo as $img) {
-            File::delete($this->path . '/' . $img->product_photo_path);
+            File::delete($this->path . '/' . $img->photo_path);
         }
 
         return redirect()->route('function_room.index')->with('status', 'Data Function Room Berhasil Dihapus');

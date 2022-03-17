@@ -26,7 +26,7 @@
             <div class="col-sm-6">
                     <article class="album">
                         <header>
-                            <a href="/news_detail/{{$news->id}}" target="_blank" type="button" >
+                            <a href="/newsletter/{{ $news->news_slug }}" target="_blank" type="button" >
                                 <img class="news-first" src="{{asset('/user/'.$news->news_photo_path)}}" loading="lazy" />
                             </a>
                             <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">
@@ -48,7 +48,7 @@
                     <div class="col-sm-3">
                         <article class="album">
                             <header>
-                                <a type="button"  href="/news_detail/{{$news->id}}" target="_blank" >
+                                <a type="button"  href="/newsletter/{{ $news->news_slug }}" target="_blank" >
                                     <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-second" loading="lazy" />
                                 </a>
                                 <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">
@@ -73,7 +73,7 @@
                     <div class="col-sm-4">
                         <article class="album">
                             <header>
-                                <a type="button"  href="/news_detail/{{$news->id}}" target="_blank">
+                                <a type="button"  href="/newsletter/{{ $news->news_slug }}" target="_blank">
                                     <img src="{{asset('/user/'.$news->news_photo_path)}}" class="news-third" loading="lazy" />
                                 </a>
                                 <a href="/master_data/news/edit/{{Crypt::encryptString($news->id)}}" class="album-options-2">

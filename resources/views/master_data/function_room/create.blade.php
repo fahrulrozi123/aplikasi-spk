@@ -273,7 +273,7 @@ $func_publish_status = "";
                                         @foreach($function_room['partition'] as $partition)@php $no++; @endphp
                                         <tr id="partition_row_{{$no}}">
                                             <input type="hidden" id="partition_id"
-                                                name="partition[{{$no}}][partition_id] " value="{{ $partition->id }}">
+                                                name="partition[{{$no}}][partition_id]" value="{{ $partition->id }}">
                                             <td class="fr-modal-table-content">
                                                 <input type="text" class="form-control"
                                                     value="{{ $partition->func_name }}"
@@ -467,10 +467,11 @@ $func_publish_status = "";
     function add_partition() {
         partition_total++;
         var html = '<tr id="partition_row_' + partition_total + '"+num>' +
+            '<input type="hidden" id="partition_id" name="partition[' + partition_total + '][partition_id]" value="">' +
             '<td class="fr-modal-table-content">' +
-            '<input type="text" class="form-control" value="" name="partition[' + partition_total + '][partition_name]" id="" placeholder="TES" required></td>' +
+            '<input type="text" class="form-control" value="" name="partition[' + partition_total + '][partition_name]" id="" placeholder="" required></td>' +
             '<td class="fr-modal-table-content">' +
-            '<input oninput="check_dimension(this);" type="text" class="form-control partition_dimension numberValidation" value="" name="partition[' + partition_total + '][partition_dimension]" id="" placeholder="TES2" required></td>' +
+            '<input oninput="check_dimension(this);" type="text" class="form-control partition_dimension numberValidation" value="" name="partition[' + partition_total + '][partition_dimension]" id="" placeholder="" required></td>' +
             '<td class="fr-modal-table-content">' +
             '<input type="text" class="form-control" oninput="numberVal(this);" value="" name="partition[' + partition_total + '][partition_class]"' +
             'id="" placeholder="" required>' +
