@@ -171,7 +171,7 @@
                 <b>{{$function->func_name}}</b></h2>
             @if(strlen($function->func_room_desc) > 100)
             <p class="line-clamp-3" style="margin-bottom: 5px;">
-                {!! substr($function->func_room_desc, 0, 145)."..."!!}
+                {!! strip_tags(substr($function->func_room_desc, 0, 145)."...") !!}
             </p>
             <a href="/function-room/{{ $function->func_room_slug }}"
                 style="font-size: 13px; color: #444444; margin-left: 20px;">
@@ -179,7 +179,8 @@
             </a>
             @else
             <p class="line-clamp-3" style="margin-bottom: 5px;">
-                {!! $function->func_room_desc !!}</p>
+                {!! strip_tags($function->func_room_desc) !!}
+            </p>
             @endif
         </div><br>
 

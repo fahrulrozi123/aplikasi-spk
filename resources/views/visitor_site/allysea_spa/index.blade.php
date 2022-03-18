@@ -122,13 +122,15 @@
                         <h4><b class="line-clamp-1"> {{ $spa->product_name }}</b></h4>
                         @if(strlen($spa->product_detail) > 100)
                         <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                            {!! substr($spa->product_detail, 0, 100)."..." !!}
+                            {!! strip_tags(substr($spa->product_detail, 0, 100)."...") !!}
                         </h5>
                         <a href="/wellness/{{ $spa->product_slug }}" class="font-secondary" style="font-size: 11px;">
                             <i><u>See more description</u></i>
                         </a>
                         @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{!! $spa->product_detail !!}</h5>
+                            <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">
+                                {!! strip_tags($spa->product_detail) !!}
+                            </h5>
                         @endif
 
                         @if($spa->sales_inquiry == "0")

@@ -49,11 +49,11 @@
                     <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
                     @if(strlen($products[$i]->product_detail) > 500)
                     <p class="mt line-clamp-8">
-                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                        {!! strip_tags(substr($products[$i]->product_detail, 0, 540)."...") !!}
                     </p>
                     @else
                     <p class="mt line-clamp-8">
-                        {!! $products[$i]->product_detail !!}</p>
+                        {!! strip_tags($products[$i]->product_detail) !!}</p>
                     @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -91,11 +91,11 @@
                     <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
                     @if(strlen($products[$i]->product_detail) > 500)
                     <p class="mt line-clamp-8">
-                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                        {!! strip_tags(substr($products[$i]->product_detail, 0, 540)."...") !!}
                     </p>
                     @else
                     <p class="mt line-clamp-8">
-                        {!! $products[$i]->product_detail !!}</p>
+                        {!! strip_tags($products[$i]->product_detail) !!}</p>
                     @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">
@@ -133,11 +133,11 @@
                     <h4 class="mb"><strong>{{$products[$i]->product_name}}</strong></h4>
                     @if(strlen($products[$i]->product_detail) > 500)
                     <p class="mt line-clamp-8">
-                        {!! substr($products[$i]->product_detail, 0, 540)."..."!!}
+                        {!! strip_tags(substr($products[$i]->product_detail, 0, 540)."...") !!}
                     </p>
                     @else
                     <p class="mt line-clamp-8">
-                        {!! $products[$i]->product_detail !!}</p>
+                        {!! strip_tags($products[$i]->product_detail) !!}</p>
                     @endif
                 </div>
                 <div class="col-lg-4 col-sm-12">

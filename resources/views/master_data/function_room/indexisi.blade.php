@@ -54,9 +54,9 @@
                     <div class="col-lg-4">
                         <h4 style="margin-bottom:-5px;"><b>{{$function_room->func_name}}</b></h4>
                         @if(strlen($function_room->func_room_desc) > 350)
-                            <p class="mt line-clamp-8" style="text-align:justify;">{!! substr($function_room->func_room_desc, 0, 350)."..." !!}</p>
+                            <p class="mt line-clamp-8" style="text-align:justify;">{!! strip_tags(substr($function_room->func_room_desc, 0, 350)."...") !!}</p>
                         @else
-                            <p class="mt line-clamp-8" style="text-align:justify;">{!! $function_room->func_room_desc !!}</p>
+                            <p class="mt line-clamp-8" style="text-align:justify;">{!! strip_tags($function_room->func_room_desc) !!}</p>
                         @endif
                         <br>
                     </div>

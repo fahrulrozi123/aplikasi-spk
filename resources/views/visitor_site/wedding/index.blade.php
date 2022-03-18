@@ -122,12 +122,13 @@
                         <h4><b class="line-clamp-1"> {{ $mice->product_name }}</b></h4>
                         @if(strlen($mice->product_detail) > 100)
                         <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                            {!! substr($mice->product_detail, 0, 100)."..." !!}
+                            {!! strip_tags(substr($mice->product_detail, 0, 100)."...") !!}
                         </h5>
                         <a href="/wedding/{{ $mice->product_slug }}" class="font-secondary"
                             style="font-size: 11px;"><i><u>See more description</u></i></a>
                         @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{!! $mice->product_detail !!}
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
+                            {!! strip_tags($mice->product_detail) !!}
                         </h5>
                         @endif
 

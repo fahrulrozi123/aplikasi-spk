@@ -151,14 +151,14 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                         @endforeach</i> </p> </div> <div class="col-xs-12 col-md-12" style="margin-top: 20px;">
                                         @if(strlen($room->room_desc) > 100)
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
-                                            {!! substr($room->room_desc, 0, 100)."..." !!}
+                                            {!! strip_tags(substr($room->room_desc, 0, 100)."...") !!}
                                         </p>
                                             <a href="/rooms/{{ $room->room_slug }}" class="text-horison{{$font_color}}" style="font-size:13px;">
                                                 <i><u>See more description</u></i>
                                             </a>
                                         @else
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
-                                        {!! $room->room_desc !!}
+                                            {!! strip_tags(substr($room->room_desc)) !!}
                                         </p>
                                         @endif
                         </div>

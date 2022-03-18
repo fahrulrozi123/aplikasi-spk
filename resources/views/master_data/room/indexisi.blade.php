@@ -21,9 +21,9 @@
                 <div class="col-lg-3">
                     <h4 class="mb"><strong>{{ $room->room_name }}</strong></h4>
                     @if(strlen($room->room_desc) > 350)
-                        <p class="mt line-clamp-8" style="text-align:justify;">{!! substr($room->room_desc, 0, 350)."..." !!}</p>
+                        <p class="mt line-clamp-8" style="text-align:justify;">{!! strip_tags(substr($room->room_desc, 0, 350)."...") !!}</p>
                     @else
-                        <p class="mt line-clamp-8" style="text-align:justify;">{!! $room->room_desc !!}</p>
+                        <p class="mt line-clamp-8" style="text-align:justify;">{!! strip_tags($room->room_desc) !!}</p>
                     @endif
 
                     <h4 class="mb"><strong>Bed Type(s)</strong></h4>
