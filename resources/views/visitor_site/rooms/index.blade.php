@@ -158,7 +158,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                             </a>
                                         @else
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
-                                            {!! strip_tags(substr($room->room_desc)) !!}
+                                            {!! strip_tags($room->room_desc) !!}
                                         </p>
                                         @endif
                         </div>
