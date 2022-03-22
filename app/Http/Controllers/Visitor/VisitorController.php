@@ -351,10 +351,6 @@ class VisitorController extends Controller
             return abort(404);
         }
 
-        if (Product::where('product_publish_status', 0)) {
-            return abort(404);
-        }
-
         $product = Product::where('product_slug', $slug)->with('photos')->first();
 
         $data = (object) array(
@@ -370,7 +366,7 @@ class VisitorController extends Controller
             array_push($photos, $temp);
         }
 
-        return view('visitor_site.allysea_spa.details', get_defined_vars());
+        return view('visitor_site.mice.details', get_defined_vars());
     }
 
     public function newsletter()
