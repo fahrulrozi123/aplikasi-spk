@@ -16,5 +16,5 @@ require_once __DIR__ . '/Routes/main_page/routes.php';
 require_once __DIR__ . '/Routes/master_data/routes.php';
 require_once __DIR__ . '/Routes/notification/routes.php';
 require_once __DIR__ . '/Routes/reservation/routes.php';
-require_once __DIR__ . '/Routes/testing/routes.php';
+// require_once __DIR__ . '/Routes/testing/routes.php';
 require_once __DIR__ . '/Routes/visitor/routes.php';

@@ -210,12 +210,14 @@ class RoomController extends Controller
 
         if ($request['bed_type']) {
             $bed_types = $request['bed_type'];
+            // Delete Bed
+            Bed::where('room_id', $id)->whereNotIn('bed_id', $bed_types)->forceDelete();
 
             foreach ($bed_types as $bed_type) {
-                $checkBedTypes =  Bed::where('room_id', $id)->first();
+                $checkBedTypes =  Bed::where('room_id', $id)->where('bed_id', $bed_types)->first();
 
                 if($checkBedTypes != null){
-                    Bed::where('room_id', $id)->update([
+                    Bed::where('room_id', $id)->where('bed_id', $bed_types)->update([
                         'room_id' => $id,
                         'bed_id' => $bed_type
                     ]);

@@ -1,10 +1,9 @@
 <?php
-//AUTH LOGIN//
+//Auth Login//
 // Auth::routes();
 Route::get('enter_site', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('enter_site', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 
@@ -12,6 +11,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         return abort(404);
     });
 
+    // Dashboard
     Route::get('/admin_site', 'Dashboard\HomeController@index')->name('admin.index');
     Route::get('/dashboard', 'Dashboard\HomeController@index')->name('admin.index');
 
@@ -20,10 +20,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard/offline_product_today', 'Dashboard\HomeController@offline_product_today')->name('dashboard.offline_product_today');
     Route::get('/dashboard/room_today', 'Dashboard\HomeController@room_today')->name('dashboard.room_today');
 
-    //REPORT//
+    // Report
     Route::get('/main_page/report', 'Admin\ReportController@report');
 
-    //FOR DOWNLOAD REPORT
+    // For Download Report
     Route::post('/main_page/report/download', ['as' => 'report.download', 'uses' => 'Reservation\ReservationController@export']);
 
     // Reservation Report //

@@ -34,11 +34,11 @@ class PaymentController extends Controller
 
         $client = new Client();
 
-        // cek url endpoint production or development
+        // check url endpoint production or development
         if(config('faspay.endpoint') == true) {
             $url = 'https://web.faspay.co.id/cvr/100001/10';
         } else if (config('faspay.endpoint') == false) {
-            $url = 'https://dev.faspay.co.id/cvr/100001/10';
+            $url = 'https://debit-sandbox.faspay.co.id/cvr/100001/10';
         }
 
         $response = $client->post($url, [

@@ -1,29 +1,41 @@
 <?php
-// test email rsvp
-Route::get('/test-email-rsvp', 'Payment\TestingController@testEmailRsvp');
 
-// test email inquiry
-Route::get('/test-email-inquiry', 'Payment\TestingController@testEmailInquiry');
+Route::group(['middleware' => ['web']], function () {
 
-// test payment debit
-Route::get('/test-payment-debit','Payment\TestingController@paymentNotificationDebit')->name('test.debit.payment');
+    Route::group(['prefix' => 'test'], function() {
+        // TESTING FEATURE
+        // Test Email RSVP
+        Route::get('/email-rsvp', 'Testing\TestingFeatureController@testEmailRsvp');
 
-// test payment credit
-Route::get('/test-payment-credit','Payment\TestingController@paymentNotificationCredit')->name('test.credit.payment');
+        // Test Email Inquiry
+        Route::get('/email-inquiry', 'Testing\TestingFeatureController@testEmailInquiry');
 
-// check payment debit
-Route::get('/check-payment-debit','Payment\TestingController@checkPaymentDebit');
-Route::post('/status-payment-debit','Payment\TestingController@resultPaymentDebit')->name('status.payment.debit');
+        // Check Allotment
+        Route::get('/check-allotment','Testing\TestingFeatureController@checkAllotment');
+        // END TESTING FEATURE
 
-// check payment credit
-Route::get('/check-payment-credit','Payment\TestingController@checkPaymentCredit');
-Route::post('/status-payment-credit','Payment\TestingController@resultPaymentCredit')->name('status.payment.credit');
+        // TESTING PAYMENT
+        // Payment Channel Inquiry
+        Route::get('/list-payment','Testing\TestingPaymentController@paymentChannel');
+        // Result One Payment Code
+        Route::get('/one-list-payment','Testing\TestingPaymentController@onePaymentChannel');
 
-// result one payment code
-Route::get('/one-list-payment','Payment\TestingController@onePaymentChannel');
+        // Check Payment Debit
+        Route::get('/check-payment-debit','Testing\TestingPaymentController@checkPaymentDebit');
+        Route::post('/status-payment-debit','Testing\TestingPaymentController@resultPaymentDebit')->name('status.payment.debit');
 
-// check payment bca klikpay
-Route::get('/check-payment-klikpay','Payment\TestingController@checkPaymentKlikpay');
+        // Check Payment Credit
+        Route::get('/check-payment-credit','Testing\TestingPaymentController@checkPaymentCredit');
+        Route::post('/status-payment-credit','Testing\TestingPaymentController@resultPaymentCredit')->name('status.payment.credit');
 
-// check allotment
-Route::get('/check-allotment','Payment\TestingController@checkAllotment');
+        // Check Payment BCA Klikpay
+        Route::get('/check-payment-klikpay','Testing\TestingPaymentController@checkPaymentKlikpay');
+
+        // Test Payment Notification Debit
+        Route::get('payment-notify-debit','Testing\TestingPaymentController@paymentNotificationDebit')->name('test.payment.debit');
+        // Test Payment Notification Credit
+        Route::get('payment-notify-credit','Testing\TestingPaymentController@paymentNotificationCredit')->name('test.payment.credit');
+        // END TESTING PAYMENT
+    });
+
+});
