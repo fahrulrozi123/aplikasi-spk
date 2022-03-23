@@ -78,9 +78,9 @@ class ReservationController extends Controller
             SELECT
                 customer_id,
                 customer.cust_email,
-                CONCAT(created_at, ' ', rsvp_cust_name) AS cust_name,
-                CONCAT(created_at, ' ', rsvp_cust_phone) AS cust_phone,
-                created_at
+                CONCAT(room_reservation.created_at, ' ', rsvp_cust_name) AS cust_name,
+                CONCAT(room_reservation.created_at, ' ', rsvp_cust_phone) AS cust_phone,
+                room_reservation.created_at
             FROM
                 room_reservation
             JOIN customer ON customer_id = customer.id
@@ -94,9 +94,9 @@ class ReservationController extends Controller
         SELECT
             customer_id,
             customer.cust_email,
-            CONCAT(created_at, ' ', rsvp_cust_name) AS cust_name,
-            CONCAT(created_at, ' ', rsvp_cust_phone) AS cust_phone,
-            created_at
+            CONCAT(product_rsvp.created_at, ' ', rsvp_cust_name) AS cust_name,
+            CONCAT(product_rsvp.created_at, ' ', rsvp_cust_phone) AS cust_phone,
+            product_rsvp.created_at
         FROM
             product_rsvp
         JOIN customer ON customer_id = customer.id
@@ -110,9 +110,9 @@ class ReservationController extends Controller
         SELECT
             customer_id,
             customer.cust_email,
-            CONCAT(created_at, ' ', inq_cust_name) AS cust_name,
-            CONCAT(created_at, ' ', inq_cust_phone) AS cust_phone,
-            created_at
+            CONCAT(inquiry.created_at, ' ', inq_cust_name) AS cust_name,
+            CONCAT(inquiry.created_at, ' ', inq_cust_phone) AS cust_phone,
+            inquiry.created_at
         FROM
             inquiry
         JOIN customer ON customer_id = customer.id
@@ -120,8 +120,7 @@ class ReservationController extends Controller
             customer_id IS NOT NULL
         ) a
         WHERE created_at BETWEEN '" . $start_date . "' AND '" . $end_date . "'
-        GROUP BY
-            customer_id,cust_email";
+        GROUP BY customer_id,cust_email";
         $data = DB::select(DB::raw($query));
         return $data;
     }
@@ -210,7 +209,7 @@ class ReservationController extends Controller
                         rsvp_status IN ('Payment received' ,'Cancellation fee')
                         AND
                         rsvp_checkin BETWEEN '" . $start_date . "' AND '" . $end_date . "'
-                        ORDER BY created_at ASC";
+                        ORDER BY room_reservation.created_at ASC";
 
         $rsvp = DB::select(DB::raw($query));
         $data['rsvp'] = $rsvp;
