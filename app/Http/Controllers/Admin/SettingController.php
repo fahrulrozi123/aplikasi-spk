@@ -67,7 +67,7 @@ class SettingController extends Controller
             //UPLOAD ORIGINAN FILE (BELUM DIUBAH DIMENSINYA)
             $file->move($this->path,$this->fileName);
             Setting::where('id', $id)->update([
-                'favicon'            => $this->fileName
+                'favicon' => $this->fileName
             ]);
         }
 

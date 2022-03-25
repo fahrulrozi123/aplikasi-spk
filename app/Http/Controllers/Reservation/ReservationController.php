@@ -712,7 +712,6 @@ class ReservationController extends Controller
         return Excel::download($export, $name);
     }
 
-
     public function allotment_export_excel(Request $request)
     {
         $allotment = json_decode($request['allotment_data'], true);
@@ -722,5 +721,4 @@ class ReservationController extends Controller
         $name = "allotment_report-" . $today . ".xlsx";
         return Excel::download($export, $name);
     }
-
 }

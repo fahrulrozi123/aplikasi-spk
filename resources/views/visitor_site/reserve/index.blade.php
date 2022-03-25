@@ -152,30 +152,6 @@
 
                                                         <div class="row">
 
-                                                            {{-- <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for=""
-                                                                        style="font-size:12px; font-weight:normal;">Identification
-                                                                        Card</label>
-                                                                    <select id="id_card" class="form-control"
-                                                                        placeholder="Identity Card">
-                                                                        <option value="Identity Card">Identity Card</option>
-                                                                        <option value="Driver License">Driver License</option>
-                                                                        <option value="Passport">Passport</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="control-label" for="number"
-                                                                        style="font-size:12px; font-weight:normal;">Identification
-                                                                        Number</label>
-                                                                    <input class="form-control visitor-input alphanumericValidation" type="text" autocomplete="off"
-                                                                        id="id_number" maxlength="30"
-                                                                        placeholder="Ex : 321815648126132" >
-                                                                </div>
-                                                            </div> --}}
-
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="control-label" for="email"
@@ -435,21 +411,18 @@
                                                                 {{csrf_field()}}
 
                                                                 <ul class="nav nav-tabs bordered">
-                                                                    <!-- available classes "bordered", "right-aligned" -->
-                                                                    <li>
-                                                                        <a href="#bank" data-toggle="tab" class="bg-primary font-primary">
+                                                                    <li class="bg-primary active">
+                                                                        <a data-toggle="tab" href="#bank" class="font-primary">
                                                                             <span><i class="fa fa-archive"></i></span>
                                                                             <span class="hidden-xs">Bank Transfer</span>
                                                                         </a>
                                                                     </li>
-
-                                                                    <li>
-                                                                        <a href="#credit" data-toggle="tab" class="bg-primary font-primary">
-                                                                            <span><i class="fa fa-credit-card""></i></span>
-                                                                            <span class="hidden-xs"">Credit Card</span>
+                                                                    <li class="bg-primary">
+                                                                        <a data-toggle="tab" href="#credit" class="font-primary">
+                                                                            <span><i class="fa fa-credit-card"></i></span>
+                                                                            <span class="hidden-xs">Credit Card</span>
                                                                         </a>
                                                                     </li>
-
                                                                 </ul>
 
                                                                 <div class="tab-content credittab" >
@@ -507,7 +480,7 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <ul class="form-group">
-                                                                                        <li>You’ll be redirected and will be given 10 minutes to enter your credit card credential.</li>
+                                                                                        <li>You’ll be redirected and will be given 1 hour to enter your credit card credential.</li>
                                                                                         <li>You can’t change your payment method after you’ve confirmed this process.</li>
                                                                                     </ul>
                                                                                 </div>
@@ -1123,6 +1096,15 @@
 
             $('#logo_horison').show();
         }
+
+        // SET ACTIVE TAB
+        $(document).ready(function(){
+            activaTab('bank');
+        });
+
+        function activaTab(tab){
+            $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+        };
 
         // CREATE TIMER
         const timezz = new TimezZ('.timez', {

@@ -133,7 +133,7 @@ class ReserveController extends Controller
         $allGrandTotal = 0;
         $data = array();
         $created_at = Carbon::now();
-        $expired_at = Carbon::now()->addMinutes(20);
+        $expired_at = Carbon::now()->addHours(1);
         for ($j = 0; $j < ($totalDays); $j++) {
             $rsvpDateReserve = Carbon::parse($checkIn)->addDays($j)->format('Y-m-d');
             if ($breakfast == 0) {
