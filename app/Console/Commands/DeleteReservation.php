@@ -60,6 +60,5 @@ class DeleteReservation extends Command
             array_push($product_id, $value->rsvp_id);
         }
         ProductRsvp::where('expired_at','<', Carbon::now())->whereIn('reservation_id', $product_id)->update(['rsvp_status' => "Failed"]);
-
     }
 }
