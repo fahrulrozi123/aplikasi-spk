@@ -547,7 +547,7 @@ class ReserveController extends Controller
     public function input_product($booking_id, $product, $date)
     {
         $created_at = Carbon::now();
-        $expired_at = Carbon::now()->addMinutes(20);
+        $expired_at = Carbon::now()->addHours(1);
 
         if (!$booking_id) {
             $bytes = openssl_random_pseudo_bytes(8, $cstrong);
