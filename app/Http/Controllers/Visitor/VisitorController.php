@@ -435,7 +435,7 @@ class VisitorController extends Controller
             return redirect(route('mice_wedding.slug', $miceWedding->product_slug), 301);
         } else if ($from == "function_roomA") {
 
-            $functionroom = functiomRoom::where('id', $id)->first();
+            $functionroom = FunctionRoom::where('id', $id)->first();
 
             return redirect(route('functionroom.slug', $functionroom->product_slug), 301);
 
