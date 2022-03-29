@@ -33,6 +33,23 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/setdata/{id}', ['as' => 'room.setdata', 'uses' => 'Master\RoomController@setdata']);
     });
 
+    // Panel Rates Plan
+    Route::group(['prefix' => 'master_data/rates-plan'], function() {
+        Route::get('/', ['as' => 'rates_plan.index', 'uses' => 'Master\RatesPlanController@index']);
+        //get RatesPlan DATA
+        Route::get('/data', ['as' => 'rates_plan.data', 'uses' => 'Master\RatesPlanController@data']);
+        // Create Insert
+        Route::get('/create', ['as' => 'rates_plan.create', 'uses' => 'Master\RatesPlanController@create']);
+        Route::post('/insert', ['as' => 'rates_plan.insert', 'uses' => 'Master\RatesPlanController@insert']);
+        // Edit Update
+        Route::get('/edit/{id}', ['as' => 'rates_plan.edit', 'uses' => 'Master\RatesPlanController@edit']);
+        Route::post('/update', ['as' => 'rates_plan.update', 'uses' => 'Master\RatesPlanController@update']);
+        // Delete
+        Route::post('/delete', ['as' => 'rates_plan.delete', 'uses' => 'Master\RatesPlanController@delete']);
+        // AJAX
+        Route::get('/setdata/{id}', ['as' => 'rates_plan.setdata', 'uses' => 'Master\RatesPlanController@setdata']);
+    });
+
     // Panel Amenities
     Route::group(['prefix' => 'master_data/amenities'], function() {
         Route::get('/', ['as' => 'amenities.index', 'uses' => 'Master\AmenitiesController@index']);

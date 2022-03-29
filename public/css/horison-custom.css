@@ -5374,3 +5374,19 @@ PHONE NUMBER SIZE */
 .timepicker{
     z-index: 1 !important;
 }
+
+.checklist-ul {
+    list-style-type: none;
+    padding: 0;
+}
+.checklist-ul li {
+    padding: 0 0 0 25px;
+    position: relative;
+}
+.checklist-ul li:before {
+    position: absolute;
+    left: 5px;
+    content: "\2713";
+    color: #666;
+}
+

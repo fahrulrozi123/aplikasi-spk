@@ -95,7 +95,7 @@ class StatusCreditReservation extends Command
             if(config('faspay.endpoint') == true) {
                 $endpoint = 'https://fpg.faspay.co.id/payment/api';
             } else {
-                $endpoint = 'https://fpgdev.faspay.co.id/payment/api';
+                $endpoint = 'https://fpg-sandbox.faspay.co.id/payment/ap';
             }
 
             $url = $endpoint;

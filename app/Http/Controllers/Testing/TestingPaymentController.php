@@ -200,7 +200,7 @@ class TestingPaymentController extends Controller
         );
 
         $post   = http_build_query($post);
-        $url    = "https://fpgdev.faspay.co.id/payment/api";
+        $url    = "https://fpg-sandbox.faspay.co.id/payment/ap";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_URL, $url);
