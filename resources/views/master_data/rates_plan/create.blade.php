@@ -6,7 +6,6 @@ CREATE RATES PLAN
 <div class="col-lg-6">
     <div class="row">
         <div class="panel panel-default">
-
             <div class="panel-body shadow">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
@@ -81,42 +80,27 @@ CREATE RATES PLAN
                         <h5 class="mt mb"><strong>Apply rates to room types</strong></h5>
                         <p class="mt mb">Which room type will be bookable with this rate plans?</p>
                         <div class="row">
+                            @foreach($rooms as $room)
                             <div class="col-lg-4">
                                 <div class="checkbox checkbox-replace color-primary">
-                                    <input type="checkbox" id="rd-1" name="bed_type[]" value="0">
-                                    <label>Deluxe Room</label>
+                                    <input type="checkbox" id="rd-1" name="room_name[]" value="0">
+                                    <label>{{ $room->room_name }}</label>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="checkbox checkbox-replace color-primary">
-                                    <input type="checkbox" id="rd-2" name="bed_type[]" value="2">
-                                    <label>Superior Deluxe Room</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="checkbox checkbox-replace color-primary">
-                                    <input type="checkbox" id="rd-3" name="bed_type[]" value="1">
-                                    <label>Executive Room</label>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                         <br>
                         <br>
-                    </div>
-
-
-                    <div class="col-xs-12 col-lg-12 col-md-6">
-                        <br>
-                        <div class="pull-right">
-                            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
-                                Cancel
-                            </a>
-                            <button type="button" class="btn btn-horison-gold btn-padding">Save Rate Plan</button>
-                        </div>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-white btn-padding" href="{{ route('rates_plan.index') }}">
+                Cancel
+            </a>
+            <button type="button" class="btn btn-horison-gold btn-padding">Save Rate Plan</button>
         </div>
     </div>
 </div>
