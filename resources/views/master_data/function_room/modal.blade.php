@@ -18,7 +18,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-Classroom.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">Class Room</p>
-                                <p class="fr-modal-pax" id ="fr_class">100 Pax</p>
+                                <p class="fr-modal-pax" id="fr_class">100 Pax</p>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-2">
@@ -27,7 +27,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-Theatre.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">Theatre</p>
-                                <p class="fr-modal-pax" id ="fr_theatre">100 Pax</p>
+                                <p class="fr-modal-pax" id="fr_theatre">100 Pax</p>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-2">
@@ -36,7 +36,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-UShape.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">U-Shape</p>
-                                <p class="fr-modal-pax" id ="fr_ushape">100 Pax</p>
+                                <p class="fr-modal-pax" id="fr_ushape">100 Pax</p>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-2">
@@ -45,7 +45,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-Boardroom.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">Board Room</p>
-                                <p class="fr-modal-pax" id ="fr_board">100 Pax</p>
+                                <p class="fr-modal-pax" id="fr_board">100 Pax</p>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-2">
@@ -54,7 +54,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-RoundTable.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">Round Table</p>
-                                <p class="fr-modal-pax" id ="fr_round">100 Pax</p>
+                                <p class="fr-modal-pax" id="fr_round">100 Pax</p>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-4 col-md-2">
@@ -63,7 +63,7 @@
                                     {!! file_get_contents(asset('/images/function-room/FR-Dimension.svg'), false, stream_context_create($arrContextOptions)) !!}
                                 </div>
                                 <p class="fr-modal-name">Dimension</p>
-                                <p class="fr-modal-pax" id ="fr_dimension">100 Sqm</p>
+                                <p class="fr-modal-pax" id="fr_dimension">100 Sqm</p>
                             </div>
                         </div>
                     </div>
@@ -81,15 +81,15 @@
                         <div style="overflow-x:auto;">
                             <table class="table table-bordered responsive">
                                 <thead>
-                                <tr>
-                                    <th class="fr-modal-table-title">Partition Name</th>
-                                    <th class="fr-modal-table-title">Dimension (Sqm)</th>
-                                    <th class="fr-modal-table-title">Class Room (Pax)</th>
-                                    <th class="fr-modal-table-title">Theatre (Pax)</th>
-                                    <th class="fr-modal-table-title">U-Shape (Pax)</th>
-                                    <th class="fr-modal-table-title">Board Room (Pax)</th>
-                                    <th class="fr-modal-table-title">Round Table (Pax)</th>
-                                </tr>
+                                    <tr>
+                                        <th class="fr-modal-table-title">Partition Name</th>
+                                        <th class="fr-modal-table-title">Dimension (Sqm)</th>
+                                        <th class="fr-modal-table-title">Class Room (Pax)</th>
+                                        <th class="fr-modal-table-title">Theatre (Pax)</th>
+                                        <th class="fr-modal-table-title">U-Shape (Pax)</th>
+                                        <th class="fr-modal-table-title">Board Room (Pax)</th>
+                                        <th class="fr-modal-table-title">Round Table (Pax)</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="partition_table-body">
                                 </tbody>

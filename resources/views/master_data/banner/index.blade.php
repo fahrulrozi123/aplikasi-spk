@@ -1,30 +1,36 @@
 @extends('templates/template')
 @section('content')
-@section("header_title") VISITOR BANNER @endsection
+@section('header_title')
+    VISITOR BANNER
+@endsection
 <div class="col-lg-12">
     <div class="row">
         <a href="javascript:;" onclick="jQuery('#tambah-banner').modal('show');"
-            class="btn btn-horison btn-lg pull-right"><b>+ ADD NEW BANNER</b></a>
+            class="btn btn-horison btn-lg pull-right">
+            <b>+ ADD NEW BANNER</b>
+        </a>
     </div>
     <br>
     <div class="col-lg-12">
         <div class="row shadow">
-            <?php $no = 0;?>
-            @foreach($banners as $banner)<?php $no++ ;?>
-            <div class="mySlides">
-                <div class="numbertext">{{$no}} / 3</div>
-                <img src="{{asset('/user/'.$banner->banner_name)}}" class="uwaw">
-            </div>
+            <?php $no = 0; ?>
+            @foreach ($banners as $banner)
+                <?php $no++; ?>
+                <div class="mySlides">
+                    <div class="numbertext">{{ $no }} / 3</div>
+                    <img src="{{ asset('/user/' . $banner->banner_name) }}" class="uwaw">
+                </div>
             @endforeach
             <div class="bbaris">
-                <?php $no = 0;?>
-                @foreach($banners->take(3) as $banner) <?php $no++ ;?>
-                @if($banner->banner_status != "4")
-                <div class="column">
-                    <img class="demo cursor" src="{{asset('/user/'.$banner->banner_name)}}"
-                        onclick="currentSlide({{$no}})">
-                </div>
-                @endif
+                <?php $no = 0; ?>
+                @foreach ($banners->take(3) as $banner)
+                    <?php $no++; ?>
+                    @if ($banner->banner_status != '4')
+                        <div class="column">
+                            <img class="demo cursor" src="{{ asset('/user/' . $banner->banner_name) }}"
+                                onclick="currentSlide({{ $no }})">
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -37,28 +43,31 @@
         <h4 class="text-center">Select Banner to be showed to at Visitor Web Page (Up to 3 Banner)</h4>
         <br>
         <div class="row">
-            <?php $no = 0;?>
-            @foreach($banners as $banner) <?php $no++ ;?>
-            <div class="col-lg-4 text-center head">
-                <a type="button" class="edit-modal"><img onclick="showModal(this)" data-name="{{$banner->banner_name}}"
-                        data-status="{{$banner->banner_status}}" data-id="{{Crypt::encryptString($banner->id)}}"
-                        src="{{asset('/user/'.$banner->banner_name)}}" alt="" class="lingkaran  shadow"></a>
-    
-        </div>
-        @endforeach
+            <?php $no = 0; ?>
+            @foreach ($banners as $banner)
+                <?php $no++; ?>
+                <div class="col-lg-4 text-center head">
+                    <a type="button" class="edit-modal"><img onclick="showModal(this)"
+                            data-name="{{ $banner->banner_name }}" data-status="{{ $banner->banner_status }}"
+                            data-id="{{ Crypt::encryptString($banner->id) }}"
+                            src="{{ asset('/user/' . $banner->banner_name) }}" alt="" class="lingkaran  shadow">
+                    </a>
+                </div>
+            @endforeach
 
         </div>
-</div>
+    </div>
 </div>
 
 @include('master_data.banner.modal')
 
 <script>
     //modal edit
-    $(document).on('click', '.edit-modal', function () {
+    $(document).on('click', '.edit-modal', function() {
 
     });
     var old = false;
+
     function showModal(e) {
         if (old) {
             $('#banner_status_' + old).removeClass('checked');
@@ -79,7 +88,7 @@
         $('#edit-modal').modal('show');
     }
     //DO DELETE
-    $(document).on('click', '#delete-modal', function () {
+    $(document).on('click', '#delete-modal', function() {
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var id = document.getElementById("id").value;
         window.location.href = "{{ url('') }}" + "/delete/" + data_id;
@@ -132,12 +141,11 @@
                 "banner_status": banner_status
             },
             url: "banner/" + event,
-            success: function (msg) {
+            success: function(msg) {
                 alert(event + ' Success');
                 location.reload(true);
             }
         });
     };
-
 </script>
 @endsection

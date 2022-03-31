@@ -12,41 +12,43 @@
                 <div class="fileinput fileinput-new" data-provides="fileinput"><input type="hidden">
                     <div class="col-xs-12 col-md-12 col-lg-12">
                         <div class="row">
-                    <?php $no = 0; ?>
-                    @foreach($amenitiess as $amenities)<?php $no++; ?>
-                        @php
-                            $id = $amenities->id;
-                        @endphp
-                        @if ($no < 6)
-                            @continue;
-                        @else
-                            @if(!isset($room))
+                            <?php $no = 0; ?>
+                            @foreach ($amenitiess as $amenities)<?php $no++; ?>
                                 @php
-                                    $checked="" ;
+                                    $id = $amenities->id;
                                 @endphp
-                            @else
-                                @foreach($room['amenities'] as $data_amenitites)
-                                @php
-                                    $id_amenitites = $data_amenitites->amenities_id;
-                                    if($id_amenitites == $id){
-                                        $checked = "checked";
-                                        break;
-                                    }
-                                    else
-                                        $checked = "";
-                                @endphp
-                                @endforeach
-                            @endif
-                                <div class="col-xs-12 col-md-6 col-lg-6">
-                                    <div class="checkbox checkbox-replace color-primary" style="margin-bottom: 10px">
-                                    <input name ="room_amenities[]" value ="{{ $amenities->id }}" type="checkbox" id="chk-20" {{ $checked }}>
-                                        <label>{{ $amenities->amenities_name }}</label>
+                                @if ($no < 6)
+                                    @continue;
+                                @else
+                                    @if (!isset($room))
+                                        @php
+                                            $checked = '';
+                                        @endphp
+                                    @else
+                                        @foreach ($room['amenities'] as $data_amenitites)
+                                            @php
+                                                $id_amenitites = $data_amenitites->amenities_id;
+                                                if ($id_amenitites == $id) {
+                                                    $checked = 'checked';
+                                                    break;
+                                                } else {
+                                                    $checked = '';
+                                                }
+                                            @endphp
+                                        @endforeach
+                                    @endif
+                                    <div class="col-xs-12 col-md-6 col-lg-6">
+                                        <div class="checkbox checkbox-replace color-primary"
+                                            style="margin-bottom: 10px">
+                                            <input name="room_amenities[]" value="{{ $amenities->id }}"
+                                                type="checkbox" id="chk-20" {{ $checked }}>
+                                            <label>{{ $amenities->amenities_name }}</label>
+                                        </div>
                                     </div>
-                                </div>
-                        @endif
-                    @endforeach
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
-                                </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="fileinput fileinput-new" data-provides="fileinput"><input type="hidden">
                     <div class="thumbnail center-block" style="margin-left: 80px;margin-right: 80px;">
-                            <img class="banner-img" id="modal_gambar" src="#" style="object-fit: cover !important;">
+                        <img class="banner-img" id="modal_gambar" src="#" style="object-fit: cover !important;">
                     </div>
                     <div>
                         <input type="hidden" id="banner_status" value="">
@@ -21,10 +21,12 @@
                 <h3 class="mt mb"><label id="modal_title">Enjoy Your Relaxing Days at AllySea1</label></h3>
                 <hr>
                 <h5 class="mt mb"><strong>News:</strong></h5>
-                <p style="font-weight:normal;" class="mt" align='justify' id="modal_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                <p style="font-weight:normal;" class="mt" align='justify' id="modal_content">Lorem ipsum
+                    dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     Nisl tincidunt eget nullam non.
-                    Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet massa.
+                    Quis hendrerit dolor magna eget est lorem ipsum dolor sit. Volutpat odio facilisis mauris sit amet
+                    massa.
                     Commodo odio aenean sed adipiscing diam donec adipiscing tristique.
                     Mi eget mauris pharetra et. Non tellus orci ac auctor augue. Elit at imperdiet dui accumsan sit.
                     Ornare arcu dui vivamus arcu felis.
@@ -34,7 +36,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-            <input type="hidden" id="id-data" />
+                <input type="hidden" id="id-data" />
                 <a class="btn btn-cancel" data-dismiss="modal" href="#">
                     Close
                 </a>
