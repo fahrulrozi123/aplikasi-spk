@@ -1,5 +1,7 @@
 @extends('templates/template')
-@section("header_title") PAGE SETTING @endsection
+@section('header_title')
+    PAGE SETTING
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -17,7 +19,8 @@
                             <td>{{ $pagesetting->page_name }}</td>
                             <td>{{ $pagesetting->page_description }}</td>
                             <td><a href="/main_page/page_setting/edit/{{ $pagesetting->id }}" class="btn btn-horison">
-                                <b>Manage Page</b></a>
+                                    <b>Manage Page</b>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

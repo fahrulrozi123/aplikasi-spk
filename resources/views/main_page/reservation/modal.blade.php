@@ -8,23 +8,33 @@
                 </button>
                 <h4 class="modal-title col-lg-6">Basic Modal</h4>
             </div>
+
             <form method="POST" action="{{ route('reservation.refund_reschedule') }}" enctype="multipart/form-data">
-                {{csrf_field()}}
+                {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="general_cust-detail">
                         <div class="modal-rsvp">
                             <center>General</center>
                         </div>
+
                         <div class="row">
                             {{-- general room --}}
                             <div class="col-lg-12 room">
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th class="col-lg-3 col-sm-12"><strong>Reservation Number</strong></th>
-                                            <th class="col-lg-3 col-sm-12"><strong>Booking ID</strong></th>
-                                            <th class="col-lg-3 col-sm-12"><strong>Reserved Date</strong></th>
-                                            <th class="col-lg-3 col-sm-12"><strong>Check In</strong></th>
+                                            <th class="col-lg-3 col-sm-12">
+                                                <strong>Reservation Number</strong>
+                                            </th>
+                                            <th class="col-lg-3 col-sm-12">
+                                                <strong>Booking ID</strong>
+                                            </th>
+                                            <th class="col-lg-3 col-sm-12">
+                                                <strong>Reserved Date</strong>
+                                            </th>
+                                            <th class="col-lg-3 col-sm-12">
+                                                <strong>Check In</strong>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -36,13 +46,22 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th class="col-lg-3"><strong>Check Out</strong></th>
-                                            <th class="col-lg-3"><strong>Room Type Reserved</strong></th>
-                                            <th class="col-lg-3"><strong>Accommodation</strong></th>
-                                            <th class="col-lg-3"><strong>Breakfast</strong></th>
+                                            <th class="col-lg-3">
+                                                <strong>Check Out</strong>
+                                            </th>
+                                            <th class="col-lg-3">
+                                                <strong>Room Type Reserved</strong>
+                                            </th>
+                                            <th class="col-lg-3">
+                                                <strong>Accommodation</strong>
+                                            </th>
+                                            <th class="col-lg-3">
+                                                <strong>Breakfast</strong>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,11 +73,16 @@
                                         </tr>
                                     </tbody>
                                 </table>
+
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
-                                            <th class="col-lg-3"><strong>Additional Extra Bed</strong></th>
-                                            <th class="col-lg-3"><strong>Additional Description</strong></th>
+                                            <th class="col-lg-3">
+                                                <strong>Additional Extra Bed</strong>
+                                            </th>
+                                            <th class="col-lg-3">
+                                                <strong>Additional Description</strong>
+                                            </th>
                                             <th class="col-lg-3"></th>
                                             <th class="col-lg-3"></th>
                                         </tr>
@@ -73,15 +97,22 @@
                                 </table>
                             </div>
                             {{-- tutup general room --}}
+
                             {{-- general online --}}
                             <div class="packageon">
                                 <div class="col-lg-12 ">
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Reservation Number</strong></th>
-                                                <th class="col-lg-3"><strong>Booking ID</strong></th>
-                                                <th class="col-lg-6"><strong>Date</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Reservation Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Booking ID</strong>
+                                                </th>
+                                                <th class="col-lg-6">
+                                                    <strong>Date</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -93,13 +124,19 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="col-lg-12"></div>
+
                                 <div class="col-lg-12">
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Reserved Package / Product</strong></th>
-                                                <th class="col-lg-9"><strong>Package / Product Amount</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Reserved Package / Product</strong>
+                                                </th>
+                                                <th class="col-lg-9">
+                                                    <strong>Package / Product Amount</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -109,10 +146,13 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-5"><strong>Additional Description</strong></th>
+                                                <th class="col-lg-5">
+                                                    <strong>Additional Description</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -127,6 +167,7 @@
                             {{-- Tutup general online --}}
                         </div>
                         <br>
+
                         <div class="modal-rsvp">
                             <center>Customer Details</center>
                         </div>
@@ -137,22 +178,30 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Customer Name</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer Name</strong>
+                                                </th>
                                                 {{-- <th class="col-lg-3"><strong>Customer Identification
                                                         Number</strong></th> --}}
-                                                <th class="col-lg-3"><strong>Guest Name</strong></th>
-                                                <th class="col-lg-3"><strong>Customer Phone Number</strong></th>
-                                                <th class="col-lg-3"><strong>Customer E-mail</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Guest Name</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer Phone Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer E-mail</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3" id="customer_name">Arlene Wilson</td>
-                                                {{-- <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td>
-                                                --}}
+                                                {{-- <td class="col-lg-3" id="customer_id">KTP/4012336593085502</td> --}}
                                                 <td class="col-lg-3" id="guest_name">Darlene Flores</td>
                                                 <td class="col-lg-3" id="customer_phone">(207) 555-0119</td>
-                                                <td class="col-lg-3" id="customer_email">donald.phillips@example.com
+                                                <td class="col-lg-3" id="customer_email">
+                                                    donald.phillips@example.com
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -181,11 +230,17 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-4"><strong>Customer Name</strong></th>
+                                                <th class="col-lg-4">
+                                                    <strong>Customer Name</strong>
+                                                </th>
                                                 {{-- <th class="col-lg-3"><strong>Customer Identification
                                                         Number</strong></th> --}}
-                                                <th class="col-lg-4"><strong>Customer Phone Number</strong></th>
-                                                <th class="col-lg-4"><strong>Customer E-mail</strong></th>
+                                                <th class="col-lg-4">
+                                                    <strong>Customer Phone Number</strong>
+                                                </th>
+                                                <th class="col-lg-4">
+                                                    <strong>Customer E-mail</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -203,6 +258,7 @@
                         </div>
                     </div>
                     <br>
+
                     <div class="payment-detail">
                         <div class="modal-rsvp ">
                             <center>Booking Details</center>
@@ -214,10 +270,18 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Booking Price</strong></th>
-                                                <th class="col-lg-3"><strong>Payment Status</strong></th>
-                                                <th class="col-lg-3"><strong>Payment Date</strong></th>
-                                                <th class="col-lg-3"><strong>Paid Amount</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Booking Price</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Payment Status</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Payment Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Paid Amount</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -225,7 +289,8 @@
                                                 <td class="col-lg-3 " id="booking_price">Rp 0</td>
                                                 <td class="" id="payment_status">Payment Received
                                                     via Credit Card Payment</td>
-                                                <td class="col-lg-3" id="payment_date">1 December 2019 9:12 AM</td>
+                                                <td class="col-lg-3" id="payment_date">1 December 2019 9:12 AM
+                                                </td>
                                                 <td class="col-lg-3 " id="paid_amount">Rp 0</td>
                                             </tr>
                                         </tbody>
@@ -239,10 +304,18 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Booking Price</strong></th>
-                                                <th class="col-lg-3"><strong>Payment Status</strong></th>
-                                                <th class="col-lg-3"><strong>Payment Date</strong></th>
-                                                <th class="col-lg-3"><strong>Paid Amount</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Booking Price</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Payment Status</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Payment Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Paid Amount</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -250,7 +323,8 @@
                                                 <td class="col-lg-3" id="product_booking_price">Rp 0</td>
                                                 <td class="" id="product_payment_status">Payment Received
                                                     via Credit Card Payment</td>
-                                                <td class="col-lg-3" id="product_payment_date">18 December 2019 9:12 AM
+                                                <td class="col-lg-3" id="product_payment_date">18 December 2019
+                                                    9:12 AM
                                                 </td>
                                                 <td class="col-lg-3" id="product_paid_amount">Rp 0</td>
                                             </tr>
@@ -273,9 +347,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Number</strong></th>
-                                                <th class="col-lg-3"><strong>Inquiry Type</strong></th>
-                                                <th class="col-lg-3"><strong>Inquired At</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Number</strong>
+                                                    /th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Type</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquired At</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -307,9 +387,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Number</strong></th>
-                                                <th class="col-lg-3"><strong>Inquiry Type</strong></th>
-                                                <th class="col-lg-3"><strong>Inquired At</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Type</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquired At</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -323,9 +409,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Package Inquired</strong></th>
-                                                <th class="col-lg-3"><strong>Participant</strong></th>
-                                                <th class="col-lg-3"><strong>Arrival Date</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Package Inquired</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Participant</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Arrival Date</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -336,10 +428,13 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <table class="table table-borderless" id="other_recreational" style="display: none">
+                                    <table class="table table-borderless" id="other_recreational"
+                                        style="display: none">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Other Request</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Other Request</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="body_recreational">
@@ -364,7 +459,9 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Description</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Description</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -382,9 +479,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Number</strong></th>
-                                                <th class="col-lg-3"><strong>Inquiry Type</strong></th>
-                                                <th class="col-lg-3"><strong>Inquired At</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Type</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquired At</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -398,9 +501,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Package Inquired</strong></th>
-                                                <th class="col-lg-3"><strong>Services Request</strong></th>
-                                                <th class="col-lg-3"><strong>Number of Guest</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Package Inquired</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Services Request</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Number of Guest</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -414,7 +523,9 @@
                                     <table class="table table-borderless" id="other_wedding" style="display: none">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Other Request</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Other Request</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="body_wedding">
@@ -465,7 +576,9 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Description</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Description</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -484,9 +597,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Number</strong></th>
-                                                <th class="col-lg-3"><strong>Inquiry Type</strong></th>
-                                                <th class="col-lg-3"><strong>Inquired At</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Type</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquired At</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -500,7 +619,9 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Package/Product Inquired</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Package/Product Inquired</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -512,25 +633,34 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Event Date</strong></th>
-                                                <th class="col-lg-3"><strong>Alternate Event Date</strong></th>
-                                                <th class="col-lg-3"><strong></strong></th> {{--jangan di delete, ini
-                                                biar positionnya rapih--}}
+                                                <th class="col-lg-3">
+                                                    <strong>Event Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Alternate Event Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong></strong>
+                                                </th>
+                                                {{-- jangan di delete, ini
+                                                biar positionnya rapih --}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3" id="">Saturday, 01 January 2020</td>
                                                 <td class="col-lg-3" id="">Sunday, 02 January 2020</td>
-                                                <td class="col-lg-3" id=""></td> {{--jangan di delete, ini biar
-                                                positionnya rapih--}}
+                                                <td class="col-lg-3" id=""></td> {{-- jangan di delete, ini biar
+                                                positionnya rapih --}}
                                             </tr>
                                         </tbody>
                                     </table>
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Other Request</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Other Request</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -581,12 +711,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Description</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Description</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="col-lg-3" id="">Kalo untuk 20 orang aja bisa ga ya</td>
+                                                <td class="col-lg-3" id="">Kalo untuk 20 orang aja bisa ga ya
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -599,9 +732,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Number</strong></th>
-                                                <th class="col-lg-3"><strong>Inquiry Type</strong></th>
-                                                <th class="col-lg-3"><strong>Inquired At</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Number</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Type</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquired At</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -615,9 +754,15 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Event Name</strong></th>
-                                                <th class="col-lg-3"><strong>Participant</strong></th>
-                                                <th class="col-lg-3"><strong>Prefered Function Room</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Event Name</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Participant</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Prefered Function Room</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -631,25 +776,34 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Event Date</strong></th>
-                                                <th class="col-lg-3"><strong>Alternate Event Date</strong></th>
-                                                <th class="col-lg-3"><strong>Event Type</strong></th> {{--jangan di
-                                                delete, ini biar positionnya rapih / OKE SIAP--}}
+                                                <th class="col-lg-3">
+                                                    <strong>Event Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Alternate Event Date</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Event Type</strong>
+                                                </th>
+                                                {{-- jangan di
+                                                delete, ini biar positionnya rapih / OKE SIAP --}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3 inq_date">Saturday, 01 January 2020</td>
                                                 <td class="col-lg-3 inq_alt_date">Sunday, 02 January 2020</td>
-                                                <td class="col-lg-3 inq_event_type">-</td> {{--jangan di delete, ini
-                                                biar positionnya rapih / OKE SIAP--}}
+                                                <td class="col-lg-3 inq_event_type">-</td> {{-- jangan di delete, ini
+                                                biar positionnya rapih / OKE SIAP --}}
                                             </tr>
                                         </tbody>
                                     </table>
                                     <table class="table table-borderless" id="other_mice" style="display: none">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Other Request</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Other Request</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="body_mice">
@@ -700,7 +854,9 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Inquiry Description</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Inquiry Description</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -723,26 +879,34 @@
                                     <table class="table table-borderless">
                                         <thead>
                                             <tr>
-                                                <th class="col-lg-3"><strong>Customer Name</strong></th>
-                                                <th class="col-lg-3"><strong>Customer E-mail</strong></th>
-                                                <th class="col-lg-3"><strong>Customer Phone Number</strong></th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer Name</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer E-mail</strong>
+                                                </th>
+                                                <th class="col-lg-3">
+                                                    <strong>Customer Phone Number</strong>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td class="col-lg-3 inq_cust_name" id="">Arlene Wilson</td>
-                                                <td class="col-lg-3 inq_cust_email" id="">arelenewilson17@gmail.com</td>
+                                                <td class="col-lg-3 inq_cust_email" id="">arelenewilson17@gmail.com
+                                                </td>
                                                 <td class="col-lg-3 inq_cust_phone" id="">(319) 555-0115</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            {{-- penutup inquiry customer details--}}
+                            {{-- penutup inquiry customer details --}}
                         </div>
                     </div>
                     {{-- BATAS SUCI ISI MODAL INQUIRY --}}
                 </div>
+
                 <div class="modal-footer" style="background-color: #F8F8F8;">
                     {{-- OPTION BUTTON AWAL --}}
                     <div class="row" id="room_cancel_reschedule_btn">
@@ -769,6 +933,7 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="row" id="product_cancel_reschedule_btn">
                         <div class="col-xs-6 col-md-6" align="left">
                             <span id="product_cancel_reschedule_left">
@@ -812,10 +977,13 @@
                             <p class="rsv-notice">Notice</p>
                             <ol id="two_day"></ol>
                         </div>
+
                         <div class="row">
-                            <p class="rsv-box rsv-box-content">Cancellation Fee<br><span class="rsv-box-price"
-                                    id="cancellation_fee">Rp 1.000.000</span></p>
+                            <p class="rsv-box rsv-box-content">Cancellation Fee<br>
+                                <span class="rsv-box-price" id="cancellation_fee">Rp 1.000.000</span>
+                            </p>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-6 col-md-10" align="right">
                                 <button type="button" onclick="show_room(3);" class="btn btn-white"
@@ -823,6 +991,7 @@
                                     <b>Back</b>
                                 </button>
                             </div>
+
                             <div class="col-xs-6 col-md-2" align="left">
                                 <input type="button" name="btn_cancel" onclick="confirmBox(this);"
                                     class="danger btn btn-link" style="height: 40px; font-weight: bold;"
@@ -830,6 +999,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="cancel_booking_package_tab" style="display:none;">
                         <div class="row" align="left">
                             <p class="rsv-notice">Notice</p>
@@ -838,6 +1008,7 @@
                                 is cancelled.</p>
                             <p class="rsv-point">2. This action cannot be undone.</p>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-6 col-md-10" align="right">
                                 <button type="button" onclick="show_product(3);" class="btn btn-white"
@@ -866,6 +1037,7 @@
                                 reservation is rescheduled.</p>
                             <p class="rsv-point">5. This action cannot be undone.</p>
                         </div>
+
                         <div class="row" style="margin-top:20px; margin-right:20px;">
                             <div class="col-xs-6 col-md-10" align="right">
                                 <button type="button" onclick="show_room(3);" class="btn btn-white"
@@ -880,6 +1052,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div id="reschedule_booking_package_tab" style="display:none;">
                         <div class="row" align="left">
                             <p class="rsv-notice">Notice</p>
@@ -892,6 +1065,7 @@
                                 reservation is rescheduled.</p>
                             <p class="rsv-point">4. This action cannot be undone.</p>
                         </div>
+
                         <div class="row" style="margin-top:20px; margin-right:20px;">
                             <div class="col-xs-6 col-md-10" align="right">
                                 <button type="button" onclick="show_product(3);" class="btn btn-white"
@@ -906,6 +1080,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>
@@ -920,7 +1095,7 @@
         } else if (n == 2) {
             $('#reschedule_booking_tab').fadeIn();
             $('#cancel_booking_tab').fadeOut();
-        }else if(n == 3){
+        } else if (n == 3) {
             $('#cancel_booking_tab').fadeOut();
             $('#reschedule_booking_tab').fadeOut();
             $('#room_cancel_reschedule_btn').fadeIn();
@@ -935,7 +1110,7 @@
         } else if (n == 2) {
             $('#reschedule_booking_package_tab').fadeIn();
             $('#cancel_booking_package_tab').fadeOut();
-        }else if(n == 3){
+        } else if (n == 3) {
             $('#cancel_booking_package_tab').fadeOut();
             $('#reschedule_booking_package_tab').fadeOut();
             $('#product_cancel_reschedule_btn').fadeIn();
@@ -950,16 +1125,16 @@
             showCancelButton: true,
             confirmButtonText: 'Yes',
             cancelButtonText: 'No'
-            }).then((result) => {
+        }).then((result) => {
             if (result.value) {
-                e.setAttribute('type','submit');
-                e.setAttribute('onclick','');
+                e.setAttribute('type', 'submit');
+                e.setAttribute('onclick', '');
                 e.click();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire(
-                'Cancelled',
-                'Operation Cancel!',
-                'error'
+                    'Cancelled',
+                    'Operation Cancel!',
+                    'error'
                 )
             }
         })
@@ -968,57 +1143,58 @@
     function resendEmail(e) {
         var reservation_id = $('#modal_reservation_id').val();
         (async () => {
-            const { value: formValues } = await Swal.fire({
-            title: 'Please Input email',
-            html:
-                '<input id="rsvp_id" class="swal2-input" value="'+reservation_id+'" readonly>' +
-                '<input id="rsvp_email" placeholder="Insert your email here" class="swal2-input" required>',
-            focusConfirm: true,
-            preConfirm: () => {
-                return [
-                document.getElementById('rsvp_id').value,
-                document.getElementById('rsvp_email').value,
-                ]
-            }
+            const {
+                value: formValues
+            } = await Swal.fire({
+                title: 'Please Input email',
+                html: '<input id="rsvp_id" class="swal2-input" value="' + reservation_id +
+                    '" readonly>' +
+                    '<input id="rsvp_email" placeholder="Insert your email here" class="swal2-input" required>',
+                focusConfirm: true,
+                preConfirm: () => {
+                    return [
+                        document.getElementById('rsvp_id').value,
+                        document.getElementById('rsvp_email').value,
+                    ]
+                }
             })
 
             if (formValues) {
-                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formValues[1]))
-                {
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formValues[1])) {
                     var reservaion_id = $('#modal_reservation_id').val();
                     var booking_id = $('#modal_booking_id').val();
                     var reservation_type = "Email";
                     var reservation_email = formValues[1];
                     var reservation_from = $('#modal_reservation_from').val();
                     Swal.fire(
-                                'Success',
-                                "Email sending, if you not leave this page, you will notify later if the email already received",
-                                'success'
+                        'Success',
+                        "Email sending, if you not leave this page, you will notify later if the email already received",
+                        'success'
                     );
                     var url = "{{ route('reservation.refund_reschedule') }}";
                     $.ajax({
-                    type: "POST",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "reservation_id": reservation_id,
-                        "booking_id": booking_id,
-                        "reservation_type": reservation_type,
-                        "reservation_email": reservation_email,
-                        "reservation_from": reservation_from
-                    },
-                    url: url,
-                    success: function (data) {
-                        Swal.fire(
-                            'Success',
-                            data.msg,
-                            'success'
-                        );
-                    }
-                });
-            } else {
-                alert("You have entered an invalid email address!");
+                        type: "POST",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "reservation_id": reservation_id,
+                            "booking_id": booking_id,
+                            "reservation_type": reservation_type,
+                            "reservation_email": reservation_email,
+                            "reservation_from": reservation_from
+                        },
+                        url: url,
+                        success: function(data) {
+                            Swal.fire(
+                                'Success',
+                                data.msg,
+                                'success'
+                            );
+                        }
+                    });
+                } else {
+                    alert("You have entered an invalid email address!");
+                }
             }
-        }
         })()
     }
 
@@ -1028,7 +1204,8 @@
         var reservation_from = $('#modal_reservation_from').val();
         var url = "{{ route('reservation.print_voucher') }}";
 
-        window.open('' + url +'?reservation_id=' + reservation_id +'&booking_id=' + booking_id +'&reservation_from=' + reservation_from +'', '_blank').focus();
+        window.open('' + url + '?reservation_id=' + reservation_id + '&booking_id=' + booking_id +
+            '&reservation_from=' + reservation_from + '', '_blank').focus();
 
         Swal.fire(
             'Success',
