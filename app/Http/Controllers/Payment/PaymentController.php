@@ -87,7 +87,6 @@ class PaymentController extends Controller
             $filters = [
                 'cust_name' => 'trim|escape|capitalize',
                 'cust_email' => 'trim|escape|lowercase',
-                'cust_id_type' => 'trim|escape|capitalize',
                 'guest_name' => 'trim|escape|capitalize',
                 'cust_phone' => 'digit',
                 'cust_id_num' => 'digit',
