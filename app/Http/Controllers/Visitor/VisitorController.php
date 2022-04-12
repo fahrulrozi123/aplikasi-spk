@@ -42,7 +42,7 @@ class VisitorController extends Controller
 
     public function rooms()
     {
-        $arrContextOptions =array(
+        $arrContextOptions = array(
             "ssl"=>array(
                 "verify_peer"=>false,
                 "verify_peer_name"=>false,

@@ -19,7 +19,6 @@ class CreateSlashPrice extends Migration
 
         Schema::table('room_type', function (Blueprint $table) {
             $table->integer('def_allotment');
-
         });
 
         Schema::create('room_rate_plans', function (Blueprint $table) {
