@@ -527,9 +527,9 @@
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                             <p>
                                                 @if($setting->so_twitter !== NULL)
-                                                    <a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon"></a>
+                                                    <a href="{{ $setting->so_twitter }}" class="fa fa-twitter visitor-footer-icon" target="_blank"></a>
                                                 @else
-                                                    <a class="fa fa-twitter visitor-footer-icon"></a>
+                                                    <a class="fa fa-twitter visitor-footer-icon" target="_blank"></a>
                                                 @endif
                                             </p>
                                         </div>
