@@ -166,7 +166,7 @@
     </div>
 
     <div class="col-md-6"> {{-- fr type desc --}}
-        <div class="row" style="margin-left: 10px; margin-right: 22px; margin-left: 22px; margin-right: 22px; "> {{-- title & description fr --}}
+        <div class="row" style="margin-left: 10px; margin-right: 22px;"> {{-- title & description fr --}}
             <h2 class="line-clamp-1" style="margin-top:0px;">
                 <b>{{$function->func_name}}</b></h2>
             @if(strlen($function->func_room_desc) > 100)
@@ -174,7 +174,7 @@
                 {!! strip_tags(substr($function->func_room_desc, 0, 145)."...") !!}
             </p>
             <a href="/function-room/{{ $function->func_room_slug }}"
-                style="font-size: 13px; color: #444444; margin-left: 20px;">
+                style="font-size: 13px; color: #444444;">
                 <i><u>See more description</u></i>
             </a>
             @else
@@ -349,12 +349,12 @@
                     <h4><b class="line-clamp-1">{{$mice->product_name}}</b></h4>
                     @if(strlen($mice->product_detail) > 100)
                     <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">
-                        {!! substr($mice->product_detail, 0, 100)."..." !!}
+                        {!! strip_tags(substr($mice->product_detail, 0, 100)."...") !!}
                     </h5>
                     <a href="/mice-wedding/{{ $mice->product_slug }}" class="font-secondary"
                         style="font-size: 11px;"><i><u>See more description</u></i></a>
                     @else
-                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 57px;">{!! $mice->product_detail !!}</h5>
+                    <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 85px;">{!! strip_tags($mice->product_detail) !!}</h5>
                     @endif
                     @if($mice->sales_inquiry == "0")
                     <p class="price">

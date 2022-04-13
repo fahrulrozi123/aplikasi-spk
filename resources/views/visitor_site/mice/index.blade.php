@@ -127,7 +127,7 @@
                         <a href="/mice/{{ $mice->product_slug }}" class="font-secondary"
                             style="font-size: 11px;"><i><u>See more description</u></i></a>
                         @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">{!! $mice->product_detail !!}
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 85px;">{!! $mice->product_detail !!}
                         </h5>
                         @endif
 

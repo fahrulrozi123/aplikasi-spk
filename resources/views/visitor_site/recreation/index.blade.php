@@ -125,7 +125,7 @@
                             <i><u>See more description</u></i>
                         </a>
                     @else
-                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 90px;">
+                        <h5 class="line-clamp-3" style="margin-bottom: 7px; height: 85px;">
                             {!! strip_tags($recreation->product_detail) !!}
                         </h5>
                     @endif
