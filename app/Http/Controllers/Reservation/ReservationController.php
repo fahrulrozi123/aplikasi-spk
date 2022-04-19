@@ -654,8 +654,8 @@ class ReservationController extends Controller
         $data->voucher_attachment = $this->template_voucher($data, $setting);
         $data->receipt_attachment = $this->template_receipt($data, $setting);
 
-        $pdf = PDF::loadview('templates.print_voucher', get_defined_vars());
-        return $pdf->download('voucher-' . $id .'.pdf');
+        $pdf = PDF::loadview('templates.print_voucher_receipt', get_defined_vars());
+        return $pdf->download('RSVP-' . $id .'.pdf');
     }
 
     public function template_voucher($data, $setting)
