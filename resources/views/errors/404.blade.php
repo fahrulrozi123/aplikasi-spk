@@ -1,4 +1,9 @@
 @extends('templates/visitor_template')
+
+@section('description', 'Horison Ultima Bandung. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Horison Ultima Bandung')
+@section('title', 'Page Not Found')
+
 @section('content')
 <br><br>
 

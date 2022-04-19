@@ -420,29 +420,51 @@ class VisitorController extends Controller
         if ($from == "rooms") {
             $room = Type::where('id', $id)->first();
 
-            return redirect(route('room.slug', $room->room_slug), 301);
+            if($room == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('room.slug', $room->room_slug), 301);
+            }
         } else if ($from == "recreation") {
             $product = Product::where('id', $id)->first();
 
-            return redirect(route('recreation.slug', $product->product_slug), 301);
+            if($product == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('recreation.slug', $product->product_slug), 301);
+            }
         } else if ($from == "allysea_spa") {
             $spa = Product::where('id', $id)->first();
 
-            return redirect(route('allysea_spa.slug', $spa->product_slug), 301);
+            if($spa == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('allysea_spa.slug', $spa->product_slug), 301);
+            }
         } else if ($from == "mice_wedding") {
             $miceWedding = Product::where('id', $id)->first();
 
-            return redirect(route('mice_wedding.slug', $miceWedding->product_slug), 301);
+            if($miceWedding == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('mice_wedding.slug', $miceWedding->product_slug), 301);
+            }
         } else if ($from == "function_roomA") {
-
             $functionroom = FunctionRoom::where('id', $id)->first();
 
-            return redirect(route('functionroom.slug', $functionroom->product_slug), 301);
-
+            if($functionroom == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('functionroom.slug', $functionroom->func_room_slug), 301);
+            }
         } else if ($from == "function_roomB") {
             $miceWedding = Product::where('id', $id)->first();
 
-            return redirect(route('micewedding.slug', $miceWedding->product_slug), 301);
+            if($functionroom == NULL) {
+                return abort(404);
+            } else {
+                return redirect(route('micewedding.slug', $miceWedding->product_slug), 301);
+            }
         }
 
     }
