@@ -480,7 +480,8 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-12">
                                                                                     <ul class="form-group">
-                                                                                        <li>You’ll be redirected and will be given 1 hour to enter your credit card credential.</li>
+                                                                                        <li>You’ll be redirected and will be 10 minutes to enter your credit card credential.</li>
+                                                                                        {{-- <li>You’ll be redirected and will be given 1 hour to enter your credit card credential.</li> --}}
                                                                                         <li>You can’t change your payment method after you’ve confirmed this process.</li>
                                                                                     </ul>
                                                                                 </div>

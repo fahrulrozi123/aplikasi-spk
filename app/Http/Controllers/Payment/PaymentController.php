@@ -168,7 +168,8 @@ class PaymentController extends Controller
         $cust_name           = $booking->rsvp_cust_name;
         $msisdn              = '+'.$booking->rsvp_cust_phone;
         $bill_date           = Carbon::now();
-        $bill_expired        = Carbon::now()->addHours(1);
+        // $bill_expired        = Carbon::now()->addHours(1);
+        $bill_expired        = Carbon::now()->addMinutes(20);
         $bill_desc           = 'Room Reservation of '.$bill_no;
         $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 
@@ -430,7 +431,8 @@ class PaymentController extends Controller
         $cust_name           = $booking->rsvp_cust_name;
         $msisdn              = '+'.$booking->rsvp_cust_phone;
         $bill_date           = Carbon::now();
-        $bill_expired        = Carbon::now()->addHours(1);
+        // $bill_expired        = Carbon::now()->addHours(1);
+        $bill_expired        = Carbon::now()->addMinutes(20);
         $bill_desc           = 'Product Reservation of '.$bill_no;
         $signature	         = sha1(md5($merchant_user.$merchant_password.$bill_no));
 

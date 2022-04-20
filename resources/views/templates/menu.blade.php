@@ -91,12 +91,12 @@
                             <span class="title">Rooms</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="/master_data/rates-plan">
                             <i class="fa fa-fw fa-columns"></i>
                             <span class="title">Rates Plan</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/master_data/amenities">
                             <i class="fa fa-fw fa-diamond"></i>

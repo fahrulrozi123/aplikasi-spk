@@ -133,7 +133,8 @@ class ReserveController extends Controller
         $allGrandTotal = 0;
         $data = array();
         $created_at = Carbon::now();
-        $expired_at = Carbon::now()->addHours(1);
+        // $expired_at = Carbon::now()->addHours(1);
+        $expired_at = Carbon::now()->addMinutes(20);
         for ($j = 0; $j < ($totalDays); $j++) {
             $rsvpDateReserve = Carbon::parse($checkIn)->addDays($j)->format('Y-m-d');
             if ($breakfast == 0) {
@@ -547,7 +548,8 @@ class ReserveController extends Controller
     public function input_product($booking_id, $product, $date)
     {
         $created_at = Carbon::now();
-        $expired_at = Carbon::now()->addHours(1);
+        // $expired_at = Carbon::now()->addHours(1);
+        $expired_at = Carbon::now()->addMinutes(20);
 
         if (!$booking_id) {
             $bytes = openssl_random_pseudo_bytes(8, $cstrong);
