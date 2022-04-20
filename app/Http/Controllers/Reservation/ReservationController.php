@@ -488,6 +488,9 @@ class ReservationController extends Controller
             $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
             $data = $query[0];
 
+            $query = DB::select('select * from room_rsvp where reservation_id = ?', [$id]);
+            $data->rsvp = $query[0];
+
             $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
             $data->room = $query[0];
 
@@ -579,6 +582,9 @@ class ReservationController extends Controller
         if ($from == "ROOMS") {
             $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
             $data = $query[0];
+
+            $query = DB::select('select * from room_rsvp where reservation_id = ?', [$id]);
+            $data->rsvp = $query[0];
 
             $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
             $data->room = $query[0];

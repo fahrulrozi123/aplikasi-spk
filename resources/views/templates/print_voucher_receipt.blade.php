@@ -90,8 +90,7 @@ if ($data->from == 'ROOMS') {
     $room_ppu = floor($room_ppu);
 
     if ($data->rsvp_total_amount_extrabed != 0) {
-        $original_price_extrabed = $data->rsvp_total_amount_extrabed / $data->rsvp_total_extrabed;
-        $room_rate = ($room_ppu * ($data->rsvp_grand_total - ($room_ppu + $original_price_extrabed))) / ($room_ppu + $original_price_extrabed);
+        $room_rate = ($room_ppu * ($data->rsvp_grand_total - ($room_ppu + $data->rsvp->rsvp_extrabed_rate))) / ($room_ppu + $data->rsvp->rsvp_extrabed_rate);
     } else {
         $room_rate = ($room_ppu * ($data->rsvp_grand_total - $room_ppu)) / $room_ppu;
     }
