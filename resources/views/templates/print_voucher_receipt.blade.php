@@ -95,8 +95,8 @@ if ($data->from == 'ROOMS') {
         $room_rate = ($room_ppu * ($data->rsvp_grand_total - $room_ppu)) / $room_ppu;
     }
 
-    $original_rate = ($room_ppu + $room_rate) / $data->rsvp_total_room;
-    $total_rate = $original_rate * $data->rsvp_total_room;
+    $original_rate = ($room_ppu + $room_rate) / $data->total_stay / $data->rsvp_total_room;
+    $total_rate = $original_rate * $data->total_stay * $data->rsvp_total_room;
 
     $grand_total = $data->rsvp_total_amount_room;
 
