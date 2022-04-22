@@ -583,9 +583,6 @@ class ReservationController extends Controller
             $query = DB::select('select * from room_reservation where reservation_id = ?', [$id]);
             $data = $query[0];
 
-            $query = DB::select('select * from room_rsvp where reservation_id = ?', [$id]);
-            $data->rsvp = $query[0];
-
             $query = DB::select('select * from room_type where id = ?', [$data->room_id]);
             $data->room = $query[0];
 
@@ -657,8 +654,6 @@ class ReservationController extends Controller
 
         $setting = Setting::first();
         $data->from = $from;
-        $data->voucher_attachment = $this->template_voucher($data, $setting);
-        $data->receipt_attachment = $this->template_receipt($data, $setting);
 
         $pdf = PDF::loadview('templates.print_voucher_receipt', get_defined_vars());
         return $pdf->download('RSVP-' . $id .'.pdf');

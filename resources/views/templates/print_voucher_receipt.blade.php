@@ -86,28 +86,19 @@ if ($data->rsvp_guest_name == '') {
 }
 
 if ($data->from == 'ROOMS') {
-    $room_ppu = $data->rsvp_total_amount_room / $data->total_stay / $data->rsvp_total_room;
-    $room_ppu = floor($room_ppu);
+    $room_rate = ($data->rsvp_total_amount_room * ($data->rsvp_grand_total - ($data->rsvp_total_amount_room + $data->rsvp_total_amount_extrabed))) /
+    ($data->rsvp_total_amount_room + $data->rsvp_total_amount_extrabed);
 
-    if ($data->rsvp_total_amount_extrabed != 0) {
-        $room_rate = ($room_ppu * ($data->rsvp_grand_total - ($room_ppu + $data->rsvp->rsvp_extrabed_rate))) / ($room_ppu + $data->rsvp->rsvp_extrabed_rate);
-    } else {
-        $room_rate = ($room_ppu * ($data->rsvp_grand_total - $room_ppu)) / $room_ppu;
-    }
-
-    $original_rate = ($room_ppu + $room_rate) / $data->total_stay / $data->rsvp_total_room;
+    $original_rate = ($data->rsvp_total_amount_room + $room_rate) / $data->total_stay / $data->rsvp_total_room;
     $total_rate = $original_rate * $data->total_stay * $data->rsvp_total_room;
 
     $grand_total = $data->rsvp_total_amount_room;
 
     if ($data->rsvp_total_extrabed > 0) {
-        $extrabed_ppu = $data->rsvp_total_amount_extrabed / $data->total_stay / $data->rsvp_total_extrabed;
-        $extrabed_ppu = floor($extrabed_ppu);
+        $extra_rate = ($data->rsvp_total_amount_extrabed * ($data->rsvp_grand_total - ($data->rsvp_total_amount_room + $data->rsvp_total_amount_extrabed))) / ($data->rsvp_total_amount_room + $data->rsvp_total_amount_extrabed);
 
-        $extra_rate = ($extrabed_ppu * ($data->rsvp_grand_total - ($room_ppu + $extrabed_ppu))) / ($room_ppu + $extrabed_ppu);
-
-        $extrabed_rate = ($extrabed_ppu + $extra_rate) / $data->rsvp_total_extrabed;
-        $total_extrabed_rate = $extrabed_ppu + $extra_rate;
+        $extrabed_rate = ($data->rsvp_total_amount_extrabed + $extra_rate) / $data->total_stay / $data->rsvp_total_extrabed;
+        $total_extrabed_rate = $data->rsvp_total_amount_extrabed + $extra_rate;
 
         $grand_total += $data->rsvp_total_amount_extrabed;
     }
