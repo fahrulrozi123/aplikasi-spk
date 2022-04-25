@@ -47,6 +47,7 @@ class InquiryController extends Controller
 
     public function inquiry_insert(Request $request)
     {
+        // dd($request->all());
         $other_request = ['1', '2', '3', '4', '5'];
         $mice_other_request = ['1', '2', '3', '4', '5', '6'];
         $wedding_other_request = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'];
@@ -268,7 +269,7 @@ class InquiryController extends Controller
                     }
                 }
 
-                Inquiry::create([
+                $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
@@ -282,8 +283,9 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date,
                     'inq_arrive_time' => $data['spa_time'],
                     'inq_details' => isset($sanitizer['spa_details']) ? $sanitizer['spa_details'] : "",
-                ]);
+                ];
 
+                Inquiry::create($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -366,7 +368,7 @@ class InquiryController extends Controller
                     }
                 }
 
-                Inquiry::create([
+                $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
@@ -383,8 +385,9 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date_alt,
                     'inq_budget' => isset($data['mice_budget']) ? $data['mice_budget'] : 0,
                     'inq_details' => isset($sanitizer['mice_details']) ? $sanitizer['mice_details'] : "",
-                ]);
+                ];
 
+                Inquiry::create($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -453,7 +456,7 @@ class InquiryController extends Controller
                 }
             }
 
-            Inquiry::create([
+            $inquiry = [
                 'reservation_id' => $reservation_id,
                 'customer_id' => $customer_id,
                 'inq_cust_name' => $cust_name,
@@ -467,8 +470,9 @@ class InquiryController extends Controller
                 'inq_alt_start' => $date_alt,
                 'inq_alt_end' => $date_alt,
                 'inq_details' => isset($sanitizer['wedding_details']) ? $sanitizer['wedding_details'] : "",
-            ]);
+            ];
 
+            Inquiry::create($inquiry);
             $from = "INQUIRY";
             $rsvp_id = $inquiry['reservation_id'];
             $this->resendEmail($from, $rsvp_id);
