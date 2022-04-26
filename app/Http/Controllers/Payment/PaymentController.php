@@ -63,7 +63,7 @@ class PaymentController extends Controller
 
         if ($data['type'] == "customer") {
             $validator = Validator::make($data, [
-                'cust_name' => 'required|string|max:50',
+                'cust_name' => 'required|alpha|max:50',
                 'cust_email' => 'required|email|max:50',
                 'cust_phone' => 'required|numeric',
                 'guest_name' => 'string',
@@ -71,7 +71,7 @@ class PaymentController extends Controller
             ],
             [
                 'cust_name.required' => 'Full Name field is required',
-                'cust_name.string' => 'Full Name field only can contain letter not number',
+                'cust_name.alpha' => 'Full Name field only can contain letter not number',
                 'guest_name.string' => 'Guest Name field only can contain letter not number',
                 'cust_name.max' => 'Full Name field max only 50 character',
                 'cust_email.required' => 'Email field is required',
@@ -287,7 +287,7 @@ class PaymentController extends Controller
         $data['time_reserve'] = Carbon::parse($data['time_reserve'])->isoFormat('YYYY-MM-DD HH:mm');
 
         $validator = Validator::make($data, [
-            'cust_name' => 'required|string|max:50',
+            'cust_name' => 'required|alpha|max:50',
             'cust_email' => 'required|email|max:50',
             'cust_phone' => 'required|numeric',
             'product_id' => 'required|exists:product,id',
@@ -298,7 +298,7 @@ class PaymentController extends Controller
         ],
         [
             'cust_name.required' => 'Full Name field is required',
-            'cust_name.string' => 'Full Name field only can contain letter not number',
+            'cust_name.alpha' => 'Full Name field only can contain letter not number',
             'guest_name.string' => 'Guest Name field only can contain string',
             'cust_name.max' => 'Full Name field max only 50 character',
             'cust_email.required' => 'Email field is required',
