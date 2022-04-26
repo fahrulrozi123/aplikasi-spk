@@ -923,14 +923,16 @@
                             </span>
                         </div>
                         <div class="col-xs-6 col-md-6" align="right">
-                            <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
-                                class="btn btn-horison-gold" style="height: 40px;">
-                                <b>Resend Voucher</b>
-                            </button>
-                            <button type="button" id="btn_reschedule" onclick="printVoucher();" target="_blank"
-                                class="btn btn-horison-gold" style="height: 40px;">
-                                <b>Print Voucher</b>
-                            </button>
+                            <span id="room_print_right">
+                                <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
+                                    class="btn btn-horison-gold" style="height: 40px;">
+                                    <b>Resend Voucher</b>
+                                </button>
+                                <button type="button" id="btn_reschedule" onclick="printVoucher();" target="_blank"
+                                    class="btn btn-horison-gold" style="height: 40px;">
+                                    <b>Print Voucher</b>
+                                </button>
+                            </span>
                         </div>
                     </div>
 

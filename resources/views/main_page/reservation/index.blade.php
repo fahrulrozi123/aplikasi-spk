@@ -1094,11 +1094,13 @@
                         $('#two_day').empty();
                         $('#two_day').append(threeday);
                     }
-                } else if (data.rsvp_status == "Failed" || data.rsvp_status == "Payment Expired") {
+                } else if (data.rsvp_status == "Failed" || data.rsvp_status == "Payment Expired" || data.rsvp_status == "Waiting for payment") {
                     $('#room_cancel_reschedule_btn').hide();
+                    $('#room_print_right').hide();
                 } else {
                     $('#room_cancel_reschedule_btn').fadeIn();
                     $('#room_cancel_reschedule_left').hide();
+                    $('#room_print_right').fadeIn();
                     $('#modal_reservation_id').val(data.reservation_id);
                     $('#modal_booking_id').val(data.booking_id);
                     $('#modal_booking_id').val(data.booking_id);

@@ -460,7 +460,7 @@ class VisitorController extends Controller
         } else if ($from == "function_roomB") {
             $miceWedding = Product::where('id', $id)->first();
 
-            if($functionroom == NULL) {
+            if($miceWedding == NULL) {
                 return abort(404);
             } else {
                 return redirect(route('micewedding.slug', $miceWedding->product_slug), 301);
