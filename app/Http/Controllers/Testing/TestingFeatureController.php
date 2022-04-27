@@ -232,4 +232,11 @@ class TestingFeatureController extends Controller
 
         $return = (DB::insert(DB::raw($sql)));
     }
+
+    public function checkStatusReservation()
+    {
+        $query = RoomRsvp::whereNull('rsvp_payment')->where('expired_at', '>=', Carbon::now())->get();
+
+        // dd($query);
+    }
 }

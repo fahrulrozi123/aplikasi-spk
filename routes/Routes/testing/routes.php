@@ -12,6 +12,9 @@ Route::group(['middleware' => ['web']], function () {
 
         // Check Allotment
         Route::get('/check-allotment','Testing\TestingFeatureController@checkAllotment');
+
+        // Check StatusReservation
+        Route::get('/check-reservation','Testing\TestingFeatureController@checkStatusReservation');
         // END TESTING FEATURE
 
         // TESTING PAYMENT
