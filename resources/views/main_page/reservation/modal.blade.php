@@ -349,7 +349,7 @@
                                             <tr>
                                                 <th class="col-lg-3">
                                                     <strong>Inquiry Number</strong>
-                                                    /th>
+                                                </th>
                                                 <th class="col-lg-3">
                                                     <strong>Inquiry Type</strong>
                                                 </th>

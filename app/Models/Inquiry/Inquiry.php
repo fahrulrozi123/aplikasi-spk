@@ -32,10 +32,10 @@ class Inquiry extends Model
         'inq_arrive_time',
         'inq_budget',
         'inq_details',
+        'created_at',
     ];
 
     protected $hidden = [
-        'created_at',
         'updated_at',
     ];
 

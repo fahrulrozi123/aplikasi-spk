@@ -1309,7 +1309,7 @@
                 $('.inq_date').text(date);
                 $('.inq_product').text(data.product_name);
                 $('.inq_participant').text(data.inq_participant);
-                $('.inq_desc').text(data.inq_details);
+                $('.inq_desc').text(escapeHtml(data.inq_details));
                 $('.inq_event_name').text(data.inq_event_name);
 
                 $('.inq_cust_name').text(escapeHtml(data.inq_cust_name));
@@ -1453,7 +1453,7 @@
                 $('.inq_date').text(date);
                 $('.inq_product').text(data.product_name);
                 $('.inq_participant').text(data.inq_participant);
-                $('.inq_desc').text(data.inq_details);
+                $('.inq_desc').text(escapeHtml(data.inq_details));
                 $('.inq_event_name').text(data.inq_event_name);
 
                 $('.inq_cust_name').text(escapeHtml(data.inq_cust_name));
