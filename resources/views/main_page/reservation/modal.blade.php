@@ -924,11 +924,11 @@
                         </div>
                         <div class="col-xs-6 col-md-6" align="right">
                             <span id="room_print_right">
-                                <button type="button" id="btn_reschedule" onclick="resendEmail(this);"
+                                <button type="button" id="btn_resendemail" onclick="resendEmail(this);"
                                     class="btn btn-horison-gold" style="height: 40px;">
                                     <b>Resend Voucher</b>
                                 </button>
-                                <button type="button" id="btn_reschedule" onclick="printVoucher();" target="_blank"
+                                <button type="button" id="btn_printvoucher" onclick="printVoucher();" target="_blank"
                                     class="btn btn-horison-gold" style="height: 40px;">
                                     <b>Print Voucher</b>
                                 </button>
