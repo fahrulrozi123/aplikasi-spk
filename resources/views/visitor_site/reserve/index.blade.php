@@ -1477,6 +1477,9 @@
             $('#reserve').submit();
 
             window.location.href = '/';
+            // setTimeout(function () {
+            //     window.location.href = "/";
+            // }, 100);
         }
 
     </script>
