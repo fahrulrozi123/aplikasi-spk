@@ -1476,10 +1476,10 @@
             $('#reserve').attr('target', '_blank');
             $('#reserve').submit();
 
-            window.location.href = '/';
-            // setTimeout(function () {
-            //     window.location.href = "/";
-            // }, 100);
+            // window.location.href = '/';
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 100);
         }
 
     </script>
