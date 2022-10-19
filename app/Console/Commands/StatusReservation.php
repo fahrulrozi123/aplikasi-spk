@@ -46,8 +46,8 @@ class StatusReservation extends Command
     public function handle()
     {
         // Failed jika belum memilih metode pembayaran
-        RoomRsvp::whereNull('rsvp_payment')->where('expired_at', '=', Carbon::now())->update(['rsvp_status' => "Failed"]);
-        ProductRsvp::whereNull('rsvp_payment')->where('expired_at', '=', Carbon::now())->update(['rsvp_status' => "Failed"]);
+        RoomRsvp::whereNull('rsvp_payment')->where('rsvp_status', '=', 'Waiting for payment')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
+        ProductRsvp::whereNull('rsvp_payment')->where('rsvp_status', '=', 'Waiting for payment')->where('expired_at', '<', Carbon::now())->update(['rsvp_status' => "Failed"]);
 
         // Status Reservation jika sudah memilih pembayaran
         $time = Carbon::now()->toDateTimeString();
