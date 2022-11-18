@@ -1,7 +1,7 @@
 <?php
 Route::group(['middleware' => ['web']], function () {
     // Landing Page
-    Route::get('/', 'Visitor\VisitorController@index')->name('index');
+    Route::get('/', 'Visitor\VisitorController@rooms')->name('index');
 
     // Room
     Route::get('/rooms/', 'Visitor\VisitorController@rooms')->name('visitor.room');
