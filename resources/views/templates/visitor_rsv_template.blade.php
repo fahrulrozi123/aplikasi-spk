@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
-    <meta name="author" content="Horison Ultima Bandung">
+    <meta name="author" content="Booking Engine">
     <title>{{ $setting->title }} - Inquiry</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}">
@@ -70,7 +70,7 @@
                 <div class="navbar-brand" style="padding-top:5px;">
                     <a href="/">
                         <img src="{{ asset('images/logo/' . $setting->logo) }}" width="170" height="50"
-                            alt="Horison Ultima Bandung" />
+                            alt="Booking Engine" />
                     </a>
                 </div>
 
@@ -190,7 +190,7 @@
                         <div class="container footer-bg-height">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
                                 <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56"
-                                    alt="Horison Ultima Bandung" style="margin-top:55px;" />
+                                    alt="Booking Engine" style="margin-top:55px;" />
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                                 <div class=row>

@@ -8,8 +8,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Horison Ultima Bandung" />
-    <meta name="author" content="Horison Ultima Bandung" />
+    <meta name="description" content="Booking Engine" />
+    <meta name="author" content="Booking Engine" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $setting->title }} - Reservation</title>
@@ -102,7 +102,7 @@
 
                     {{-- HEADER --}}
                     <a href="/">
-                        <img id="logo_horison" class="mt-20 img-reserve" style="position: absolute; top: 0; left: 0;" src="{{ asset('images/logo/' . $setting->logo) }}" width="170" alt="Horison Ultima Bandung" />
+                        <img id="logo_horison" class="mt-20 img-reserve" style="position: absolute; top: 0; left: 0;" src="{{ asset('images/logo/' . $setting->logo) }}" width="170" alt="Booking Engine" />
                     </a>
                     <div class="steps-progress">
                         <div class="progress-indicator"></div>
@@ -929,7 +929,7 @@
             <div class="row footer-bg-color margin-footer">
                 <div class="container" style="height:185px;">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
-                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Horison Ultima Bandung" style="margin-top:55px;" />
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Booking Engine" style="margin-top:55px;" />
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                         <div class=row>

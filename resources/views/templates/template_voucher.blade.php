@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Hotel Voucher - Horison Ultima Bandung</title>
+    <title>Hotel Voucher - Booking Engine</title>
 
     <style>
         @page  {
@@ -69,7 +69,7 @@ $gambar = $img."/".$setting->logo;
                     {{-- BOOKING DETAILS - HEADER --}}
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
-                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Horison Ultima Bandung">
+                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Booking Engine">
                             {{-- <img src="{{ $gambar }}" width="210"> --}}
                             <h1 class="font-voucher horison-dark" style="margin-top: -66px; margin-left: 230px;"><b>Hotel Voucher</b><br>
                                 <span><i class="fs-11">Present either electronic or paper copy of your booking confirmation upon check-in</i></span>

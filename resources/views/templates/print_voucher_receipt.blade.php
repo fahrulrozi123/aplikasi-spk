@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Hotel Voucher Receipt - Horison Ultima Bandung</title>
+    <title>Hotel Voucher Receipt - Booking Engine</title>
     <style>
         @page {
             margin-bottom: -100;
@@ -121,7 +121,7 @@ if ($data->from == 'ROOMS') {
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
                             <img src="{{ public_path('/images/logo/logo.jpg') }}" width="210"
-                                alt="Horison Ultima Bandung">
+                                alt="Booking Engine">
                             <h1 class="font-voucher horison-dark" style="margin-top: -66px; margin-left: 230px;">
                                 <b>Hotel Voucher</b><br>
                                 <span><i class="fs-11">Present either electronic or paper copy of your booking
@@ -337,7 +337,7 @@ if ($data->from == 'ROOMS') {
                     {{-- Header --}}
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
-                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Horison Ultima Bandung">
+                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Booking Engine">
                             <h3 class="font-voucher horison-dark" style="margin-top: -65px; margin-left: 240px;">
                                 <b>RECEIPT</b><br>
                                 #{{ $data->payment->transaction_id }}

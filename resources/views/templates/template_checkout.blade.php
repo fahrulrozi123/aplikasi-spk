@@ -300,7 +300,7 @@ $gambar = $img."/".$setting->logo;
 														style="font-size: 12px; line-height: 1.2; color: #1B729E; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
-															Horison Ultima Bandung</p>
+															Booking Engine</p>
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
                                                             {{ $setting->address }}
@@ -416,7 +416,7 @@ $gambar = $img."/".$setting->logo;
 														style="font-size: 12px; line-height: 1.2; color: #1B729E; font-family: Cabin, Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14px;">
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
-															Horison Ultima Bandung</p>
+															Booking Engine</p>
 														<p
 															style="font-size: 14px; line-height: 1.2; word-break: break-word; mso-line-height-alt: 17px; margin: 0;">
                                                             {{ $setting->address }}

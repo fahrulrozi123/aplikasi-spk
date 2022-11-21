@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Receipt Booking - Horison Ultima Bandung</title>
+    <title>Receipt Booking - Booking Engine</title>
     <style>
         @page {
             margin-bottom: -100;
@@ -132,7 +132,7 @@ if ($data->from == 'ROOMS') {
                     {{-- Header --}}
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
-                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Horison Ultima Bandung">
+                            <img src="{{ asset('/images/logo/logo.jpg') }}" width="210" alt="Booking Engine">
                             <h3 class="font-voucher horison-dark" style="margin-top: -65px; margin-left: 240px;">
                                 <b>RECEIPT</b><br>
                                 #{{ $data->payment->transaction_id }}

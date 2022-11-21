@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Hotel Voucher - Horison Ultima Bandung</title>
+    <title>Hotel Voucher - Booking Engine</title>
     <style>
         @page {
             margin-bottom: -100;
@@ -74,7 +74,7 @@ if ($data->rsvp_guest_name == '') {
                     <div class="row">
                         <div class="col-sm-3 col-md-3">
                             <img src="{{ public_path('/images/logo/logo.jpg') }}" width="210"
-                                alt="Horison Ultima Bandung">
+                                alt="Booking Engine">
                             <h1 class="font-voucher horison-dark" style="margin-top: -66px; margin-left: 230px;">
                                 <b>Hotel Voucher</b><br>
                                 <span><i class="fs-11">Present either electronic or paper copy of your booking
