@@ -10,6 +10,7 @@ use App\Models\Allotment\Allotment;
 use App\Models\Room\Rsvp as RoomRsvp;
 use App\Models\Product\Product;
 use App\Models\Product\Rsvp as ProductRsvp;
+use App\Models\Setting\PageSetting;
 
 use Carbon\Carbon;
 use DB;
@@ -414,6 +415,26 @@ class ReserveController extends Controller
         $menu     = $this->menu();
         $setting  = $this->setting();
         return view('visitor_site.reservation.index', get_defined_vars());
+    }
+
+    public function packageReservation(Request $request)
+    {
+        $setting = $this->setting();
+        $menu = $this->menu();
+        $today = Carbon::parse(Carbon::now())->isoFormat("DD MMMM YYYY");
+        $category1 = PageSetting::where('page_code', 'Recreation')->with('photo')->first();
+        $category2 = PageSetting::where('page_code', 'Wellness')->with('photo')->first();
+        $category3 = PageSetting::where('page_code', 'Mice')->with('photo')->first();
+        $category4 = PageSetting::where('page_code', 'Promotion')->with('photo')->first();
+
+
+        $recreations = Product::where('category', '1')->orderBy('product_name', 'ASC')->with('photos')->get();
+        $wellnesses = Product::where('category', '2')->orderBy('product_name', 'ASC')->with('photos')->get();
+        $mices = Product::where('category', '3')->orderBy('product_name', 'ASC')->with('photos')->get();
+        $promotions = Product::where('category', '4')->orderBy('product_name', 'ASC')->with('photos')->get();
+
+
+        return view('visitor_site.package_reservation.index', get_defined_vars());
     }
 
     public function paymentChannel()

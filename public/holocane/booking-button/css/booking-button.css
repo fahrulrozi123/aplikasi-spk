@@ -1,0 +1,565 @@
+/*--------------------------------
+	General
+--------------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap");
+
+#BB_book {
+    font-family: "Roboto", sans-serif !important;
+    font-size: 13px;
+}
+
+#BB_book .BB_book_row {
+    display: flex;
+}
+
+#BB_book .BB_book_column {
+    flex: 50%;
+    padding: 5px;
+}
+
+.litepicker {
+    z-index: 99999999 !important;
+}
+
+.date-checkin {
+    float: right;
+    margin-right: 20px;
+    margin-top: -27px;
+    position: relative;
+    z-index: 2;
+}
+
+/* input */
+#BB_book input[type="text"],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 42px;
+}
+
+#BB_book input[type="date"],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+#BB_book textarea {
+    display: inline-block;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 404px;
+    padding: 20px;
+    height: 100px;
+}
+
+#BB_book input[type="button"] {
+    background-color: #b68440;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 45px;
+}
+
+#BB_book input[type="button"]:hover {
+    background-color: #856d47;
+}
+
+/* input spinner */
+#BB_book .input-spinner {
+    display: flex;
+}
+
+#BB_book .input-spinner:before,
+#BB_book .input-spinner:after {
+    content: " ";
+    display: table;
+}
+
+#BB_book .input-spinner:after {
+    clear: both;
+}
+
+#BB_book .input-spinner input,
+#BB_book .input-spinner button {
+    float: left;
+}
+
+#BB_book .input-spinner input {
+    margin: 0;
+    border-left: 0;
+    border-right: 0;
+    text-align: center;
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 0;
+    background-clip: padding-box;
+    width: auto;
+}
+
+#BB_book .input-spinner input.size-3 {
+    flex: 1 1 auto;
+    width: 1%;
+    height: 42px;
+    background-color: #ffffff;
+}
+/*--------------------------------
+	Web
+--------------------------------*/
+@media screen and (min-width: 768px) {
+    /*--------------------------------
+	General
+    --------------------------------*/
+    #BB_book {
+        z-index: 9999999;
+        margin-top: 100px;
+    }
+
+    #BB_book .child-age {
+        margin-left: 12px;
+    }
+
+    /* booking room */
+    #BB_book .BB_book_action_room {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0px;
+        z-index: 999999;
+    }
+
+    #BB_book .BB_book_action_room .BB_book_title_room {
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+        width: 100px;
+        height: 40px;
+        background: #b68440;
+        border-radius: 5px 5px 0px 0px;
+        transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform-origin: bottom right;
+        color: #ffffff;
+        display: inline-block;
+        line-height: 40px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    #BB_book .BB_book_card_room {
+        position: absolute;
+        top: 40px;
+        left: 100px;
+        width: 450px;
+        background-color: #f5f3ec;
+        padding: 20px;
+    }
+
+    #BB_book .BB_book_active_room {
+        transition: all 500ms ease-in-out;
+        right: 490px !important;
+    }
+
+    #BB_book #checkin {
+        height: 40px;
+    }
+
+    #BB_book #button_left {
+        height: 42px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border: none;
+        background-color: #b68440;
+        width: 20px;
+    }
+
+    #BB_book #button_right {
+        height: 42px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border: none;
+        background-color: #b68440;
+        width: 20px;
+    }
+
+    #BB_book .BB_book_children_room {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: 5px;
+    }
+
+    #BB_book .BB_book_link_room {
+        padding: 5px;
+    }
+
+    /* booking package */
+    #BB_book .BB_book_action_package {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0px;
+        z-index: 99999;
+        margin-top: 102px;
+    }
+
+    #BB_book .BB_book_action_package .BB_book_title_package {
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+        width: 100px;
+        height: 40px;
+        background: #d2b486;
+        border-radius: 5px 5px 0px 0px;
+        transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform-origin: bottom right;
+        color: #fff;
+        display: inline-block;
+        line-height: 40px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    #BB_book .BB_book_card_package {
+        position: absolute;
+        top: 40px;
+        left: 100px;
+        width: 450px;
+        background-color: #f5f3ec;
+        padding: 20px;
+    }
+
+    #BB_book .BB_book_active_package {
+        transition: all 500ms ease-in-out;
+        right: 490px !important;
+    }
+
+    #BB_book .BB_book_description_package {
+        margin-bottom: 25px;
+    }
+
+    #BB_book .BB_book_find_package {
+        margin-bottom: 20px;
+    }
+
+    #BB_book .BB_book_link_package {
+        background-color: #d2b486;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_link_package:hover {
+        background-color: #bea072;
+    }
+
+    /* contact */
+    #BB_book .BB_book_action_contact {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0px;
+        z-index: 9999;
+        margin-top: 205px;
+    }
+
+    #BB_book .BB_book_action_contact .BB_book_title_contact {
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+        margin: 0px;
+        width: 100px;
+        height: 40px;
+        background: #b64940;
+        border-radius: 5px 5px 0px 0px;
+        transform: rotate(-90deg);
+        -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform-origin: bottom right;
+        color: #fff;
+        display: inline-block;
+        line-height: 40px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    #BB_book .BB_book_card_contact {
+        position: absolute;
+        top: 40px;
+        left: 100px;
+        width: 450px;
+        background-color: #f5f3ec;
+        padding: 20px;
+    }
+
+    #BB_book .BB_book_active_contact {
+        transition: all 500ms ease-in-out;
+        right: 490px !important;
+    }
+
+    #BB_book .BB_book_description_contact {
+        margin-bottom: 25px;
+    }
+
+    #BB_book .BB_book_find_contact {
+        margin-bottom: 20px;
+    }
+
+    #BB_book .BB_book_link_contact {
+        background-color: #b64940;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_link_contact:hover {
+        background-color: #9d3027;
+    }
+}
+/*--------------------------------
+	Mobile
+--------------------------------*/
+@media screen and (max-width: 767px) {
+    /*--------------------------------
+	General
+    --------------------------------*/
+    #BB_book .child-age {
+        margin-left: 2px;
+    }
+
+    /* input spinner */
+    #BB_book .input-spinner {
+        display: flex;
+    }
+    
+    #BB_book .input-spinner input.size-3 {
+        flex: 1 1 auto;
+        width: 1%;
+        height: 42px;
+        background-color: #ffffff;
+    }
+
+    /* room */
+    #BB_book .BB_book_action_room {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0;
+        left: 0;
+        top: auto;
+        bottom: -303px;
+    }
+
+    #BB_book .BB_book_action_room .BB_book_title_room {
+        border-radius: 5px 5px 0px 0px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        text-align: center;
+        font-size: 16px;
+        margin: 0px;
+        background-color: #b68440;
+        color: #ffffff;
+        padding-top: 15px;
+        width: 33%;
+        position: absolute;
+        height: 50px;
+        cursor: pointer;
+        top: -50px;
+    }
+
+    #BB_book .BB_book_card_room {
+        background-color: #f5f3ec;
+        padding: 20px;
+        width: auto;
+    }
+
+    #BB_book .BB_book_active_room {
+        transition: all 500ms ease-in-out;
+        margin-bottom: 297px !important;
+        z-index: 9999;
+    }
+
+    #BB_book #checkin {
+        height: 40px;
+    }
+
+    #BB_book #button_left {
+        height: 42px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border: none;
+        background-color: #b68440;
+        width: 20px;
+    }
+
+    #BB_book #button_right {
+        height: 42px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border: none;
+        background-color: #b68440;
+        width: 20px;
+    }
+
+    #BB_book .BB_book_children_room {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* package */
+    #BB_book .BB_book_action_package {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0;
+        left: 0;
+        top: auto;
+        bottom: -168px;
+    }
+
+    #BB_book .BB_book_action_package .BB_book_title_package {
+        border-radius: 5px 5px 0px 0px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        text-align: center;
+        font-size: 16px;
+        margin: 0px;
+        background-color: #d2b486;
+        color: #fff;
+        padding-top: 15px;
+        width: 33%;
+        position: absolute;
+        height: 50px;
+        cursor: pointer;
+        top: -50px;
+        margin-left: 34%;
+        margin-right: 34%;
+    }
+
+    #BB_book .BB_book_card_package {
+        background-color: #f5f3ec;
+        padding: 20px;
+        width: auto;
+        height: 128px;
+    }
+
+    #BB_book .BB_book_active_package {
+        transition: all 500ms ease-in-out;
+        margin-bottom: 168px !important;
+        z-index: 9999;
+    }
+
+    #BB_book .BB_book_link_package {
+        background-color: #d2b486;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_description_package {
+        margin-bottom: 25px;
+    }
+
+    #BB_book .BB_book_find_package {
+        margin-bottom: 20px;
+    }
+
+    #BB_book .BB_book_link_package {
+        background-color: #d2b486;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_link_package:hover {
+        background-color: #bea072;
+    }
+
+    /* contact */
+    #BB_book .BB_book_action_contact {
+        position: fixed;
+        transition: all 500ms ease-in-out;
+        right: 0;
+        top: auto;
+        bottom: -168px;
+    }
+
+    #BB_book .BB_book_action_contact .BB_book_title_contact {
+        border-radius: 5px 5px 0px 0px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        text-align: center;
+        font-size: 16px;
+        margin: 0px;
+        background-color: #b64940;
+        color: #fff;
+        padding-top: 15px;
+        width: 32%;
+        position: absolute;
+        height: 50px;
+        cursor: pointer;
+        top: -50px;
+        right: 0;
+    }
+
+    #BB_book .BB_book_card_contact {
+        background-color: #f5f3ec;
+        padding: 20px;
+        width: auto;
+        height: 128px;
+    }
+
+    #BB_book .BB_book_active_contact {
+        transition: all 500ms ease-in-out;
+        margin-bottom: 168px !important;
+        z-index: 9999;
+    }
+
+    #BB_book .BB_book_link_contact {
+        background-color: #d2b486;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_description_contact {
+        margin-bottom: 25px;
+    }
+
+    #BB_book .BB_book_find_contact {
+        margin-bottom: 20px;
+    }
+
+    #BB_book .BB_book_link_contact {
+        background-color: #b64940;
+        color: white;
+        padding: 1em 1.5em;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+    #BB_book .BB_book_link_contact:hover {
+        background-color: #9d3027;
+    }
+}

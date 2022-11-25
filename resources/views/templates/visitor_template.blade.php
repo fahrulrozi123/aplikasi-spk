@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
-    <meta name="author" content="Booking Engine">
+    <meta name="author" content="Horison Ultima Bandung">
     <title>{{ $setting->title }} - @yield("title")</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
@@ -36,6 +36,10 @@
     <script src="{{ asset('js/jquery-1.11.3.min.js ') }}"></script>
     <script src="{{ asset('js/numeral/numeral.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
+    <link rel="shortcut icon" href="{{ env('APP_STORE').$setting->favicon }}" type="image/x-icon"/>
     <!-- International Phone Mask -->
     <script src="{{ asset('js/intl-phone/intlTelInput.js') }}"></script>
     <!-- sweet ALERT -->
@@ -51,6 +55,114 @@
             $(".lds-dual-ring").fadeOut("slow");;
         });
     </script>
+
+
+{{-- package reservation --}}
+<link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slick.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slick-theme.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/font-icons/entypo/css/entypo.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/bootstrap.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-core.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-theme.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-forms.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/selectboxit/jquery.selectBoxIt.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/skins/black.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/font-icons/font-awesome/css/font-awesome.min.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/md-tripa.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/holocene-custom.css ") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/404-custom.css") }} ">
+<!-- International Phone Mask -->
+{{-- <link rel="stylesheet" href="{{ asset("holocane/css/intl-phone/intlTelInput.css") }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slider-custom.css") }}">
+<script src="{{ asset("holocane/js/moment.min.js") }}"></script> --}}
+
+{{-- <link rel="stylesheet" href="{{ asset("holocane/js/select2/select2-bootstrap.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/select2/select2.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/daterangepicker/daterangepicker-bs3.css") }}">
+<link rel="shortcut icon" href="https://recerva.tripasysfo.com/storerecerva/8DawCH8q1SlHkzBftXCKSdqwYEc74Ufl6NlrdolR.ico" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/font-icons/entypo/css/entypo.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/bootstrap.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/neon-core.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/neon-theme.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/neon-forms.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/js/selectboxit/jquery.selectBoxIt.css') }}">
+<link rel="stylesheet" href="{{ asset('holocane/css/skins/black.css')}}">
+<link rel="stylesheet" href="{{ asset('holocane/css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
+<link rel="stylesheet" href="{{ asset('holocane/css/md-tripa.css ') }}">
+<link rel="stylesheet" href="{{ asset('holocane/css/holocene-custom.css ') }}">
+<link rel="stylesheet" href="{{ asset('holocane/css/404-custom.css ') }}"> --}}
+<!-- International Phone Mask -->
+{{-- <link rel="stylesheet" href="{{ asset('holocane/css/intl-phone/intlTelInput.css') }}"> --}}
+{{-- custom slider --}}
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/slider-custom.css') }}
+<script src="{{ asset('holocane/js/moment.min.js') }}"></script> --}}
+
+{{-- <link rel="stylesheet" href="{{ asset('holocane/js/select2/select2-bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('holocane/js/select2/select2.css') }}">
+<link rel="stylesheet" href="{{ asset('holocane/js/daterangepicker/daterangepicker-bs3.css') }}">
+<link rel="shortcut icon" href="{{ env('APP_STORE').$setting->favicon }}" type="image/x-icon"/> --}}
+
+{{-- <script src="{{ asset('holocane/js/jquery-1.11.3.min.js ') }}"></script>
+<script src="{{ asset('holocane/js/numeral/numeral.js') }}"></script>
+<script src="{{ asset('holocane/js/bootstrap-datepicker.js') }}"></script> --}}
+<!-- International Phone Mask -->
+{{-- <script src="{{ asset('holocane/js/intl-phone/intlTelInput.js') }}"></script>
+<!-- sweet ALERT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+{{-- custom datepicker --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/litepicker-module-ranges/dist/index.js"></script>
+
+<script type="text/javascript">
+    var home_url = "{{url('/')}}";
+
+    $(window).load(function () {
+        $(".lds-dual-ring").fadeOut("slow");;
+    });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ELYE4EJL9V"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-ELYE4EJL9V');
+</script> --}}
+{{-- end package reservation --}}
+
+{{-- end reservation --}}
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slick.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slick-theme.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/font-icons/entypo/css/entypo.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/bootstrap.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-core.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-theme.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/neon-forms.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/selectboxit/jquery.selectBoxIt.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/skins/black.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/font-icons/font-awesome/css/font-awesome.min.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/") }}css/md-tripa.css">
+<link rel="stylesheet" href="{{ asset("holocane/") }}css/holocene-custom.css ">
+<link rel="stylesheet" href="{{ asset("holocane/") }}css/404-custom.css ">
+<!-- International Phone Mask -->
+<link rel="stylesheet" href="{{ asset("holocane/") }}css/intl-phone/intlTelInput.css">
+
+<link rel="stylesheet" type="text/css" href="{{ asset("holocane/") }}css/slider-custom.css">
+<script src="{{ asset("holocane/") }}js/moment.min.js"></script>
+
+<link rel="stylesheet" href="{{ asset("holocane/") }}js/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="{{ asset("holocane/") }}js/select2/select2.css">
+<link rel="stylesheet" href="{{ asset("holocane/") }}js/daterangepicker/daterangepicker-bs3.css">
+<link rel="shortcut icon" href="https://recerva.tripasysfo.com/storerecerva/8DawCH8q1SlHkzBftXCKSdqwYEc74Ufl6NlrdolR.ico" type="image/x-icon"/> --}}
+{{-- end reservation --}}
 
     @yield('script')
 
@@ -193,10 +305,10 @@
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
-                                    <option value="1">{{ $menu['spa'][0]['page_name'] }}</option>
+                                    {{-- <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="1">{{ $menu['wellness'][0]['page_name'] }}</option>
                                     <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
-                                    <option value="3">{{ $menu['wedding'][0]['page_name'] }}</option>
+                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option> --}}
                                 </select><br>
                             </div>
                             <div class="col-md-12">
@@ -359,10 +471,10 @@
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
-                                    <option value="1">{{ $menu['spa'][0]['page_name'] }}</option>
+                                    {{-- <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="1">{{ $menu['wellness'][0]['page_name'] }}</option>
                                     <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
-                                    <option value="3">{{ $menu['wedding'][0]['page_name'] }}</option>
+                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option> --}}
                                 </select><br>
                             </div>
                             <div class="col-sm-6 col-md-6">
@@ -391,49 +503,29 @@
                 <!-- logo -->
                 <div class="navbar-brand" style="padding-top:5px;">
                     <a href="/">
-                        <img src="{{ asset('images/logo/' . $setting->logo) }}" alt="Booking Engine" style="max-height: 50px;"/>
+                        <img src="{{ asset('images/logo/' . $setting->logo) }}" alt="Horison Ultima Bandung" style="max-height: 50px;"/>
                     </a>
                 </div>
                 <!-- main menu -->
                 <ul class="navbar-nav">
-                    <li class="{{ Request::path() === 'rooms' ? 'active':'' }}">
-                        <a href="{{ route('visitor.room') }}">
-                            <span class="title">{{ $menu['room'][0]['page_name'] }}</span>
+                    <div class="visible-xs" style="padding-top: 30px"></div>
+                    <li class="{{ Request::path() === 'reservation' ? 'active':'' }}">
+                        <a href="{{ route('visitor.reservation') }}">
+                            <span class="title">Room Reservation</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'recreation' ? 'active':'' }}">
-                        <a href="{{ route('visitor.recreation') }}">
-                            <span class="title">{{ $menu['recreation'][0]['page_name'] }}</span>
+                    <li class="{{ Request::path() === 'package-reservation' ? 'active':'' }}">
+                        <a href="{{ route('visitor.package_reservation') }}">
+                            <span class="title">Package Reservation</span>
                         </a>
                     </li>
-                    <li class="{{ Request::path() === 'wellness' ? 'active':'' }}">
-                        <a href="{{ route('visitor.allysea_spa') }}">
-                            <span class="title">{{ $menu['spa'][0]['page_name'] }}</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::path() === 'mice' ? 'active':'' }}">
-                        <a href="{{ route('visitor.mice_wedding') }}">
-                            <span class="title">{{ $menu['mice'][0]['page_name'] }}</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::path() === 'wedding' ? 'active':'' }}">
-                        <a href="{{ route('visitor.wedding') }}">
-                            <span class="title">{{ $menu['wedding'][0]['page_name'] }}</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::path() === 'function-room' ? 'active':'' }}">
-                        <a href="{{ route('visitor.function_room') }}">
-                            <span class="title">{{ $menu['functionroom'][0]['page_name'] }}</span>
-                        </a>
-                    </li>
-                    <li class="{{ Request::path() === 'newsletter' ? 'active':'' }}">
-                        <a href="{{ route('visitor.newsletter') }}">
-                            <span class="title">{{ $menu['newsletter'][0]['page_name'] }}</span>
-                        </a>
-                    </li>
+                </ul>
+
+                <!-- notifications and other links -->
+                <ul class="navbar-nav navbar-right visible">
                     <li class="{{ Request::path() === 'inquiry' ? 'active':'' }}">
                         <a href="{{ route('inquiry.index') }}">
-                            <span class="title">{{ $menu['contact'][0]['page_name'] }}</span>
+                            <span class="title">Contact Us</span>
                         </a>
                     </li>
                 </ul>
@@ -441,7 +533,7 @@
                 <!-- notifications and other links -->
                 <ul class="nav navbar-right">
                     <!-- reserveNow -->
-                    <button id="reserveNow" class="btn btn-lg btn-horison-visitor navbar-button2 reserveNow"><b>Book Now</b></button>
+                    {{-- <button id="reserveNow" class="btn btn-lg btn-horison-visitor navbar-button2 reserveNow"><b>Book Now</b></button> --}}
                     <!-- mobile only -->
                     <li class="visible-xs">
                         <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
@@ -501,7 +593,7 @@
                     <div class="row footer-bg-color">
                         <div class="container footer-bg-height">
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 footer-logo">
-                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Booking Engine" style="margin-top:55px;" />
+                                <img src="{{ asset('images/logo/' . $setting->logo) }}" width="200" height="56" alt="Horison Ultima Bandung" style="margin-top:55px;" />
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 visitor-footer" align="center">
                                 <div class=row>

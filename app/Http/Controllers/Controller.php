@@ -27,12 +27,9 @@ class Controller extends BaseController
         return [
             'room'         => PageSetting::where('page_code', 'Room')->get(),
             'recreation'   => PageSetting::where('page_code', 'Recreation')->get(),
-            'spa'          => PageSetting::where('page_code', 'Spa')->get(),
+            'wellness'     => PageSetting::where('page_code', 'Wellness')->get(),
             'mice'         => PageSetting::where('page_code', 'Mice')->get(),
-            'wedding'      => PageSetting::where('page_code', 'Wedding')->get(),
-            'functionroom' => PageSetting::where('page_code', 'Function')->get(),
-            'newsletter'   => PageSetting::where('page_code', 'Newsletter')->get(),
-            'contact'      => PageSetting::where('page_code', 'Contact')->get()
+            'promotion'    => PageSetting::where('page_code', 'Promotion')->get(),
         ];
     }
 }

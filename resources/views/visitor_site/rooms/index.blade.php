@@ -383,8 +383,8 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                 index++;
                 slider_for += '<div align="center"><img loading="lazy" class="gltop" src="' + path + "/" + data.photo_path +'"></div>';
                 slider_nav += '<div class="sub-seeall">'+
-                              '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
-                              '</div>';
+                '<div align="center"><img loading="lazy" class="imgslide-seeall" src="' + path + "/" + data.photo_path +'"></div>'+
+                '</div>';
             });
 
             $('#seeAllModal').modal('show');

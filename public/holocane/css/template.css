@@ -1,0 +1,28 @@
+/* landing page */
+span.gold {
+    color: #D4B580;
+    font-weight: bold;
+    font-size: 30px;
+}
+.btn-holocene-visitor {
+    color: #D4B580;
+    background-color: #333333;
+    border-color: #D4B580;
+}
+.visitor-footer {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #D5B681;
+    font-size: 13.5px;
+}
+.btn-booknow-gold {
+    color: #fff;
+    background-color: #D4B580;
+    border-color: #D4B580;
+}
+/* landing page */
+
+/* room visitor */
+.text-holocene {
+    color: #D4B580;
+}

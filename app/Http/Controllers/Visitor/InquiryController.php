@@ -29,16 +29,15 @@ class InquiryController extends Controller
     {
         $from = Input::get('from', null);
         if ($from != null) {
-            if ($from != "recreational" && $from != "spa" && $from != "mice" && $from != "wedding") {
+            if ($from != "recreational" && $from != "wellness" && $from != "mice" && $from != "promotion") {
                 $from = null;
             }
         }
-
-        $recreations = Product::select('id', 'product_name')->where('category', '1')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
-        $spas = Product::select('id', 'product_name')->where('category', '2')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
-        $mices = Product::select('id', 'product_name')->where('category', '3')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
-        $weddings = Product::select('id', 'product_name')->where('category', '4')->where('product_publish_status', 1)->where('sales_inquiry', '1')->orderBy('product_name')->get();
-        $function_rooms = FunctionRoom::where('func_publish_status', 1)->orderBy('func_name')->get();
+        $recreations = Product::select('id', 'product_name')->where('category', '1')->where('sales_inquiry', '1')->orderBy('product_name')->get();
+        $wellnesses = Product::select('id', 'product_name')->where('category', '2')->where('sales_inquiry', '1')->orderBy('product_name')->get();
+        $mices = Product::select('id', 'product_name')->where('category', '3')->where('sales_inquiry', '1')->orderBy('product_name')->get();
+        $promotions = Product::select('id', 'product_name')->where('category', '4')->where('sales_inquiry', '1')->orderBy('product_name')->get();
+        $function_rooms = FunctionRoom::orderBy('func_name')->get();
 
         $menu = $this->menu();
         $setting = $this->setting();
@@ -47,13 +46,14 @@ class InquiryController extends Controller
 
     public function inquiry_insert(Request $request)
     {
-        // dd($request->all());
         $other_request = ['1', '2', '3', '4', '5'];
         $mice_other_request = ['1', '2', '3', '4', '5', '6'];
-        $wedding_other_request = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18'];
+        $promotion_other_request = ['7', '8', '9',
+        '10', '11', '12', '13', '14', '15', '16', '17', '18'];
 
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:50',
+            // 'email' => 'required|email|unique:customer,cust_email',
             'email' => 'required|email',
             'phone_number' => 'required|numeric',
         ]);
@@ -88,15 +88,18 @@ class InquiryController extends Controller
                 $customer_id = $hex;
             }
 
-            Customer::create([
+            $customer = [
                 'id' => $customer_id,
                 'cust_email' => $cust_email,
-            ]);
+            ];
+
+            Customer::insert($customer);
         }
 
         if (isset($request['btn_general'])) {
             $validator = Validator::make($request->all(), [
                 'btn_general' => 'required|numeric|min:0|max:0',
+                // 'email' => 'required|email|unique:customer,cust_email',
                 'general_details' => 'required',
             ],[
                 'general_details.required' => 'Inquiry Details is required'
@@ -112,6 +115,7 @@ class InquiryController extends Controller
                 $data = $request->all();
                 $sanitizer = new Sanitizer($data, $filters);
                 $sanitizer = $sanitizer->sanitize();
+                // dd($sanitizer);
                 $date = Carbon::now();
 
                 $rsvp_id = rand($min = 1, $max = 99999);
@@ -122,6 +126,8 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date, "General Inquiry", 1);
                 }
 
+                $create_at = Carbon::now();
+
                 $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
@@ -129,10 +135,11 @@ class InquiryController extends Controller
                     'inq_cust_phone' => $cust_phone,
                     'inq_event_start' => Carbon::now(),
                     'inq_type' => $sanitizer['btn_general'],
-                    'inq_details' => $sanitizer['general_details']
+                    'inq_details' => $sanitizer['general_details'],
+                    'create_at' => $create_at
                 ];
 
-                Inquiry::create($inquiry);
+                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -141,12 +148,12 @@ class InquiryController extends Controller
             }
         } else if (isset($request['btn_rec'])) {
 
-            $validator = Validator::make($request->all(),
-            [
+            $validator = Validator::make($request->all(), [
                 'btn_rec' => 'required|numeric|min:1|max:1',
                 'rec_product' => 'required|exists:product,id',
                 'rec_participant' => 'required|min:1|max:9999',
                 'rec_date' => 'required|after_or_equal:today',
+                'rec_time' => 'required',
                 'rec_details' => 'required',
 
             ],[
@@ -182,13 +189,15 @@ class InquiryController extends Controller
                         if (!in_array($value, $other_request)) {
                             return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request is not found ");
                         } else {
-                            OtherRequest::create([
+                            OtherRequest::insert([
                                 "inquiry_id" => $reservation_id,
                                 "other_request_id" => $value,
                             ]);
                         }
                     }
                 }
+
+                $create_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
@@ -203,9 +212,9 @@ class InquiryController extends Controller
                     'inq_alt_start' => $date,
                     'inq_alt_end' => $date,
                     'inq_details' => isset($sanitizer['rec_details']) ? $sanitizer['rec_details'] : "",
+                    'create_at' => $create_at
                 ];
-
-                Inquiry::create($inquiry);
+                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -213,40 +222,39 @@ class InquiryController extends Controller
 
             }
 
-        } else if (isset($request['btn_spa'])) {
+        } else if (isset($request['btn_wellness'])) {
 
-            $request['spa_time'] = $request['spa_date'] . ' ' . $request['spa_time'];
-            $request['spa_time'] = Carbon::parse($request['spa_time'])->isoFormat('YYYY-MM-DD HH:mm');
+            $request['wellness_time'] = $request['wellness_date'] . ' ' . $request['wellness_time'];
+            $request['wellness_time'] = Carbon::parse($request['wellness_time'])->isoFormat('YYYY-MM-DD HH:mm');
 
             $validator = Validator::make($request->all(), [
-                'btn_spa' => 'required|numeric|min:2|max:2',
-                'spa_product' => 'required|exists:product,id',
-                'spa_participant' => 'required|min:1|max:9999',
-                'spa_date' => 'required|after_or_equal:today',
-                'spa_time' => 'required|date_format:Y-m-d H:i|after:1 hours',
-                'spa_details' => 'required',
+                'btn_wellness' => 'required|numeric|min:2|max:2',
+                'wellness_product' => 'required|exists:product,id',
+                'wellness_participant' => 'required|min:1|max:9999',
+                'wellness_date' => 'required|after_or_equal:today',
+                'wellness_time' => 'required',
+                'wellness_details' => 'required',
 
             ],[
-                'spa_details.required' => 'Inquiry Details is required'
+                'wellness_details.required' => 'Inquiry Details is required'
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->withInput($request->all)->with('warning', $validator->messages()->first());
             } else {
-                $request['spa_time'] = Carbon::parse($request['spa_time'])->isoFormat('h:mm A');
+                $request['wellness_time'] = Carbon::parse($request['wellness_time'])->isoFormat('h:mm A');
 
                 $filters = [
-                    'btn_spa' => 'digit',
-                    'spa_participant' => 'digit',
-                    'spa_details' => 'strip_tags',
+                    'btn_wellness' => 'digit',
+                    'wellness_participant' => 'digit',
+                    'wellness_details' => 'strip_tags',
                 ];
 
                 $data = $request->all();
                 $sanitizer = new Sanitizer($data, $filters);
                 $sanitizer = $sanitizer->sanitize();
-                $date = $sanitizer['spa_date'];
-
+                $date = $sanitizer['wellness_date'];
                 $date = Carbon::parse($date)->format('Y-m-d');
-                $product = Product::where('id', $data['spa_product'])->first();
+                $product = Product::where('id', $data['wellness_product'])->first();
 
                 $rsvp_id = rand($min = 1, $max = 99999);
                 $reservation_id = $this->generate_product_id($rsvp_id, $date, $product->product_name, $product->sales_inquiry);
@@ -256,36 +264,26 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date, $product->product_name, $product->sales_inquiry);
                 }
 
-                if (isset($request['spa_other_request'])) {
-                    foreach ($request['spa_other_request'] as $key => $value) {
-                        if (!in_array($value, $other_request)) {
-                            return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request is not found ");
-                        } else {
-                            OtherRequest::create([
-                                "inquiry_id" => $reservation_id,
-                                "other_request_id" => $value,
-                            ]);
-                        }
-                    }
-                }
+                $create_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
                     'inq_cust_phone' => $cust_phone,
-                    'product_id' => $data['spa_product'],
-                    'inq_type' => $sanitizer['btn_spa'],
-                    'inq_participant' => $sanitizer['spa_participant'],
+                    'product_id' => $data['wellness_product'],
+                    'inq_type' => $sanitizer['btn_wellness'],
+                    'inq_participant' => $sanitizer['wellness_participant'],
                     'inq_event_start' => $date,
                     'inq_event_end' => $date,
                     'inq_alt_start' => $date,
                     'inq_alt_end' => $date,
-                    'inq_arrive_time' => $data['spa_time'],
-                    'inq_details' => isset($sanitizer['spa_details']) ? $sanitizer['spa_details'] : "",
+                    'inq_arrive_time' => $data['wellness_time'],
+                    'inq_details' => isset($sanitizer['wellness_details']) ? $sanitizer['wellness_details'] : "",
+                    'create_at' => $create_at
                 ];
 
-                Inquiry::create($inquiry);
+                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
@@ -297,18 +295,14 @@ class InquiryController extends Controller
             $validator = Validator::make($request->all(), [
                 'btn_mice' => 'required|numeric|min:3|max:3',
                 'mice_product' => 'required|exists:product,id',
-                'mice_name' => 'required|string|max:50',
                 'mice_participant' => 'required|min:1|max:9999',
-                'mice_event_type' => 'required',
-                'mice_other_values' => 'required_if:mice_event_type,in:None',
-                'mice_function_room' => 'required',
-                'mice_event_start' => 'required|after_or_equal:today',
-                'mice_alt_start' => 'nullable|after:mice_event_start',
+                'mice_date' => 'required|after_or_equal:today',
+                'mice_time' => 'required',
                 'mice_details' => 'required',
 
             ],[
                 'mice_name.required' => 'Event name is required',
-                'mice_event_start.required' => 'Event name is required',
+                'mice_date.required' => 'Event date is required',
                 'mice_participant.required' => 'Number of participant is required',
                 'mice_details.required' => 'Inquiry Details is required'
             ]);
@@ -317,11 +311,7 @@ class InquiryController extends Controller
                 return redirect()->back()->withInput($request->all)->with('warning', $validator->messages()->first());
             } else {
 
-                if ($request['mice_function_room'] != "None") {
-                    if (!FunctionRoom::where('id', $request['mice_function_room'])->exists()) {
-                        return redirect()->back()->withInput($request->all)->with('warning', "Sorry your Function Room '" . $request['mice_function_room'] . "' is not found ");
-                    }
-                }
+                $request['mice_time'] = Carbon::parse($request['mice_time'])->isoFormat('h:mm A');
                 $filters = [
                     'btn_mice' => 'digit',
                     'mice_name' => 'trim|escape|capitalize',
@@ -334,17 +324,8 @@ class InquiryController extends Controller
                 $data = $request->all();
                 $sanitizer = new Sanitizer($data, $filters);
                 $sanitizer = $sanitizer->sanitize();
-                $date_start = $sanitizer['mice_event_start'];
-                $date_alt = $sanitizer['mice_alt_start'];
-
+                $date_start = $sanitizer['mice_date'];
                 $date_start = Carbon::parse($date_start)->format('Y-m-d');
-                $date_alt = Carbon::parse($date_alt)->format('Y-m-d');
-
-                if ($sanitizer['mice_event_type'] == "Others") {
-                    $event_type = $sanitizer['mice_other_values'];
-                } else {
-                    $event_type = $sanitizer['mice_event_type'];
-                }
 
                 $product = Product::where('id', $data['mice_product'])->first();
                 $rsvp_id = rand($min = 1, $max = 99999);
@@ -355,85 +336,66 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date_start, $product->product_name, $product->sales_inquiry);
                 }
 
-                if (isset($request['mice_other_request'])) {
-                    foreach ($request['mice_other_request'] as $key => $value) {
-                        if (!in_array($value, $mice_other_request)) {
-                            return redirect()->back()->withInput($request->all)->with('warning', "Sorry your other request '" . $value . "' is not found ");
-                        } else {
-                            OtherRequest::create([
-                                "inquiry_id" => $reservation_id,
-                                "other_request_id" => $value,
-                            ]);
-                        }
-                    }
-                }
+                $create_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
                     'inq_cust_name' => $cust_name,
                     'inq_cust_phone' => $cust_phone,
-                    'function_room_id' => $sanitizer['mice_function_room'] == "None" ? "" : $sanitizer['mice_function_room'],
                     'product_id' => $data['mice_product'],
                     'inq_type' => $sanitizer['btn_mice'],
-                    'inq_event_name' => $sanitizer['mice_name'],
-                    'inq_event_type' => $event_type,
                     'inq_participant' => $sanitizer['mice_participant'],
                     'inq_event_start' => $date_start,
                     'inq_event_end' => $date_start,
-                    'inq_alt_start' => $date_alt,
-                    'inq_alt_end' => $date_alt,
-                    'inq_budget' => isset($data['mice_budget']) ? $data['mice_budget'] : 0,
+                    'inq_arrive_time' => $data['mice_time'],
                     'inq_details' => isset($sanitizer['mice_details']) ? $sanitizer['mice_details'] : "",
+                    'create_at' => $create_at
                 ];
 
-                Inquiry::create($inquiry);
+                Inquiry::insert($inquiry);
                 $from = "INQUIRY";
                 $rsvp_id = $inquiry['reservation_id'];
                 $this->resendEmail($from, $rsvp_id);
                 return redirect()->route('inquiry.index')->with('status', 'Your inquiry have been submitted');
             }
 
-        } else if (isset($request['btn_wedding'])) {
-            $wedding_service_request = ['Information', 'Proposal Sheet'];
-            if (!in_array($request['wedding_service_request'], $wedding_service_request)) {
-                return redirect()->back()->withInput($request->all)->with('warning', "Sorry your Service request '" . $request['wedding_service_request'] . "' is not found ");
-            }
+        } else if (isset($request['btn_promotion'])) {
+            $promotion_service_request = ['Information', 'Proposal Sheet'];
 
             $validator = Validator::make($request->all(), [
-                'btn_wedding' => 'required|numeric|min:4|max:4',
-                'wedding_product' => 'required|exists:product,id',
-                'wedding_event_start' => 'required|after_or_equal:today',
-                'wedding_alt_start' => 'nullable|after:wedding_event_start',
-                'wedding_participant' => 'required|min:1|max:9999',
-                'wedding_details' => 'required'
+                'btn_promotion' => 'required|numeric|min:4|max:4',
+                'promotion_product' => 'required|exists:product,id',
+                'promotion_date' => 'required|after_or_equal:today',
+                'promotion_time' => 'required',
+                'promotion_participant' => 'required|min:1|max:9999',
+                'promotion_details' => 'required'
             ],[
-                'wedding_event_start.required' => 'Wedding date is required',
-                'wedding_participant.required' => 'Number of guest is required',
-                'wedding_details.required' => 'Inquiry Details is required'
+                'promotion_date.required' => 'Wedding date is required',
+                'promotion_participant.required' => 'Number of guest is required',
+                'promotion_details.required' => 'Inquiry Details is required'
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withInput($request->all)->with('warning', $validator->messages()->first());
             }
 
+            $request['promotion_time'] = Carbon::parse($request['promotion_time'])->isoFormat('h:mm A');
             $filters = [
-                'btn_wedding' => 'digit',
+                'btn_promotion' => 'digit',
                 'mice_name' => 'trim|escape|capitalize',
-                'wedding_participant' => 'digit',
-                'wedding_details' => 'strip_tags',
+                'promotion_participant' => 'digit',
+                'promotion_details' => 'strip_tags',
             ];
 
             $data = $request->all();
             $sanitizer = new Sanitizer($data, $filters);
             $sanitizer = $sanitizer->sanitize();
-            $date_start = $sanitizer['wedding_event_start'];
-            $date_alt = $sanitizer['wedding_alt_start'];
+            $date_start = $sanitizer['promotion_date'];
 
             $date_start = Carbon::parse($date_start)->format('Y-m-d');
-            $date_alt = Carbon::parse($date_alt)->format('Y-m-d');
 
-            $product = Product::where('id', $data['wedding_product'])->first();
+            $product = Product::where('id', $data['promotion_product'])->first();
 
             $rsvp_id = rand($min = 1, $max = 99999);
             $reservation_id = $this->generate_product_id($rsvp_id, $date_start, $product->product_name, $product->sales_inquiry);
@@ -443,36 +405,25 @@ class InquiryController extends Controller
                 $reservation_id = $this->generate_product_id($rsvp_id, $date_start, $product->product_name, $product->sales_inquiry);
             }
 
-            if (isset($request['wedding_other_request'])) {
-                foreach ($request['wedding_other_request'] as $key => $value) {
-                    if (!in_array($value, $wedding_other_request)) {
-                        return redirect()->back()->withInput($request->all)->with('warning', "Sorry your Other request '" . $value . "' is not found ");
-                    } else {
-                        OtherRequest::create([
-                            "inquiry_id" => $reservation_id,
-                            "other_request_id" => $value,
-                        ]);
-                    }
-                }
-            }
+            $create_at = Carbon::now();
 
             $inquiry = [
                 'reservation_id' => $reservation_id,
                 'customer_id' => $customer_id,
                 'inq_cust_name' => $cust_name,
                 'inq_cust_phone' => $cust_phone,
-                'product_id' => $data['wedding_product'],
-                'inq_type' => $sanitizer['btn_wedding'],
+                'product_id' => $data['promotion_product'],
+                'inq_type' => $sanitizer['btn_promotion'],
                 'inq_event_name' => "Proposal Sheet",
-                'inq_participant' => $sanitizer['wedding_participant'],
+                'inq_participant' => $sanitizer['promotion_participant'],
                 'inq_event_start' => $date_start,
                 'inq_event_end' => $date_start,
-                'inq_alt_start' => $date_alt,
-                'inq_alt_end' => $date_alt,
-                'inq_details' => isset($sanitizer['wedding_details']) ? $sanitizer['wedding_details'] : "",
+                'inq_arrive_time' => $data['promotion_time'],
+                'inq_details' => isset($sanitizer['promotion_details']) ? $sanitizer['promotion_details'] : "",
+                'create_at' => $create_at
             ];
 
-            Inquiry::create($inquiry);
+            Inquiry::insert($inquiry);
             $from = "INQUIRY";
             $rsvp_id = $inquiry['reservation_id'];
             $this->resendEmail($from, $rsvp_id);

@@ -78,7 +78,7 @@
 
                 <ul class="navbar-nav">
 
-                    <li class="{{ Request::path() === 'rooms' ? 'active' : '' }}">
+                    {{-- <li class="{{ Request::path() === 'rooms' ? 'active' : '' }}">
                         <a href="{{ route('visitor.room') }}">
                             <span class="title">{{ $menu['room'][0]['page_name'] }}</span>
                         </a>
@@ -116,6 +116,16 @@
                     <li class="{{ Request::path() === 'inquiry' ? 'active' : '' }}">
                         <a href="{{ route('inquiry.index') }}">
                             <span class="title">{{ $menu['contact'][0]['page_name'] }}</span>
+                        </a>
+                    </li> --}}
+                    <li class="{{ Request::path() === 'reservation' ? 'active':'' }}">
+                        <a href="{{ route('visitor.reservation') }}">
+                            <span class="title">Room Reservation</span>
+                        </a>
+                    </li>
+                    <li class="{{ Request::path() === 'package-reservation' ? 'active':'' }}">
+                        <a href="{{ route('visitor.package_reservation') }}">
+                            <span class="title">Package Reservation</span>
                         </a>
                     </li>
 

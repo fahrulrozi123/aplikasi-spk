@@ -11,6 +11,7 @@ Route::post('/room_reservation/', ['as' => 'visitor.room_reservation', 'uses' =>
 // Product Reservation
 Route::get('/get_product', ['as' => 'visitor.get_product', 'uses' => 'Payment\ReserveController@get_product']);
 Route::post('/product_reservation/', ['as' => 'visitor.product_reservation', 'uses' => 'Payment\ReserveController@product_reservation']);
+Route::get('/package-reservation/', ['as' => 'visitor.package_reservation', 'uses' => 'Payment\ReserveController@packageReservation']);
 
 // Get Payment Channel
 Route::get('/payment-channel', 'Payment\ReserveController@paymentChannel')->name('payment.channel');
