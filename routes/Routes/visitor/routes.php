@@ -2,7 +2,6 @@
 Route::group(['middleware' => ['web']], function () {
     // Landing Page
     Route::get('/', 'Visitor\VisitorController@rooms')->name('index');
-
     // Room
     Route::get('/rooms/', 'Visitor\VisitorController@rooms')->name('visitor.room');
     // Room Detail
@@ -29,21 +28,21 @@ Route::group(['middleware' => ['web']], function () {
     // Route::get('/wedding/{slug}', 'Visitor\VisitorController@weddingDetail')->name('wedding.slug');
 
     // Function Room
-    Route::get('/function-room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');
-    // Function Room Detail//
-    Route::get('/function-room/{slug}', 'Visitor\VisitorController@functiomRoomDetail')->name('functionroom.slug');
-    // Function Room, MICE Wedding Detail//
-    Route::get('/mice-wedding/{slug}', 'Visitor\VisitorController@functiomRoomMiceWeddingDetail')->name('micewedding.slug');
+    // Route::get('/function-room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');
+    // // Function Room Detail//
+    // Route::get('/function-room/{slug}', 'Visitor\VisitorController@functiomRoomDetail')->name('functionroom.slug');
+    // // Function Room, MICE Wedding Detail//
+    // Route::get('/mice-wedding/{slug}', 'Visitor\VisitorController@functiomRoomMiceWeddingDetail')->name('micewedding.slug');
 
-    // Newsletter
-    Route::get('/newsletter/', 'Visitor\VisitorController@newsletter')->name('visitor.newsletter');
-    // Newsletter Detail//
-    Route::get('/newsletter/{slug}', 'Visitor\VisitorController@news_detail')->name('newsletter.slug');
+    // // Newsletter
+    // Route::get('/newsletter/', 'Visitor\VisitorController@newsletter')->name('visitor.newsletter');
+    // // Newsletter Detail//
+    // Route::get('/newsletter/{slug}', 'Visitor\VisitorController@news_detail')->name('newsletter.slug');
 
     // Inquiry
     Route::get('/inquiry/', 'Visitor\InquiryController@inquiry')->name('inquiry.index');
     Route::post('/insert/', 'Visitor\InquiryController@inquiry_insert')->name('inquiry.insert');
 
-    // Halman Details Old
+    // // Halman Details Old
     Route::get('/details', 'Visitor\VisitorController@details');
 });

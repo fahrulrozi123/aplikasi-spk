@@ -6,6 +6,7 @@ Route::post('/reserve_product/', 'Payment\PaymentController@reserve_product')->n
 
 // Room Reservation
 Route::get('/reservation/', ['as' => 'visitor.reservation', 'uses' => 'Payment\ReserveController@reservation']);
+Route::get('/', 'Payment\ReserveController@reservation')->name('index');
 Route::post('/room_reservation/', ['as' => 'visitor.room_reservation', 'uses' => 'Payment\ReserveController@room_reservation']);
 
 // Product Reservation

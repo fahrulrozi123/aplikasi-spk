@@ -36,10 +36,6 @@
     <script src="{{ asset('js/jquery-1.11.3.min.js ') }}"></script>
     <script src="{{ asset('js/numeral/numeral.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('js/select2/select2-bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/select2/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/daterangepicker/daterangepicker-bs3.css') }}">
-    <link rel="shortcut icon" href="{{ env('APP_STORE').$setting->favicon }}" type="image/x-icon"/>
     <!-- International Phone Mask -->
     <script src="{{ asset('js/intl-phone/intlTelInput.js') }}"></script>
     <!-- sweet ALERT -->
@@ -73,12 +69,12 @@
 <link rel="stylesheet" href="{{ asset("holocane/css/holocene-custom.css ") }}">
 <link rel="stylesheet" href="{{ asset("holocane/css/404-custom.css") }} ">
 <!-- International Phone Mask -->
-{{-- <link rel="stylesheet" href="{{ asset("holocane/css/intl-phone/intlTelInput.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/css/intl-phone/intlTelInput.css") }}">
 
 <link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slider-custom.css") }}">
 <script src="{{ asset("holocane/js/moment.min.js") }}"></script> --}}
 
-{{-- <link rel="stylesheet" href="{{ asset("holocane/js/select2/select2-bootstrap.css") }}">
+<link rel="stylesheet" href="{{ asset("holocane/js/select2/select2-bootstrap.css") }}">
 <link rel="stylesheet" href="{{ asset("holocane/js/select2/select2.css") }}">
 <link rel="stylesheet" href="{{ asset("holocane/js/daterangepicker/daterangepicker-bs3.css") }}">
 <link rel="shortcut icon" href="https://recerva.tripasysfo.com/storerecerva/8DawCH8q1SlHkzBftXCKSdqwYEc74Ufl6NlrdolR.ico" type="image/x-icon"/>
@@ -95,34 +91,34 @@
 <link rel="stylesheet" href="{{ asset('holocane/css/font-icons/font-awesome/css/font-awesome.min.css ') }}">
 <link rel="stylesheet" href="{{ asset('holocane/css/md-tripa.css ') }}">
 <link rel="stylesheet" href="{{ asset('holocane/css/holocene-custom.css ') }}">
-<link rel="stylesheet" href="{{ asset('holocane/css/404-custom.css ') }}"> --}}
+<link rel="stylesheet" href="{{ asset('holocane/css/404-custom.css ') }}">
 <!-- International Phone Mask -->
-{{-- <link rel="stylesheet" href="{{ asset('holocane/css/intl-phone/intlTelInput.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('holocane/css/intl-phone/intlTelInput.css') }}">
 {{-- custom slider --}}
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/slider-custom.css') }}
-<script src="{{ asset('holocane/js/moment.min.js') }}"></script> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/slider-custom.css') }}
+<script src="{{ asset('holocane/js/moment.min.js') }}"></script>
 
-{{-- <link rel="stylesheet" href="{{ asset('holocane/js/select2/select2-bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('holocane/js/select2/select2-bootstrap.css') }}">
 <link rel="stylesheet" href="{{ asset('holocane/js/select2/select2.css') }}">
 <link rel="stylesheet" href="{{ asset('holocane/js/daterangepicker/daterangepicker-bs3.css') }}">
-<link rel="shortcut icon" href="{{ env('APP_STORE').$setting->favicon }}" type="image/x-icon"/> --}}
+<link rel="shortcut icon" href="{{ env('APP_STORE').$setting->favicon }}" type="image/x-icon"/>
 
-{{-- <script src="{{ asset('holocane/js/jquery-1.11.3.min.js ') }}"></script>
+<script src="{{ asset('holocane/js/jquery-1.11.3.min.js ') }}"></script>
 <script src="{{ asset('holocane/js/numeral/numeral.js') }}"></script>
-<script src="{{ asset('holocane/js/bootstrap-datepicker.js') }}"></script> --}}
+<script src="{{ asset('holocane/js/bootstrap-datepicker.js') }}"></script>
 <!-- International Phone Mask -->
-{{-- <script src="{{ asset('holocane/js/intl-phone/intlTelInput.js') }}"></script>
+<script src="{{ asset('holocane/js/intl-phone/intlTelInput.js') }}"></script>
 <!-- sweet ALERT -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 {{-- custom datepicker --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/litepicker-module-ranges/dist/index.js"></script>
 
 <script type="text/javascript">
     var home_url = "{{url('/')}}";
 
     $(window).load(function () {
-        $(".lds-dual-ring").fadeOut("slow");;
+        $(".lds-dual-ring").fadeOut("slow");
     });
 </script>
 
@@ -134,7 +130,7 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
 gtag('config', 'G-ELYE4EJL9V');
-</script> --}}
+</script>
 {{-- end package reservation --}}
 
 {{-- end reservation --}}
@@ -174,7 +170,7 @@ gtag('config', 'G-ELYE4EJL9V');
     <div class="lds-dual-ring"></div>
 
     <!-- form reserve -->
-    <div id="form_reserve">
+    {{-- <div id="form_reserve">
         <div id="formReserve" class="panel minimal-custom minimal-gray" style="display: none">
             <form id="room_reserve" method="GET" action="{{ route('visitor.reservation') }}"></form>
             <form id="product_reserve" method="POST" action="{{ route('visitor.product_reservation') }}">
@@ -305,10 +301,10 @@ gtag('config', 'G-ELYE4EJL9V');
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    {{-- <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
                                     <option value="1">{{ $menu['wellness'][0]['page_name'] }}</option>
                                     <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
-                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option> --}}
+                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option>
                                 </select><br>
                             </div>
                             <div class="col-md-12">
@@ -330,10 +326,10 @@ gtag('config', 'G-ELYE4EJL9V');
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- form reserve mobile --}}
-    <div id="form_reserve_mobile">
+    {{-- <div id="form_reserve_mobile">
         <div id="formReservemobile" class="panel minimal-custom minimal-gray" style="display: none; bottom: 12px; width: 100%;">
             <form id="room_reserve_mobile" method="GET" action="{{ route('visitor.reservation') }}"></form>
             <form id="product_reserve_mobile" method="POST" action="{{ route('visitor.product_reservation') }}">
@@ -471,10 +467,10 @@ gtag('config', 'G-ELYE4EJL9V');
                                 <label for="category_product" class="label-modal-reserve">Package Category</label>
                                 <select onchange="set_product(this);"
                                     class="form-control modal-form-control visitor-input">
-                                    {{-- <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
+                                    <option value="0">{{ $menu['recreation'][0]['page_name'] }}</option>
                                     <option value="1">{{ $menu['wellness'][0]['page_name'] }}</option>
                                     <option value="2">{{ $menu['mice'][0]['page_name'] }}</option>
-                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option> --}}
+                                    <option value="3">{{ $menu['promotion'][0]['page_name'] }}</option>
                                 </select><br>
                             </div>
                             <div class="col-sm-6 col-md-6">
@@ -493,7 +489,7 @@ gtag('config', 'G-ELYE4EJL9V');
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="page-container horizontal-menu">
 

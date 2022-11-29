@@ -32,24 +32,9 @@
             <input type="hidden" name="reserve_data" id="reserve_data">
         </form>
 
-        <div class="row mt-15">
-            <div class="col-xs-12 col-lg-10 mt-23" style="margin: auto; padding-bottom: 10px;">
-                <p class="text-horison" style="font-size:12px;">Result for <strong> {{$totalRoom}} Rooms, {{$totalGuest}} Guest,</strong> staying for <strong> {{$totalDays}} Nights </strong> from <strong> {{$checkIn}} to {{$checkOut}} </strong>
-                @if($totalExtrabed > 0)
-                    with <strong>{{$totalExtrabed}} Additional Extra Bed</strong>
-                @endif
-                </p>
-            </div>
 
-            <div class="col-xs-8 col-lg-2" style="padding-bottom: 10px;">
-                <a type="button" style="font-size:12px;text-decoration: none;" class="text-horison" data-toggle="collapse"
-                    data-target="#look"><strong>Change Search</strong>
-                    <i style="padding-left:10px;" class="fa fa-angle-down"></i>
-                </a>
-            </div>
-        </div>
 
-        <div class="row collapse" id="look">
+        {{-- <div class="row collapse" id="look"> --}}
 
             <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
                 <label for="date_check" class="label-modal-reserve">Check In</label>
@@ -148,7 +133,7 @@
 
 
             <div class="col-lg-1 col-xs-12" style="text-align: center;">
-                <input type="button" onclick="submit('room_reserve');" class="btn btn-horison btn-md" style="padding: 8px 50.5px;margin-bottom: 12px; margin-top: 21px;" value="APPLY">
+                <input type="button" onclick="submit('room_reserve');" class="btn btn-horison btn-md" style="padding: 8px 50.5px;margin-bottom: 12px; margin-top: 21px;" value="Search">
             </div>
         </div>
     </div>
@@ -160,11 +145,25 @@
 
     {{-- Room Only display --}}
     <div class="row" style="margin-top:15px;">
+        <div class="row">
+            <div class="col-xs-12 col-lg-10 mt-23" style="margin: auto; padding-bottom: 10px;">
+                <p class="text-horison" style="font-size:20px;">Result for <strong> {{$totalRoom}} Rooms, {{$totalGuest}} Guest,</strong> staying for <strong> {{$totalDays}} Nights </strong> from <strong> {{$checkIn}} to {{$checkOut}} </strong>
+                @if($totalExtrabed > 0)
+                    with <strong>{{$totalExtrabed}} Additional Extra Bed</strong>
+                @endif
+                </p>
+            </div>
+
+            {{-- <div class="col-xs-8 col-lg-2" style="padding-bottom: 10px;">
+                <a type="button" style="font-size:12px;text-decoration: none;" class="text-horison" data-toggle="collapse"
+                    data-target="#look"><strong>Change Search</strong>
+                    <i style="padding-left:10px;" class="fa fa-angle-down"></i>
+                </a>
+            </div> --}}
+        </div>
         <?php $no = 0;?>
         @foreach($room_available as $room) <?php $no++ ;?>
         <div class="container">
-
-
             <div class="row" style="margin-top:50px; margin-bottom:40px; margi-left:0px;">
                 <div class="col-md-6">
                     @php $i = 0; $total = count($room['photo']) > 3 ? 3 : count($room['photo']); @endphp

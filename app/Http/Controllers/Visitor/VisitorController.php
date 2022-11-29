@@ -22,24 +22,25 @@ class VisitorController extends Controller
 {
     public function index()
     {
-        $banners = Banner::orderBy('banner_status', 'ASC')->get();
-        $newss = News::where('news_publish_date', '<=', Carbon::now())->where('news_publish_status', "1")->orderBy('news_sticky_state', 'DESC')->orderBy('news_publish_date', 'DESC')->get();
-        foreach ($newss as $key => $value) {
-            $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
-        }
+        // $banners = Banner::orderBy('banner_status', 'ASC')->get();
+        // $newss = News::where('news_publish_date', '<=', Carbon::now())->where('news_publish_status', "1")->orderBy('news_sticky_state', 'DESC')->orderBy('news_publish_date', 'DESC')->get();
+        // foreach ($newss as $key => $value) {
+        //     $value->news_publish_date = Carbon::parse($value->news_publish_date)->format('d F Y');
+        // }
 
-        // index
-        $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
-        $functionrooms = PageSetting::where('page_code', 'Function')->with('photo')->get();
-        $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
-        $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
+        // // index
+        // $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
+        // $functionrooms = PageSetting::where('page_code', 'Function')->with('photo')->get();
+        // $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
+        // $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
 
-        $menu = $this->menu();
-        $setting = $this->setting();
+        // $menu = $this->menu();
+        // $setting = $this->setting();
 
-        return view('visitor_site.landing_page.index', get_defined_vars());
+        return view('visitor_site.reservation.index', get_defined_vars());
         // return redirect()->route('visitor.reservation');
     }
+
 
     public function reservation()
     {
@@ -147,6 +148,44 @@ class VisitorController extends Controller
         $menu     = $this->menu();
         $setting  = $this->setting();
         return view('visitor_site.reservation.index', get_defined_vars());
+    }
+
+    public function room_reservation(Request $request)
+    {
+        $data = $request['reserve_data'];
+        $data = json_decode($data);
+
+        if (!isset($data->childAge)) {
+            return redirect()->route('index');
+        }
+
+        $data->childAge = explode(',', $data->childAge);
+        $cek = $this->availableDate($data->checkIn, $data->totalDays, $data->totalRooms, $data->room);
+
+        if (!$cek) {
+            return redirect()->route('index');
+        }
+
+        if (Session::get('room_booking_id') != null && RoomRsvp::where('reservation_id', 'NULL')->where('booking_id', Session::get('room_booking_id'))->exists()) {
+            $booking_id = Session::get('room_booking_id');
+            $data = $this->input_rsvp($booking_id, $data);
+
+        } else {
+            Session::forget('room_booking_id');
+            $data = $this->input_rsvp(false, $data);
+            Session::put('room_booking_id', $data->booking_id);
+        }
+        if (!$data) {
+            return redirect()->route('index');
+        }
+
+        $setting = $this->setting();
+
+        $paymentChannels = $this->paymentChannel();
+        $list = json_decode($paymentChannels, true);
+        $listPaymentChannels = $list['payment_channel'];
+
+        return view('visitor_site.reserve.index', get_defined_vars());
     }
 
     public function rooms()
