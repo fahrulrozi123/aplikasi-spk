@@ -42,151 +42,151 @@ class VisitorController extends Controller
     }
 
 
-    public function reservation()
-    {
-        $room_available = [];
-        $totalDays = Input::get('stay_total', null);
-        $totalRoom = Input::get('room_total', null);
-        $totalExtrabed = Input::get('extra_bed', null);
-        $adultTotal = Input::get('adult_total', null);
-        $childTotal = Input::get('child_total', null);
-        $childAge = Input::get('child_age', null);
-        $checkIn = Carbon::parse(Input::get('checkin', null))->format('Y-m-d');
-        $checkOut = Carbon::parse($checkIn)->addDays($totalDays);
-        $today = Carbon::now();
-        $today = Carbon::parse($today)->format('Y-m-d');
+    // public function reservation()
+    // {
+    //     $room_available = [];
+    //     $totalDays = Input::get('stay_total', null);
+    //     $totalRoom = Input::get('room_total', null);
+    //     $totalExtrabed = Input::get('extra_bed', null);
+    //     $adultTotal = Input::get('adult_total', null);
+    //     $childTotal = Input::get('child_total', null);
+    //     $childAge = Input::get('child_age', null);
+    //     $checkIn = Carbon::parse(Input::get('checkin', null))->format('Y-m-d');
+    //     $checkOut = Carbon::parse($checkIn)->addDays($totalDays);
+    //     $today = Carbon::now();
+    //     $today = Carbon::parse($today)->format('Y-m-d');
 
-        $totalGuest = $adultTotal + $childTotal;
+    //     $totalGuest = $adultTotal + $childTotal;
 
-        if ($checkIn < $today) {
-            return redirect()->route('index');
-        }
-        if ($childTotal > 0) {
-            $childTemp = explode(',', $childAge);
-            if (count($childTemp) != $childTotal) {
-                return redirect()->route('index');
-            }
-            foreach ($childTemp as $key => $value) {
-                if ($value == "" || $value > 10) {
-                    return redirect()->route('index');
-                } else {
-                    $childTemp[$key] = (int) $value;
-                }
-            }
-        } else {
-            if ($childAge != null) {
-                return redirect()->route('index');
-            }
-            $childTemp = (array) null;
-        }
+    //     if ($checkIn < $today) {
+    //         return redirect()->route('index');
+    //     }
+    //     if ($childTotal > 0) {
+    //         $childTemp = explode(',', $childAge);
+    //         if (count($childTemp) != $childTotal) {
+    //             return redirect()->route('index');
+    //         }
+    //         foreach ($childTemp as $key => $value) {
+    //             if ($value == "" || $value > 10) {
+    //                 return redirect()->route('index');
+    //             } else {
+    //                 $childTemp[$key] = (int) $value;
+    //             }
+    //         }
+    //     } else {
+    //         if ($childAge != null) {
+    //             return redirect()->route('index');
+    //         }
+    //         $childTemp = (array) null;
+    //     }
 
-        if ($checkIn == null || $totalDays == null || $totalRoom == null || $totalExtrabed == null || $adultTotal == null || $childTotal == null) {
+    //     if ($checkIn == null || $totalDays == null || $totalRoom == null || $totalExtrabed == null || $adultTotal == null || $childTotal == null) {
 
-            return redirect()->route('index');
-        }
+    //         return redirect()->route('index');
+    //     }
 
-        $adult_child_total = $adultTotal + $childTotal;
-        $max_adult_child = $totalRoom * 5 + $totalExtrabed;
-        $need_extrabed = $totalRoom * 2 + 1;
+    //     $adult_child_total = $adultTotal + $childTotal;
+    //     $max_adult_child = $totalRoom * 5 + $totalExtrabed;
+    //     $need_extrabed = $totalRoom * 2 + 1;
 
-        //validation adult
-        $max_adult = $totalRoom * 2 + $totalRoom;
-        $min_adult = $totalRoom;
+    //     //validation adult
+    //     $max_adult = $totalRoom * 2 + $totalRoom;
+    //     $min_adult = $totalRoom;
 
-        //validation child
-        $min_child = 0;
-        $max_child = $totalRoom * 2;
+    //     //validation child
+    //     $min_child = 0;
+    //     $max_child = $totalRoom * 2;
 
-        //validation Extrabed
-        $min_extrabed = floor($adultTotal / ($totalRoom + 1));
-        $max_extrabed = $totalRoom;
-        $max_child = $totalRoom;
+    //     //validation Extrabed
+    //     $min_extrabed = floor($adultTotal / ($totalRoom + 1));
+    //     $max_extrabed = $totalRoom;
+    //     $max_child = $totalRoom;
 
-        if ($totalRoom > 5) {
+    //     if ($totalRoom > 5) {
 
-            return redirect()->route('index');
-        }
-        if ($totalExtrabed > $max_extrabed) {
+    //         return redirect()->route('index');
+    //     }
+    //     if ($totalExtrabed > $max_extrabed) {
 
-            return redirect()->route('index');
-        }
-        if ($adultTotal < $min_adult || $adultTotal > $max_adult) {
+    //         return redirect()->route('index');
+    //     }
+    //     if ($adultTotal < $min_adult || $adultTotal > $max_adult) {
 
-            return redirect()->route('index');
-        }
-        if ($adultTotal == $need_extrabed && $totalExtrabed < $min_extrabed) {
+    //         return redirect()->route('index');
+    //     }
+    //     if ($adultTotal == $need_extrabed && $totalExtrabed < $min_extrabed) {
 
-            return redirect()->route('index');
-        }
-        if ($adult_child_total > $max_adult_child) {
+    //         return redirect()->route('index');
+    //     }
+    //     if ($adult_child_total > $max_adult_child) {
 
-            return redirect()->route('index');
-        }
+    //         return redirect()->route('index');
+    //     }
 
-        if ($totalExtrabed == 0) {
-            $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
-        } else {
-            $rooms = Type::where('room_publish_status', 1)->where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
-        }
-        foreach ($rooms as $key => $value) {
-            $cek = $this->availableDate($checkIn, $totalDays, $totalRoom, $value->id);
+    //     if ($totalExtrabed == 0) {
+    //         $rooms = Type::where('room_publish_status', 1)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+    //     } else {
+    //         $rooms = Type::where('room_publish_status', 1)->where('room_extrabed_rate', '<>', 0)->with('bed')->with('allotment')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->get();
+    //     }
+    //     foreach ($rooms as $key => $value) {
+    //         $cek = $this->availableDate($checkIn, $totalDays, $totalRoom, $value->id);
 
-            if ($cek) {
-                $room = Type::with('bed')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->with(['allotment' => function ($q) use ($checkIn) {
-                    // Query the name field in status table
-                    $q->where('allotment.allotment_date', '=', $checkIn); // '=' is optional
-                }])
-                    ->where('id', $value->id)
-                    ->first();
-                array_push($room_available, $room);
-            }
-        }
+    //         if ($cek) {
+    //             $room = Type::with('bed')->with('amenities')->with('photo')->orderBy('room_publish_rate', 'ASC')->with(['allotment' => function ($q) use ($checkIn) {
+    //                 // Query the name field in status table
+    //                 $q->where('allotment.allotment_date', '=', $checkIn); // '=' is optional
+    //             }])
+    //                 ->where('id', $value->id)
+    //                 ->first();
+    //             array_push($room_available, $room);
+    //         }
+    //     }
 
-        $checkIn  = Carbon::parse($checkIn)->format('d F Y');
-        $checkOut = Carbon::parse($checkOut)->format('d F Y');
+    //     $checkIn  = Carbon::parse($checkIn)->format('d F Y');
+    //     $checkOut = Carbon::parse($checkOut)->format('d F Y');
 
-        $menu     = $this->menu();
-        $setting  = $this->setting();
-        return view('visitor_site.reservation.index', get_defined_vars());
-    }
+    //     $menu     = $this->menu();
+    //     $setting  = $this->setting();
+    //     return view('visitor_site.reservation.index', get_defined_vars());
+    // }
 
-    public function room_reservation(Request $request)
-    {
-        $data = $request['reserve_data'];
-        $data = json_decode($data);
+    // public function room_reservation(Request $request)
+    // {
+    //     $data = $request['reserve_data'];
+    //     $data = json_decode($data);
 
-        if (!isset($data->childAge)) {
-            return redirect()->route('index');
-        }
+    //     if (!isset($data->childAge)) {
+    //         return redirect()->route('index');
+    //     }
 
-        $data->childAge = explode(',', $data->childAge);
-        $cek = $this->availableDate($data->checkIn, $data->totalDays, $data->totalRooms, $data->room);
+    //     $data->childAge = explode(',', $data->childAge);
+    //     $cek = $this->availableDate($data->checkIn, $data->totalDays, $data->totalRooms, $data->room);
 
-        if (!$cek) {
-            return redirect()->route('index');
-        }
+    //     if (!$cek) {
+    //         return redirect()->route('index');
+    //     }
 
-        if (Session::get('room_booking_id') != null && RoomRsvp::where('reservation_id', 'NULL')->where('booking_id', Session::get('room_booking_id'))->exists()) {
-            $booking_id = Session::get('room_booking_id');
-            $data = $this->input_rsvp($booking_id, $data);
+    //     if (Session::get('room_booking_id') != null && RoomRsvp::where('reservation_id', 'NULL')->where('booking_id', Session::get('room_booking_id'))->exists()) {
+    //         $booking_id = Session::get('room_booking_id');
+    //         $data = $this->input_rsvp($booking_id, $data);
 
-        } else {
-            Session::forget('room_booking_id');
-            $data = $this->input_rsvp(false, $data);
-            Session::put('room_booking_id', $data->booking_id);
-        }
-        if (!$data) {
-            return redirect()->route('index');
-        }
+    //     } else {
+    //         Session::forget('room_booking_id');
+    //         $data = $this->input_rsvp(false, $data);
+    //         Session::put('room_booking_id', $data->booking_id);
+    //     }
+    //     if (!$data) {
+    //         return redirect()->route('index');
+    //     }
 
-        $setting = $this->setting();
+    //     $setting = $this->setting();
 
-        $paymentChannels = $this->paymentChannel();
-        $list = json_decode($paymentChannels, true);
-        $listPaymentChannels = $list['payment_channel'];
+    //     $paymentChannels = $this->paymentChannel();
+    //     $list = json_decode($paymentChannels, true);
+    //     $listPaymentChannels = $list['payment_channel'];
 
-        return view('visitor_site.reserve.index', get_defined_vars());
-    }
+    //     return view('visitor_site.reserve.index', get_defined_vars());
+    // }
 
     public function rooms()
     {

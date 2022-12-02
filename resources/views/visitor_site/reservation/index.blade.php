@@ -1,4 +1,8 @@
 @extends('templates/visitor_rsv_template')
+@section('description', 'Reservation {{ $setting->title }}. Booking dari website kami untuk dapatkan harga terbaik!')
+@section('keywords', 'Reservation {{ $setting->title }}, Reservation')
+@section('title', 'Reservation')
+
 @section('content')
 <script>
     /* Fungsi formatRupiah */

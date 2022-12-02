@@ -329,7 +329,7 @@ gtag('config', 'G-ELYE4EJL9V');
     </div> --}}
 
     {{-- form reserve mobile --}}
-    {{-- <div id="form_reserve_mobile">
+    <div id="form_reserve_mobile">
         <div id="formReservemobile" class="panel minimal-custom minimal-gray" style="display: none; bottom: 12px; width: 100%;">
             <form id="room_reserve_mobile" method="GET" action="{{ route('visitor.reservation') }}"></form>
             <form id="product_reserve_mobile" method="POST" action="{{ route('visitor.product_reservation') }}">
@@ -489,7 +489,7 @@ gtag('config', 'G-ELYE4EJL9V');
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <div class="page-container horizontal-menu">
 
