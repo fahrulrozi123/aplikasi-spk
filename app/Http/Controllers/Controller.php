@@ -15,6 +15,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function __construct()
+    {
+        ini_set('max_execution_time', 300);
+    }
+    
+    
     // data profile setting
     public function setting()
     {

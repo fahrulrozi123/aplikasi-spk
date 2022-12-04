@@ -134,10 +134,11 @@
                                                         {{-- MAIN FORM --}}
                                                         <div class="row">
                                                             <div class="col-md-4" style="padding-top: 20px;">
-                                                                <b>Personal Information</b>
+                                                                <b>Personal Information1</b>
                                                             </div>
                                                             <div class="col-xs-12 col-md-6" style="padding-top: 0px; margin-top: 0px; float: right;">
-                                                                <span class="timer timez"></span>
+                                                                {{-- <span class="timer timez"></span> --}}
+                                                                <span class=" timez"></span>
                                                             </div>
                                                         </div>
 
