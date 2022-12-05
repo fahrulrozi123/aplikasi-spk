@@ -20,7 +20,12 @@ class Allotment extends Model
         'allotment_publish_rate',
         'allotment_ro_rate',
         'allotment_extrabed_rate',
-        'allotment_date'
+        'allotment_date',
+        'opened_qty',
+        'booked_qty',
+        'pending_qty',
+
+        
     ];
 
     protected $hidden = [
