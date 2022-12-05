@@ -9,7 +9,7 @@ terbaik!')
 <div id="image_slide" class="container" style="display: none; margin-top: 30px; margin-bottom: 30px;">
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>
-            <a href="{{ route('visitor.mice_wedding') }}"><span class="entypo-left-open"></span>Back</a>
+            <a href="{{ route('visitor.package_reservation') }}"><span class="entypo-left-open"></span>Back</a>
         </li>
     </ol>
 

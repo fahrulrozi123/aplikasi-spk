@@ -72,7 +72,7 @@
 <link rel="stylesheet" href="{{ asset("holocane/css/intl-phone/intlTelInput.css") }}">
 
 <link rel="stylesheet" type="text/css" href="{{ asset("holocane/css/slider-custom.css") }}">
-<script src="{{ asset("holocane/js/moment.min.js") }}"></script> --}}
+<script src="{{ asset("holocane/js/moment.min.js") }}"></script>
 
 <link rel="stylesheet" href="{{ asset("holocane/js/select2/select2-bootstrap.css") }}">
 <link rel="stylesheet" href="{{ asset("holocane/js/select2/select2.css") }}">

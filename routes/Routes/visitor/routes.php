@@ -8,24 +8,24 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/rooms/{slug}', 'Visitor\VisitorController@roomDetail')->name('room.slug');
 
     // Recreation
-    // Route::get('/recreation/', 'Visitor\VisitorController@recreation')->name('visitor.recreation');
-    // // Recreation Detail
-    // Route::get('/recreation/{slug}', 'Visitor\VisitorController@recreationDetail')->name('recreation.slug');
+    Route::get('/recreation/', 'Visitor\VisitorController@recreation')->name('visitor.recreation');
+    // Recreation Detail
+    Route::get('/recreation/{slug}', 'Visitor\VisitorController@recreationDetail')->name('recreation.slug');
 
-    // // Wellness
-    // Route::get('/wellness/', 'Visitor\VisitorController@allysea_spa')->name('visitor.allysea_spa');
-    // // Wellness Detail
-    // Route::get('/wellness/{slug}', 'Visitor\VisitorController@allyseaSpaDetail')->name('allysea_spa.slug');
+    // Wellness
+    Route::get('/wellness/', 'Visitor\VisitorController@allysea_spa')->name('visitor.allysea_spa');
+    // Wellness Detail
+    Route::get('/wellness/{slug}', 'Visitor\VisitorController@allyseaSpaDetail')->name('allysea_spa.slug');
 
-    // // MICE
-    // Route::get('/mice/', 'Visitor\VisitorController@mice')->name('visitor.mice_wedding');
-    // // MICE Detail
-    // Route::get('/mice/{slug}', 'Visitor\VisitorController@miceDetail')->name('mice_wedding.slug');
+    // MICE
+    Route::get('/mice/', 'Visitor\VisitorController@mice')->name('visitor.mice_wedding');
+    // MICE Detail
+    Route::get('/mice/{slug}', 'Visitor\VisitorController@miceDetail')->name('mice_wedding.slug');
 
-    // // Wedding
-    // Route::get('/wedding/', 'Visitor\VisitorController@wedding')->name('visitor.wedding');
-    // // Wedding Detail//
-    // Route::get('/wedding/{slug}', 'Visitor\VisitorController@weddingDetail')->name('wedding.slug');
+    // Wedding
+    Route::get('/wedding/', 'Visitor\VisitorController@wedding')->name('visitor.wedding');
+    // Wedding Detail//
+    Route::get('/wedding/{slug}', 'Visitor\VisitorController@weddingDetail')->name('wedding.slug');
 
     // Function Room
     // Route::get('/function-room/', 'Visitor\VisitorController@function_room')->name('visitor.function_room');

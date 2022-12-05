@@ -99,7 +99,7 @@
                                                 @foreach($recreation['photos'] as $photo)<?php $i++;?>
                                                 <div class="mySlidesRecreations demo-primary id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                                                    <img src="{{env('APP_STORE').$photo->product_photo_path}}" class="height-package img-default"
+                                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
                                                         style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
@@ -114,7 +114,7 @@
                                                     @foreach($recreation['photos'] as $photo)@php $i++;@endphp
                                                     @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                                         <img class="demo1 demoRecreations id_{{$no}}"
-                                                            src="{{env('APP_STORE').$recreation['photos'][$i-1]->product_photo_path}}"
+                                                            src="{{asset('/user/'.$recreation['photos'][$i-1]->product_photo_path)}}"
                                                             style="width:100%!important; height:45px!important;"
                                                             onclick="currentSlideRecreation({{$no}}, {{$i}});" alt="Recreation" loading="lazy">
                                                         @if($i == 3)
@@ -207,7 +207,7 @@
                                                 @foreach($wellness['photos'] as $photo)<?php $i++;?>
                                                 <div class="mySlidesWellness id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                                                    <img src="{{env('APP_STORE').$photo->product_photo_path}}" class="height-package img-default"
+                                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
                                                         style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
@@ -222,7 +222,7 @@
                                                     @foreach($wellness['photos'] as $photo)@php $i++;@endphp
                                                     @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                                         <img class="demoWellness demo-primary id_{{$no}}"
-                                                            src="{{env('APP_STORE').$wellness['photos'][$i-1]->product_photo_path}}"
+                                                            src="{{asset('/user/'.$wellness['photos'][$i-1]->product_photo_path)}}"
                                                             style="width:100%!important; height:45px!important;"
                                                             onclick="currentSlideWellness({{$no}}, {{$i}});" alt="Wellness" loading="lazy">
                                                         @if($i == 3)
@@ -243,7 +243,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($wellness->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/details?from=allysea_wellnesse&key={{$wellness->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                            <a href="/wellness/{{ $wellness->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$wellness->product_detail}}</h5>
                                         @endif
@@ -315,7 +315,7 @@
                                                 @foreach($mice['photos'] as $photo)<?php $i++;?>
                                                 <div class="mySlidesMices id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                                                    <img src="{{env('APP_STORE').$photo->product_photo_path}}" class="height-package img-default"
+                                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
                                                         style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
@@ -330,7 +330,7 @@
                                                     @foreach($mice['photos'] as $photo)@php $i++;@endphp
                                                     @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                                         <img class="demoMices demo-primary id_{{$no}}"
-                                                            src="{{env('APP_STORE').$mice['photos'][$i-1]->product_photo_path}}"
+                                                            src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
                                                             style="width:100%!important; height:45px!important;"
                                                             onclick="currentSlideMices({{$no}}, {{$i}});" alt="Mice" loading="lazy">
                                                         @if($i == 3)
@@ -428,7 +428,7 @@
                                                 @foreach($promotion['photos'] as $photo)<?php $i++;?>
                                                 <div class="mySlidesPromotions id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
-                                                    <img src="{{env('APP_STORE').$photo->product_photo_path}}" class="height-package img-default"
+                                                    <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
                                                         style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
@@ -443,14 +443,14 @@
                                                     @foreach($promotion['photos'] as $photo)@php $i++;@endphp
                                                     @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                                         <img class="demoPromotions demo-primary id_{{$no}}"
-                                                            src="{{env('APP_STORE').$promotion['photos'][$i-1]->product_photo_path}}"
+                                                            src="{{asset('/user/'.$promotion['photos'][$i-1]->product_photo_path)}}"
                                                             style="width:100%!important; height:45px!important;"
                                                             onclick="currentSlidePromotions({{$no}}, {{$i}});" alt="Promotion" loading="lazy">
                                                         @if($i == 3)
                                                         <a href="javascript:;" onclick=" seeAllPromotions({{$no}})" class="seal2"
                                                             style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
                                                                 See All</b></a>
-                                                        <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
+                                                        <img class="bblackr" src="{{asset('user/images/blck.jpg')}}"
                                                             style="width:100%; margin-top:-45px;" loading="lazy">
                                                         @endif
                                                 </div>
@@ -464,7 +464,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($promotion->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/details?from=promotion&key={{$promotion->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                            <a href="/wedding/{{ $promotion->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$promotion->product_detail}}</h5>
                                         @endif
@@ -798,7 +798,7 @@
     var path = "{{env('APP_STORE')}}";
     var first = true;
 
-    function seeAll(id) {
+    function seeAllPromotions(id) {
         var mice = mices[id - 1];
         var slider_for = "";
         var slider_nav = "";

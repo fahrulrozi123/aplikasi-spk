@@ -11,7 +11,7 @@
 
     <ol class="breadcrumb bc-3" style="font-size:13px;">
         <li>
-            <a href="{{ route('visitor.newsletter') }}"><span class="entypo-left-open"></span>Back</a>
+            <a href="{{ route('visitor.package_reservation') }}"><span class="entypo-left-open"></span>Back</a>
         </li>
     </ol>
 

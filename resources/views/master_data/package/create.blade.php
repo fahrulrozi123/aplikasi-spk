@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
-                        <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
+                        {{-- <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
                             <a>
                                 @foreach ($spas as $spa)
                                     @foreach ($spa->photo->take(1) as $photo)
@@ -81,7 +81,7 @@
                                     <h3 class="font-tertiary"><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h3>
                                 </div>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
                         <div id="category_3" onClick="setActiveCategory(this);" class="contain category">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
-                        <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
+                        {{-- <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
                             <a>
                                 @foreach ($weddings as $wedding)
                                     @foreach ($wedding->photo->take(1) as $photo)
@@ -114,7 +114,7 @@
                                     </h3>
                                 </div>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <br>

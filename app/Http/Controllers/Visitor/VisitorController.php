@@ -616,4 +616,79 @@ class VisitorController extends Controller
         }
 
     }
+
+    // public function details()
+    // {
+    //     $arrContextOptions =array(
+    //         "ssl"=>array(
+    //             "verify_peer"=>false,
+    //             "verify_peer_name"=>false,
+    //         ),
+    //     );
+
+    //     $menu = $this->menu();
+    //     $setting = $this->setting();
+    //     $id = Input::get('key', null);
+    //     $from = Input::get('from', null);
+
+    //     $photos = array();
+
+    //     if ($from == "rooms") {
+    //         if (!Type::where('id', $id)->with('photo')->exists()) {
+    //             return redirect()->back();
+    //         }
+    //         $room = Type::where('id', $id)->with('photo')->first();
+    //         $data = (object) array("name" => $room->room_name, "detail" => $room->room_desc);
+    //         foreach ($room['photo'] as $key => $value) {
+    //             $temp = (object) array(
+    //                 'photo_path' => $value->photo_path,
+    //             );
+    //             array_push($photos, $temp);
+    //         }
+    //     } else if ($from == "recreation" || $from == "allysea_spa" || $from == "mice_wedding" || $from == "mice_wedding") {
+    //         if (!Product::where('id', $id)->with('photos')->exists()) {
+    //             return redirect()->back();
+    //         }
+    //         $product = Product::where('id', $id)->with('photos')->first();
+    //         $data = (object) array("name" => $product->product_name, "detail" => $product->product_detail);
+    //         foreach ($product['photos'] as $key => $value) {
+    //             $temp = (object) array(
+    //                 'photo_path' => $value->product_photo_path,
+    //             );
+    //             array_push($photos, $temp);
+    //         }
+    //     } else if ($from == "function_roomA" || $from == "function_roomB") {
+    //         if ($from == "function_roomA") {
+    //             if (!FunctionRoom::where('id', $id)->with('photos')->where('func_head', null)->exists()) {
+    //                 return redirect()->back();
+    //             }
+    //             $function = FunctionRoom::where('id', $id)->with('partition')->with('photos')->where('func_head', null)->first();
+    //             $data = (object) array("name" => $function->func_name, "detail" => $function->func_room_desc, "function" => $function);
+    //             foreach ($function['photos'] as $key => $value) {
+    //                 $temp = (object) array(
+    //                     'photo_path' => $value->photo_path,
+    //                 );
+    //                 array_push($photos, $temp);
+    //             }
+    //         } else if ($from == "function_roomB") {
+    //             if (!Product::where('id', $id)->with('photos')->exists()) {
+    //                 return redirect()->back();
+    //             }
+    //             $product = Product::where('id', $id)->with('photos')->first();
+    //             $data = (object) array("name" => $product->product_name, "detail" => $product->product_detail);
+    //             foreach ($product['photos'] as $key => $value) {
+    //                 $temp = (object) array(
+    //                     'photo_path' => $value->product_photo_path,
+    //                 );
+    //                 array_push($photos, $temp);
+    //             }
+    //         }
+    //         $from = "function_room";
+
+    //     } else {
+    //         return redirect()->back();
+    //     }
+    //     $from = 'package-reservation';
+    //     return view('visitor_site.details', get_defined_vars());
+    // }
 }
