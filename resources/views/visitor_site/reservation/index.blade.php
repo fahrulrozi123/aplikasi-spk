@@ -142,7 +142,6 @@
         </div>
     </div>
 </div>
-
 <!-- Room  -->
 @if(count($room_available) > 0)
 <div class="container">
@@ -150,7 +149,7 @@
     {{-- Room Only display --}}
     <div class="row" style="margin-top:15px;">
         <div class="row">
-            <div class="col-xs-12 col-lg-10 mt-23" style="margin: auto; padding-bottom: 10px;">
+            <div class="col-xs-12 col-lg-10 mt-23" style="margin: auto; padding-bottom: 10px;"><br>
                 <p class="text-horison" style="font-size:20px;">Result for <strong> {{$totalRoom}} Rooms, {{$totalGuest}} Guest,</strong> staying for <strong> {{$totalDays}} Nights </strong> from <strong> {{$checkIn}} to {{$checkOut}} </strong>
                 @if($totalExtrabed > 0)
                     with <strong>{{$totalExtrabed}} Additional Extra Bed</strong>
