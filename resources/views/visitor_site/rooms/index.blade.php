@@ -416,7 +416,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                         @endif
                         </div>
                     </div><br>
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-md-12 col-xs-12" style="font-size:14px"><br>
                             @if(count($room['amenities']) > 0)
                             @php
@@ -472,7 +472,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                             </div>
                             @endif
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="row book-room-row" style="font-size:14px; margin-left: 0px;">
                         <div class="col-md-6 col-xs-12">
                             <span class="text-horison{{$font_color}}"> From<br><strong>
