@@ -484,10 +484,10 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                 @endforeach
                             </span>
                         </div>
-                        <div class="col-md-6 col-xs-12" align="right">
+                        {{-- <div class="col-md-6 col-xs-12" align="right">
                             <a class="btn btn-horison btn-lg reserveNow" id="reserveNow"
                                 style="width:135px; margin-top:0px;"><b>Book Now</b></a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             <!-- End Rooms Bg Black -->
