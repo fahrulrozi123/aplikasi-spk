@@ -137,8 +137,7 @@
                                                                 <b>Personal Information1</b>
                                                             </div>
                                                             <div class="col-xs-12 col-md-6" style="padding-top: 0px; margin-top: 0px; float: right;">
-                                                                {{-- <span class="timer timez"></span> --}}
-                                                                <span class=" timez"></span>
+                                                                <span class="timer timez"></span>
                                                             </div>
                                                         </div>
 

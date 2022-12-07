@@ -73,7 +73,7 @@
                     <span class="title">Master Data</span>
                 </a>
                 <ul>
-                    <li>
+                    {{-- <li>
                         <a href="/master_data/banner">
                             <i class="entypo-doc-landscape"></i>
                             <span class="title">Banner</span>
@@ -84,7 +84,7 @@
                             <i class="entypo-newspaper"></i>
                             <span class="title">News</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/master_data/room">
                             <i class="fa fa-fw fa-bed"></i>
