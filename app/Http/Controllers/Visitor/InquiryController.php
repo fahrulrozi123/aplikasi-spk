@@ -126,7 +126,7 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date, "General Inquiry", 1);
                 }
 
-                $create_at = Carbon::now();
+                $created_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
@@ -136,7 +136,7 @@ class InquiryController extends Controller
                     'inq_event_start' => Carbon::now(),
                     'inq_type' => $sanitizer['btn_general'],
                     'inq_details' => $sanitizer['general_details'],
-                    'create_at' => $create_at
+                    'created_at' => $created_at
                 ];
 
                 Inquiry::insert($inquiry);
@@ -197,7 +197,7 @@ class InquiryController extends Controller
                     }
                 }
 
-                $create_at = Carbon::now();
+                $created_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
@@ -212,7 +212,7 @@ class InquiryController extends Controller
                     'inq_alt_start' => $date,
                     'inq_alt_end' => $date,
                     'inq_details' => isset($sanitizer['rec_details']) ? $sanitizer['rec_details'] : "",
-                    'create_at' => $create_at
+                    'created_at' => $created_at
                 ];
                 Inquiry::insert($inquiry);
                 $from = "INQUIRY";
@@ -264,7 +264,7 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date, $product->product_name, $product->sales_inquiry);
                 }
 
-                $create_at = Carbon::now();
+                $created_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
@@ -280,7 +280,7 @@ class InquiryController extends Controller
                     'inq_alt_end' => $date,
                     'inq_arrive_time' => $data['wellness_time'],
                     'inq_details' => isset($sanitizer['wellness_details']) ? $sanitizer['wellness_details'] : "",
-                    'create_at' => $create_at
+                    'created_at' => $created_at
                 ];
 
                 Inquiry::insert($inquiry);
@@ -336,7 +336,7 @@ class InquiryController extends Controller
                     $reservation_id = $this->generate_product_id($rsvp_id, $date_start, $product->product_name, $product->sales_inquiry);
                 }
 
-                $create_at = Carbon::now();
+                $created_at = Carbon::now();
 
                 $inquiry = [
                     'reservation_id' => $reservation_id,
@@ -350,7 +350,7 @@ class InquiryController extends Controller
                     'inq_event_end' => $date_start,
                     'inq_arrive_time' => $data['mice_time'],
                     'inq_details' => isset($sanitizer['mice_details']) ? $sanitizer['mice_details'] : "",
-                    'create_at' => $create_at
+                    'created_at' => $created_at
                 ];
 
                 Inquiry::insert($inquiry);
@@ -405,7 +405,7 @@ class InquiryController extends Controller
                 $reservation_id = $this->generate_product_id($rsvp_id, $date_start, $product->product_name, $product->sales_inquiry);
             }
 
-            $create_at = Carbon::now();
+            $created_at = Carbon::now();
 
             $inquiry = [
                 'reservation_id' => $reservation_id,
@@ -420,7 +420,7 @@ class InquiryController extends Controller
                 'inq_event_end' => $date_start,
                 'inq_arrive_time' => $data['promotion_time'],
                 'inq_details' => isset($sanitizer['promotion_details']) ? $sanitizer['promotion_details'] : "",
-                'create_at' => $create_at
+                'created_at' => $created_at
             ];
 
             Inquiry::insert($inquiry);
