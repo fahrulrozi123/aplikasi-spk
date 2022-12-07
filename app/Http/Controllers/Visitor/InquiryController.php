@@ -128,6 +128,7 @@ class InquiryController extends Controller
 
                 $created_at = Carbon::now();
 
+
                 $inquiry = [
                     'reservation_id' => $reservation_id,
                     'customer_id' => $customer_id,
