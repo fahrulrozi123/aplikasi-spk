@@ -135,7 +135,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($recreation->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/details?from=recreation&key={{$recreation->id}}" class="font-secondary" style="font-size: 11px"><i><u>See more description</u></i></a>
+                                            <a href="/details?from=recreation&key={{$recreation->id}}" class="font-secondary hovertools" style="font-size: 11px"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$recreation->product_detail}}</h5>
                                         @endif
@@ -243,7 +243,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($wellness->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/wellness/{{ $wellness->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                            <a href="/wellness/{{ $wellness->product_slug }}" class="font-secondary hovertools" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$wellness->product_detail}}</h5>
                                         @endif
@@ -351,7 +351,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($mice->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                            <a href="/details?from=mice_wedding&key={{$mice->id}}" class="font-secondary hovertools" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$mice->product_detail}}</h5>
                                         @endif
@@ -464,7 +464,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($promotion->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/wedding/{{ $promotion->product_slug }}" class="font-secondary" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                            <a href="/wedding/{{ $promotion->product_slug }}" class="font-secondary hovertools" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$promotion->product_detail}}</h5>
                                         @endif

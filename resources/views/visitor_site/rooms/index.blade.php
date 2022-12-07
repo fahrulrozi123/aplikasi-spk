@@ -176,8 +176,8 @@ $color = "";
 $id = Crypt::encryptString($room->id);
 $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.jpg";
 @endphp
-@if ($no - 1 < $div_rooms) <div class="row bg-secondary">
-    <div class="container bg-secondary">
+@if ($no - 1 < $div_rooms) <div class="row">
+    <div class="container">
         @else
         @php
         $font_color = "-black";
@@ -262,7 +262,7 @@ $img = count($room['photo']) > 0 ? $room['photo'][0]->photo_path : "insert-here.
                                         <p class="line-clamp-room-3  text-horison{{$font_color}}" style="margin-bottom: 5px;">
                                             {!! strip_tags(substr($room->room_desc, 0, 100)."...") !!}
                                         </p>
-                                            <a href="/rooms/{{ $room->room_slug }}" class="text-horison{{$font_color}}" style="font-size:13px;">
+                                            <a href="/rooms/{{ $room->room_slug }}" class="text-horison{{$font_color}} hovertools" style="font-size:13px">
                                                 <i><u>See more description</u></i>
                                             </a>
                                         @else
