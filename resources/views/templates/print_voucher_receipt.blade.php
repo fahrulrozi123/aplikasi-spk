@@ -39,7 +39,7 @@
 
         .th-purchase {
             border: 1px solid black;
-            background-color: #DAF2FC;
+            background-color: #F6EDE4;
             vertical-align: middle;
             text-align: center;
             height: 7%;

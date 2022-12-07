@@ -16,15 +16,15 @@
                     max-height: 50vh;
                 }
                 .cls-1 {
-                fill: #1B729E;
+                fill: #AAA198;
                 }
 
                 .cls-2 {
-                fill: #C7E3EE;
+                fill: #F6EDE4;
                 }
 
                 .cls-3 {
-                fill: #DAF2FC;
+                fill: #F6EDE4;
                 }
 
                 .cls-4 {
@@ -32,7 +32,7 @@
                 }
 
                 .cls-5 {
-                fill: #DAF2FC;
+                fill: #F6EDE4;
                 }
 
                 .cls-6,

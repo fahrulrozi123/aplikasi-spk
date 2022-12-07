@@ -44,12 +44,12 @@ $gambar = $img."/".$setting->logo;
     <style type="text/css">
         :root {
             /* background */
-            --primary-bg-color: #DAF2FC;
+            --primary-bg-color: #F6EDE4;
             --secondary-bg-color: #F8F8F8;
             --tertiary-bg-color: #1C4458;
             --quaternary-bg-color: #1B729E;
             /* grandient */
-            --grandient-bg-color: linear-gradient(0deg, #DAF2FC, #DAF2FC);
+            --grandient-bg-color: linear-gradient(0deg, #F6EDE4, #F6EDE4);
             /* font  */
             --primary-font-color: #1B729E;
             --secondary-font-color: #333333;
@@ -236,8 +236,8 @@ $gambar = $img."/".$setting->logo;
 					{{-- BOOKING ID HEAD --}}
 					<div style="background-color:transparent;">
 						<div class="block-grid"
-							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #DAF2FC;">
-							<div style="border-collapse: collapse;display: table;width: 100%;background-color:#DAF2FC;">
+							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #F6EDE4;">
+							<div style="border-collapse: collapse;display: table;width: 100%;background-color:#F6EDE4;">
 								<div class="col num12"
 									style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
 									<div style="width:100% !important;">
@@ -328,7 +328,7 @@ $gambar = $img."/".$setting->logo;
 															<table align="center" border="0" cellpadding="0"
 																cellspacing="0" class="divider_content"
 																role="presentation"
-																style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 4px solid #DAF2FC; width: 100%;"
+																style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 4px solid #F6EDE4; width: 100%;"
 																valign="top" width="100%">
 																<tbody>
 																	<tr style="vertical-align: top;" valign="top">
@@ -611,7 +611,7 @@ $gambar = $img."/".$setting->logo;
 															<table align="center" border="0" cellpadding="0"
 																cellspacing="0" class="divider_content"
 																role="presentation"
-																style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 4px solid #DAF2FC; width: 100%;"
+																style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 4px solid #F6EDE4; width: 100%;"
 																valign="top" width="100%">
 																<tbody>
 																	<tr style="vertical-align: top;" valign="top">
@@ -818,8 +818,8 @@ $gambar = $img."/".$setting->logo;
 					{{-- FOOTER --}}
 					<div style="background-color:transparent;">
 						<div class="block-grid two-up no-stack"
-							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #DAF2FC;">
-							<div style="border-collapse: collapse;display: table;width: 100%;background-color: #DAF2FC;">
+							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #F6EDE4;">
+							<div style="border-collapse: collapse;display: table;width: 100%;background-color: #F6EDE4;">
 								<div class="col num6"
 									style="max-width: 320px; min-width: 300px; display: table-cell; vertical-align: top; width: 300px;">
 									<div style="width:100% !important;">
@@ -933,8 +933,8 @@ $gambar = $img."/".$setting->logo;
 					</div>
 					<div style="background-color:transparent;">
 						<div class="block-grid"
-							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #DAF2FC;">
-							<div style="border-collapse: collapse;display: table;width: 100%;background-color: #DAF2FC;">
+							style="Margin: 0 auto; min-width: 320px; max-width: 600px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #F6EDE4;">
+							<div style="border-collapse: collapse;display: table;width: 100%;background-color: #F6EDE4;">
 								<div class="col num12"
 									style="min-width: 320px; max-width: 600px; display: table-cell; vertical-align: top; width: 600px;">
 									<div style="width:100% !important;">

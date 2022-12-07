@@ -1,14 +1,16 @@
 :root {
     /* background */
-    --primary-bg-color: #DAF2FC;
+    --primary-bg-color: #F6EDE4;
     --secondary-bg-color: #F8F8F8;
-    --tertiary-bg-color: #1C4458;
-    --quaternary-bg-color: #1B729E;
+    --tertiary-bg-color: #b68440;
+    --quaternary-bg-color: #b68440;
     /* grandient */
-    --grandient-bg-color: linear-gradient(0deg, #DAF2FC, #DAF2FC);
+    --grandient-bg-color: linear-gradient(0deg, #F6EDE4, #F6EDE4);
     /* font  */
-    --primary-font-color: #1B729E;
+    --primary-font-color: #b68440;
     --secondary-font-color: #333333;
     --tertiary-font-color: #ffffff;
     --quaternary-font-color: #818285;
+
+
 }
