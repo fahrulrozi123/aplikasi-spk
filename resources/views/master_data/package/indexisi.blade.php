@@ -79,6 +79,7 @@
                         <?php $i++; ?>
                     @endwhile
                     <br>
+
                 @elseif($products[$no]->category == '2')
                     <?php $i = $no; ?>
                     @while (isset($products[$i]) and $products[$i]->category == '2')
