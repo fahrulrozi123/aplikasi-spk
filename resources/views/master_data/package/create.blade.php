@@ -69,6 +69,7 @@
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
                         <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
+
                             <a>
                                 @foreach ($wellnesses as $wellness)
                                     @foreach ($wellness->photo->take(1) as $photo)
