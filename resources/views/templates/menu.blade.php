@@ -109,12 +109,12 @@
                             <span class="title">Package</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="/master_data/function_room">
                             <i class="fa fa-magic" style="padding-right: 5px; padding-left: 5px;"></i>
                             <span class="title">Function Room</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             @endif

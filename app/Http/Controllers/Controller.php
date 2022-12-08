@@ -19,8 +19,8 @@ class Controller extends BaseController
     {
         ini_set('max_execution_time', 300);
     }
-    
-    
+
+
     // data profile setting
     public function setting()
     {
@@ -36,6 +36,7 @@ class Controller extends BaseController
             'wellness'     => PageSetting::where('page_code', 'Wellness')->get(),
             'mice'         => PageSetting::where('page_code', 'Mice')->get(),
             'promotion'    => PageSetting::where('page_code', 'Promotion')->get(),
+            'contact'      => PageSetting::where('page_code', 'Contact')->get()
         ];
     }
 }

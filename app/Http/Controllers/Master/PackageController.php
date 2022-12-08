@@ -47,9 +47,9 @@ class PackageController extends Controller
         //menu code
         $menu = $this->menu();
         $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
-        $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
+        $wellnesses = PageSetting::where('page_code', 'Wellness')->with('photo')->get();
         $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
-        $weddings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
+        $promotions = PageSetting::where('page_code', 'Promotion')->with('photo')->get();
 
         return view('master_data.package.create', get_defined_vars());
     }
@@ -153,9 +153,9 @@ class PackageController extends Controller
         //menu code
         $menu = $this->menu();
         $recreations = PageSetting::where('page_code', 'Recreation')->with('photo')->get();
-        $spas = PageSetting::where('page_code', 'Spa')->with('photo')->get();
+        $wellnesses = PageSetting::where('page_code', 'Wellness')->with('photo')->get();
         $mices = PageSetting::where('page_code', 'Mice')->with('photo')->get();
-        $weddings = PageSetting::where('page_code', 'Wedding')->with('photo')->get();
+        $promotions = PageSetting::where('page_code', 'Promotion')->with('photo')->get();
 
         return view('master_data.package.create', get_defined_vars());
     }

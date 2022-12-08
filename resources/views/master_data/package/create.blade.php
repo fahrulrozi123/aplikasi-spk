@@ -68,20 +68,20 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
-                        {{-- <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
+                        <div id="category_2" onClick="setActiveCategory(this);" class="contain category">
                             <a>
-                                @foreach ($spas as $spa)
-                                    @foreach ($spa->photo->take(1) as $photo)
+                                @foreach ($wellnesses as $wellness)
+                                    @foreach ($wellness->photo->take(1) as $photo)
                                         <img src="{{ asset('/user/' . $photo->photo_path) }}" class="shadow"
-                                            alt="{{ $spa->page_name }}"
+                                            alt="{{ $wellness->page_name }}"
                                             style="width:100%; height:100%; object-fit: cover;">
                                     @endforeach
                                 @endforeach
                                 <div class="centered">
-                                    <h3 class="font-tertiary"><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h3>
+                                    <h3 class="font-tertiary"><strong>{{ $menu['wellness'][0]['page_name'] }}</strong></h3>
                                 </div>
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
                         <div id="category_3" onClick="setActiveCategory(this);" class="contain category">
@@ -100,21 +100,21 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-xs-12 ">
-                        {{-- <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
+                        <div id="category_4" onClick="setActiveCategory(this);" class="contain category">
                             <a>
-                                @foreach ($weddings as $wedding)
-                                    @foreach ($wedding->photo->take(1) as $photo)
+                                @foreach ($promotions as $promotion)
+                                    @foreach ($promotion->photo->take(1) as $photo)
                                         <img src="{{ asset('/user/' . $photo->photo_path) }}" class="shadow"
-                                            alt="{{ $wedding->page_name }}"
+                                            alt="{{ $promotion->page_name }}"
                                             style="width:100%; height:100%; object-fit: cover;">
                                     @endforeach
                                 @endforeach
                                 <div class="centered">
-                                    <h3 class="font-tertiary"><strong>{{ $menu['wedding'][0]['page_name'] }}</strong>
+                                    <h3 class="font-tertiary"><strong>{{ $menu['promotion'][0]['page_name'] }}</strong>
                                     </h3>
                                 </div>
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 <br>

@@ -83,7 +83,7 @@
                     <?php $i = $no; ?>
                     @while (isset($products[$i]) and $products[$i]->category == '2')
                         @if ($i == $no)
-                            {{-- <h4><strong>{{ $menu['spa'][0]['page_name'] }}</strong></h4> --}}
+                            <h4><strong>{{ $menu['wellness'][0]['page_name'] }}</strong></h4>
                         @endif
                         @php
                             $img = count($products[$i]['photos']) > 0 ? $products[$i]['photos'][0]->product_photo_path : 'insert-image.jpg';
@@ -172,9 +172,9 @@
                 @elseif($products[$no]->category == '4')
                     <?php $i = $no; ?>
                     @while (isset($products[$i]) and $products[$i]->category == '4')
-                        {{-- @if ($i == $no)
-                            <h4><strong>{{ $menu['wedding'][0]['page_name'] }}</strong></h4>
-                        @endif --}}
+                        @if ($i == $no)
+                            <h4><strong>{{ $menu['promotion'][0]['page_name'] }}</strong></h4>
+                        @endif
                         @php
                             $img = count($products[$i]['photos']) > 0 ? $products[$i]['photos'][0]->product_photo_path : 'insert-image.jpg';
                         @endphp
