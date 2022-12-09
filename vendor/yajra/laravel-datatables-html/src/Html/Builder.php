@@ -5,6 +5,7 @@ namespace Yajra\DataTables\Html;
 use Collective\Html\HtmlBuilder;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -77,6 +78,10 @@ class Builder
         $this->html = $html;
         $this->collection = new Collection;
         $this->tableAttributes = $this->config->get('datatables-html.table', []);
+        $this->attributes = [
+            'serverSide' => true,
+            'processing' => true,
+        ];
     }
 
     /**
@@ -117,7 +122,17 @@ class Builder
      */
     public function generateJson()
     {
-        $args = array_merge(
+        return $this->parameterize($this->getOptions());
+    }
+
+    /**
+     * Get DataTable options array.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return array_merge(
             $this->attributes, [
                 'ajax' => $this->ajax,
                 'columns' => $this->collection->map(function (Column $column) {
@@ -128,8 +143,6 @@ class Builder
                 })->toArray(),
             ]
         );
-
-        return $this->parameterize($args);
     }
 
     /**
@@ -145,17 +158,17 @@ class Builder
         $values = [];
         $replacements = [];
 
-        foreach (array_dot($parameters) as $key => $value) {
+        foreach (Arr::dot($parameters) as $key => $value) {
             if ($this->isCallbackFunction($value, $key)) {
                 $values[] = trim($value);
-                array_set($parameters, $key, '%' . $key . '%');
+                Arr::set($parameters, $key, '%' . $key . '%');
                 $replacements[] = '"%' . $key . '%"';
             }
         }
 
         $new = [];
         foreach ($parameters as $key => $value) {
-            array_set($new, $key, $value);
+            Arr::set($new, $key, $value);
         }
 
         $json = json_encode($new);
@@ -259,7 +272,8 @@ class Builder
     {
         $script = '';
         foreach ($data as $key => $value) {
-            $script .= PHP_EOL . "data.{$key} = '{$value}';";
+            $dataValue = $this->isCallbackFunction($value, $key) ? $value : "'{$value}'";
+            $script .= PHP_EOL . "data.{$key} = {$dataValue};";
         }
 
         return $script;
@@ -272,8 +286,16 @@ class Builder
      */
     public function asOptions()
     {
-        $this->setTemplate('datatables::options');
+        return $this->setTemplate('datatables::options');
+    }
 
-        return $this;
+    /**
+     * Wrap dataTable scripts with a function.
+     *
+     * @return $this
+     */
+    public function asFunction()
+    {
+        return $this->setTemplate('datatables::function');
     }
 }

@@ -32,7 +32,7 @@ class mahasiswaController extends Controller
             $response['msg'] = "Id tidak valid";
         }else{
             Mahasiswa::find($request->input('id'))->delete();
-            $response['msg'] = "berhasil menghapus data";
+            $response['msg'] = "Data Berhasil di hapus";
         }
         return response()->json($response, 200);
     }
@@ -64,7 +64,7 @@ class mahasiswaController extends Controller
             $mahasiswa->ipk = $request->input('ipk');
             $mahasiswa->indeks_sks = $request->input('indeks_sks');
             $mahasiswa->save();
-            $res['msg'] = Alert::success("Berhasil Menambahkan Data");
+            $res['msg'] = Alert::success("Data berhasil ditambahkan");
         }
 
         return response()->json($res, 200);

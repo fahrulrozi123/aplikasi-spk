@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Mahasiswa | SIMAPRES
+    SPK-KELOMPOK 3 | Mahasiswa
 @endsection
 @section('content')
 <br>
@@ -11,12 +11,13 @@
             <h4 class="header-title m-t-0">Tambah Mahasiswa</h4>
 
             @include('admin.mahasiswa.add')
-            {{-- @include('admin.user.edit-user') --}}
+            @include('admin.mahasiswa.edit')
 
 
             <div class="button-list">
                 <!-- Custom width modal -->
-                <button type="button" class="btn btn-info waves-light waves-effect w-md" data-toggle="modal" data-target="#tambah-mahasiswa" data-table="#tabel-user"><i class="mdi mdi-library-plus"></i> Tambah Data</button>
+                <button type="button" class="btn btn-block btn-outline-primary btn-sm" style="width: 12%;" data-toggle="modal" data-target="#tambah-mahasiswa" data-table="#tabel-user">
+                    <i class="mdi mdi-library-plus"></i> Tambah Data</button>
             </div>
         </div>
     </div><!-- end col -->
@@ -32,7 +33,6 @@
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>NIM</th>
                     <th>Nama Lengkap</th>
                     <th>Fakultas</th>
@@ -82,7 +82,6 @@
                     ajax: '{!! route('admin.mahasiswa.index') !!}',
                     order:[0,'desc'],
                     columns:[
-                        {data:'id', name: 'id'},
                         {data:'nim',name :'nim'},
                         {data:'nama', name: 'nama'},
                         {data:'fakultas',name:'fakultas'},

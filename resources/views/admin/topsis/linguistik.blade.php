@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Analisa Linguistik | SIMAPRES
+    SPK-KELOMPOK 3 | Analisa Linguistik
 @endsection
 @section('content')
 <br>
@@ -16,7 +16,6 @@
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>NIM</th>
                     <th>Nama Lengkap</th>
                     <th>Fakultas</th>
@@ -49,7 +48,6 @@
                     ajax: '{!! route('admin.topsis.linguistik') !!}',
                     order:[0,'desc'],
                     columns:[
-                        {data:'id', name: 'id'},
                         {data:'nim',name :'nim'},
                         {data:'nama', name: 'nama'},
                         {data:'fakultas',name:'fakultas'},

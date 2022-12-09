@@ -21,48 +21,47 @@ Route::get('/tes2',function(){
 Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
     Route::get('/', function () {
         $data['mahasiswa'] = count(\App\Model\Mahasiswa::all());
-        $data['fmipa'] = count(\App\Model\Mahasiswa::where('fakultas','FMIPA')->get());
-        $data['ft'] = count(\App\Model\Mahasiswa::where('fakultas','FT')->get());
-        $data['fbs'] = count(\App\Model\Mahasiswa::where('fakultas','FBS')->get());
-        $data['fik'] = count(\App\Model\Mahasiswa::where('fakultas','FIK')->get());
-        $data['fe'] = count(\App\Model\Mahasiswa::where('fakultas','FE')->get());
-        $data['fis'] = count(\App\Model\Mahasiswa::where('fakultas','FIS')->get());
-        $data['fip'] = count(\App\Model\Mahasiswa::where('fakultas','FIP')->get());
-        $data['fh'] = count(\App\Model\Mahasiswa::where('fakultas','FH')->get());
+        $data['Teknik'] = count(\App\Model\Mahasiswa::where('fakultas','Teknik')->get());
+        $data['FIKES'] = count(\App\Model\Mahasiswa::where('fakultas','FIKES')->get());
+        $data['Hukum'] = count(\App\Model\Mahasiswa::where('fakultas','Hukum')->get());
+        $data['FEB'] = count(\App\Model\Mahasiswa::where('fakultas','FEB')->get());
+        $data['FAI'] = count(\App\Model\Mahasiswa::where('fakultas','FAI')->get());
+        $data['FISIP'] = count(\App\Model\Mahasiswa::where('fakultas','FISIP')->get());
+        $data['FKIP'] = count(\App\Model\Mahasiswa::where('fakultas','FKIP')->get());
         return view('admin.dashboard',$data);
     });
-    Route::get('/amahasiswa', function () {
+    Route::get('/mahasiswa', function () {
         return view('admin.mahasiswa.index');
     });
-    Route::get('/asetting', function () {
+    Route::get('/setting', function () {
         $options = \App\Model\Setting::getAllKeyValue();
         return view('admin.setting',$options);
     });
-    Route::get('/alinguistik', function () {
+    Route::get('/linguistik', function () {
         return view('admin.topsis.linguistik');
     });
-    Route::get('/amatrix_keputusan', function () {
+    Route::get('/matrix_keputusan', function () {
         return view('admin.topsis.matrix_keputusan');
     });
-    Route::get('/amatrix_keputusan_ternormalisasi', function () {
+    Route::get('/matrix_keputusan_ternormalisasi', function () {
         return view('admin.topsis.matrix_keputusan_ternormalisasi');
     });
-    Route::get('/amatrix_keputusan_terbobot', function () {
+    Route::get('/matrix_keputusan_terbobot', function () {
         return view('admin.topsis.matrix_keputusan_terbobot');
     });
-    Route::get('/ajarak_solusi_positif', function () {
+    Route::get('/jarak_solusi_positif', function () {
         return view('admin.topsis.jarak_solusi_positif');
     });
-    Route::get('/ajarak_solusi_negatif', function () {
+    Route::get('/jarak_solusi_negatif', function () {
         return view('admin.topsis.jarak_solusi_negatif');
     });
-    Route::get('/anilai_preferensi', function () {
+    Route::get('/nilai_preferensi', function () {
         return view('admin.topsis.nilai_preferensi');
     });
-    Route::get('/ahasil_rekomendasi', function () {
+    Route::get('/hasil_rekomendasi', function () {
         return view('admin.topsis.hasil_rekomendasi');
     });
-    Route::get('/amatrix_solusi_ideal','analisaTopsis@solusi_ideal');
+    Route::get('/matrix_solusi_ideal','analisaTopsis@solusi_ideal');
 
     Route::group(['prefix' => 'admin'], function(){
         Route::group(["as" => "mahasiswa.", "prefix" => "mahasiswa"], function () {

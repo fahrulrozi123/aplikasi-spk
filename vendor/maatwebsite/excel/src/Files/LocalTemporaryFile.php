@@ -10,7 +10,7 @@ class LocalTemporaryFile extends TemporaryFile
     private $filePath;
 
     /**
-     * @param string $filePath
+     * @param  string  $filePath
      */
     public function __construct(string $filePath)
     {
@@ -40,6 +40,10 @@ class LocalTemporaryFile extends TemporaryFile
      */
     public function delete(): bool
     {
+        if (@unlink($this->filePath) || !$this->exists()) {
+            return true;
+        }
+
         return unlink($this->filePath);
     }
 

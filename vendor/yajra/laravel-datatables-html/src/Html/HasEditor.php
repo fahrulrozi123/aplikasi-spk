@@ -16,13 +16,17 @@ trait HasEditor
     /**
      * Attach multiple editors to builder.
      *
-     * @param mixed ...$editors
+     * @param array|mixed ...$editors
      * @return $this
      * @see https://editor.datatables.net/
      * @throws \Exception
      */
     public function editors(...$editors)
     {
+        if (is_array($editors[0])) {
+            $editors = $editors[0];
+        }
+
         foreach ($editors as $editor) {
             $this->editor($editor);
         }
@@ -64,7 +68,7 @@ trait HasEditor
         }
 
         if (! $editor->table) {
-            $editor->table($this->getTableAttribute('id'));
+            $editor->table('#' . $this->getTableAttribute('id'));
         }
 
         if (! $editor->ajax) {
@@ -72,5 +76,13 @@ trait HasEditor
         }
 
         return $editor;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getEditors()
+    {
+        return $this->editors;
     }
 }

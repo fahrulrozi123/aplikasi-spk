@@ -2,11 +2,11 @@
 
 namespace Maatwebsite\Excel;
 
-use Maatwebsite\Excel\Events\Event;
 use Maatwebsite\Excel\Events\AfterSheet;
-use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Events\BeforeExport;
+use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Events\BeforeWriting;
+use Maatwebsite\Excel\Events\Event;
 
 trait RegistersCustomConcerns
 {
@@ -21,9 +21,9 @@ trait RegistersCustomConcerns
     ];
 
     /**
-     * @param string   $concern
-     * @param callable $handler
-     * @param string   $event
+     * @param  string  $concern
+     * @param  callable  $handler
+     * @param  string  $event
      */
     public static function extend(string $concern, callable $handler, string $event = BeforeWriting::class)
     {

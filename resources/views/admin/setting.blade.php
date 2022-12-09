@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 @endif
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-block btn-outline-primary btn-sm" style="width: 15%;">Simpan</button>
                  </form>
             </div>
         </div>

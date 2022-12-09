@@ -2,8 +2,8 @@
 
 namespace Yajra\DataTables\Generators;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class DataTablesEditorCommand extends GeneratorCommand
 {
@@ -12,7 +12,7 @@ class DataTablesEditorCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'datatables:editor 
+    protected $signature = 'datatables:editor
                             {name : The name of the dataTable editor.}
                             {--model : The name given will be used as the model is singular form.}
                             {--model-namespace= : The namespace of the model to be used.}';
@@ -29,12 +29,12 @@ class DataTablesEditorCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $type = 'DataTablesEditor';
+    protected $type = 'DataTableEditor';
 
     /**
      * Build the class with the given name.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return string
      */
     protected function buildClass($name)
@@ -47,7 +47,7 @@ class DataTablesEditorCommand extends GeneratorCommand
     /**
      * Replace model name.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return string
      */
     protected function replaceModel(&$stub)
@@ -70,14 +70,14 @@ class DataTablesEditorCommand extends GeneratorCommand
         $modelNamespace = $this->option('model-namespace') ? $this->option('model-namespace') : $this->laravel['config']->get('datatables-buttons.namespace.model');
 
         return $model
-            ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . str_singular($name)
+            ? $rootNamespace . '\\' . ($modelNamespace ? $modelNamespace . '\\' : '') . Str::singular($name)
             : $rootNamespace . '\\User';
     }
 
     /**
      * Replace model import.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return $this
      */
     protected function replaceModelImport(&$stub)
@@ -96,19 +96,21 @@ class DataTablesEditorCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/editor.stub';
+        $path = $this->laravel['config']->get('datatables-buttons.stub');
+
+        return $path ? base_path($path) . '/editor.stub' : __DIR__ . '/stubs/editor.stub';
     }
 
     /**
      * Replace the filename.
      *
-     * @param string $stub
+     * @param  string  $stub
      * @return string
      */
     protected function replaceFilename(&$stub)
     {
         $stub = str_replace(
-            'DummyFilename', str_slug($this->getNameInput()), $stub
+            'DummyFilename', Str::slug($this->getNameInput()), $stub
         );
 
         return $stub;
@@ -117,7 +119,7 @@ class DataTablesEditorCommand extends GeneratorCommand
     /**
      * Parse the name and format according to the root namespace.
      *
-     * @param  string $name
+     * @param  string  $name
      * @return string
      */
     protected function qualifyClass($name)
@@ -142,7 +144,7 @@ class DataTablesEditorCommand extends GeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param  string $rootNamespace
+     * @param  string  $rootNamespace
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)

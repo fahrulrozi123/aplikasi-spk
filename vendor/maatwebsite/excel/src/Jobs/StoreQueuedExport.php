@@ -3,9 +3,9 @@
 namespace Maatwebsite\Excel\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Files\Filesystem;
 use Maatwebsite\Excel\Files\TemporaryFile;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class StoreQueuedExport implements ShouldQueue
 {
@@ -31,10 +31,10 @@ class StoreQueuedExport implements ShouldQueue
     private $diskOptions;
 
     /**
-     * @param TemporaryFile $temporaryFile
-     * @param string        $filePath
-     * @param string|null   $disk
-     * @param array|string  $diskOptions
+     * @param  TemporaryFile  $temporaryFile
+     * @param  string  $filePath
+     * @param  string|null  $disk
+     * @param  array|string  $diskOptions
      */
     public function __construct(TemporaryFile $temporaryFile, string $filePath, string $disk = null, $diskOptions = [])
     {
@@ -45,7 +45,7 @@ class StoreQueuedExport implements ShouldQueue
     }
 
     /**
-     * @param Filesystem $filesystem
+     * @param  Filesystem  $filesystem
      */
     public function handle(Filesystem $filesystem)
     {

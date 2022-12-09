@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Jarak Solusi Negatif | SIMAPRES
+    SPK-KELOMPOK 3 | Jarak Solusi Negatif
 @endsection
 @section('content')
 <br>
@@ -16,7 +16,6 @@
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Nama Lengkap</th>
                     <th>Prestasi (C1)</th>
                     <th>Karya Ilmiah (C2)</th>
@@ -48,7 +47,6 @@
                     ajax: '{!! route('admin.topsis.jarak_solusi_negatif') !!}',
                     order:[0,'desc'],
                     columns:[
-                        {data:'id', name: 'id'},
                         {data:'nama', name: 'nama'},
                         {data:'b_prestasi',name:'b_prestasi'},
                         {data:'b_karya_ilmiah',name:'b_karya_ilmiah'},

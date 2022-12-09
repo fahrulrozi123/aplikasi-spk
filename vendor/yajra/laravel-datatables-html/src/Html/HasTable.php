@@ -44,6 +44,16 @@ trait HasTable
     }
 
     /**
+     * Get HTML table "id" attribute.
+     *
+     * @return string
+     */
+    public function getTableId()
+    {
+        return $this->getTableAttribute('id');
+    }
+
+    /**
      * Sets HTML table attribute(s).
      *
      * @param string|array $attribute
@@ -123,8 +133,9 @@ trait HasTable
         $th = [];
         foreach ($this->collection->toArray() as $row) {
             $thAttr = $this->html->attributes(array_merge(
-                array_only($row, ['class', 'id', 'title', 'width', 'style', 'data-class', 'data-hide']),
-                $row['attributes']
+                Arr::only($row, ['class', 'id', 'title', 'width', 'style', 'data-class', 'data-hide']),
+                $row['attributes'],
+                isset($row['titleAttr']) ? ['title' => $row['titleAttr']] : []
             ));
             $th[] = '<th ' . $thAttr . '>' . $row['title'] . '</th>';
         }
@@ -157,7 +168,7 @@ trait HasTable
         $footer = [];
         foreach ($this->collection->all() as $row) {
             if (is_array($row->footer)) {
-                $footerAttr = $this->html->attributes(array_only($row->footer,
+                $footerAttr = $this->html->attributes(Arr::only($row->footer,
                     ['class', 'id', 'title', 'width', 'style', 'data-class', 'data-hide']));
                 $title = isset($row->footer['title']) ? $row->footer['title'] : '';
                 $footer[] = '<th ' . $footerAttr . '>' . $title . '</th>';

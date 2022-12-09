@@ -3,10 +3,10 @@
 namespace Maatwebsite\Excel\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Maatwebsite\Excel\Writer;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Files\TemporaryFile;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Writer;
 
 class CloseSheet implements ShouldQueue
 {
@@ -33,10 +33,10 @@ class CloseSheet implements ShouldQueue
     private $sheetIndex;
 
     /**
-     * @param object        $sheetExport
-     * @param TemporaryFile $temporaryFile
-     * @param string        $writerType
-     * @param int           $sheetIndex
+     * @param  object  $sheetExport
+     * @param  TemporaryFile  $temporaryFile
+     * @param  string  $writerType
+     * @param  int  $sheetIndex
      */
     public function __construct($sheetExport, TemporaryFile $temporaryFile, string $writerType, int $sheetIndex)
     {
@@ -47,7 +47,7 @@ class CloseSheet implements ShouldQueue
     }
 
     /**
-     * @param Writer $writer
+     * @param  Writer  $writer
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception

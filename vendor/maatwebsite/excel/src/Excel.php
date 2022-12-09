@@ -2,11 +2,11 @@
 
 namespace Maatwebsite\Excel;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Files\Filesystem;
 use Maatwebsite\Excel\Files\TemporaryFile;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\PendingDispatch;
 use Maatwebsite\Excel\Helpers\FileTypeDetector;
 
 class Excel implements Exporter, Importer
@@ -58,10 +58,10 @@ class Excel implements Exporter, Importer
     private $reader;
 
     /**
-     * @param Writer       $writer
-     * @param QueuedWriter $queuedWriter
-     * @param Reader       $reader
-     * @param Filesystem   $filesystem
+     * @param  Writer  $writer
+     * @param  QueuedWriter  $queuedWriter
+     * @param  Reader  $reader
+     * @param  Filesystem  $filesystem
      */
     public function __construct(
         Writer $writer,
@@ -181,12 +181,12 @@ class Excel implements Exporter, Importer
     }
 
     /**
-     * @param object      $export
-     * @param string|null $fileName
-     * @param string      $writerType
+     * @param  object  $export
+     * @param  string|null  $fileName
+     * @param  string  $writerType
+     * @return TemporaryFile
      *
      * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @return TemporaryFile
      */
     protected function export($export, string $fileName, string $writerType = null): TemporaryFile
     {

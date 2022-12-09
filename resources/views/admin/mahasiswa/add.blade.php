@@ -33,14 +33,14 @@
                         <div class="col-12">
                             <label for="emailaddress">Fakultas</label>
                             <select name="fakultas" id="" class="form-control">
-                                <option value="FMIPA">FMIPA</option>
-                                <option value="FIP">FIP</option>
-                                <option value="FBS">FBS</option>
-                                <option value="FE">FE</option>
-                                <option value="FIK">FIK</option>
-                                <option value="FIS">FIS</option>
-                                <option value="FH">FH</option>
-                                <option value="FT">FT</option>
+                                <option value="Teknik">Teknik</option>
+                                <option value="FIKES">FIKES</option>
+                                <option value="Hukum">Hukum</option>
+                                <option value="FEB">FEB</option>
+                                <option value="FAI">FAI</option>
+                                <option value="FISIP">FISIP</option>
+                                <option value="FKIP">FKIP</option>
+                                {{-- <option value="FT">FT</option> --}}
                             </select>
                         </div>
                     </div>
@@ -55,12 +55,6 @@
                             <label for="emailaddress">Bahasa Asing</label>
                             <input class="form-control" name="bahasa_asing" type="text" id="email" required="" placeholder="Bahasa Asing">
                         </div>
-                    </div>
-                    <div class="form-group m-b-25">
-                            <div class="col-12">
-                                <label for="emailaddress">Prestasi</label>
-                                <input class="form-control" name="prestasi" type="text" id="email" required="" placeholder="Prestasi">
-                            </div>
                     </div>
                     <div class="form-group m-b-25">
                                 <div class="col-12">
@@ -82,7 +76,7 @@
                     </div>
                     <div class="form-group account-btn text-center m-t-10">
                         <div class="col-12">
-                            <button class="btn w-lg btn-rounded btn-primary waves-effect waves-light" type="submit">Tambah</button>
+                            <button class="btn btn-rounded btn-block btn-outline-primary" type="submit">Tambah</button>
                         </div>
                     </div>
                 </fieldset>

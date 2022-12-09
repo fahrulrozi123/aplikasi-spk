@@ -18,8 +18,8 @@ class userSeed extends Seeder
 
         $admin = User::create([
             'name'=>'Admin',
-            'email'=>'admin@minhajul.com',
-            'password'=>bcrypt('12345678'),
+            'email'=>'fahrul@gmail.com',
+            'password'=>bcrypt('kelompok3!'),
         ]);
         $admin->role()->attach(['1','2']);
 

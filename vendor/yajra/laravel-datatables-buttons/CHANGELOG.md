@@ -1,5 +1,91 @@
 # Laravel DataTables Buttons Plugin CHANGELOG.
 
+## v4.13.3 - 09-14-2021
+
+- Fix FastExcel Integration: Use data as source. #138
+
+## v4.13.2 - 09-14-2021
+
+- Fix export with array values. #136
+- Fix https://github.com/yajra/laravel-datatables-buttons/issues/135
+
+## v4.13.1 - 07-01-2021
+
+- Fix addScopes method pushing the array of scopes. #133
+
+## v4.13.0 - 04-21-2021
+
+- Allow passing of constructor arguments on make method helper. #131
+
+## v4.12.2 - 04-10-2021
+
+- Fix checking of custom export handler. #130
+- Fix #129 and #127
+
+## v4.12.1 - 04-03-2021
+
+- Use same export data if export handler extends DataTablesExportHandler [#127](https://github.com/yajra/laravel-datatables-buttons/pull/127)
+- Fix [#126](https://github.com/yajra/laravel-datatables-buttons/issue/126)
+
+## v4.12.0 - 03-19-2021
+
+- Add support for fast-excel when exporting to excel and csv. [#124](https://github.com/yajra/laravel-datatables-buttons/pull/124)
+
+## v4.11.1 - 03-18-2021
+
+- Fix class file ext.
+
+## v4.11.0 - 03-18-2021
+
+- Improve support for custom laravel-excel export class using collection. [#122](https://github.com/yajra/laravel-datatables-buttons/pull/122)
+
+## v4.10.4 - 01-13-2021
+
+- Reverts [#120] as it breaks several installations.
+
+## v4.10.3 - 01-02-2021
+
+- Request expects JSON [#120]
+
+## v4.10.2 - 11-05-2020
+
+- Set the start to 0 on export [#118], credits to @nmfzone.
+
+## v4.10.1 - 10-31-2020
+
+- Fix model namespace for Laravel 8.x [#117], credits to @luckys383.
+
+## v4.10.0 - 09-09-2020
+
+- Add support for Laravel 8.
+
+## v4.9.3 - 07-07-2020
+
+- Use Blade's helper to check for the first row [#111], credits to @AdrienPoupa.
+
+## v4.9.2 - 06-13-2020
+
+- Use app helper instead of resolve.
+- Fix [#2351].
+
+## v4.9.1 - 04-23-2020
+
+- Fix BindingResolutionException when using Laravel 7.7.0 or greater [#105], credits to @singhofmarco.
+
+## v4.9.0 - 04-03-2020
+
+- Allow Laravel 7 [#102], credits to @barryvdh.
+
+## v4.8.0 - 09-10-2019
+
+- Extract html builder to own class. [#99]
+- Add command to generate html builder `php artisan datatables:html`.
+- Add `--builder` option on `make` command.
+
+## v4.7.0 - 09-04-2019
+
+- Add support Laravel 6.0 & remove deprecated functions. [#98], credits to @sangnguyenplus.
+
 ## v4.6.0 - 02-27-2019
 
 - Add support for dataTable 9.0 / Laravel 5.8 [#89].
@@ -176,6 +262,12 @@ ajax(), dataTable(), query(), csv(), excel(), pdf(), printPreview()
 [#76]: https://github.com/yajra/laravel-datatables-buttons/pull/76
 [#78]: https://github.com/yajra/laravel-datatables-buttons/pull/78
 [#89]: https://github.com/yajra/laravel-datatables-buttons/pull/89
+[#99]: https://github.com/yajra/laravel-datatables-buttons/pull/99
+[#102]: https://github.com/yajra/laravel-datatables-buttons/pull/102
+[#105]: https://github.com/yajra/laravel-datatables-buttons/pull/105
+[#117]: https://github.com/yajra/laravel-datatables-buttons/pull/117
+[#120]: https://github.com/yajra/laravel-datatables-buttons/pull/120
 
 [#19]: https://github.com/yajra/laravel-datatables-buttons/issues/19
 [#1558]: https://github.com/yajra/laravel-datatables/issues/1558
+[#2351]: https://github.com/yajra/laravel-datatables/issues/2351

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Nilai Preferensi | SIMAPRES
+    SPK-KELOMPOK 3 | Nilai Preferensi
 @endsection
 @section('content')
 <br>
@@ -16,7 +16,6 @@
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Nama Lengkap</th>
                     <th>Prestasi (C1)</th>
                     <th>Karya Ilmiah (C2)</th>
@@ -48,7 +47,6 @@
                     ajax: '{!! route('admin.topsis.nilai_preferensi') !!}',
                     order:[0,'desc'],
                     columns:[
-                        {data:'id', name: 'id'},
                         {data:'nama', name: 'nama'},
                         {data:'a_prestasi',name:'a_prestasi'},
                         {data:'a_karya_ilmiah',name:'a_karya_ilmiah'},

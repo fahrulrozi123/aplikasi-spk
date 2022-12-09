@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Hasil Rekomendasi | SIMAPRES
+SPK-KELOMPOK 3 | Hasil Rekomendasi
 @endsection
 @section('content')
 <br>
@@ -16,7 +16,6 @@
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Nama Lengkap</th>
                     <th>Prestasi (C1)</th>
                     <th>Karya Ilmiah (C2)</th>

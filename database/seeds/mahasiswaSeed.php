@@ -10,7 +10,7 @@ class mahasiswaSeed extends Seeder
      *
      * @return void
      */
-    protected $fakultas = array('FMIPA','FBS','FIP','FIK','FIS','FH','FT','FE');
+    protected $fakultas = array('Teknik','FIKES','Hukum','FEB','FAI','FISIP','FKIP');
     public function randomFloat($min = 0, $max = 1) {
         return $min + mt_rand() / mt_getrandmax() * ($max - $min);
     }

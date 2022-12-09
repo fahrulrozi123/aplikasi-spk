@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-    Matrix Solusi Ideal Positif Negatif| SIMAPRES
+    SPK-KELOMPOK 3 | Matrix Solusi Ideal Positif Negatif
 @endsection
 @section('content')
 <br>

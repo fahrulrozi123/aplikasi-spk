@@ -38,7 +38,7 @@
                         <!--</a>-->
                         <!-- Image Logo -->
                         <a href="/" class="logo">
-                            <h3 style="padding-top: 15px;">Simapres</h3>
+                            <h3 style="padding-top: 15px;">KELOMPOK 3</h3>
                         </a>
 
                     </div>
@@ -129,7 +129,7 @@
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center" style="color: aliceblue;">
                         2019 © DigiFlash -digiflash.web.id
                     </div>
                 </div>
