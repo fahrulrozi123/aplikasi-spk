@@ -4,9 +4,11 @@
         <div class="modal-content">
 
             <div class="modal-body">
-                <h2 class=" text-center m-b-30">
-                    Tambah Mahasiswa
-                </h2>
+                <div class="header"  style="background-color: #b68440; color: white;">
+                    <h2 class=" text-center m-b-30">
+                        Tambah Mahasiswa
+                    </h2>
+                </div>
 
                 <form id="tambah-mahasiswa" data-table-target="table-mahasiswa"  class="form-horizontal" action="{{route('admin.mahasiswa.add')}}" method="POST">
                 <fieldset id="fieldset">

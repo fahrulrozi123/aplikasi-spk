@@ -15,7 +15,7 @@
         <li class="has-submenu">
             <a href="#"><i class="fa fa-tasks"></i>Metode Topsis</a>
             <ul class="submenu">
-                <li><a href="/linguistik">Linguistik Fuzzy</a></li>
+                {{-- <li><a href="/linguistik">Linguistik Fuzzy</a></li> --}}
                 <li><a href="/matrix_keputusan">Matrix Keputusan</a></li>
                 <li><a href="/matrix_keputusan_ternormalisasi">Matrix Keputusan Ternormalisasi</a></li>
                 <li><a href="/matrix_keputusan_terbobot">Matrix Keputusan Terbobot</a></li>

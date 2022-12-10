@@ -11,12 +11,14 @@
             <h4 class="header-title m-t-0">Tambah Mahasiswa</h4>
 
             @include('admin.mahasiswa.add')
-            @include('admin.mahasiswa.edit')
+            @include('admin.mahasiswa.detail')
+            {{-- @include('admin.mahasiswa.edit') --}}
 
 
             <div class="button-list">
                 <!-- Custom width modal -->
                 <button type="button" class="btn btn-block btn-outline-primary btn-sm" style="width: 12%;" data-toggle="modal" data-target="#tambah-mahasiswa" data-table="#tabel-user">
+                {{-- <button type="button" class="btn btn-block btn-outline-primary btn-sm" style="width: 12%;" data-toggle="modal" data-target="#edit-mahasiswa" data-table="#tabel-user"> --}}
                     <i class="mdi mdi-library-plus"></i> Tambah Data</button>
             </div>
         </div>
@@ -58,22 +60,35 @@
 @endsection
 @push('scripts')
         <script type="text/javascript">
+
+            function Detail(trigerer){
+                    var tr = $(trigerer).parent().parent();
+                    var modal = $(trigerer).data("target");
+                    $(modal + " #nim").html($("#table-mahasiswa").DataTable().row(tr).data().nim);
+                    $(modal + " #nama").html($("#table-mahasiswa").DataTable().row(tr).data().nama);
+                    $(modal + " #fakultas").html("fakultas: "+$("#table-mahasiswa").DataTable().row(tr).data().fakultas);
+                    $(modal + " #prestasi").html("prestasi: "+$("#table-mahasiswa").DataTable().row(tr).data().prestasi);
+                    $(modal + " #bahasa_asing").html("bahasa asing: "+$("#table-mahasiswa").DataTable().row(tr).data().bahasa_asing);
+                    $(modal + " #karya_ilmiah").html("karya ilmiah: "+$("#table-mahasiswa").DataTable().row(tr).data().karya_ilmiah);
+                    $(modal + " #ipk").html("ipk: "+$("#table-mahasiswa").DataTable().row(tr).data().ipk);
+                    $(modal + " #indeks_sks").html("indeks sks: "+$("#table-mahasiswa").DataTable().row(tr).data().indeks_sks);
+                }
             
-            // function editDataUser(trigerer){
-            //         var tabel = $(trigerer).parent().data('table-target');
-            //         var modal = $(trigerer).data('target');
-            //         var tr =$(trigerer).parent().parent().parent();
-            //         data = $("table#"+tabel).DataTable().row(tr).data();
-            //         var form = modal+" form ";
-            //         var role = JSON.parse(data.role_id);
-            //         $(form+"input#name").val(data.name);
-            //         $(form+"input#email").val(data.email);
-            //         $(form+" input[type=checkbox]").prop("checked",false);
-            //         role.forEach(role_id => {
-            //             $(form+" input#role_"+role_id).prop("checked",true);
-            //         });
-            //         $(form+"input#id").val(data.id);
-            //     }
+            function editDataUser(trigerer){
+                    var tabel = $(trigerer).parent().data('table-target');
+                    var modal = $(trigerer).data('target');
+                    var tr =$(trigerer).parent().parent().parent();
+                    data = $("table#"+tabel).DataTable().row(tr).data();
+                    var form = modal+" form ";
+                    var role = JSON.parse(data.role_id);
+                    $(form+"input#name").val(data.name);
+                    $(form+"input#email").val(data.email);
+                    $(form+" input[type=checkbox]").prop("checked",false);
+                    role.forEach(role_id => {
+                        $(form+" input#role_"+role_id).prop("checked",true);
+                    });
+                    $(form+"input#id").val(data.id);
+                }
 
             $(document).ready(function() {
                 $("#table-mahasiswa").DataTable({

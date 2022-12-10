@@ -16,6 +16,7 @@ SPK-KELOMPOK 3 | Hasil Rekomendasi
             <table id="table-mahasiswa" class="table table-bordered">
                 <thead>
                 <tr>
+                    <th>No</th>
                     <th>Nama Lengkap</th>
                     <th>Prestasi (C1)</th>
                     <th>Karya Ilmiah (C2)</th>

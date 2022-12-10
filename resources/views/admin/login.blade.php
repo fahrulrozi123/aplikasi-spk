@@ -35,8 +35,9 @@
                                 <div class="account-box">
                                     <div class="account-logo-box">
                                         <h2 class="text-uppercase text-center">
-                                            <a href="index.html" class="text-success">
+                                            <a href="#" class="text-success">
                                                 <h1>KELOMPOK 3</h1>
+                                                <h3>Pencarian Mahasiswa Berprestasi</h3>
                                             </a>
                                         </h2>
                                     </div>
