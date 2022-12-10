@@ -55,7 +55,7 @@
                         {data:'l_karya_ilmiah',name:'l_karya_ilmiah'},
                         {data:'l_bahasa_asing',name:'l_bahasa_asing'},
                         {data:'l_ipk',name:'l_ipk'},
-                        {data:'l_indeks_sks',name:'l_indeks_sks'}                        
+                        {data:'indeks_sks',name:'indeks_sks'}                        
                     ]
                 });
             } );
