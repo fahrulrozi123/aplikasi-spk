@@ -130,7 +130,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center" style="color: aliceblue;">
-                        2019 © Kelompok 3
+                        2022 © Kelompok 3
                     </div>
                 </div>
             </div>
