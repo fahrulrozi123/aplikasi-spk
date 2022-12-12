@@ -151,7 +151,12 @@
                                                 <input type="submit" class="btn btn-holocene-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                                             </form>
                                         @else
-                                            <a href="/inquiry?from=recreational" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
+                                        @php
+                                            if($recreation->category == 1){
+                                                $from = "recreational";
+                                            }
+                                        @endphp
+                                            <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
                                         @endif
                                     </section>
                                     </article>
@@ -259,7 +264,12 @@
                                                 <input type="submit" class="btn btn-holocene-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                                             </form>
                                         @else
-                                            <a href="/inquiry?from=wellnesse" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
+                                        @php
+                                            if($wellness->category == 2){
+                                                $from = "wellness";
+                                            }
+                                        @endphp
+                                            <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
                                         @endif
                                     </section>
                                     </article>
@@ -482,7 +492,7 @@
                                         @else
                                         @php
                                             if($promotion->category == 4){
-                                                $from = "wedding";
+                                                $from = "promotion";
                                             }
                                         @endphp
                                             <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
