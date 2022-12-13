@@ -54,58 +54,67 @@
                                 @for ($i = 1; $i <= 15; $i++) <option value="{{$i}}">{{$i}} Night</option>
                                     @endfor
                             </select>
+                            <span class="input-group-addon addon-modal-reserve"><i class="fa fa-moon-o font-primary"></i></span>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
-                        <label for="room_choice" class="label-modal-reserve">Rooms</label>
-                        <div class="input-spinner">
-                            <button type="button" onclick="addRoomTotal(-1);" class="btn btn-horison"
-                                data-step="-1" style="height:31px">-</button>
-                            <input type="text" form="room_reserve" id="room_total" onchange="addRoomTotal();"
-                                name="room_total" class="form-control size-3-1 dd-horison h-32 moz-view-number" value="1" data-min="1"
-                                data-max="5" style="background-color: inherit;" required readonly>
-                            <button type="button" onclick="addRoomTotal(1);" class="btn btn-horison"
-                                data-step="1" style="height:31px">+</button>
+                        <label for="date_check" class="label-modal-reserve">Rooms</label>
+                        <div class="input-group col-xs-12">
+                            <div class="ri input-spinner">
+                                <button type="button" onclick="addRoomTotal(-1);" class="btn btn-horison"
+                                    data-step="-1" style="height:31px">-</button>
+                                <input type="text" form="room_reserve" id="room_total" onchange="addRoomTotal();"
+                                    name="room_total" class="form-control size-3-1 dd-horison h-32 moz-view-number" value="1" data-min="1"
+                                    data-max="5" style="background-color: inherit;" required readonly>
+                                <button type="button" onclick="addRoomTotal(1);" class="btn btn-horison"
+                                    data-step="1" style="height:31px">+</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
                         <label for="adult_sum" class="label-modal-reserve">Adults</label>
-                        <div class="input-spinner">
-                            <button type="button" class="btn btn-horison" data-step="-1"
-                                style="height:31px">-</button>
-                            <input type="text" form="room_reserve" id="adult_total" name="adult_total"
-                                class="form-control size-3-1 dd-horison h-32 moz-view-number" value="1" min="1" max="2" data-min="1"
-                                data-max="10" style="background-color: inherit;" required readonly>
-                            <button type="button" class="btn btn-horison" data-step="1"
-                                style="height:31px">+</button>
+                        <div class="input-group col-xs-12">
+                            <div class="ri input-spinner">
+                                <button type="button" class="btn btn-horison" data-step="-1"
+                                    style="height:31px">-</button>
+                                <input type="text" form="room_reserve" id="adult_total" name="adult_total"
+                                    class="form-control size-3-1 dd-horison h-32 moz-view-number" value="1" min="1" max="2" data-min="1"
+                                    data-max="10" style="background-color: inherit;" required readonly>
+                                <button type="button" class="btn btn-horison" data-step="1"
+                                    style="height:31px">+</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
                         <label for="children_sum" class="label-modal-reserve">Children</label>
-                        <div class="input-spinner">
-                            <button type="button" class="btn btn-horison h-32" data-step="-1"
-                            onclick="addChild(-1);">-</button>
-                            <input type="number" form="room_reserve" id="child_total" name="child_total"
-                                name="child_total" class="form-control size-3-1 dd-horison h-32 moz-view-number"
-                                value="0" data-min="0" data-max="10" data-min="0" data-max="10">
-                            <button type="button" class="btn btn-horison h-32" data-step="1"
-                                onclick="addChild(1);">+</button>
+                        <div class="input-group col-xs-12">
+                            <div class="ri input-spinner">
+                                <button type="button" class="btn btn-horison h-32" data-step="-1"
+                                onclick="addChild(-1);">-</button>
+                                <input type="number" form="room_reserve" id="child_total" name="child_total"
+                                    name="child_total" class="form-control size-3-1 dd-horison h-32 moz-view-number"
+                                    value="0" data-min="0" data-max="10" data-min="0" data-max="10">
+                                <button type="button" class="btn btn-horison h-32" data-step="1"
+                                    onclick="addChild(1);">+</button>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-xs-12 col-sm-6 col-md-3" style="padding-bottom: 15px;">
                         <label for="extrabed_sum" class="label-modal-reserve">Extra Bed</label>
-                        <div class="input-spinner">
-                            <button type="button" class="btn btn-horison" data-step="-1"
-                                style="height:31px">-</button>
-                            <input type="text" form="room_reserve" id="extra_bed" name="extra_bed"
-                                class="form-control size-3-1 dd-horison h-32 moz-view-number" value="0" data-min="0" data-max="5"
-                                style="background-color: inherit;" required readonly>
-                            <button type="button" class="btn btn-horison" data-step="1"
-                                style="height:31px">+</button>
+                        <div class="input-group col-xs-12">
+                            <div class="ri input-spinner">
+                                <button type="button" class="btn btn-horison" data-step="-1"
+                                    style="height:31px">-</button>
+                                <input type="text" form="room_reserve" id="extra_bed" name="extra_bed"
+                                    class="form-control size-3-1 dd-horison h-32 moz-view-number" value="0" data-min="0" data-max="5"
+                                    style="background-color: inherit;" required readonly>
+                                <button type="button" class="btn btn-horison" data-step="1"
+                                    style="height:31px">+</button>
+                            </div>
                         </div>
                     </div>
 
