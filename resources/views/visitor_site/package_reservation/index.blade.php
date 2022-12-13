@@ -4,11 +4,6 @@
 @section('keywords', 'Package Reservation')
 @section('title', 'Package Reservation')
 
-    <script src="{{ asset('holocane/js/jquery-1.11.3.min.js ') }}"></script>
-    <script src="{{ asset('holocane/js/numeral/numeral.js') }}"></script>
-    <script src="{{ asset('holocane/js/bootstrap-datepicker.js') }}"></script>
-
-
 @section('content')
 
 <script>
@@ -100,7 +95,7 @@
                                                 <div class="mySlidesRecreations demo-primary id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
                                                     <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
-                                                        style="height:270px;" loading="lazy">
+                                                    style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
                                                 <div class="bbaris-rec">
@@ -150,14 +145,14 @@
                                                 {{ csrf_field() }}
                                                 <input type="submit" class="btn btn-holocene-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                                             </form>
-                                        @else
-                                        @php
-                                            if($recreation->category == 1){
-                                                $from = "recreational";
-                                            }
-                                        @endphp
-                                            <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
-                                        @endif
+                                            @else
+                                            @php
+                                                if($recreation->category == 1){
+                                                    $from = "recreational";
+                                                }
+                                            @endphp
+                                                <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
+                                            @endif
                                     </section>
                                     </article>
                                 </div>
@@ -213,7 +208,7 @@
                                                 <div class="mySlidesWellness id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
                                                     <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
-                                                        style="height:270px;" loading="lazy">
+                                                    style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
                                                 <div class="bbaris-rec">
@@ -248,7 +243,7 @@
                                         <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">
                                                 {{substr($wellness->product_detail, 0, 100)."..."}}
                                         </h5>
-                                            <a href="/wellness/{{ $wellness->product_slug }}" class="font-secondary hovertools" style="font-size: 11px;"><i><u>See more description</u></i></a>
+                                        <a href="/wellness/{{ $wellness->product_slug }}" class="font-secondary hovertools" style="font-size: 11px;"><i><u>See more description</u></i></a>
                                         @else
                                             <h5 class="line-clamp-3 font-black" style="margin-bottom: 7px; height: 57px;">{{$wellness->product_detail}}</h5>
                                         @endif
@@ -263,14 +258,14 @@
                                                 {{ csrf_field() }}
                                                 <input type="submit" class="btn btn-holocene-gold book-reserve" style="font-weight:bold;" value="Book Now" />
                                             </form>
-                                        @else
-                                        @php
-                                            if($wellness->category == 2){
-                                                $from = "wellness";
-                                            }
-                                        @endphp
-                                            <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
-                                        @endif
+                                            @else
+                                            @php
+                                                if($wellness->category == 2){
+                                                    $from = "wellness";
+                                                }
+                                            @endphp
+                                                <a href="/inquiry?from={{$from}}" class="btn btn-holocene-gold book-reserve"><b>Reserve Now</b></a>
+                                            @endif
                                     </section>
                                     </article>
                                 </div>
@@ -326,7 +321,7 @@
                                                 <div class="mySlidesMices id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
                                                     <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
-                                                        style="height:270px;" loading="lazy">
+                                                    style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
                                                 <div class="bbaris-rec">
@@ -341,7 +336,6 @@
                                                     @if($i <= 3) <div class="column {{$class}}" style="height:80px!important;">
                                                         <img class="demoMices demo-primary id_{{$no}}"
                                                             src="{{asset('/user/'.$mice['photos'][$i-1]->product_photo_path)}}"
-                                                            style="width:100%!important; height:45px!important;"
                                                             onclick="currentSlideMices({{$no}}, {{$i}});" alt="Mice" loading="lazy">
                                                         @if($i == 3)
                                                         <a href="javascript:;" onclick=" seeAllMices({{$no}})" class="seal2"
@@ -439,7 +433,7 @@
                                                 <div class="mySlidesPromotions id_{{$no}}">
                                                     <div class="numbertext">{{$i}} / {{$total}}</div>
                                                     <img src="{{asset('/user/'.$photo->product_photo_path)}}" class="height-package img-default"
-                                                        style="height:270px;" loading="lazy">
+                                                    style="height:270px;" loading="lazy">
                                                 </div>
                                                 @endforeach
                                                 <div class="bbaris-rec">
@@ -460,7 +454,7 @@
                                                         <a href="javascript:;" onclick=" seeAllPromotions({{$no}})" class="seal2"
                                                             style="margin-top:-31px!important; margin-left:14px!important; font-size:8px;!important"><b>+
                                                                 See All</b></a>
-                                                        <img class="bblackr" src="{{asset('user/images/blck.jpg')}}"
+                                                        <img class="bblackr" src="{{asset('/images/blck.jpg')}}"
                                                             style="width:100%; margin-top:-45px;" loading="lazy">
                                                         @endif
                                                 </div>
@@ -808,7 +802,7 @@
     var path = "{{env('APP_STORE')}}";
     var first = true;
 
-    function seeAllPromotions(id) {
+    function seeAll(id) {
         var mice = mices[id - 1];
         var slider_for = "";
         var slider_nav = "";
