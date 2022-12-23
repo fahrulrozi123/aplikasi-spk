@@ -4,7 +4,21 @@ SPK-KELOMPOK 3 | Hasil Rekomendasi
 @endsection
 @section('content')
 <br>
-
+<br>
+<div class="row">
+    <div class="col-12">
+        <div class="card-box">
+            <div class="button-list">
+                <a href="/export-excel" class="btn btn-outline-success btn-sm">
+                    <i class="mdi mdi-library-plus"></i> Export Excel
+                </a>
+                <a href="/export-pdf" class="btn btn-outline-danger btn-sm">
+                    <i class="mdi mdi-library-plus"></i> Export PDF
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
@@ -33,9 +47,7 @@ SPK-KELOMPOK 3 | Hasil Rekomendasi
             </table>
         </div>
     </div>
-</div> <!-- end row -->
-<!-- end row -->
-
+</div>
 
 @endsection
 @push('scripts')

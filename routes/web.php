@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\mahasiswaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +65,11 @@ Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
     });
     Route::get('/matrix_solusi_ideal','analisaTopsis@solusi_ideal');
 
+    // export excel
+    Route::get('/export-excel', 'mahasiswaController@exportexcel')->name('export-excel');
+    // export PDF
+    Route::get('/export-pdf', 'mahasiswaController@exportpdf')->name('export-pdf');
+    
     Route::group(['prefix' => 'admin'], function(){
         Route::group(["as" => "mahasiswa.", "prefix" => "mahasiswa"], function () {
             Route::get('/', 'mahasiswaController@index')->name('index');
@@ -70,6 +77,7 @@ Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
             Route::post('/add', 'mahasiswaController@store')->name('add');
             Route::post('/edit', 'mahasiswaController@edit')->name('edit');
             Route::post('/delete', 'mahasiswaController@delete')->name('delete');
+            
         });
         Route::group(["as" => "topsis.", "prefix" => "topsis"], function () {
             Route::get('/linguistik', 'analisaTopsis@linguistik')->name('linguistik');

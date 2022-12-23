@@ -32,9 +32,7 @@
             </table>
         </div>
     </div>
-</div> <!-- end row -->
-<!-- end row -->
-
+</div>
 
 @endsection
 @push('scripts')

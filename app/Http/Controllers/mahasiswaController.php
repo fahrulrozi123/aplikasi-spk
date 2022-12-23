@@ -7,6 +7,12 @@ use \App\Helper\Alert;
 use \App\Model\Mahasiswa;
 use Illuminate\Http\Request;
 
+use App\Exports\MetodeExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
+use PDF;
+
 class mahasiswaController extends Controller
 {
     //
@@ -99,5 +105,19 @@ class mahasiswaController extends Controller
             }
         }
         return response()->json($response, 200);
+    }
+
+    public function exportexcel()
+    {
+        return Excel::download(new MetodeExport,'hasil-rekomendasi.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $data = Mahasiswa::all();
+
+        view()->share('data', $data);
+        $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
+        return $pdf->download('hasil-rekomendasi.pdf');
     }
 }

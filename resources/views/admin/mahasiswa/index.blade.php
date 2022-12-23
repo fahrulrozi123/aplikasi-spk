@@ -17,7 +17,7 @@
 
             <div class="button-list">
                 <!-- Custom width modal -->
-                <button type="button" class="btn btn-block btn-outline-primary btn-sm" style="width: 12%;" data-toggle="modal" data-target="#tambah-mahasiswa" data-table="#tabel-user">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#tambah-mahasiswa" data-table="#tabel-user">
                 {{-- <button type="button" class="btn btn-block btn-outline-primary btn-sm" style="width: 12%;" data-toggle="modal" data-target="#edit-mahasiswa" data-table="#tabel-user"> --}}
                     <i class="mdi mdi-library-plus"></i> Tambah Data</button>
             </div>
