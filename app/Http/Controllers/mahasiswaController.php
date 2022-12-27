@@ -107,12 +107,17 @@ class mahasiswaController extends Controller
         return response()->json($response, 200);
     }
 
-    public function exportexcel()
+    public function exportexcel(Request $request)
     {
+        $data = Mahasiswa::all();
+
+        view()->share('data', $data);
+        // $excel = Excel::loadview('export.hasilrekomendasi_excel');
         return Excel::download(new MetodeExport,'hasil-rekomendasi.xlsx');
+        // return view('export.hasilrekomendasi_excel');
     }
 
-    public function exportpdf()
+    public function exportpdf(Request $request)
     {
         $data = Mahasiswa::all();
 
