@@ -2,6 +2,9 @@
 @section('title')
 SPK-KELOMPOK 3 | Hasil Rekomendasi
 @endsection
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 @section('content')
 <br>
 <br>
@@ -10,10 +13,10 @@ SPK-KELOMPOK 3 | Hasil Rekomendasi
         <div class="card-box">
             <div class="button-list">
                 <a href="/export-excel" class="btn btn-outline-success btn-sm">
-                    <i class="fa fa-solid fa-book"></i> Export Excel
+                    <i class="fa-sharp fa-solid fa-file-excel"></i> Export Excel
                 </a>
                 <a href="/export-pdf" class="btn btn-outline-danger btn-sm">
-                    <i class="fa fa-solid fa-book"></i> Export PDF
+                    <i class="fa-sharp fa-solid fa-file-pdf"></i> Export PDF
                 </a>
             </div>
         </div>
