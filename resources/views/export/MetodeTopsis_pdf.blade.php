@@ -64,8 +64,8 @@
 <body>
   <div class="table-container">
     <table class="table">
-        <h3 class="text-center">Tabel Responsive 1</h3>
-        <caption>Tabel responsive dengan container</caption>
+        <h3 class="text-center">Matrix terbobot</h3>
+        <caption><h2>Pencarian mahasiswa berprestasi dengan metode <b>topsis</b></h2></caption>
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -80,10 +80,10 @@
             @foreach ($mahasiswa as $item)  
             <tr>
               <td>{{ $item->nama }}</td>
-              <td style="text-align: right">{{ $item->v_prestasi }}</td>
-              <td style="text-align: right">{{ $item->v_karya_ilmiah }}</td>
-              <td style="text-align: right">{{ $item->v_bahasa_asing }}</td>
-              <td style="text-align: right">{{ $item->v_ipk }}</td>
+              <td style="text-align: right">{{ $item->r_prestasi }}</td>
+              <td style="text-align: right">{{ $item->r_karya_ilmiah }}</td>
+              <td style="text-align: right">{{ $item->r_bahasa_asing }}</td>
+              <td style="text-align: right">{{ $item->r_ipk }}</td>
               <td style="text-align: right">{{ $item->indeks_sks }}</td>
             </tr>
             @endforeach

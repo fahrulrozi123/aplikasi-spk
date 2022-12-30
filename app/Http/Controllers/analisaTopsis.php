@@ -406,10 +406,22 @@ class analisaTopsis extends Controller
     {
         // $mahasiswa = Mahasiswa::all();
         $mahasiswa = $this->get_terbobot();
-        // $mahasiswa = $this->get_linguistik();
+        $mahasiswa = $this->get_linguistik();
+        $mahasiswa = $this->get_nilai_preferensi();
 
         view()->share('mahasiswa', $mahasiswa);
         $pdf = PDF::loadview('export.MetodeTopsis_pdf');
+        return $pdf->download('Perhitungan metode topsis.pdf');
+    }
+
+    public function exportpdfpreferensi(Request $request)
+    {
+        // $mahasiswa = Mahasiswa::all();
+        $mahasiswa = $this->get_nilai_preferensi();
+        // $mahasiswa = $this->get_linguistik();
+
+        view()->share('mahasiswa', $mahasiswa);
+        $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
         return $pdf->download('Perhitungan metode topsis.pdf');
     }
 
