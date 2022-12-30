@@ -13,9 +13,9 @@
         </li>
 
         <li class="has-submenu">
-            <a href="#"><i class="fa fa-tasks"></i>Metode Topsis</a>
-            <ul class="submenu">
-                {{-- <li><a href="/linguistik">Linguistik Fuzzy</a></li> --}}
+            <a href="/matrix_keputusan"><i class="fa fa-tasks"></i>Metode Topsis</a>
+            {{-- <ul class="submenu">
+                <li><a href="/linguistik">Linguistik Fuzzy</a></li>
                 <li><a href="/matrix_keputusan">Matrix Keputusan</a></li>
                 <li><a href="/matrix_keputusan_ternormalisasi">Matrix Keputusan Ternormalisasi</a></li>
                 <li><a href="/matrix_keputusan_terbobot">Matrix Keputusan Terbobot</a></li>
@@ -23,7 +23,7 @@
                 <li><a href="/jarak_solusi_positif">Jarak Solusi Positif</a></li>
                 <li><a href="/jarak_solusi_negatif">Jarak Solusi Negatif</a></li>
                 <li><a href="/nilai_preferensi">Nilai Preferensi</a></li>
-            </ul>
+            </ul> --}}
         </li>
 
         <li class="has-submenu">

@@ -120,6 +120,7 @@ class mahasiswaController extends Controller
     public function exportpdf(Request $request)
     {
         $data = Mahasiswa::all();
+        // $mahasiswa = $this->get_terbobot();
 
         view()->share('data', $data);
         $pdf = PDF::loadview('export.hasilrekomendasi_pdf');

@@ -28,7 +28,7 @@
 </head>
 <body>
 
-<h1>Hasil rekomendasi pencarian mahasiswa berprestasi</h1>
+<h3>Hasil rekomendasi pencarian mahasiswa berprestasi</h3>
 
 <table id="customers">
   <tr>
@@ -38,7 +38,7 @@
     <th>Bahasa Asing</th>
     <th>Ipk</th>
     <th>Indeks sks</th>
-    <th>Nilai Preferensi</th>
+    {{-- <th>Nilai Preferensi</th> --}}
   </tr>
   @foreach ($data as $item)     
   <tr>
@@ -48,36 +48,10 @@
     <td style="text-align: right">{{ $item->bahasa_asing }}</td>
     <td style="text-align: right">{{ $item->ipk }}</td>
     <td style="text-align: right">{{ $item->indeks_sks }}</td>
-    <td style="text-align: right">{{ $item->nilai_preferensi }}</td>
+    {{-- <td style="text-align: right">{{ $item->nilai_preferensi }}</td> --}}
   </tr>
   @endforeach
 </table>
-
-<h1>Jarak pencarian mahasiswa berprestasi</h1>
-
-<table id="customers">
-  <tr>
-    <th>Nama Lengkap</th>
-    <th>Prestasi</th>
-    <th>Karya Ilmiah</th>
-    <th>Bahasa Asing</th>
-    <th>Ipk</th>
-    <th>Indeks sks</th>
-    <th>Total</th>
-  </tr>
-  @foreach ($data as $row)     
-  <tr>
-    <td>{{ $row->nama }}</td>
-    <td style="text-align: right">{{ $row->b_prestasi }}</td>
-    <td style="text-align: right">{{ $row->b_karya_ilmiah }}</td>
-    <td style="text-align: right">{{ $row->b_bahasa_asing }}</td>
-    <td style="text-align: right">{{ $row->b_ipk }}</td>
-    <td style="text-align: right">{{ $row->b_indeks_sks }}</td>
-    <td style="text-align: right">{{ $row->b_total }}</td>
-  </tr>
-  @endforeach
-</table>
-
 </body>
 </html>
 

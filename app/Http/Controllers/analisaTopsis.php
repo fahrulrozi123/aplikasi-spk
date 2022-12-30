@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use App\Model\Mahasiswa;
 use Yajra\Datatables\Datatables;
 
+use App\Exports\MetodeTopsisExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
+use PDF;
+
 class analisaTopsis extends Controller
 {
     //
@@ -384,6 +390,27 @@ class analisaTopsis extends Controller
                 ->setRowId(function(Mahasiswa $mahasiswa){
                     return $mahasiswa->id;
                 })->make(true);
+    }
+    
+    public function exportexcel(Request $request)
+    {
+        $data = Mahasiswa::all();
+
+        view()->share('data', $data);
+        // $excel = Excel::loadview('export.hasilrekomendasi_excel');
+        return Excel::download(new MetodeTopsisExport,'Laporan metode topsis.xlsx');
+        // return view('export.hasilrekomendasi_excel');
+    }
+
+    public function exportpdf(Request $request)
+    {
+        // $mahasiswa = Mahasiswa::all();
+        $mahasiswa = $this->get_terbobot();
+        // $mahasiswa = $this->get_linguistik();
+
+        view()->share('mahasiswa', $mahasiswa);
+        $pdf = PDF::loadview('export.MetodeTopsis_pdf');
+        return $pdf->download('Perhitungan metode topsis.pdf');
     }
 
 }

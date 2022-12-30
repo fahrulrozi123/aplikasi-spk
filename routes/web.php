@@ -67,8 +67,10 @@ Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
 
     // export excel
     Route::get('/export-excel', 'mahasiswaController@exportexcel')->name('export-excel');
+    Route::get('/export-topsis-excel', 'analisaTopsis@exportexcel')->name('export-topsis-excel');
     // export PDF
     Route::get('/export-pdf', 'mahasiswaController@exportpdf')->name('export-pdf');
+    Route::get('/export-pdf-topsis', 'analisaTopsis@exportpdf')->name('export-pdf-topsis');
     
     Route::group(['prefix' => 'admin'], function(){
         Route::group(["as" => "mahasiswa.", "prefix" => "mahasiswa"], function () {
@@ -86,10 +88,9 @@ Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
             Route::get('/matrix_keputusan_terbobot', 'analisaTopsis@matrix_keputusan_terbobot')->name('matrix_keputusan_terbobot');
             Route::get('/jarak_solusi_positif', 'analisaTopsis@jarak_solusi_positif')->name('jarak_solusi_positif');
             Route::get('/jarak_solusi_negatif', 'analisaTopsis@jarak_solusi_negatif')->name('jarak_solusi_negatif');
-            Route::get('/nilai_preferensi', 'analisaTopsis@nilai_preferensi')->name('nilai_preferensi');
-
-            
+            Route::get('/nilai_preferensi', 'analisaTopsis@nilai_preferensi')->name('nilai_preferensi');   
         });
+        
         Route::group(["as" => "setting.", "prefix" => "setting"], function () {
             Route::post('/bobot', 'settingController@bobot')->name('bobot');            
         });

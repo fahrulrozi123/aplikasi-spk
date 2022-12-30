@@ -49,4 +49,22 @@ class settingController extends Controller
             return response()->json($data, 200);
         }
     }
+    public function exportexcel(Request $request)
+    {
+        $data = Mahasiswa::all();
+
+        view()->share('data', $data);
+        // $excel = Excel::loadview('export.hasilrekomendasi_excel');
+        return Excel::download(new MetodeExport,'hasil-rekomendasi.xlsx');
+        // return view('export.hasilrekomendasi_excel');
+    }
+
+    public function exportpdf(Request $request)
+    {
+        $data = Mahasiswa::all();
+
+        view()->share('data', $data);
+        $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
+        return $pdf->download('hasil-rekomendasi.pdf');
+    }
 }
