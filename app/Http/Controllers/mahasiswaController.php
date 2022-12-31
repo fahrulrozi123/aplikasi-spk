@@ -107,23 +107,23 @@ class mahasiswaController extends Controller
         return response()->json($response, 200);
     }
 
-    public function exportexcel(Request $request)
-    {
-        $data = Mahasiswa::all();
+    // public function exportexcel(Request $request)
+    // {
+    //     $data = Mahasiswa::all();
 
-        view()->share('data', $data);
-        // $excel = Excel::loadview('export.hasilrekomendasi_excel');
-        return Excel::download(new MetodeExport,'hasil-rekomendasi.xlsx');
-        // return view('export.hasilrekomendasi_excel');
-    }
+    //     view()->share('data', $data);
+    //     // $excel = Excel::loadview('export.hasilrekomendasi_excel');
+    //     return Excel::download(new MetodeExport,'hasil-rekomendasi.xlsx');
+    //     // return view('export.hasilrekomendasi_excel');
+    // }
 
-    public function exportpdf(Request $request)
-    {
-        $data = Mahasiswa::all();
-        // $mahasiswa = $this->get_terbobot();
+    // public function exportpdf(Request $request)
+    // {
+    //     $data = Mahasiswa::all();
+    //     // $mahasiswa = $this->get_terbobot();
 
-        view()->share('data', $data);
-        $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
-        return $pdf->download('hasil-rekomendasi.pdf');
-    }
+    //     view()->share('data', $data);
+    //     $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
+    //     return $pdf->download('hasil-rekomendasi.pdf');
+    // }
 }

@@ -9,13 +9,13 @@
 
 <style>
   table {
-    margin: auto;
+    /* margin: auto; */
     font-family: "Arial";
-    font-size: 12px;
+    font-size: 15px;
   }
   .table {
       border-collapse: collapse;
-      font-size: 13px;
+      font-size: 15px;
   }
   .table th, 
   .table td {
@@ -56,16 +56,16 @@
   }
   
   /*Tabel Responsive 1*/
-  .table-container {
+  /* .table-container {
       overflow: auto;
-  }
+  } */
 </style>
 
+<h2 style="text-align: center;"><u> Pencarian mahasiswa berprestasi dengan metode topsis </u></h2>
 <body>
   <div class="table-container">
+    <h3 class="text-center">Hasil Rekomendasi</h3>
     <table class="table">
-        <h3 class="text-center">Hasil Rekomendasi</h3>
-        <caption><h2>Pencarian mahasiswa berprestasi dengan metode <b>topsis</b></h2></caption>
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -81,12 +81,12 @@
             @foreach ($mahasiswa as $item)  
             <tr>
               <td>{{ $item->nama }}</td>
-              <td style="text-align: right">{{ $item->prestasi }}</td>
-              <td style="text-align: right">{{ $item->karya_ilmiah }}</td>
-              <td style="text-align: right">{{ $item->bahasa_asing }}</td>
-              <td style="text-align: right">{{ $item->ipk }}</td>
-              <td style="text-align: right">{{ $item->indeks_sks }}</td>
-              <td style="text-align: right">{{ $item->nilai_preferensi }}</td>
+              <td style="">{{ $item->prestasi }}</td>
+              <td style="">{{ $item->karya_ilmiah }}</td>
+              <td style="">{{ $item->bahasa_asing }}</td>
+              <td style="">{{ $item->ipk }}</td>
+              <td style="">{{ $item->indeks_sks }}</td>
+              <td style="">{{ $item->nilai_preferensi }}</td>
             </tr>
             @endforeach
         </tbody>

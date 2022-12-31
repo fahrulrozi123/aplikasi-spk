@@ -66,7 +66,7 @@ Route::group(['as' =>'admin.','middleware'=> 'auth'],function(){
     Route::get('/matrix_solusi_ideal','analisaTopsis@solusi_ideal');
 
     // export excel
-    Route::get('/export-excel', 'mahasiswaController@exportexcel')->name('export-excel');
+    Route::get('/export-excel', 'analisaTopsis@exportexcel')->name('export-excel');
     Route::get('/export-topsis-excel', 'analisaTopsis@exportexcel')->name('export-topsis-excel');
     // export PDF
     Route::get('/export-pdf', 'analisaTopsis@exportpdfpreferensi')->name('export-pdf');

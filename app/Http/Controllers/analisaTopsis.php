@@ -395,10 +395,13 @@ class analisaTopsis extends Controller
     public function exportexcel(Request $request)
     {
         $data = Mahasiswa::all();
+        // $mahasiswa = $this->get_terbobot();
+        // $mahasiswa = $this->get_linguistik();
+        // $mahasiswa = $this->get_nilai_preferensi();
 
         view()->share('data', $data);
         // $excel = Excel::loadview('export.hasilrekomendasi_excel');
-        return Excel::download(new MetodeTopsisExport,'Laporan metode topsis.xlsx');
+        return Excel::download(new MetodeTopsisExport,'Perhitungan metode topsis.xlsx');
         // return view('export.hasilrekomendasi_excel');
     }
 
@@ -422,7 +425,7 @@ class analisaTopsis extends Controller
 
         view()->share('mahasiswa', $mahasiswa);
         $pdf = PDF::loadview('export.hasilrekomendasi_pdf');
-        return $pdf->download('Perhitungan metode topsis.pdf');
+        return $pdf->download('Hasil Rekomendasi.pdf');
     }
 
 }
