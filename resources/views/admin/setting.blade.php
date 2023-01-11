@@ -8,7 +8,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Setting</h4>
+                <h4 class="card-title">Kriteria & Bobot</h4>
                 <form action="{{route('admin.setting.bobot')}}" method="POST" data-no-reset="true">
                 @if (isset($c1))
                 @php

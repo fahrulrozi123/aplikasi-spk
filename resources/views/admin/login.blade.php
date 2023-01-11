@@ -61,7 +61,7 @@
                                                 <div class="col-12">
                                                     @if (Route::has('password.request'))
                                                         <a  href="{{ route('password.request') }}" class="text-muted pull-right">
-                                                            <small>Forgot your password?</small>
+                                                            <small>Lupa password?</small>
                                                         </a>
                                                     @endif
                                                     <label for="password">Password</label>

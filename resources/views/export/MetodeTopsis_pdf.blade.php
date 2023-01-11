@@ -15,8 +15,14 @@
         border-collapse: collapse;
         font-size: 15px;
     }
-    .table th, 
-    .table td {
+    .table-topsis td,
+    .table-topsis th {
+        border-bottom: 1px solid #f1e7d8;
+        border-left: 1px solid #f1e7d8;
+        padding: 9px 5px;
+    }
+    .table-kriteria th, 
+    .table-kriteria td {
         border-bottom: 1px solid #f1e7d8;
         border-left: 1px solid #f1e7d8;
         padding: 9px 21px;
@@ -64,7 +70,7 @@
 <body>
   <div class="table-container">
     <h3 class="">Data Kriteria</h3>
-    <table class="table">
+    <table class="table table-kriteria">
         <thead>
             <tr>
               <th>Kode</th>
@@ -110,7 +116,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Matrix Keputusan</h3>
-    <table class="table">
+    <table class="table table-kriteria">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -138,7 +144,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Matrix Keputusan Ternormalisasi</h3>
-    <table class="table">
+    <table class="table table-topsis">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -166,7 +172,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Matrix Keputusan Terbobot</h3>
-    <table class="table">
+    <table class="table table-topsis">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -194,7 +200,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Jarak Solusi Positif</h3>
-    <table class="table">
+    <table class="table table-topsis">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -222,7 +228,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Jarak Solusi Negatif</h3>
-    <table class="table">
+    <table class="table table-topsis">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -250,7 +256,7 @@
   <br>
   <div class="table-container">
     <h3 class="">Nilai Preferensi</h3>
-    <table class="table">
+    <table class="table table-topsis">
         <thead>
             <tr>
               <th>Nama Lengkap</th>
@@ -259,7 +265,7 @@
               <th>Bahasa Asing</th>
               <th>Ipk</th>
               <th>Indeks sks</th>
-              <th>Nilai Preferensi</th>
+              {{-- <th>Nilai Preferensi</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -271,7 +277,7 @@
               <td style="">{{ $item->a_bahasa_asing }}</td>
               <td style="">{{ $item->a_ipk }}</td>
               <td style="">{{ $item->a_indeks_sks }}</td>
-              <td style="">{{ $item->nilai_preferensi }}</td>
+              {{-- <td style="">{{ $item->nilai_preferensi }}</td> --}}
             </tr>
             @endforeach
         </tbody>
